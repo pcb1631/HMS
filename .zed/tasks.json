@@ -1,0 +1,16 @@
+[
+    {
+      "label": "compile",
+      "command": "gcc",
+      "args": [
+        "-g",
+        "main.c",
+        "-o",
+        "main.out",
+      ],
+    },
+    {
+      "label": "run",
+      "command": "./main.out",
+    }
+  ]
