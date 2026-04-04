@@ -5,6 +5,7 @@
       "args": [
         "-g",
         "main.c",
+        "utils.c",
         "-o",
         "main.out",
       ],
