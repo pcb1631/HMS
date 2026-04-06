@@ -2,25 +2,26 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdarg.h>
 
 
-Value make_int(int x)          { Value v; v.type = TYPE_INT;    v.data.as_int    = x; return v; }
-Value make_float(float x)      { Value v; v.type = TYPE_FLOAT;  v.data.as_float  = x; return v; }
-Value make_string(char * s){ Value v; v.type = TYPE_STRING; v.data.as_string = s; return v; }
+Value make_int(int x)          	{ Value v; v.type = TYPE_INT;    v.data.as_int    = x; return v; }
+Value make_float(float x)      	{ Value v; v.type = TYPE_FLOAT;  v.data.as_float  = x; return v; }
+Value make_string(char * s)		{ Value v; v.type = TYPE_STRING; v.data.as_string = s; return v; }
 
 
 /* Example usage of "Value" array (1)*/
-int add(Value* list)
+Value add(Value* list)
 {
-	if (list[0].type != TYPE_INT || list[1].type != TYPE_INT)
-	{
-		fprintf(stderr, "Error: add() expects 2 integer arguments only");
-		return 0;
-	}
-
-	return list[0].data.as_int + list[1].data.as_int;
+	return make_int(list[0].data.as_int + list[1].data.as_int);
 }
+
+Value meow(Value* list)
+{
+	printf("Meow\n");
+
+	return make_int(1);
+}
+
 
 /* Example usage of "Value" array (2) */
 void print_list(Value* list, int n)
@@ -40,9 +41,34 @@ void print_list(Value* list, int n)
 
 
 /* Call arbitrary function */
-void call(command f, Value * list, int n)
+Value call(command f, Value * args, int n_of_args, char * perm)
 {
+	int i;
+	Value err = make_int(0);
 
+	if(perm != f.permission)
+	{
+		fprintf(stderr, "Permission denied (current user perm: %s, command perm: %s)\n", perm, f.permission);
+		return err;
+	}
+
+	if(n_of_args != f.n_of_args && n_of_args != -1)
+	{
+		fprintf(stderr, "Command %s takes %d args, but was given %d\n", f.alias, f.n_of_args, n_of_args);
+		return err;
+	}
+
+	/* Check types */
+	for(i=0; i<n_of_args; i++)
+	{
+		if(f.arg_type[i] != args[i].type)
+		{
+			fprintf(stderr, "argument %d type mismatch for command %s\n", i, f.alias);
+			return err;
+		}
+	}
+
+	return ((Value (*)(Value *, int))f.ptr)(args, n_of_args);
 }
 
 void cmd_parse(char *str)
