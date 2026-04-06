@@ -21,17 +21,6 @@ int main(void)
 		COMMAND(meow, "meow", "debug", args_meow),
 	};
 
-	int cmd_list_size = sizeof(cmd_list) / sizeof(command);
-
-	for(i = 0; i<cmd_list_size; i++)
-	{
-		printf("Command %d: %s  Permission: %s \n", i, cmd_list[i].alias, cmd_list[i].permission);
-	}
-
-
-	char current_UUID[37];
-	char current_username[50];
-	char current_utype[10];
 
 
 

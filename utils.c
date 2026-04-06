@@ -35,6 +35,7 @@ void print_list(Value* list, int n)
 	        case TYPE_FLOAT:  	printf("float: %f\n", list[i].data.as_float);  break;
 	        case TYPE_STRING: 	printf("str: %s\n",   list[i].data.as_string); break;
 			case TYPE_BOOL:		printf("bool: %d\n",  list[i].data.as_bool);   break;
+			case TYPE_VOID:		printf("void \n"); 							   break;
     	}
 	}
 }
