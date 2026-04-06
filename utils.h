@@ -54,7 +54,7 @@ void cmd_parse(char* str);
 
 Value add(Value * list);
 Value meow(Value * list);
-
+Value call(command f, Value * args, int n_of_args, char * perm);
 
 void print_list(Value * list, int n);
 

@@ -10,7 +10,9 @@
         "-o",
         "main.out",
         "-ansi",
-        "-pedantic"
+        "-pedantic",
+        "-O0",
+
       ]
     },
     "program": "$ZED_WORKTREE_ROOT/main.out",
