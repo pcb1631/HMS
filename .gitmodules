@@ -1,0 +1,3 @@
+[submodule "deps/crypt_blowfish"]
+	path = deps/crypt_blowfish
+	url = https://github.com/openwall/crypt_blowfish
