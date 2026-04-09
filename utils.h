@@ -13,13 +13,13 @@ typedef enum
 
 typedef struct
 {
-    ValueType type;
+    ValueType type : 3;
 
     union {
         int         as_int;
         float       as_float;
         char *		as_string;
-        int         as_bool;
+        int         as_bool : 1;
     } data;
 
 } Value;
@@ -38,22 +38,25 @@ typedef struct
     char * 		alias;
     char * 		permission;
 
-    int 		n_of_args; /* -1 means any amount */
-    ValueType * arg_type; /* accessed like args[i].type*/
+	/* -1 means any amount */
+    signed int	n_of_args : 3;
+
+    /* enum array */
+    ValueType * arg_type;
 } command;
 
+/* Hoo boy we're gonna need a lot of documentation */
 #define COMMAND(fn, alias, perm, arg_types) \
     { (generic_fn)(fn), (alias), (perm), sizeof(arg_types)/sizeof(arg_types[0]), (arg_types) }
 
 #define COMMAND_NOARGS(fn, alias, perm) \
     { (generic_fn)(fn), (alias), (perm), 0, NULL }
 
-void login(char* username, char* password);
-void reg(void); /* register is a reserved keyword */
 void cmd_parse(char* str);
 
 Value add(Value * list);
 Value meow(Value * list);
+
 Value call(command f, Value * args, int n_of_args, char * perm);
 
 void print_list(Value * list, int n);
