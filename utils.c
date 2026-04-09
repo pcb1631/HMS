@@ -141,13 +141,3 @@ void cmd_parse(char *str)
 	}
 	free(words);
 }
-
-void login(char *username, char *password)
-{
-
-}
-
-void reg(void)
-{
-
-}
