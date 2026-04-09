@@ -13,13 +13,13 @@ typedef enum
 
 typedef struct
 {
-    ValueType type : 3;
+    ValueType type;
 
     union {
-        int         as_int;
-        float       as_float;
-        char *		as_string;
-        int         as_bool : 1;
+        unsigned int	as_bool : 1;
+        float			as_float;
+        char *			as_string;
+        int         	as_int;
     } data;
 
 } Value;
@@ -39,7 +39,7 @@ typedef struct
     char * 		permission;
 
 	/* -1 means any amount */
-    signed int	n_of_args : 3;
+    int			n_of_args;
 
     /* enum array */
     ValueType * arg_type;
