@@ -1,3 +1,2 @@
-main.out
-main.exe
-a.out
+*.out
+*.exe
