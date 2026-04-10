@@ -5,7 +5,8 @@
 
 user_login_t *logins = NULL;
 
-void add_login(const char *username, const char *password, user_login_t *logins) {
+void add_user(const char *username, const char *password, user_login_t *logins)
+{
     user_login_t *s;
 
     HASH_FIND_STR(logins, username, s);
@@ -23,21 +24,24 @@ void add_login(const char *username, const char *password, user_login_t *logins)
     s->password[MAX_PASSWORD_LEN - 1] = '\0';
 }
 
-user_login_t *lookup_login(const char *username, user_login_t *logins) {
+user_login_t *lookup_user(const char *username, user_login_t *logins)
+{
     user_login_t *s;
     HASH_FIND_STR(logins, username, s);
     return s;
 }
 
-void delete_login(const char *username, user_login_t *logins) {
-    user_login_t *s = lookup_login(username, logins);
+void delete_user(const char *username, user_login_t *logins)
+{
+    user_login_t *s = lookup_user(username, logins);
     if (s != NULL) {
         HASH_DEL(logins, s);
         free(s);
     }
 }
 
-int load_logins_from_file(const char *filename, user_login_t *logins) {
+int load_user_from_file(const char *filename, user_login_t *logins)
+{
     FILE *fp;
     char line[256];
     char *eq;
@@ -68,7 +72,7 @@ int load_logins_from_file(const char *filename, user_login_t *logins) {
                 password[len - 1] = '\0';
             }
 
-            add_login(username, password, logins);
+            add_user(username, password, logins);
         }
     }
 
@@ -76,7 +80,8 @@ int load_logins_from_file(const char *filename, user_login_t *logins) {
     return 0;
 }
 
-int save_logins_to_file(const char *filename, user_login_t *logins) {
+int save_users_to_file(const char *filename, user_login_t *logins)
+{
     FILE *fp;
     user_login_t *s, *tmp;
 
@@ -93,7 +98,8 @@ int save_logins_to_file(const char *filename, user_login_t *logins) {
     return 0;
 }
 
-void free_all_logins(void) {
+void free_all_users(void)
+{
     user_login_t *current_user, *tmp;
     HASH_ITER(hh, logins, current_user, tmp) {
         HASH_DEL(logins, current_user);
