@@ -3,13 +3,12 @@
 #include <string.h>
 #include "logins.h"
 
-user_login_t *logins = NULL;
 
-void add_user(const char *username, const char *password, user_login_t *logins)
+void add_user(const char *username, const char *password, user_login_t **logins)
 {
     user_login_t *s;
 
-    HASH_FIND_STR(logins, username, s);
+    HASH_FIND_STR(*logins, username, s);
     if (s == NULL) {
         s = (user_login_t *)malloc(sizeof(user_login_t));
         if (s == NULL) return; /* Out of memory */
@@ -17,30 +16,30 @@ void add_user(const char *username, const char *password, user_login_t *logins)
         strncpy(s->username, username, MAX_USERNAME_LEN - 1);
         s->username[MAX_USERNAME_LEN - 1] = '\0';
 
-        HASH_ADD_STR(logins, username, s);
+        HASH_ADD_STR(*logins, username, s);
     }
 
     strncpy(s->password, password, MAX_PASSWORD_LEN - 1);
     s->password[MAX_PASSWORD_LEN - 1] = '\0';
 }
 
-user_login_t *lookup_user(const char *username, user_login_t *logins)
+user_login_t *lookup_user(const char *username, user_login_t **logins)
 {
     user_login_t *s;
-    HASH_FIND_STR(logins, username, s);
+    HASH_FIND_STR(*logins, username, s);
     return s;
 }
 
-void delete_user(const char *username, user_login_t *logins)
+void delete_user(const char *username, user_login_t **logins)
 {
     user_login_t *s = lookup_user(username, logins);
     if (s != NULL) {
-        HASH_DEL(logins, s);
+        HASH_DEL(*logins, s);
         free(s);
     }
 }
 
-int load_user_from_file(const char *filename, user_login_t *logins)
+int load_users_from_file(const char *filename, user_login_t **logins)
 {
     FILE *fp;
     char line[256];
@@ -77,10 +76,10 @@ int load_user_from_file(const char *filename, user_login_t *logins)
     }
 
     fclose(fp);
-    return 0;
+    return 1;
 }
 
-int save_users_to_file(const char *filename, user_login_t *logins)
+int save_users_to_file(const char *filename, user_login_t **logins)
 {
     FILE *fp;
     user_login_t *s, *tmp;
@@ -90,19 +89,19 @@ int save_users_to_file(const char *filename, user_login_t *logins)
         return -1;
     }
 
-    HASH_ITER(hh, logins, s, tmp) {
+    HASH_ITER(hh, *logins, s, tmp) {
         fprintf(fp, "%s=%s\n", s->username, s->password);
     }
 
     fclose(fp);
-    return 0;
+    return 1;
 }
 
-void free_all_users(void)
+void free_all_users(user_login_t **logins)
 {
     user_login_t *current_user, *tmp;
-    HASH_ITER(hh, logins, current_user, tmp) {
-        HASH_DEL(logins, current_user);
+    HASH_ITER(hh, *logins, current_user, tmp) {
+        HASH_DEL(*logins, current_user);
         free(current_user);
     }
 }
