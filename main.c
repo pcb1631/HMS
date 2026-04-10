@@ -2,7 +2,12 @@
 #include "logins.h"
 #include "tui.h"
 #include "utils.h"
-#include <ncurses.h>
+
+#ifndef _WIN32
+	#include <ncurses.h>
+#else
+	#include <ncurses/ncurses.h>
+#endif
 
 int main(void)
 {

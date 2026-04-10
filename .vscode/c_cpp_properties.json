@@ -30,7 +30,13 @@
             "compilerPath": "C:\\msys64\\ucrt64\\bin\\gcc.exe",
             "cStandard": "c89",
             "cppStandard": "gnu++98",
-            "intelliSenseMode": "windows-gcc-x64"
+            "intelliSenseMode": "windows-gcc-x64",
+            "compilerArgs": [
+                "-ansi",
+                "-pedantic",
+                "-Wall",
+                "-Wextra"
+            ]
         }
     ],
     "version": 4
