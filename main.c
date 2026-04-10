@@ -32,7 +32,14 @@ int main(void)
 
 
 
-	printf("Chose %d, %s\n", simple_select(0, 0, 3, options, selection), selection);
+
+	switch (simple_select(COLOR_MAGENTA, COLOR_BLACK, 3, options, selection))
+	{
+		case 0: printf("fee"); break;
+		case 1: printf("foo"); break;
+		case 2: return 0;
+	}
+
 
 	return 0;
 }

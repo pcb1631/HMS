@@ -1,7 +1,7 @@
 #include <ncurses.h>
 #include <string.h>
 
-int simple_select(int color1, int color2, int n_of_options, char ** options, char * selection_s)
+int simple_select(int color_foreground, int color_background, int n_of_options, char ** options, char * selection_s)
 {
 	int ch = 0;
 	int i;
@@ -12,17 +12,22 @@ int simple_select(int color1, int color2, int n_of_options, char ** options, cha
 	noecho();
 	keypad(stdscr, 1);
 
+	start_color();
+	init_pair(1, color_foreground, color_background);
+
 	while(ch != '\n')
 	{
 		for(i=0; i<n_of_options; i++)
 		{
 			if(i == selection)
 				attron(A_REVERSE);
+			attron(COLOR_PAIR(1));
 
 			mvprintw(i, 0, options[i]);
 
 			if(i == selection)
 				attroff(A_REVERSE);
+			attroff(COLOR_PAIR(1));
 		}
 
 		refresh();
