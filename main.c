@@ -6,7 +6,7 @@
 #ifndef _WIN32
 	#include <ncurses.h>
 #else
-	#include <ncurses/ncurses.h>
+	#include <ncurses/curses.h>
 #endif
 
 int main(void)

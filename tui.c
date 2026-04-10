@@ -1,4 +1,9 @@
-#include <ncurses.h>
+#ifndef _WIN32
+	#include <ncurses.h>
+	#include <stdlib.h>
+#else
+	#include <ncurses/curses.h>
+#endif
 #include <string.h>
 
 int simple_select(int color_foreground, int color_background, int n_of_options, char ** options, char * selection_s)
