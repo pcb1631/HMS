@@ -1,0 +1,2 @@
+funnyuser1=funnypw2
+funnyuser2=funnypw2

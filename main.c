@@ -1,12 +1,24 @@
 #include <stdio.h>
 #include "logins.h"
+#include "tui.h"
 #include "utils.h"
-
+#include <ncurses.h>
 
 int main(void)
 {
 	int i;
-	user_login_t *logins;
+	char * pw_file = "./users/creds.txt";
+	char * options[3] = {
+		"Login\0",
+		"Register\0",
+		"Exit\0"
+	};
+	char selection[20] = "";
+
+	/*Pass to logins.h functions as a pointer to hash pointer, as per uthash doc
+
+	Defined in main because global variables aren't allowed */
+	user_login_t* logins= NULL;
 
 	static ValueType args_add[] = {TYPE_INT, TYPE_INT};
 	static ValueType args_meow[] = {TYPE_VOID};
@@ -20,7 +32,7 @@ int main(void)
 
 
 
-
+	printf("Chose %d, %s\n", simple_select(0, 0, 3, options, selection), selection);
 
 	return 0;
 }
