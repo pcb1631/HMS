@@ -16,21 +16,21 @@ typedef struct {
 
 
 /* Add or update a login */
-void add_user(const char *username, const char *password, user_login_t *logins);
+void add_user(const char *username, const char *password, user_login_t **logins);
 
 /* Lookup a login by username */
-user_login_t *user(const char *username, user_login_t *logins);
+user_login_t *user(const char *username, user_login_t **logins);
 
 /* Delete a login by username */
-void delete_user(const char *username, user_login_t *logins);
+void delete_user(const char *username, user_login_t **logins);
 
 /* Read the hash table from a file (format: username=password) */
-int load_users_from_file(const char *filename, user_login_t *logins);
+int load_users_from_file(const char *filename, user_login_t **logins);
 
 /* Save the hash table to a file */
-int save_users_to_file(const char *filename, user_login_t *logins);
+int save_users_to_file(const char *filename, user_login_t **logins);
 
 /* Free all entries in the hash table */
-void free_all_users(void);
+void free_all_users(user_login_t **logins);
 
 #endif /* LOGINS_H */
