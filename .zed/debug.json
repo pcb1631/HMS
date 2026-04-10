@@ -2,18 +2,7 @@
 	{
     "label": "build and debug",
     "build":{
-      "command": "gcc",
-      "args": [
-        "-g",
-        "main.c",
-        "utils.c",
-        "-o",
-        "main.out",
-        "-ansi",
-        "-pedantic",
-        "-O0",
-
-      ]
+      "command": "make clean && make"
     },
     "program": "$ZED_WORKTREE_ROOT/main.out",
     "request": "launch",
