@@ -8,9 +8,15 @@
 /* file handling */
 #include <sys/stat.h>
 #include <errno.h>
+#ifndef _WIN32
 #include <sys/file.h>
+#endif
 #include <fcntl.h>
+#ifdef _WIN32
+#include <io.h>
+#else
 #include <unistd.h>
+#endif
 
 /* password hashing */
 #include "deps/crypt_blowfish/ow-crypt.h"
@@ -149,15 +155,30 @@ int main(void)
                     pw_fd = open(pw_file, O_RDWR | O_CREAT, 0666);
                     if (pw_fd != -1)
                     {
-                        flock(pw_fd, LOCK_EX);
+                        #ifdef _WIN32
+
+                            HANDLE hFile = (HANDLE)_get_osfhandle(pw_fd);
+                            LockFile(hFile, 0, 0, 0xFFFFFFFF, 0xFFFFFFFF);
+
+                        #else
+
+                            flock(pw_fd, LOCK_EX);
+                        
+                        #endif
                     }
+                    
                     load_users_from_file(pw_file, &logins);
                     add_user(current_username, password, &logins);
                     save_users_to_file(pw_file, &logins);
 
                     if (pw_fd != -1)
                     {
+                        #ifdef _WIN32
+                        HANDLE hFile = (HANDLE)_get_osfhandle(pw_fd);
+                        UnlockFile(hFile, 0, 0, 0xFFFFFFFF, 0xFFFFFFFF);
+                        #else
                         flock(pw_fd, LOCK_UN);
+                        #endif
                         close(pw_fd);
                     }
 

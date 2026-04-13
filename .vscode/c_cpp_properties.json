@@ -20,7 +20,7 @@
         {
             "name": "Win32",
             "includePath": [
-                "/home/pcb/github/HMS/**"
+                "${workspaceFolder}/**"
             ],
             "defines": [
                 "_DEBUG",
