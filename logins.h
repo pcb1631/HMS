@@ -41,4 +41,7 @@ void build_patient(const char *username);
 /* Build doctor user profile structure */
 void build_doctor(const char *username);
 
+int hash_password(const char * password, char * hashout);
+int verify_password(const char * password, const char * stored_hash);
+
 #endif /* LOGINS_H */

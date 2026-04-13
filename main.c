@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <ctype.h>
 #include "logins.h"
 #include "utils.h"
 #include <stdlib.h>
@@ -17,9 +16,6 @@
 #else
 #include <unistd.h>
 #endif
-
-/* password hashing */
-#include "deps/crypt_blowfish/ow-crypt.h"
 
 
 /* TUI */
@@ -53,7 +49,9 @@ int main(void)
 	/*Pass to logins.h functions as a pointer to hash pointer, as per uthash doc
 
 	Defined in main because global variables aren't allowed */
-	user_login_t* logins= NULL;
+	user_login_t * logins = NULL;
+	user_login_t * user_ptr = NULL;
+    char * hash;
 
 	static ValueType args_add[] = {TYPE_INT, TYPE_INT};
 	static ValueType args_meow[] = {TYPE_VOID};
@@ -72,7 +70,51 @@ int main(void)
 	switch (simple_select(COLOR_MAGENTA, COLOR_BLACK, 3, options, selection, pretext))
 	{
 	    /* login */
-		case 0: printf("fee"); break;
+		case 0:
+
+        login_get_username:
+        printf("enter your username\n");
+
+        fgets(current_username, sizeof(current_username)/sizeof(char), stdin);
+        if(!string_trim(current_username))
+        {
+            fprintf(stderr, "Username cannot be empty or contain spaces\n");
+            goto login_get_username;
+        }
+
+        login_get_password:
+	    {
+			char * password;
+            password = (char*)malloc(sizeof(char)*256);
+            printf("enter your password\n");
+
+            fgets(password, 256, stdin);
+            if(!string_trim(password))
+            {
+                fprintf(stderr, "Password cannot be empty or contain spaces\n");
+                free(password);
+                goto login_get_password;
+            }
+
+            load_users_from_file(pw_file, &logins);
+            user_ptr = lookup_user(current_username, &logins);
+
+            if(user_ptr == NULL)
+            {
+                fprintf(stderr, "Wrong username or password\n");
+                free(password);
+                goto login_get_username;
+            }
+
+            if(verify_password(password, user_ptr->password))
+                printf("Password hash matched");
+            else
+                printf("Password hash not match");
+
+            free(password);
+		}
+
+        break;
 
 		/* register */
 		case 1:
@@ -90,7 +132,7 @@ int main(void)
 			strcpy(path, "./users/");
 			strcat(path, current_username);
 
-			if (stat(path, &st) == -1)
+			if (stat(path, &st) == -1) /* if dir doesn't exist */
       		{
         		if (errno == ENOENT)
                 {
@@ -119,38 +161,16 @@ int main(void)
 
 
                     /* hash the password */
+                    hash = (char*)malloc(256 * sizeof(char));
+
+                    if(hash_password(password, hash) == -1)
                     {
-                        char entropy[18];
-                        char salt[64];
-                        char *hashed_password;
-
-                        #ifdef _WIN32
-                        HCRYPTPROV hProvider = 0;
-                        if (CryptAcquireContext(&hProvider, 0, 0, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT | CRYPT_SILENT)) {
-                            CryptGenRandom(hProvider, sizeof(entropy), (BYTE*)entropy);
-                            CryptReleaseContext(hProvider, 0);
-                        } else {
-                            strcpy(entropy, "0123456789abcdef"); /* fallback */
-                        }
-                        #else
-                        int urandom_fd = open("/dev/urandom", O_RDONLY);
-                        if (urandom_fd != -1) {
-                            read(urandom_fd, entropy, sizeof(entropy));
-                            close(urandom_fd);
-                        } else {
-                            strcpy(entropy, "0123456789abcdef"); /* fallback */
-                        }
-                        #endif
-
-                        crypt_gensalt_rn("$2a$", 12, entropy, sizeof(entropy), salt, sizeof(salt));
-                        hashed_password = crypt(password, salt);
-                        if (hashed_password != NULL) {
-                            strcpy(password, hashed_password);
-                        }
+                        free(hash);
+                        fprintf(stderr, "Failed to hash password\n");
+                        return 1;
                     }
 
                     logins = NULL;
-
 
                     pw_fd = open(pw_file, O_RDWR | O_CREAT, 0666);
                     if (pw_fd != -1)
@@ -163,34 +183,36 @@ int main(void)
                         #else
 
                             flock(pw_fd, LOCK_EX);
-                        
+
                         #endif
                     }
-                    
+
                     load_users_from_file(pw_file, &logins);
-                    add_user(current_username, password, &logins);
+                    add_user(current_username, hash, &logins);
                     save_users_to_file(pw_file, &logins);
 
                     if (pw_fd != -1)
                     {
                         #ifdef _WIN32
-                        HANDLE hFile = (HANDLE)_get_osfhandle(pw_fd);
-                        UnlockFile(hFile, 0, 0, 0xFFFFFFFF, 0xFFFFFFFF);
+                            HANDLE hFile = (HANDLE)_get_osfhandle(pw_fd);
+                            UnlockFile(hFile, 0, 0, 0xFFFFFFFF, 0xFFFFFFFF);
                         #else
-                        flock(pw_fd, LOCK_UN);
+                            flock(pw_fd, LOCK_UN);
                         #endif
+
                         close(pw_fd);
                     }
 
 
                     free(password);
+                    free(hash);
                     build_patient(current_username);
                 }else
                 {
                     perror("Error checking dir\n");
                     strcpy(pretext, "Error checking dir");
                 }
-		    } else
+		    } else /* if dir exists */
       		{
 				if (S_ISDIR(st.st_mode))
 				{

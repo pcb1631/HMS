@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "logins.h"
+#include "deps/crypt_blowfish/ow-crypt.h"
+#include "deps/crypt_blowfish/crypt_blowfish.h"
+#include "platform_random.h"
 
 
 void add_user(const char *username, const char *password, user_login_t **logins)
@@ -191,4 +194,34 @@ void build_doctor(const char *username)
     if (fp != NULL) {
         fclose(fp);
     }
+}
+
+#define SALT_BUF   32
+#define HASH_BUF   64
+#define COST       12   /* 2^12 = 4096 iterations; 10-12 is typical */
+
+int hash_password(const char *password, char *hash_out) {
+    char rand_bytes[16];
+    char salt[SALT_BUF];
+
+    if (get_random_bytes(rand_bytes, sizeof(rand_bytes)) != 0)
+        return -1;
+
+    if (!crypt_gensalt_rn("$2b$", COST, rand_bytes, sizeof(rand_bytes), salt, sizeof(salt)))
+        return -1;
+
+    if (!_crypt_blowfish_rn(password, salt, hash_out, HASH_BUF))
+        return -1;
+
+    return 0;
+}
+
+int verify_password(const char *password, const char *stored_hash) {
+    char result[HASH_BUF];
+
+    /* Pass stored hash as the "setting", it encodes salt + cost */
+    if (!_crypt_blowfish_rn(password, stored_hash, result, HASH_BUF))
+        return -1;
+
+    return strcmp(result, stored_hash) == 0 ? 1 : 0;
 }
