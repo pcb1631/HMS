@@ -15,6 +15,8 @@ typedef struct {
 } user_login_t;
 
 
+user_login_t *lookup_user(const char *username, user_login_t **logins);
+
 /* Add or update a login */
 void add_user(const char *username, const char *password, user_login_t **logins);
 
@@ -32,5 +34,11 @@ int save_users_to_file(const char *filename, user_login_t **logins);
 
 /* Free all entries in the hash table */
 void free_all_users(user_login_t **logins);
+
+/* Build patient user profile structure */
+void build_patient(const char *username);
+
+/* Build doctor user profile structure */
+void build_doctor(const char *username);
 
 #endif /* LOGINS_H */

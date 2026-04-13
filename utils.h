@@ -59,6 +59,6 @@ Value meow(Value * list);
 void print_list(Value * list, int n);
 
 Value call(command f, Value * args, int n_of_args, char * perm);
-
+int string_trim(char * s);
 
 #endif

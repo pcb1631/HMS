@@ -1,3 +1,6 @@
+/*
+ * Ideally, I would run a server that accepts requests for lookup, add, and delete to prevent race condition. But that is outside the scope of the project.
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,6 +26,7 @@ void add_user(const char *username, const char *password, user_login_t **logins)
     s->password[MAX_PASSWORD_LEN - 1] = '\0';
 }
 
+/*returns pointer to login data if found, else returns NULL. */
 user_login_t *lookup_user(const char *username, user_login_t **logins)
 {
     user_login_t *s;
@@ -103,5 +107,88 @@ void free_all_users(user_login_t **logins)
     HASH_ITER(hh, *logins, current_user, tmp) {
         HASH_DEL(*logins, current_user);
         free(current_user);
+    }
+}
+
+void build_patient(const char *username)
+{
+    char path[256];
+    char command[512];
+    FILE *fp;
+
+    /* Check if user directory already exists */
+    sprintf(path, "./users/%s", username);
+
+    /* Create user directory */
+    sprintf(command, "mkdir -p ./users/%s", username);
+    system(command);
+
+    /* Create profile.txt */
+    sprintf(path, "./users/%s/profile.txt", username);
+    fp = fopen(path, "w");
+    if (fp != NULL) {
+        fprintf(fp, "USERTYPE=Patient\n");
+        fprintf(fp, "first_name=\n");
+        fprintf(fp, "middle_name=\n");
+        fprintf(fp, "last_name=\n");
+        fprintf(fp, "blood_type=\n");
+        fprintf(fp, "height=\n");
+        fprintf(fp, "birth=\n");
+        fclose(fp);
+    }
+
+    /* Create prefs.txt */
+    sprintf(path, "./users/%s/prefs.txt", username);
+    fp = fopen(path, "w");
+    if (fp != NULL) {
+        fclose(fp);
+    }
+
+    /* Create diag_report directory */
+    sprintf(command, "mkdir -p ./users/%s/diag_report", username);
+    system(command);
+
+    /* Create notes directory */
+    sprintf(command, "mkdir -p ./users/%s/notes", username);
+    system(command);
+}
+
+void build_doctor(const char *username)
+{
+    char path[256];
+    char command[512];
+    FILE *fp;
+
+    /* Check if user directory already exists */
+    sprintf(path, "./users/%s", username);
+
+    /* Create user directory */
+    sprintf(command, "mkdir -p ./users/%s", username);
+    system(command);
+
+    /* Create profile.txt */
+    sprintf(path, "./users/%s/profile.txt", username);
+    fp = fopen(path, "w");
+    if (fp != NULL) {
+        fprintf(fp, "USERTYPE=Doctor\n");
+        fprintf(fp, "first_name=\n");
+        fprintf(fp, "middle_name=\n");
+        fprintf(fp, "last_name=\n");
+        fprintf(fp, "birth=\n");
+        fclose(fp);
+    }
+
+    /* Create prefs.txt */
+    sprintf(path, "./users/%s/prefs.txt", username);
+    fp = fopen(path, "w");
+    if (fp != NULL) {
+        fclose(fp);
+    }
+
+    /* Create bookings.csv.txt */
+    sprintf(path, "./users/%s/bookings.csv.txt", username);
+    fp = fopen(path, "w");
+    if (fp != NULL) {
+        fclose(fp);
     }
 }

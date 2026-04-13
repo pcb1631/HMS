@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 
 Value make_int(int x)          	{ Value v; v.type = TYPE_INT;    v.data.as_int    = x; return v; }
@@ -140,4 +141,33 @@ void cmd_parse(char *str)
 		free(words[i]);
 	}
 	free(words);
+}
+
+int string_trim(char * s)
+{
+        int len;
+        int start = 0, end;
+        int has_space = 0;
+        int j;
+
+        len = strlen(s);
+        if (len > 0) end = len - 1;
+        else end = 0;
+
+        while (start < len && isspace((unsigned char)s[start])) start++;
+        while (end >= start && isspace((unsigned char)s[end])) end--;
+
+        len = end - start + 1;
+        for (j = 0; j < len; j++) {
+            s[j] = s[start + j];
+            if (isspace((unsigned char)s[j])) has_space = 1;
+        }
+        s[len] = '\0';
+
+        if (has_space || len == 0)
+        {
+            return 0;
+        }else {
+            return 1;
+        }
 }
