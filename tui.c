@@ -1,3 +1,4 @@
+#include "utils.h"
 #ifndef _WIN32
 	#include <ncurses.h>
 	#include <stdlib.h>
@@ -24,7 +25,7 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 	while(ch != '\n')
 	{
 		attron(COLOR_PAIR(1));
-		mvprintw(0, 0, pretext);
+		mvprintw(0, 0, "%s", pretext);
 		attroff(COLOR_PAIR(1));
 
 		for(i=0; i<n_of_options; i++)

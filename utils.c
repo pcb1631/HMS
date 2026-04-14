@@ -23,6 +23,12 @@ Value meow(Value* list)
 	return make_int(1);
 }
 
+Value cat(Value * list)
+{
+    printf("ᓚ₍ ^. .^₎\n");
+    return make_int(1);
+}
+
 
 /* Example usage of "Value" array (2) */
 void print_list(Value* list, int n)
@@ -63,6 +69,8 @@ Value call(command f, Value * args, int n_of_args, char * perm)
 	/* Check types */
 	for(i=0; i<n_of_args; i++)
 	{
+	    if(f.arg_type[i] == TYPE_VOID)
+			break;
 		if(f.arg_type[i] != args[i].type)
 		{
 			fprintf(stderr, "argument %d type mismatch for command %s\n", i, f.alias);

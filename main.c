@@ -23,15 +23,13 @@
 #ifndef _WIN32
 	#include <ncurses.h>
 #else
-	#include <ncurses/curses.h>
+	#include <ncursesw/curses.h>
 	#include <windows.h>
 	#include <wincrypt.h>
 #endif
 
 int main(void)
 {
-	int i;
-
 	struct stat st;
 	char path[256];
 
@@ -55,19 +53,23 @@ int main(void)
 
 	static ValueType args_add[] = {TYPE_INT, TYPE_INT};
 	static ValueType args_meow[] = {TYPE_VOID};
+	static ValueType args_Cat[] = {TYPE_VOID};
 
 	/* COMMAND(function name, alias, permission, argument types) */
 	static command cmd_list[] = {
-		COMMAND(add, "add", "debug", args_add),
-		COMMAND(meow, "meow", "debug", args_meow),
+		COMMAND(add, "add", "Patient", args_add),
+		COMMAND(meow, "meow", "Doctor", args_meow),
+		COMMAND(cat, "cat", "Cats", args_Cat)
 	};
+
+	int cmd_list_n = sizeof(cmd_list)/sizeof(command);
 
 
 
 
 	main_menu:
 
-	switch (simple_select(COLOR_MAGENTA, COLOR_BLACK, 3, options, selection, pretext))
+	switch (simple_select(COLOR_BLUE, COLOR_BLACK, 3, options, selection, pretext))
 	{
 	    /* login */
 		case 0:
@@ -106,10 +108,15 @@ int main(void)
                 goto login_get_username;
             }
 
+            printf("\033c");
+
             if(verify_password(password, user_ptr->password))
-                printf("Password hash matched");
+                printf("Password hash matched\n");
             else
-                printf("Password hash not match");
+            {
+                printf("Wrong username or password\n");
+                goto login_get_username;
+            }
 
             free(password);
 		}
@@ -234,5 +241,119 @@ int main(void)
 	}
 
 
+	/* command selector */
+	{
+	    int selection = 0;
+	    int i;
+	    int ch = 0;
+       	WINDOW *left_win, *right_win;
+        int y_max, x_max;
+        Value placeholder[1];
+        placeholder[0] = make_int(0);
+
+
+        while(1)
+        {
+            initscr();
+            cbreak();
+            noecho();
+            curs_set(0);
+            keypad(stdscr, 1);
+            start_color();
+
+           	init_color(10, 106*(1000/255), 90*(1000/255), 205*(1000/255));
+            init_pair(1, COLOR_WHITE, 10);
+
+
+            getmaxyx(stdscr, y_max, x_max);
+
+            left_win = newwin(y_max, x_max/2, 0, 0);
+            box(left_win, 0 ,0);
+            keypad(left_win, 1);
+
+            right_win = newwin(y_max, (x_max/2), 0, (x_max/2));
+            box(right_win, 0, 0);
+
+            /*
+            mvwprintw(left_win, 0,0, "%c %d", ch, selection);
+            */
+
+            mvwprintw(left_win ,0, 0, "%s %s", current_username, "perm");
+
+            for(i=0; i<cmd_list_n; i++)
+            {
+
+                if(i == selection)
+    				wattron(left_win, A_REVERSE);
+
+                mvwprintw(left_win, i+1, 1, "%s", cmd_list[i].alias);
+
+                if(i == selection)
+    				wattroff(left_win, A_REVERSE);
+            }
+            wbkgd(left_win, COLOR_PAIR(1));
+            wrefresh(left_win);
+
+            mvwprintw(right_win, 1, 1, "Permission: %s", cmd_list[selection].permission);
+
+            {
+            char * taip;
+            for(i = 0; i<cmd_list[selection].n_of_args; i++)
+            {
+                switch(cmd_list[selection].arg_type[i])
+                {
+                    case TYPE_INT: taip = "integer"; break;
+                    case TYPE_FLOAT: taip = "decimal"; break;
+                    case TYPE_STRING: taip = "string"; break;
+                    case TYPE_BOOL: taip = "0 or 1"; break;
+                    case TYPE_VOID: taip = "Nothing"; break;
+                }
+                mvwprintw(right_win, i+3, 1, "Argument %d: %s", i, taip);
+            }
+            }
+
+            wrefresh(right_win);
+
+            ch = wgetch(left_win);
+
+            switch(ch)
+            {
+                case KEY_LEFT:
+                case KEY_UP:
+                    selection = (selection - 1 % cmd_list_n + cmd_list_n) % cmd_list_n;
+                    break;
+                case KEY_RIGHT:
+                case KEY_DOWN:
+                    selection = (selection + 1 % cmd_list_n + cmd_list_n) % cmd_list_n;
+                    break;
+
+                case KEY_RESIZE:
+                    break;
+
+                case '\n':
+                    delwin(right_win);
+                    delwin(left_win);
+                    endwin();
+                    call(cmd_list[selection], placeholder, 1, "Doctor");
+                    getchar();
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    endwin();
 	return 0;
 }
