@@ -10,7 +10,6 @@ Value make_float(float x)      	{ Value v; v.type = TYPE_FLOAT;  v.data.as_float
 Value make_string(char * s)		{ Value v; v.type = TYPE_STRING; v.data.as_string = s; return v; }
 
 
-/* Example usage of "Value" array (1)*/
 Value add(Value* list)
 {
 	return make_int(list[0].data.as_int + list[1].data.as_int);
@@ -30,7 +29,6 @@ Value cat(Value * list)
 }
 
 
-/* Example usage of "Value" array (2) */
 void print_list(Value* list, int n)
 {
 	int i;
@@ -48,7 +46,6 @@ void print_list(Value* list, int n)
 }
 
 
-/* Call arbitrary function */
 Value call(command f, Value * args, int n_of_args, char * perm)
 {
 	int i;

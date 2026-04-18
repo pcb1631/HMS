@@ -43,6 +43,7 @@ int main(void)
 	char selection[20] = "";
 
 	char current_username[64];
+	char current_utype[10];
 
 	/*Pass to logins.h functions as a pointer to hash pointer, as per uthash doc
 
@@ -119,9 +120,7 @@ int main(void)
             }
 
             free(password);
-		}
-
-        break;
+		}break;
 
 		/* register */
 		case 1:
@@ -241,7 +240,7 @@ int main(void)
 	}
 
 
-	/* command selector */
+	/* this entire block is command selector */
 	{
 	    int selection = 0;
 	    int i;
@@ -296,20 +295,21 @@ int main(void)
 
             mvwprintw(right_win, 1, 1, "Permission: %s", cmd_list[selection].permission);
 
+            /* display types */
             {
-            char * taip;
-            for(i = 0; i<cmd_list[selection].n_of_args; i++)
-            {
-                switch(cmd_list[selection].arg_type[i])
+                char * taip;
+                for(i = 0; i<cmd_list[selection].n_of_args; i++)
                 {
-                    case TYPE_INT: taip = "integer"; break;
-                    case TYPE_FLOAT: taip = "decimal"; break;
-                    case TYPE_STRING: taip = "string"; break;
-                    case TYPE_BOOL: taip = "0 or 1"; break;
-                    case TYPE_VOID: taip = "Nothing"; break;
+                    switch(cmd_list[selection].arg_type[i])
+                    {
+                        case TYPE_INT: taip = "integer"; break;
+                        case TYPE_FLOAT: taip = "decimal"; break;
+                        case TYPE_STRING: taip = "string"; break;
+                        case TYPE_BOOL: taip = "0 or 1"; break;
+                        case TYPE_VOID: taip = "Nothing"; break;
+                    }
+                    mvwprintw(right_win, i+3, 1, "Argument %d: %s", i, taip);
                 }
-                mvwprintw(right_win, i+3, 1, "Argument %d: %s", i, taip);
-            }
             }
 
             wrefresh(right_win);

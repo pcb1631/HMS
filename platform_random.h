@@ -1,4 +1,9 @@
-/* platform_random.h */
+/**
+ * @file platform_random.h
+ * @brief Provides get_random_bytes
+ *
+ * get_random_bytes has two implementations, Windows and unix
+ */
 #ifdef _WIN32
   #include <windows.h>
   #include <wincrypt.h>

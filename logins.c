@@ -1,6 +1,3 @@
-/*
- * Ideally, I would run a server that accepts requests for lookup, add, and delete to prevent race condition. But that is outside the scope of the project.
- */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -29,7 +26,6 @@ void add_user(const char *username, const char *password, user_login_t **logins)
     s->password[MAX_PASSWORD_LEN - 1] = '\0';
 }
 
-/*returns pointer to login data if found, else returns NULL. */
 user_login_t *lookup_user(const char *username, user_login_t **logins)
 {
     user_login_t *s;
