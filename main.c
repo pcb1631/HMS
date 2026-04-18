@@ -250,6 +250,18 @@ int main(void)
         Value placeholder[1];
         placeholder[0] = make_int(0);
 
+        {
+            Config cfg;
+            const char *val;
+            sprintf(path, "./users/%s/profile.txt", current_username);
+            if (parse_config_file(path, &cfg) == 0) {
+                val = get_config_value(&cfg, "USERTYPE");
+                if (val != NULL) {
+                    strncpy(current_utype, val, sizeof(current_utype) - 1);
+                    current_utype[sizeof(current_utype) - 1] = '\0';
+                }
+            }
+        }
 
         while(1)
         {
@@ -277,7 +289,7 @@ int main(void)
             mvwprintw(left_win, 0,0, "%c %d", ch, selection);
             */
 
-            mvwprintw(left_win ,0, 0, "%s %s", current_username, "perm");
+            mvwprintw(left_win ,0, 0, "%s %s", current_username, current_utype);
 
             for(i=0; i<cmd_list_n; i++)
             {
@@ -334,7 +346,7 @@ int main(void)
                     delwin(right_win);
                     delwin(left_win);
                     endwin();
-                    call(cmd_list[selection], placeholder, 1, "Doctor");
+                    call(cmd_list[selection], placeholder, 1, current_utype);
                     getchar();
                     break;
 

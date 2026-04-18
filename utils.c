@@ -176,3 +176,60 @@ int string_trim(char * s)
             return 1;
         }
 }
+
+int parse_config_file(const char *filepath, Config *config)
+{
+    FILE *fp;
+    char line[512];
+    char *eq;
+    size_t len;
+
+    if (config == NULL) return -1;
+    config->count = 0;
+
+    fp = fopen(filepath, "r");
+    if (fp == NULL) return -1;
+
+    while (fgets(line, sizeof(line), fp)) {
+        eq = strchr(line, '=');
+        if (eq != NULL) {
+            *eq = '\0';
+            
+            strncpy(config->entries[config->count].key, line, MAX_CONFIG_KEY_LEN - 1);
+            config->entries[config->count].key[MAX_CONFIG_KEY_LEN - 1] = '\0';
+            
+            strncpy(config->entries[config->count].value, eq + 1, MAX_CONFIG_VAL_LEN - 1);
+            config->entries[config->count].value[MAX_CONFIG_VAL_LEN - 1] = '\0';
+            
+            len = strlen(config->entries[config->count].value);
+            if (len > 0 && config->entries[config->count].value[len - 1] == '\n') {
+                config->entries[config->count].value[len - 1] = '\0';
+                len--;
+            }
+            if (len > 0 && config->entries[config->count].value[len - 1] == '\r') {
+                config->entries[config->count].value[len - 1] = '\0';
+            }
+
+            config->count++;
+            if (config->count >= MAX_CONFIG_ENTRIES) {
+                break;
+            }
+        }
+    }
+
+    fclose(fp);
+    return 0;
+}
+
+const char *get_config_value(const Config *config, const char *key)
+{
+    int i;
+    if (config == NULL || key == NULL) return NULL;
+
+    for (i = 0; i < config->count; i++) {
+        if (strcmp(config->entries[i].key, key) == 0) {
+            return config->entries[i].value;
+        }
+    }
+    return NULL;
+}

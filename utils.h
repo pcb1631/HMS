@@ -95,4 +95,41 @@ void print_list(Value * list, int n);
 Value call(command f, Value * args, int n_of_args, char * perm);
 int string_trim(char * s);
 
+#define MAX_CONFIG_ENTRIES 64
+#define MAX_CONFIG_KEY_LEN 64
+#define MAX_CONFIG_VAL_LEN 256
+
+/**
+ * @brief Key-value pair for configuration entries
+ */
+typedef struct {
+    char key[MAX_CONFIG_KEY_LEN];
+    char value[MAX_CONFIG_VAL_LEN];
+} ConfigEntry;
+
+/**
+ * @brief Configuration structure holding multiple entries
+ */
+typedef struct {
+    ConfigEntry entries[MAX_CONFIG_ENTRIES];
+    int count;
+} Config;
+
+/**
+ * @brief Parses a configuration file into a Config struct
+ * @param filepath Path to the configuration file
+ * @param config Pointer to the Config struct to populate
+ * @return 0 on success, -1 on failure
+ */
+int parse_config_file(const char *filepath, Config *config);
+
+/**
+ * @brief Gets a value from a Config struct by key
+ * @param config Pointer to the Config struct
+ * @param key The key to look up
+ * @return Pointer to the value string, or NULL if not found
+ */
+const char *get_config_value(const Config *config, const char *key);
+
+
 #endif
