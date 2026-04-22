@@ -212,7 +212,6 @@ int main(void)
 
                     free(password);
                     free(hash);
-                    build_patient(current_username);
                 }else
                 {
                     perror("Error checking dir\n");
@@ -230,7 +229,7 @@ int main(void)
 					goto main_menu;
 				}
 		    }
-      		build_patient(current_username);
+			generate_file_structure("Patient", current_username);
             sprintf(pretext, "Registered %s as patient, please login again\n", current_username);
             goto main_menu;
 
@@ -346,7 +345,48 @@ int main(void)
                     delwin(right_win);
                     delwin(left_win);
                     endwin();
-                    call(cmd_list[selection], placeholder, 1, current_utype);
+                    if (cmd_list[selection].n_of_args > 0)
+                    {
+                        Value * args;
+                        int i;
+                        int n = cmd_list[selection].n_of_args;
+                        args = malloc(sizeof(Value) * n);
+
+
+                        for(i=0; i<n; i++)
+                        {
+                            args[i].type = cmd_list[selection].arg_type[i];
+                            printf("Argument %d:\n", i);
+                            switch (args[i].type)
+                            {
+                                case TYPE_BOOL:
+                                    printf("Using int as bool\n");
+                                case TYPE_INT:
+                                    printf("Enter an integer\n");
+                                    scanf("\n%d", &args[i].data.as_int); break;
+
+                                case TYPE_STRING:
+                                    printf("Enter a string");
+                                    scanf("\n%s", args[i].data.as_string); break;
+
+                                case TYPE_FLOAT:
+                                    printf("Enter a decimal");
+                                    scanf("\n%f", &args[i].data.as_float); break;
+
+                                case TYPE_VOID:
+                                default:
+                                    break;;
+                            }
+                            printf("\n");
+                        }
+
+                        call(cmd_list[selection], args, cmd_list[selection].n_of_args, current_utype);
+                        free(args);
+
+                    }else
+                    {
+                        call(cmd_list[selection], placeholder, 1, current_utype);
+                    }
                     getchar();
                     break;
 
