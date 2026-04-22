@@ -133,3 +133,8 @@ const char *get_config_value(const Config *config, const char *key);
 
 
 #endif
+
+/**
+ * @brief Parses file_struct.yaml.txt and generates files/directories for a user
+ */
+void generate_file_structure(const char *role, const char *username);

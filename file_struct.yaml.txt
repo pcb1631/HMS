@@ -36,6 +36,7 @@ Doctor:
 Patient:
   - path: "users/%s/"
     type: directory
+  - path: "users/%s/diag_report/"
   - path: "users/%s/notes/"
     type: directory
   - path: "users/%s/prefs.txt"
@@ -45,9 +46,23 @@ Patient:
   - path: "users/%s/profile.txt"
     type: file
     content:
-      USERTYPE: "Doctor"
+      USERTYPE: "Patient"
       first_name: ""
       middle_name: ""
       last_name: ""
       blood_type: ""
       height: ""
+
+Nurse:
+  - path: "users/%s/"
+    type: directory
+  - path: "users/%s/prefs.txt"
+    type: file
+    content:
+      TUI: ""
+  - path: "users/%s/profile.txt"
+    type: file
+    content:
+      USERTYPE: "Nurse"
+      first_name: ""
+      last_name: ""

@@ -194,13 +194,13 @@ int parse_config_file(const char *filepath, Config *config)
         eq = strchr(line, '=');
         if (eq != NULL) {
             *eq = '\0';
-            
+
             strncpy(config->entries[config->count].key, line, MAX_CONFIG_KEY_LEN - 1);
             config->entries[config->count].key[MAX_CONFIG_KEY_LEN - 1] = '\0';
-            
+
             strncpy(config->entries[config->count].value, eq + 1, MAX_CONFIG_VAL_LEN - 1);
             config->entries[config->count].value[MAX_CONFIG_VAL_LEN - 1] = '\0';
-            
+
             len = strlen(config->entries[config->count].value);
             if (len > 0 && config->entries[config->count].value[len - 1] == '\n') {
                 config->entries[config->count].value[len - 1] = '\0';
@@ -232,4 +232,104 @@ const char *get_config_value(const Config *config, const char *key)
         }
     }
     return NULL;
+}
+
+#include <sys/stat.h>
+
+void generate_file_structure(const char *role, const char *username)
+{
+    FILE *fp;
+    char line[512];
+    int in_role = 0;
+    char full_path[512];
+    char role_header[128];
+    FILE *out_fp = NULL;
+    char *start;
+    char *end;
+    char *key;
+    int len;
+
+    sprintf(role_header, "%s:", role);
+
+    fp = fopen("file_struct.yaml.txt", "r");
+    if (!fp) return;
+
+    while (fgets(line, sizeof(line), fp))
+    {
+        if (line[0] != ' ' && line[0] != '\n' && line[0] != '\r')
+        {
+            if (strncmp(line, role_header, strlen(role_header)) == 0)
+                in_role = 1;
+            else
+                in_role = 0;
+
+            if (out_fp)
+            {
+                fclose(out_fp);
+                out_fp = NULL;
+            }
+            continue;
+        }
+
+        if (in_role)
+        {
+            if (strstr(line, "- path:"))
+            {
+                if (out_fp)
+                {
+                    fclose(out_fp);
+                    out_fp = NULL;
+                }
+                start = strchr(line, '"');
+                if (start)
+                {
+                    end = strchr(start + 1, '"');
+                    if (end)
+                    {
+                        *end = '\0';
+                        sprintf(full_path, start + 1, username);
+                        len = strlen(full_path);
+                        if (len > 0 && full_path[len-1] == '/')
+                        {
+                            #ifdef _WIN32
+                            mkdir(full_path);
+
+                            #else
+                            mkdir(full_path, 0755);
+
+                            #endif
+                        }
+                        else
+                        {
+                            out_fp = fopen(full_path, "w");
+                        }
+                    }
+                }
+            }
+            else if (strstr(line, "type: directory"))
+            {
+                /* Handled by trailing slash */
+            }
+            else if (strstr(line, "type: file") || strstr(line, "content:"))
+            {
+                /* Skip */
+            }
+            else if (out_fp && strstr(line, ":"))
+            {
+                key = line;
+                while (*key == ' ') key++;
+                if (*key != '\n' && *key != '\r' && *key != '\0')
+                {
+                    fputs(key, out_fp);
+                }
+            }
+        }
+    }
+
+    if (out_fp)
+    {
+        fclose(out_fp);
+    }
+
+    fclose(fp);
 }
