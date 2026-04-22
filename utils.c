@@ -12,6 +12,8 @@ Value make_string(char * s)		{ Value v; v.type = TYPE_STRING; v.data.as_string =
 
 Value add(Value* list)
 {
+    printf("Result: %d", list[0].data.as_int + list[1].data.as_int);
+    getchar();
 	return make_int(list[0].data.as_int + list[1].data.as_int);
 }
 
@@ -51,7 +53,7 @@ Value call(command f, Value * args, int n_of_args, char * perm)
 	int i;
 	Value err = make_int(0);
 
-	if(perm != f.permission)
+	if(strcmp(perm, f.permission) != 0)
 	{
 		fprintf(stderr, "Permission denied (current user perm: %s, command perm: %s)\n", perm, f.permission);
 		return err;
@@ -182,36 +184,48 @@ int parse_config_file(const char *filepath, Config *config)
     FILE *fp;
     char line[512];
     char *eq;
-    size_t len;
+    char *key_str;
+    char *val_str;
 
-    if (config == NULL) return -1;
+    if (config == NULL)
+    {
+        return -1;
+    }
+
     config->count = 0;
 
     fp = fopen(filepath, "r");
-    if (fp == NULL) return -1;
+    if (fp == NULL)
+    {
+        return -1;
+    }
 
-    while (fgets(line, sizeof(line), fp)) {
+    while (fgets(line, sizeof(line), fp))
+    {
         eq = strchr(line, '=');
-        if (eq != NULL) {
-            *eq = '\0';
+        if (eq == NULL)
+        {
+            eq = strchr(line, ':'); /* Fallback to colon if used as delimiter */
+        }
 
-            strncpy(config->entries[config->count].key, line, MAX_CONFIG_KEY_LEN - 1);
+        if (eq != NULL)
+        {
+            *eq = '\0';
+            key_str = line;
+            val_str = eq + 1;
+
+            string_trim(key_str);
+            string_trim(val_str);
+
+            strncpy(config->entries[config->count].key, key_str, MAX_CONFIG_KEY_LEN - 1);
             config->entries[config->count].key[MAX_CONFIG_KEY_LEN - 1] = '\0';
 
-            strncpy(config->entries[config->count].value, eq + 1, MAX_CONFIG_VAL_LEN - 1);
+            strncpy(config->entries[config->count].value, val_str, MAX_CONFIG_VAL_LEN - 1);
             config->entries[config->count].value[MAX_CONFIG_VAL_LEN - 1] = '\0';
 
-            len = strlen(config->entries[config->count].value);
-            if (len > 0 && config->entries[config->count].value[len - 1] == '\n') {
-                config->entries[config->count].value[len - 1] = '\0';
-                len--;
-            }
-            if (len > 0 && config->entries[config->count].value[len - 1] == '\r') {
-                config->entries[config->count].value[len - 1] = '\0';
-            }
-
             config->count++;
-            if (config->count >= MAX_CONFIG_ENTRIES) {
+            if (config->count >= MAX_CONFIG_ENTRIES)
+            {
                 break;
             }
         }

@@ -79,18 +79,6 @@ int save_users_to_file(const char *filename, user_login_t **logins);
 void free_all_users(user_login_t **logins);
 
 /**
- * @brief Build patient user profile structure
- * @param username Username of the patient
- */
-void build_patient(const char *username);
-
-/**
- * @brief Build doctor user profile structure
- * @param username Username of the doctor
- */
-void build_doctor(const char *username);
-
-/**
  * @brief Hash a password using bcrypt
  * @param password Password to hash
  * @param hashout Buffer to store the hash

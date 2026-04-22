@@ -1,1 +1,2 @@
 admin=$2b$12$kkZ3BUv.yThkgAyQrYMrdOFiZyPfTDTIZ4H0fqLBUTvRUIkewxxa.
+test=$2b$12$wLKVkLHU7pVGK5VIOTuPkOsvuYHuV4Ai6xE6BfDUsAevlYx0Hj3yy

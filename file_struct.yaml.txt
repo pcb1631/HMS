@@ -4,7 +4,7 @@ Admin:
   - path: "users/%s/prefs.txt"
     type: file
     content:
-      TUI: ""
+      TUI:
 
 Director:
   - path: "users/%s/"
@@ -12,7 +12,7 @@ Director:
   - path: "users/%s/prefs.txt"
     type: file
     content:
-      TUI: ""
+      TUI:
 
 Doctor:
   - path: "users/%s/"
@@ -22,16 +22,16 @@ Doctor:
   - path: "users/%s/prefs.txt"
     type: file
     content:
-      TUI: ""
+      TUI:
   - path: "users/%s/profile.txt"
     type: file
     content:
-      USERTYPE: "Doctor"
-      first_name: ""
-      middle_name: ""
-      last_name: ""
-      blood_type: ""
-      height: ""
+      USERTYPE: Doctor
+      first_name:
+      middle_name:
+      last_name:
+      blood_type:
+      height:
 
 Patient:
   - path: "users/%s/"
@@ -42,16 +42,16 @@ Patient:
   - path: "users/%s/prefs.txt"
     type: file
     content:
-      TUI: ""
+      TUI:
   - path: "users/%s/profile.txt"
     type: file
     content:
-      USERTYPE: "Patient"
-      first_name: ""
-      middle_name: ""
-      last_name: ""
-      blood_type: ""
-      height: ""
+      USERTYPE: Patient
+      first_name:
+      middle_name:
+      last_name:
+      blood_type:
+      height:
 
 Nurse:
   - path: "users/%s/"
@@ -59,10 +59,10 @@ Nurse:
   - path: "users/%s/prefs.txt"
     type: file
     content:
-      TUI: ""
+      TUI:
   - path: "users/%s/profile.txt"
     type: file
     content:
-      USERTYPE: "Nurse"
-      first_name: ""
-      last_name: ""
+      USERTYPE: Nurse
+      first_name:
+      last_name:
