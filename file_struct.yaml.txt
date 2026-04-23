@@ -17,7 +17,7 @@ Director:
 Doctor:
   - path: "users/%s/"
     type: directory
-  - path: "users/%s/bookings.csv"
+  - path: "users/%s/bookings.csv.txt"
     type: file
   - path: "users/%s/prefs.txt"
     type: file

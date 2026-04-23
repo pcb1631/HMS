@@ -5,9 +5,27 @@
 #include <ctype.h>
 
 
-Value make_int(int x)          	{ Value v; v.type = TYPE_INT;    v.data.as_int    = x; return v; }
-Value make_float(float x)      	{ Value v; v.type = TYPE_FLOAT;  v.data.as_float  = x; return v; }
-Value make_string(char * s)		{ Value v; v.type = TYPE_STRING; v.data.as_string = s; return v; }
+Value make_int(int x)
+{
+    Value v;
+    v.type = TYPE_INT;
+    v.data.as_int = x;
+    return v;
+}
+Value make_float(float x)
+{
+    Value v;
+    v.type = TYPE_FLOAT;
+    v.data.as_float = x;
+    return v;
+}
+Value make_string(char * s)
+{
+    Value v;
+    v.type = TYPE_STRING;
+    strcpy(v.data.as_string, s);
+    return v;
+}
 
 
 Value add(Value* list)
@@ -263,6 +281,21 @@ void generate_file_structure(const char *role, const char *username)
     char *key;
     int len;
 
+    struct stat st;
+
+    sprintf(full_path, "./users/%s/", username);
+    if(stat(full_path, &st) != -1)
+    {
+        if (S_ISDIR(st.st_mode))
+		{
+            fprintf(stderr, "This user currently exists (%s)\n", username);
+		} else
+		{
+    		fprintf(stderr, "This user currently exists (%s) but its not a dir\n", username);
+		}
+        return;
+    }
+
     sprintf(role_header, "%s:", role);
 
     fp = fopen("file_struct.yaml.txt", "r");
@@ -346,4 +379,5 @@ void generate_file_structure(const char *role, const char *username)
     }
 
     fclose(fp);
+    printf("OK\n");
 }

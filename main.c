@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "commands.h"
+
 /* file handling */
 #include <sys/stat.h>
 #include <errno.h>
@@ -53,14 +55,14 @@ int main(void)
     char * hash;
 
 	static ValueType args_add[] = {TYPE_INT, TYPE_INT};
-	static ValueType args_meow[] = {TYPE_VOID};
-	static ValueType args_Cat[] = {TYPE_VOID};
+	static ValueType args_make_user[] = {TYPE_STRING, TYPE_STRING};
 
 	/* COMMAND(function name, alias, permission, argument types) */
 	static command cmd_list[] = {
-		COMMAND(add, "add", "Patient", args_add),
-		COMMAND(meow, "meow", "Doctor", args_meow),
-		COMMAND(cat, "cat", "Cats", args_Cat)
+		COMMAND(add, "add", "Patient", args_add, "Add two numbers"),
+		COMMAND_NOARGS(meow, "meow", "Doctor", "Meow"),
+		COMMAND_NOARGS(cat, "cat", "Cats", "Placeholder"),
+		COMMAND(make_user, "Register users", "Admin", args_make_user, "First arg is user type, second is username")
 	};
 
 	int cmd_list_n = sizeof(cmd_list)/sizeof(command);
@@ -306,7 +308,7 @@ int main(void)
 
             mvwprintw(right_win, 1, 1, "Permission: %s", cmd_list[selection].permission);
 
-            /* display types */
+            /* display types and desc */
             {
                 char * taip;
                 for(i = 0; i<cmd_list[selection].n_of_args; i++)
@@ -321,6 +323,9 @@ int main(void)
                     }
                     mvwprintw(right_win, i+3, 1, "Argument %d: %s", i, taip);
                 }
+
+                mvwprintw(right_win, i+4, 1, "Description:");
+                mvwprintw(right_win, i+5, 1, "%s" ,cmd_list[selection].desc);
             }
 
             wrefresh(right_win);
@@ -345,6 +350,15 @@ int main(void)
                     delwin(right_win);
                     delwin(left_win);
                     endwin();
+
+                    if(strcmp(current_utype, cmd_list[selection].permission) != 0)
+                    {
+                        printf("Permission denied (current perm: %s, command perm: %s", current_utype, cmd_list[selection].permission);
+                        getchar();
+                        break;
+                    }
+
+
                     if (cmd_list[selection].n_of_args > 0)
                     {
                         Value * args;
@@ -366,7 +380,7 @@ int main(void)
                                     scanf("\n%d", &args[i].data.as_int); break;
 
                                 case TYPE_STRING:
-                                    printf("Enter a string");
+                                    printf("Enter a string\n");
                                     scanf("\n%s", args[i].data.as_string); break;
 
                                 case TYPE_FLOAT:
@@ -382,6 +396,7 @@ int main(void)
 
                         call(cmd_list[selection], args, cmd_list[selection].n_of_args, current_utype);
                         free(args);
+                        getchar();
 
                     }else
                     {

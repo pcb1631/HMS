@@ -29,7 +29,7 @@ typedef struct
     union {
         unsigned int	as_bool : 1;
         float			as_float;
-        char *			as_string;
+        char 			as_string[128];
         int         	as_int;
     } data;
 
@@ -59,16 +59,19 @@ typedef struct
 
     /** enum array */
     ValueType * arg_type;
+
+    /** Description to be displayed in command selector */
+    char *      desc;
 } command;
 
 /**
  * @brief Macro to define a command with arguments
  */
-#define COMMAND(fn, alias, perm, arg_types) \
-    { (generic_fn)(fn), (alias), (perm), sizeof(arg_types)/sizeof(arg_types[0]), (arg_types) }
+#define COMMAND(fn, alias, perm, arg_types, desc) \
+    { (generic_fn)(fn), (alias), (perm), sizeof(arg_types)/sizeof(arg_types[0]), (arg_types), desc}
 
-#define COMMAND_NOARGS(fn, alias, perm) \
-    { (generic_fn)(fn), (alias), (perm), 0, NULL }
+#define COMMAND_NOARGS(fn, alias, perm, desc) \
+    { (generic_fn)(fn), (alias), (perm), 0, NULL, desc}
 
 void cmd_parse(char* str);
 
