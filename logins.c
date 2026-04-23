@@ -139,3 +139,69 @@ int verify_password(const char *password, const char *stored_hash) {
 
     return strcmp(result, stored_hash) == 0 ? 1 : 0;
 }
+
+#include <sys/stat.h>
+#ifndef _WIN32
+#include <sys/file.h>
+#endif
+#include <fcntl.h>
+#ifdef _WIN32
+#include <io.h>
+#else
+#include <unistd.h>
+#endif
+int register_user_hashtable(const char *current_username, char *password, const char *pw_file)
+{
+    char *hash;
+    int pw_fd;
+    user_login_t *logins = NULL;
+
+    /* hash the password */
+    hash = (char*)malloc(256 * sizeof(char));
+
+    if(hash_password(password, hash) == -1)
+    {
+        free(hash);
+        fprintf(stderr, "Failed to hash password\n");
+        return 1;
+    }
+
+    logins = NULL;
+
+    pw_fd = open(pw_file, O_RDWR | O_CREAT, 0666);
+    if (pw_fd != -1)
+    {
+        #ifdef _WIN32
+
+            HANDLE hFile = (HANDLE)_get_osfhandle(pw_fd);
+            LockFile(hFile, 0, 0, 0xFFFFFFFF, 0xFFFFFFFF);
+
+        #else
+
+            flock(pw_fd, LOCK_EX);
+
+        #endif
+    }
+
+    load_users_from_file(pw_file, &logins);
+    add_user(current_username, hash, &logins);
+    save_users_to_file(pw_file, &logins);
+
+    if (pw_fd != -1)
+    {
+        #ifdef _WIN32
+            HANDLE hFile = (HANDLE)_get_osfhandle(pw_fd);
+            UnlockFile(hFile, 0, 0, 0xFFFFFFFF, 0xFFFFFFFF);
+        #else
+            flock(pw_fd, LOCK_UN);
+        #endif
+
+        close(pw_fd);
+    }
+
+
+    free(password);
+    free(hash);
+
+    return 0;
+}

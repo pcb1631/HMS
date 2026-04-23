@@ -93,4 +93,5 @@ int hash_password(const char * password, char * hashout);
  */
 int verify_password(const char * password, const char * stored_hash);
 
+int register_user_hashtable(const char *current_username, char *password, const char *pw_file);
 #endif /* LOGINS_H */

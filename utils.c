@@ -77,6 +77,9 @@ Value call(command f, Value * args, int n_of_args, char * perm)
 		return err;
 	}
 
+	if(f.n_of_args == 0)
+	    return ((Value (*)(Value *, int))f.ptr)(args, n_of_args);
+
 	if(n_of_args != f.n_of_args && n_of_args != -1)
 	{
 		fprintf(stderr, "Command %s takes %d args, but was given %d\n", f.alias, f.n_of_args, n_of_args);

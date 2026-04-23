@@ -52,7 +52,6 @@ int main(void)
 	Defined in main because global variables aren't allowed */
 	user_login_t * logins = NULL;
 	user_login_t * user_ptr = NULL;
-    char * hash;
 
 	static ValueType args_add[] = {TYPE_INT, TYPE_INT};
 	static ValueType args_make_user[] = {TYPE_STRING, TYPE_STRING};
@@ -145,7 +144,6 @@ int main(void)
         		if (errno == ENOENT)
                 {
                     char * password;
-                    int pw_fd;
                     /*check if username exists in hashtable*/
                     load_users_from_file(pw_file, &logins);
                     if(lookup_user(current_username, &logins) != NULL)
@@ -169,57 +167,14 @@ int main(void)
 
 
                     /* hash the password */
-                    hash = (char*)malloc(256 * sizeof(char));
-
-                    if(hash_password(password, hash) == -1)
-                    {
-                        free(hash);
-                        fprintf(stderr, "Failed to hash password\n");
-                        return 1;
-                    }
-
-                    logins = NULL;
-
-                    pw_fd = open(pw_file, O_RDWR | O_CREAT, 0666);
-                    if (pw_fd != -1)
-                    {
-                        #ifdef _WIN32
-
-                            HANDLE hFile = (HANDLE)_get_osfhandle(pw_fd);
-                            LockFile(hFile, 0, 0, 0xFFFFFFFF, 0xFFFFFFFF);
-
-                        #else
-
-                            flock(pw_fd, LOCK_EX);
-
-                        #endif
-                    }
-
-                    load_users_from_file(pw_file, &logins);
-                    add_user(current_username, hash, &logins);
-                    save_users_to_file(pw_file, &logins);
-
-                    if (pw_fd != -1)
-                    {
-                        #ifdef _WIN32
-                            HANDLE hFile = (HANDLE)_get_osfhandle(pw_fd);
-                            UnlockFile(hFile, 0, 0, 0xFFFFFFFF, 0xFFFFFFFF);
-                        #else
-                            flock(pw_fd, LOCK_UN);
-                        #endif
-
-                        close(pw_fd);
-                    }
-
-
-                    free(password);
-                    free(hash);
+                    register_user_hashtable(current_username, password, pw_file);
                 }else
                 {
                     perror("Error checking dir\n");
                     strcpy(pretext, "Error checking dir");
                 }
-		    } else /* if dir exists */
+		    }
+			else /* if dir exists */
       		{
 				if (S_ISDIR(st.st_mode))
 				{
