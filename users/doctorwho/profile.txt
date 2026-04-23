@@ -1,0 +1,6 @@
+USERTYPE: Doctor
+first_name:
+middle_name:
+last_name:
+blood_type:
+height:
