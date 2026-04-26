@@ -4,5 +4,5 @@
 
 
 Value make_user(Value * list);
-
+void test(void);
 #endif
