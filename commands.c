@@ -5,6 +5,11 @@
 #include <string.h>
 #include <stdio.h>
 
+void test(void)
+{
+    printf("Hello, world!\n");
+}
+
 Value make_user(Value * list)
 {
     int i=0;

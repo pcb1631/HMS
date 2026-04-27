@@ -58,10 +58,12 @@ int main(void)
 
 	/* COMMAND(function name, alias, permission, argument types) */
 	static command cmd_list[] = {
+    COMMAND_NOARGS(test, "Hello, world!", "Admin", "Hello, world!"),
 		COMMAND(add, "add", "Patient", args_add, "Add two numbers"),
 		COMMAND_NOARGS(meow, "meow", "Doctor", "Meow"),
 		COMMAND_NOARGS(cat, "cat", "Cats", "Placeholder"),
-		COMMAND(make_user, "Register users", "Admin", args_make_user, "First arg is user type, second is username")
+		COMMAND(make_user, "Register users", "Admin", args_make_user, "First arg is user type, second is username"),
+
 	};
 
 	int cmd_list_n = sizeof(cmd_list)/sizeof(command);
