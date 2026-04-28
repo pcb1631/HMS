@@ -1,0 +1,92 @@
+#include "commands.h"
+#include "utils.h"
+#include "logins.h"
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <time.h>
+
+void patient_booking(){
+
+    int user_input;
+    do{
+        printf("Select an option: "
+            "\n1. Book slot"
+            "\n2. View booking"
+            "\n3. Reschedule booking"
+            "\n4. Cancel booking");
+        scanf("%d", &user_input);
+
+
+        if (user_input == 1){
+            patient_booking_selection();
+        } else if (user_input == 2){
+            patient_view_booking();
+        } else if (user_input == 3){
+        patient_reschedule();
+        } else if (user_input == 4){
+           patient_cancel();
+        } else{
+            printf("Invalid option");
+        }
+     } while(user_input <= 4 && user_input >= 1);
+
+     return 0;
+}
+
+float patient_booking_selection(int doctorID, char*slotTime, char *status){
+
+    FILE *fp = fopen("slots.txt", "r");
+    FILE *temp = fopen("temp.txt","w");
+    char line[100];
+
+    
+    
+}
+
+
+
+
+
+
+void generate_slots() {
+    FILE *sl = fopen("slots.txt", "w");
+    if (sl == NULL) {
+        printf("Error opening file!\n");
+        return;
+    }
+
+    time_t now = time(NULL); // Gets the current time in seconds form (epoch)
+    struct tm slot_time = *localtime(&now); // Converts epoch into readable date time format
+
+    // Loops through 7 days
+    for (int day = 0; day < 7; day++) {
+        struct tm current_day = slot_time; // Set to the current day
+        current_day.tm_mday += day; // counts the days
+        mktime(&current_day); // converts time to readable format
+
+        // Loop through hours 8 to 17 (8am-5pm)
+        for (int hour = 8; hour <= 17; hour++) {
+            struct tm start = current_day;
+            start.tm_hour = hour;
+            start.tm_min = 0;
+            start.tm_sec = 0;
+
+            struct tm end = start;
+            end.tm_hour = hour + 1; // one-hour slot
+            mktime(&end); // normalize
+
+            char dateStr[20], startStr[10], endStr[10];
+            strftime(dateStr, sizeof(dateStr), "%Y-%m-%d", &start);
+            strftime(startStr, sizeof(startStr), "%H:%M", &start);
+            strftime(endStr, sizeof(endStr), "%H:%M", &end);
+
+            fprintf(sl, "%s,%s,%s,free\n", dateStr, startStr, endStr);
+        }
+    }
+
+    fclose(sl);
+    printf("Slots generated for the next 7 days!\n");
+}
+
+
