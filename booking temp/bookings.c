@@ -272,3 +272,26 @@ void edit_slot() {
     sort_slots();
 }
 
+
+void view_slots() {
+    FILE *sl = fopen("slots.txt", "r");
+    if (sl == NULL) {
+        printf("Error opening file for reading!\n");
+        return;
+    }
+
+    Slot slot;
+    printf("\n--- Current Slots ---\n");
+    while (fscanf(sl, "%d,%19[^,],%9[^,],%9[^,],%9s",
+                  &slot.index,
+                  slot.date,
+                  slot.start,
+                  slot.end,
+                  slot.status) == 5) {
+        printf("%d | %s | %s-%s | %s\n",
+               slot.index, slot.date, slot.start, slot.end, slot.status);
+    }
+
+    fclose(sl);
+    printf("----------------------\n");
+}
