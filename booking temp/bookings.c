@@ -5,6 +5,69 @@
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
+#define MAX_SLOTS 100
+
+
+typedef struct {
+    int index;        // slot number
+    char date[20];    // string for date (YYYY-MM-DD)
+    char start[10];   // start time (HH:MM)
+    char end[10];     // end time (HH:MM)
+    char status[10];  // "free" or "booked"
+} Slot;
+
+
+int compare_slots(const void *a, const void *b) {
+    Slot *slot_a = (Slot *)a;
+    Slot *slot_b = (Slot *)b;
+    return strcmp(slot_a->start, slot_b->start);
+
+    return 0;
+}
+
+
+void sort_slots(){
+    FILE *z = fopen("slots.txt", "r");
+    if (z == NULL) {
+        printf("Error opening file for reading!\n");
+        return;
+    }
+
+    Slot slots[MAX_SLOTS];
+    int count = 0;
+
+    // Read slots from file
+    while (fscanf(z, "%d,%19[^,],%9[^,],%9[^,],%9s",
+                  &slots[count].index,
+                  slots[count].date,
+                  slots[count].start,
+                  slots[count].end,
+                  slots[count].status) == 5) {
+        count++;
+    }
+    fclose(z);
+
+    // Sort slots by start time
+    qsort(slots, count, sizeof(Slot), compare_slots);
+
+    // Rewrite file with new indices
+    z = fopen("slots.txt", "w");
+    if (z == NULL) {
+        printf("Error opening file for writing!\n");
+        return;
+    }
+
+    for (int i = 0; i < count; i++) {
+        fprintf(z, "%d,%s,%s,%s,%s\n",
+                i + 1, slots[i].date, slots[i].start, slots[i].end, slots[i].status);
+    }
+
+    fclose(z);
+    printf("Slots sorted and re-indexed!\n");
+
+    return 0;
+}
+
 
 void patient_booking(){
 
@@ -95,3 +158,31 @@ void generate_slots() {
 }
 
 
+void add_slot() {
+    FILE *sl = fopen("slots.txt", "a"); // open file in append mode
+    if (sl == NULL) {
+        printf("Error opening file!\n");
+        return;
+    }
+
+    int index;
+    char date[20], start[10], end[10];
+
+    printf("Enter slot index number: ");
+    scanf("%d", &index);
+
+    printf("Enter date (YYYY-MM-DD): ");
+    scanf("%s", date);
+
+    printf("Enter start time (HH:MM): ");
+    scanf("%s", start);
+
+    printf("Enter end time (HH:MM): ");
+    scanf("%s", end);
+
+    // Write slot into file
+    fprintf(sl, "%d,%s,%s,%s,free\n", index, date, start, end);
+
+    fclose(sl);
+    printf("Slot added successfully!\n");
+}
