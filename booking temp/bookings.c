@@ -59,12 +59,14 @@ void generate_slots() {
     time_t now = time(NULL); // Gets the current time in seconds form (epoch)
     struct tm slot_time = *localtime(&now); // Converts epoch into readable date time format
 
+    int index = 1; // create index for slots
+
     // Loops through 7 days
     for (int day = 0; day < 7; day++) {
         struct tm current_day = slot_time; // Set to the current day
         current_day.tm_mday += day; // counts the days
         mktime(&current_day); // converts time to readable format
-
+        
         // Loop through hours 8 to 17 (8am-5pm)
         for (int hour = 8; hour <= 17; hour++) {
             struct tm start = current_day;
@@ -73,15 +75,18 @@ void generate_slots() {
             start.tm_sec = 0;
 
             struct tm end = start;
-            end.tm_hour = hour + 1; // one-hour slot
-            mktime(&end); // normalize
+            end.tm_hour = hour + 1; // one hour slot
+            mktime(&end); // normalize format
 
             char dateStr[20], startStr[10], endStr[10];
             strftime(dateStr, sizeof(dateStr), "%Y-%m-%d", &start);
             strftime(startStr, sizeof(startStr), "%H:%M", &start);
             strftime(endStr, sizeof(endStr), "%H:%M", &end);
 
-            fprintf(sl, "%s,%s,%s,free\n", dateStr, startStr, endStr);
+
+            //Writes the slot details into slots.txt file
+            fprintf(sl, "%d,%s,%s,%s,free\n",index, dateStr, startStr, endStr);
+            index ++; //incremetal of 1 per slot
         }
     }
 
