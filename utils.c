@@ -384,3 +384,28 @@ void generate_file_structure(const char *role, const char *username)
     fclose(fp);
     printf("OK\n");
 }
+
+command_node* new_command_node(command f)
+{
+    command_node* node = (command_node*)malloc(sizeof(command_node));
+    if (node == NULL)
+    {
+        fprintf(stderr, "Failed to allocate command node\n");
+        exit(1);
+    }
+
+    node->f=f;
+    node->next=NULL;
+    return node;
+}
+
+void free_cmd_list(command_node* head)
+{
+    command_node* temp;
+    while(head != NULL)
+    {
+        temp = head;
+        head = temp->next;
+        free(temp);
+    }
+}

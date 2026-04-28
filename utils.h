@@ -6,6 +6,8 @@
  * @brief Utility functions, value types, and command parsing.
  */
 
+#include <ncurses.h>
+#include <stdlib.h>
 typedef enum
 {
     TYPE_INT,
@@ -63,6 +65,17 @@ typedef struct
     /** Description to be displayed in command selector */
     char *      desc;
 } command;
+
+typedef struct command_node command_node;
+struct command_node
+{
+    command f;
+    command_node* next;
+};
+command_node* new_command_node(command f);
+void free_cmd_list(command_node* head);
+
+
 
 /**
  * @brief Macro to define a command with arguments
