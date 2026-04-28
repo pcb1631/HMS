@@ -16,7 +16,10 @@
  * @param pretext Text to display before options
  * @return Index of the selected option
  */
+#include "utils.h"
+
 int simple_select(int color_foreground, int color_background, int n_of_options, char ** options, char * selection_s, const char * pretext);
 
+void command_select(command_node* head, char * utype, char * username);
 
 #endif
