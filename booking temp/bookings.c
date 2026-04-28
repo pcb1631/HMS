@@ -97,6 +97,9 @@ void patient_booking(){
      return 0;
 }
 
+
+/***  idk what to do for this yet
+
 float patient_booking_selection(int doctorID, char*slotTime, char *status){
 
     FILE *fp = fopen("slots.txt", "r");
@@ -107,6 +110,7 @@ float patient_booking_selection(int doctorID, char*slotTime, char *status){
     
 }
 
+*/
 
 
 
@@ -155,6 +159,8 @@ void generate_slots() {
 
     fclose(sl);
     printf("Slots generated for the next 7 days!\n");
+
+    sort_slots();
 }
 
 
@@ -185,4 +191,84 @@ void add_slot() {
 
     fclose(sl);
     printf("Slot added successfully!\n");
+
+    sort_slots();
 }
+
+
+void edit_slot() {
+    FILE *sl = fopen("slots.txt", "r");
+    if (sl == NULL) {
+        printf("Error opening file for reading!\n");
+        return;
+    }
+
+    Slot slots[MAX_SLOTS];
+    int count = 0;
+
+    // Load slots into memory
+    while (fscanf(sl, "%d,%19[^,],%9[^,],%9[^,],%9s",
+                  &slots[count].index,
+                  slots[count].date,
+                  slots[count].start,
+                  slots[count].end,
+                  slots[count].status) == 5) {
+        count++;
+    }
+    fclose(sl);
+
+    // Ask user which slot to edit
+    int slot_index;
+    printf("Enter the slot index to edit: ");
+    scanf("%d", &slot_index);
+
+    int found = 0;
+    for (int i = 0; i < count; i++) {
+        if (slots[i].index == slot_index) {
+            found = 1;
+            printf("Editing slot %d (%s %s-%s, %s)\n",
+                   slots[i].index, slots[i].date,
+                   slots[i].start, slots[i].end, slots[i].status);
+
+            printf("Enter new date (YYYY-MM-DD): ");
+            scanf("%s", slots[i].date);
+
+            printf("Enter new start time (HH:MM): ");
+            scanf("%s", slots[i].start);
+
+            printf("Enter new end time (HH:MM): ");
+            scanf("%s", slots[i].end);
+
+            printf("Enter new status (free/booked): ");
+            scanf("%s", slots[i].status);
+            break;
+        }
+    }
+
+    if (!found) {
+        printf("Slot with index %d not found!\n", slot_index);
+        return;
+    }
+
+    // Rewrite all slots back to file
+    sl = fopen("slots.txt", "w");
+    if (sl == NULL) {
+        printf("Error opening file for writing!\n");
+        return;
+    }
+
+    for (int i = 0; i < count; i++) {
+        fprintf(sl, "%d,%s,%s,%s,%s\n",
+                slots[i].index,
+                slots[i].date,
+                slots[i].start,
+                slots[i].end,
+                slots[i].status);
+    }
+
+    fclose(sl);
+    printf("Slot updated successfully!\n");
+
+    sort_slots();
+}
+
