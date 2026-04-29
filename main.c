@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "bookings.h"
 #include "logins.h"
 #include "utils.h"
 #include <stdlib.h>
@@ -53,17 +54,12 @@ int main(void)
 	user_login_t * logins = NULL;
 	user_login_t * user_ptr = NULL;
 
-	static ValueType args_add[] = {TYPE_INT, TYPE_INT};
-	static ValueType args_make_user[] = {TYPE_STRING, TYPE_STRING};
+	ValueType args_add[] = {TYPE_INT, TYPE_INT};
+	ValueType args_make_user[] = {TYPE_STRING, TYPE_STRING};
 
 	/* COMMAND(function name, alias, permission, argument types) */
-	static command cmd_list[] = {
-    COMMAND_NOARGS(test, "Hello, world!", "Admin", "Hello, world!"),
-		COMMAND(add, "add", "Patient", args_add, "Add two numbers"),
-		COMMAND_NOARGS(meow, "meow", "Doctor", "Meow"),
-		COMMAND_NOARGS(cat, "cat", "Cats", "Placeholder"),
-		COMMAND(make_user, "Register users", "Admin", args_make_user, "First arg is user type, second is username"),
-
+	command cmd_list[] = {
+        COMMAND_NOARGS(doctor_booking_frontend, "Doctor Booking", "Doctor", "Booking options for doctors"),
 	};
 
 	int cmd_list_n = sizeof(cmd_list)/sizeof(command);

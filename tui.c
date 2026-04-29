@@ -76,8 +76,8 @@ void command_select(command_node *head, char *utype, char *username)
     int cmd_list_n;
     command_node* Node;
 
-    Value placeholder[1];
-    placeholder[0] = make_int(0);
+    Value varray_username[1];
+    varray_username[0] = make_string(username);
 
     i = 0;
     Node = head;
@@ -195,11 +195,15 @@ void command_select(command_node *head, char *utype, char *username)
                 {
                     Value * args;
                     int i;
-                    int n = cmd_list[selection].n_of_args;
+                    int n;
+                    cmd_list[selection].n_of_args++;
+                    n = cmd_list[selection].n_of_args;
                     args = malloc(sizeof(Value) * n);
 
+                    args[0] = make_string(username);
 
-                    for(i=0; i<n; i++)
+
+                    for(i=1; i<n; i++)
                     {
                         args[i].type = cmd_list[selection].arg_type[i];
                         printf("Argument %d:\n", i);
@@ -227,12 +231,17 @@ void command_select(command_node *head, char *utype, char *username)
                         printf("\n");
                     }
 
+                    endwin();
                     call(cmd_list[selection], args, cmd_list[selection].n_of_args, utype);
                     free(args);
                     getchar();
 
                 }else
-                    call(cmd_list[selection], placeholder, 1, utype);
+                {
+                    endwin();
+                    call(cmd_list[selection], varray_username, 1, utype);
+
+                }
                 getchar();
                 break;
 
@@ -349,7 +358,7 @@ time_t time_picker(char * pretext, int color_fg, int color_bg, time_t pre_time)
 				endwin();
 				return time;
 
-			default:
+			case KEY_RESIZE:
                 break;
 		}
 
