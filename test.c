@@ -1,7 +1,10 @@
 #include <stdio.h>
-#include "logins.h"
-#include <ncurses.h>
 
+#ifndef _WIN32
+#include <ncurses.h>
+#else
+#include <ncurses/curses.h>
+#endif
 
 
 int main(void)

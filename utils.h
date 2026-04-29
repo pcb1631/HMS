@@ -5,8 +5,12 @@
  * @file utils.h
  * @brief Utility functions, value types, and command parsing.
  */
+#ifndef _WIN32
+    #include <ncurses.h>
+#else
+    #include <ncursesw/curses.h>
+#endif
 
-#include <ncurses.h>
 #include <stdlib.h>
 typedef enum
 {
