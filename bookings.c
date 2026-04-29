@@ -1,42 +1,61 @@
 #include "commands.h"
 #include "utils.h"
 #include "logins.h"
+#include "bookings.h"
+#include "tui.h"
+
+#include <ncurses.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
-#include "bookings.h"
 #define MAX_SLOTS 100
 
-typedef struct {
+typedef struct
+{
     time_t start;
     time_t end;
     char patient[64];
-    char status[10];
     char venue[64];
 } Slot;
+
+void doctor_booking_frontend(Value * list)
+{
+    char username[64];
+    strcpy(username, list[0].data.as_string);
+    add_slot(username);
+}
 
 void add_slot(char * username)
 {
     /*open file in append mode*/
-    char * filepath;
-    FILE *sl = fopen(filepath, "a");
-    if (sl == NULL) {
+    time_t start, end;
+    char venue[64];
+    FILE *sl;
+    char filepath[256];
+    sprintf(filepath, "./users/%s/bookings.csv.txt", username);
+
+
+    sl = fopen(filepath, "a");
+    if (sl == NULL)
+    {
         printf("Error opening file!\n");
         return;
     }
-    char date[20], start[10], end[10];
 
-    printf("Enter date (YYYY-MM-DD): ");
-    scanf("%s", date);
+    erase();
+    time(&start);
+    start = time_picker
+        ("Appointment start time.", COLOR_BLUE, COLOR_BLACK, start);
 
-    printf("Enter start time (HH:MM): ");
-    scanf("%s", start);
+    erase();
+    end = time_picker("Appointment end time", COLOR_BLUE, COLOR_BLACK, start);
 
-    printf("Enter end time (HH:MM): ");
-    scanf("%s", end);
+    printf("Enter venue of appointment\n");
+    fgets(venue, 64, stdin);
+    trim_trailing(venue);
 
-    fprintf(sl, "%d,%s,%s,%s,free\n", index, date, start, end);
+    fprintf(sl, "%ld,%ld,%s,%s\n", start, end, venue, "NULL");
 
     fclose(sl);
     printf("Slot added successfully!\n");
