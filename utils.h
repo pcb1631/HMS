@@ -35,7 +35,7 @@ typedef struct
     union {
         unsigned int	as_bool : 1;
         float			as_float;
-        char 			as_string[128];
+        char			as_string[128];
         int         	as_int;
     } data;
 
@@ -55,7 +55,7 @@ typedef void (*generic_fn)(void);
 typedef struct
 {
     /** The type-erased function pointer. */
-    generic_fn 	ptr;
+generic_fn 	ptr;
 
     char * 		alias;
     char * 		permission;
@@ -78,7 +78,6 @@ struct command_node
 };
 command_node* new_command_node(command f);
 void free_cmd_list(command_node* head);
-
 
 
 /**
@@ -114,6 +113,7 @@ void print_list(Value * list, int n);
  */
 Value call(command f, Value * args, int n_of_args, char * perm);
 int string_trim(char * s);
+void trim_trailing(char *str) ;
 
 #define MAX_CONFIG_ENTRIES 64
 #define MAX_CONFIG_KEY_LEN 64

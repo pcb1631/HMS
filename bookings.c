@@ -1,0 +1,315 @@
+#include "commands.h"
+#include "utils.h"
+#include "logins.h"
+#include "bookings.h"
+#include "tui.h"
+
+#include <ncurses.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <time.h>
+#define MAX_SLOTS 100
+
+typedef struct
+{
+    time_t start;
+    time_t end;
+    char patient[64];
+    char venue[64];
+} Slot;
+
+void doctor_booking_frontend(Value * list)
+{
+    char username[64];
+    strcpy(username, list[0].data.as_string);
+    add_slot(username);
+}
+
+void add_slot(char * username)
+{
+    /*open file in append mode*/
+    time_t start, end;
+    char venue[64];
+    FILE *sl;
+    char filepath[256];
+    sprintf(filepath, "./users/%s/bookings.csv.txt", username);
+
+
+    sl = fopen(filepath, "a");
+    if (sl == NULL)
+    {
+        printf("Error opening file!\n");
+        return;
+    }
+
+    erase();
+    time(&start);
+    start = time_picker
+        ("Appointment start time.", COLOR_BLUE, COLOR_BLACK, start);
+
+    erase();
+    end = time_picker("Appointment end time", COLOR_BLUE, COLOR_BLACK, start);
+
+    printf("Enter venue of appointment\n");
+    fgets(venue, 64, stdin);
+    trim_trailing(venue);
+
+    fprintf(sl, "%ld,%ld,%s,%s\n", start, end, venue, "NULL");
+
+    fclose(sl);
+    printf("Slot added successfully!\n");
+}
+/*
+void patient_booking()
+{
+    int user_input;
+    printf("Select an option: "
+        "\n1. Book slot"
+        "\n2. View booking"
+        "\n3. Reschedule booking"
+        "\n4. Cancel booking");
+    scanf("%d", &user_input);
+
+    switch (user_input)
+    {
+        case 1:
+            patient_booking();
+            break;
+        case 2:
+            patient_view_booking();
+            break;
+        case 3:
+            patient_reschedule();
+            break;
+        case 4:
+            patient_cancel();
+            break;
+        default:
+            printf("Invalid option");
+            break;
+    }
+}
+int compare_slots(const void *a, const void *b) {
+    Slot *slot_a = (Slot *)a;
+    Slot *slot_b = (Slot *)b;
+    return strcmp(slot_a->start, slot_b->start);
+
+    return 0;
+}
+ *
+void sort_slots(){
+    FILE *z = fopen("slots.txt", "r");
+    if (z == NULL) {
+        printf("Error opening file for reading!\n");
+        return;
+    }
+
+    Slot slots[MAX_SLOTS];
+    int count = 0;
+
+    // Read slots from file
+    while (fscanf(z, "%d,%19[^,],%9[^,],%9[^,],%9s",
+                  &slots[count].index,
+                  slots[count].date,
+                  slots[count].start,
+                  slots[count].end,
+                  slots[count].status) == 5) {
+        count++;
+    }
+    fclose(z);
+
+    // Sort slots by start time
+    qsort(slots, count, sizeof(Slot), compare_slots);
+
+    // Rewrite file with new indices
+    z = fopen("slots.txt", "w");
+    if (z == NULL) {
+        printf("Error opening file for writing!\n");
+        return;
+    }
+
+    for (int i = 0; i < count; i++) {
+        fprintf(z, "%d,%s,%s,%s,%s\n",
+                i + 1, slots[i].date, slots[i].start, slots[i].end, slots[i].status);
+    }
+
+    fclose(z);
+    printf("Slots sorted and re-indexed!\n");
+
+    return 0;
+}
+ */
+
+
+
+
+/***  idk what to do for this yet
+
+float patient_booking_selection(int doctorID, char*slotTime, char *status){
+
+    FILE *fp = fopen("slots.txt", "r");
+    FILE *temp = fopen("temp.txt","w");
+    char line[100];
+
+}
+
+*/
+
+
+
+
+/*
+ *
+void generate_slots() {
+    FILE *sl = fopen("slots.txt", "w");
+    if (sl == NULL) {
+        printf("Error opening file!\n");
+        return;
+    }
+
+    time_t now = time(NULL); // Gets the current time in seconds form (epoch)
+    struct tm slot_time = *localtime(&now); // Converts epoch into readable date time format
+
+    int index = 1; // create index for slots
+
+    // Loops through 7 days
+    for (int day = 0; day < 7; day++) {
+        struct tm current_day = slot_time; // Set to the current day
+        current_day.tm_mday += day; // counts the days
+        mktime(&current_day); // converts time to readable format
+
+        // Loop through hours 8 to 17 (8am-5pm)
+        for (int hour = 8; hour <= 17; hour++) {
+            struct tm start = current_day;
+            start.tm_hour = hour;
+            start.tm_min = 0;
+            start.tm_sec = 0;
+
+            struct tm end = start;
+            end.tm_hour = hour + 1; // one hour slot
+            mktime(&end); // normalize format
+
+            char dateStr[20], startStr[10], endStr[10];
+            strftime(dateStr, sizeof(dateStr), "%Y-%m-%d", &start);
+            strftime(startStr, sizeof(startStr), "%H:%M", &start);
+            strftime(endStr, sizeof(endStr), "%H:%M", &end);
+
+
+            //Writes the slot details into slots.txt file
+            fprintf(sl, "%d,%s,%s,%s,free\n",index, dateStr, startStr, endStr);
+            index ++; //incremetal of 1 per slot
+        }
+    }
+
+    fclose(sl);
+    printf("Slots generated for the next 7 days!\n");
+
+    sort_slots();
+}
+ */
+
+
+
+/*
+ *
+void edit_slot() {
+    FILE *sl = fopen("slots.txt", "r");
+    if (sl == NULL) {
+        printf("Error opening file for reading!\n");
+        return;
+    }
+
+    Slot slots[MAX_SLOTS];
+    int count = 0;
+
+    // Load slots into memory
+    while (fscanf(sl, "%d,%19[^,],%9[^,],%9[^,],%9s",
+                  &slots[count].index,
+                  slots[count].date,
+                  slots[count].start,
+                  slots[count].end,
+                  slots[count].status) == 5) {
+        count++;
+    }
+    fclose(sl);
+
+    // Ask user which slot to edit
+    int slot_index;
+    printf("Enter the slot index to edit: ");
+    scanf("%d", &slot_index);
+
+    int found = 0;
+    for (int i = 0; i < count; i++) {
+        if (slots[i].index == slot_index) {
+            found = 1;
+            printf("Editing slot %d (%s %s-%s, %s)\n",
+                   slots[i].index, slots[i].date,
+                   slots[i].start, slots[i].end, slots[i].status);
+
+            printf("Enter new date (YYYY-MM-DD): ");
+            scanf("%s", slots[i].date);
+
+            printf("Enter new start time (HH:MM): ");
+            scanf("%s", slots[i].start);
+
+            printf("Enter new end time (HH:MM): ");
+            scanf("%s", slots[i].end);
+
+            printf("Enter new status (free/booked): ");
+            scanf("%s", slots[i].status);
+            break;
+        }
+    }
+
+    if (!found) {
+        printf("Slot with index %d not found!\n", slot_index);
+        return;
+    }
+
+    // Rewrite all slots back to file
+    sl = fopen("slots.txt", "w");
+    if (sl == NULL) {
+        printf("Error opening file for writing!\n");
+        return;
+    }
+
+    for (int i = 0; i < count; i++) {
+        fprintf(sl, "%d,%s,%s,%s,%s\n",
+                slots[i].index,
+                slots[i].date,
+                slots[i].start,
+                slots[i].end,
+                slots[i].status);
+    }
+
+    fclose(sl);
+    printf("Slot updated successfully!\n");
+
+    sort_slots();
+}
+
+
+void view_slots() {
+    FILE *sl = fopen("slots.txt", "r");
+    if (sl == NULL) {
+        printf("Error opening file for reading!\n");
+        return;
+    }
+
+    Slot slot;
+    printf("\n--- Current Slots ---\n");
+    while (fscanf(sl, "%d,%19[^,],%9[^,],%9[^,],%9s",
+                  &slot.index,
+                  slot.date,
+                  slot.start,
+                  slot.end,
+                  slot.status) == 5) {
+        printf("%d | %s | %s-%s | %s\n",
+               slot.index, slot.date, slot.start, slot.end, slot.status);
+    }
+
+    fclose(sl);
+    printf("----------------------\n");
+}
+ */

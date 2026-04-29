@@ -98,7 +98,7 @@ Value call(command f, Value * args, int n_of_args, char * perm)
 		}
 	}
 
-	return ((Value (*)(Value *, int))f.ptr)(args, n_of_args);
+	return ((Value (*)(Value *))f.ptr)(args);
 }
 
 void cmd_parse(char *str)
@@ -198,6 +198,21 @@ int string_trim(char * s)
         }else {
             return 1;
         }
+}
+
+void trim_trailing(char *str)
+{
+    int len;
+
+    if (str == NULL)
+        return;
+
+    len = strlen(str);
+    while (len > 0 && isspace((unsigned char)str[len - 1]))
+    {
+        len--;
+    }
+    str[len] = '\0';
 }
 
 int parse_config_file(const char *filepath, Config *config)
