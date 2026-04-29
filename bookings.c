@@ -5,18 +5,72 @@
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
+#include "bookings.h"
 #define MAX_SLOTS 100
 
-
 typedef struct {
-    int index;        // slot number
-    char date[20];    // string for date (YYYY-MM-DD)
-    char start[10];   // start time (HH:MM)
-    char end[10];     // end time (HH:MM)
-    char status[10];  // "free" or "booked"
+    time_t start;
+    time_t end;
+    char patient[64];
+    char status[10];
+    char venue[64];
 } Slot;
 
+void add_slot(char * username)
+{
+    /*open file in append mode*/
+    char * filepath;
+    FILE *sl = fopen(filepath, "a");
+    if (sl == NULL) {
+        printf("Error opening file!\n");
+        return;
+    }
+    char date[20], start[10], end[10];
 
+    printf("Enter date (YYYY-MM-DD): ");
+    scanf("%s", date);
+
+    printf("Enter start time (HH:MM): ");
+    scanf("%s", start);
+
+    printf("Enter end time (HH:MM): ");
+    scanf("%s", end);
+
+    fprintf(sl, "%d,%s,%s,%s,free\n", index, date, start, end);
+
+    fclose(sl);
+    printf("Slot added successfully!\n");
+}
+/*
+void patient_booking()
+{
+    int user_input;
+    printf("Select an option: "
+        "\n1. Book slot"
+        "\n2. View booking"
+        "\n3. Reschedule booking"
+        "\n4. Cancel booking");
+    scanf("%d", &user_input);
+
+    switch (user_input)
+    {
+        case 1:
+            patient_booking();
+            break;
+        case 2:
+            patient_view_booking();
+            break;
+        case 3:
+            patient_reschedule();
+            break;
+        case 4:
+            patient_cancel();
+            break;
+        default:
+            printf("Invalid option");
+            break;
+    }
+}
 int compare_slots(const void *a, const void *b) {
     Slot *slot_a = (Slot *)a;
     Slot *slot_b = (Slot *)b;
@@ -24,8 +78,7 @@ int compare_slots(const void *a, const void *b) {
 
     return 0;
 }
-
-
+ *
 void sort_slots(){
     FILE *z = fopen("slots.txt", "r");
     if (z == NULL) {
@@ -67,35 +120,9 @@ void sort_slots(){
 
     return 0;
 }
+ */
 
 
-void patient_booking(){
-
-    int user_input;
-    do{
-        printf("Select an option: "
-            "\n1. Book slot"
-            "\n2. View booking"
-            "\n3. Reschedule booking"
-            "\n4. Cancel booking");
-        scanf("%d", &user_input);
-
-
-        if (user_input == 1){
-            patient_booking_selection();
-        } else if (user_input == 2){
-            patient_view_booking();
-        } else if (user_input == 3){
-        patient_reschedule();
-        } else if (user_input == 4){
-           patient_cancel();
-        } else{
-            printf("Invalid option");
-        }
-     } while(user_input <= 4 && user_input >= 1);
-
-     return 0;
-}
 
 
 /***  idk what to do for this yet
@@ -106,8 +133,6 @@ float patient_booking_selection(int doctorID, char*slotTime, char *status){
     FILE *temp = fopen("temp.txt","w");
     char line[100];
 
-    
-    
 }
 
 */
@@ -115,7 +140,8 @@ float patient_booking_selection(int doctorID, char*slotTime, char *status){
 
 
 
-
+/*
+ *
 void generate_slots() {
     FILE *sl = fopen("slots.txt", "w");
     if (sl == NULL) {
@@ -133,7 +159,7 @@ void generate_slots() {
         struct tm current_day = slot_time; // Set to the current day
         current_day.tm_mday += day; // counts the days
         mktime(&current_day); // converts time to readable format
-        
+
         // Loop through hours 8 to 17 (8am-5pm)
         for (int hour = 8; hour <= 17; hour++) {
             struct tm start = current_day;
@@ -162,40 +188,12 @@ void generate_slots() {
 
     sort_slots();
 }
+ */
 
 
-void add_slot() {
-    FILE *sl = fopen("slots.txt", "a"); // open file in append mode
-    if (sl == NULL) {
-        printf("Error opening file!\n");
-        return;
-    }
 
-    int index;
-    char date[20], start[10], end[10];
-
-    printf("Enter slot index number: ");
-    scanf("%d", &index);
-
-    printf("Enter date (YYYY-MM-DD): ");
-    scanf("%s", date);
-
-    printf("Enter start time (HH:MM): ");
-    scanf("%s", start);
-
-    printf("Enter end time (HH:MM): ");
-    scanf("%s", end);
-
-    // Write slot into file
-    fprintf(sl, "%d,%s,%s,%s,free\n", index, date, start, end);
-
-    fclose(sl);
-    printf("Slot added successfully!\n");
-
-    sort_slots();
-}
-
-
+/*
+ *
 void edit_slot() {
     FILE *sl = fopen("slots.txt", "r");
     if (sl == NULL) {
@@ -295,3 +293,4 @@ void view_slots() {
     fclose(sl);
     printf("----------------------\n");
 }
+ */

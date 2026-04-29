@@ -17,9 +17,10 @@
  * @return Index of the selected option
  */
 #include "utils.h"
-
+#include <time.h>
 int simple_select(int color_foreground, int color_background, int n_of_options, char ** options, char * selection_s, const char * pretext);
 
 void command_select(command_node* head, char * utype, char * username);
 
+time_t time_picker(char * pretext, int color_fg, int color_bg, time_t pre_time);
 #endif

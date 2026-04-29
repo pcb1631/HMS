@@ -1,16 +1,25 @@
+#include "tui.h"
 #include <stdio.h>
-#include "logins.h"
-#include <ncurses.h>
+#include <time.h>
 
-
+#ifdef _WIN32
+    #include <ncurses/curses.h>
+#else
+    #include <ncurses.h>
+#endif
 
 int main(void)
 {
-    initscr();
-    start_color();
-    printf("%d\n", has_colors());
-	printf("%d\n",can_change_color());
-	endwin();
+    time_t t;
+    char buf[80];
+    struct tm * ts;
+    time(&t);
+    t = time_picker("pickme", COLOR_BLUE, COLOR_BLACK, t);
+    ts = localtime(&t);
 
-	return 0;
+
+
+    strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", ts);
+    printf("%s\n", buf);
+    return 0;
 }
