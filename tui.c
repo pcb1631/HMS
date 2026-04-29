@@ -49,10 +49,10 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 		{
 			case KEY_UP:
 			case KEY_LEFT:
-				selection = (selection - 1 % 3 + 3) % 3; break;
+				selection = (selection - 1 % n_of_options + n_of_options) % n_of_options; break;
 			case KEY_DOWN:
 			case KEY_RIGHT:
-				selection = (selection + 1 % 3 + 3) % 3; break;
+				selection = (selection + 1 % n_of_options + n_of_options) % n_of_options; break;
 			case '\n':
 				endwin(); break;
 		}
