@@ -5,8 +5,12 @@
  * @file utils.h
  * @brief Utility functions, value types, and command parsing.
  */
+#ifndef _WIN32
+    #include <ncurses.h>
+#else
+    #include <ncursesw/curses.h>
+#endif
 
-#include <ncurses.h>
 #include <stdlib.h>
 typedef enum
 {
@@ -31,7 +35,7 @@ typedef struct
     union {
         unsigned int	as_bool : 1;
         float			as_float;
-        char 			as_string[128];
+        char			as_string[128];
         int         	as_int;
     } data;
 
@@ -51,7 +55,7 @@ typedef void (*generic_fn)(void);
 typedef struct
 {
     /** The type-erased function pointer. */
-    generic_fn 	ptr;
+generic_fn 	ptr;
 
     char * 		alias;
     char * 		permission;
@@ -74,7 +78,6 @@ struct command_node
 };
 command_node* new_command_node(command f);
 void free_cmd_list(command_node* head);
-
 
 
 /**
