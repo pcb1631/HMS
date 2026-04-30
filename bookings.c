@@ -23,11 +23,12 @@ typedef struct
     char venue[64];
 } Slot;
 
-void doctor_booking_frontend(Value * list)
+Value doctor_booking_frontend(Value * list)
 {
     char username[64];
     strcpy(username, list[0].data.as_string);
     add_slot(username);
+    return make_int(0);
 }
 
 void add_slot(char * username)
@@ -44,6 +45,7 @@ void add_slot(char * username)
     if (sl == NULL)
     {
         printf("Error opening file!\n");
+        printf("%s\n", filepath);
         return;
     }
 

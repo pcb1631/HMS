@@ -3,6 +3,6 @@
 
 #include "utils.h"
 
-void doctor_booking_frontend(Value * list);
+Value doctor_booking_frontend(Value * list);
 void add_slot(char * username);
 #endif
