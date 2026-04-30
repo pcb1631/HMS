@@ -1,10 +1,14 @@
 #include "commands.h"
 #include "utils.h"
-#include "logins.h"
 #include "bookings.h"
 #include "tui.h"
 
-#include <ncurses.h>
+#ifdef _WIN32
+    #include <ncurses/curses.h>
+#else
+    #include <ncurses.h>
+#endif
+
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
