@@ -50,12 +50,14 @@ typedef void (*generic_fn)(void);
 
 
 /**
- * @brief This struct contains information of a function, as our method of calling arbitrary functions are type-erased function pointers.
+ * @brief This struct contains information of a function, as we use manual vtable dispatch for menu
+ *
+ * Not calling the function pointer with correct return and arg types WILL result in undefined behaviour
  */
 typedef struct
 {
     /** The type-erased function pointer. */
-generic_fn 	ptr;
+    generic_fn 	ptr;
 
     char * 		alias;
     char * 		permission;
