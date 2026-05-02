@@ -1,5 +1,4 @@
 #include "commands.h"
-#include "utils.h"
 #include "bookings.h"
 #include "tui.h"
 
@@ -12,16 +11,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <time.h>
 #define MAX_SLOTS 100
 
-typedef struct
-{
-    time_t start;
-    time_t end;
-    char patient[64];
-    char venue[64];
-} Slot;
 
 Value doctor_booking_frontend(Value * list)
 {
