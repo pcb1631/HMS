@@ -12,6 +12,8 @@ typedef struct
     char venue[64];
 }Slot;
 
+
+void view_slots(char * username);
 Value doctor_booking_frontend(Value * list);
 void add_slot(char * username);
 #endif

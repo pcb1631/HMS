@@ -17,8 +17,34 @@
 Value doctor_booking_frontend(Value * list)
 {
     char username[64];
+    int select_d;
+    char select_c[64];
+    char * options[2] =
+    {
+        "Add slot",
+        "View slots"
+    };
     strcpy(username, list[0].data.as_string);
-    add_slot(username);
+
+
+    clear();
+    select_d = simple_select(COLOR_BLUE, COLOR_BLACK, sizeof(options)/sizeof(char *), options, select_c, "Doctor booking options");
+
+    switch (select_d)
+    {
+        case 0:
+        add_slot(username);
+        break;
+
+        case 1:
+        view_slots(username);
+        break;
+
+        default:
+        break;
+    }
+
+
     return make_int(0);
 }
 
@@ -57,6 +83,42 @@ void add_slot(char * username)
     fclose(sl);
     printf("Slot added successfully!\n");
 }
+
+void view_slots(char * username)
+{
+    char readable_start[80];
+    char readable_end[80];
+    struct tm * start_tm;
+    struct tm * end_tm;
+    Slot slot;
+
+    char filepath[256];
+    FILE *sl;
+    sprintf(filepath, "./users/%s/bookings.csv.txt", username);
+    sl = fopen(filepath, "r");
+
+    if (sl == NULL)
+    {
+        printf("Error opening file for reading!\n");
+        return;
+    }
+
+    printf("\n--- Current Slots ---\n\n");
+    while (fscanf(sl, "%ld,%ld,%49[^,],%49s", &slot.start, &slot.end, slot.venue, slot.patient) == 4)
+    {
+        start_tm = localtime(&slot.start);
+        end_tm =   localtime(&slot.end);
+        strftime(readable_start, sizeof(readable_start),"%Y-%m-%d %H:%M:%S", start_tm);
+        strftime(readable_end, sizeof(readable_end),"%Y-%m-%d %H:%M:%S", end_tm);
+        printf("start: %s, end: %s, venue: %s, patient: %s\n\n", readable_start, readable_end, slot.venue, slot.patient);
+    }
+
+
+
+    fclose(sl);
+    printf("----------------------\n");
+}
+
 /*
 void patient_booking()
 {
@@ -287,26 +349,4 @@ void edit_slot() {
 }
 
 
-void view_slots() {
-    FILE *sl = fopen("slots.txt", "r");
-    if (sl == NULL) {
-        printf("Error opening file for reading!\n");
-        return;
-    }
-
-    Slot slot;
-    printf("\n--- Current Slots ---\n");
-    while (fscanf(sl, "%d,%19[^,],%9[^,],%9[^,],%9s",
-                  &slot.index,
-                  slot.date,
-                  slot.start,
-                  slot.end,
-                  slot.status) == 5) {
-        printf("%d | %s | %s-%s | %s\n",
-               slot.index, slot.date, slot.start, slot.end, slot.status);
-    }
-
-    fclose(sl);
-    printf("----------------------\n");
-}
  */
