@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/qin/c programming ass/HMS/test'
+relocations:     []
+...
