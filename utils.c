@@ -294,21 +294,7 @@ void generate_file_structure(const char *role, const char *username)
     char *key;
     int len;
 
-    struct stat st;
-
     sprintf(full_path, "./users/%s/", username);
-    if(stat(full_path, &st) != -1)
-    {
-        if (S_ISDIR(st.st_mode))
-		{
-            fprintf(stderr, "This user currently exists (%s)\n", username);
-		} else
-		{
-    		fprintf(stderr, "This user currently exists (%s) but its not a dir\n", username);
-		}
-        return;
-    }
-
     sprintf(role_header, "%s:", role);
 
     fp = fopen("file_struct.yaml.txt", "r");
@@ -349,6 +335,13 @@ void generate_file_structure(const char *role, const char *username)
                         *end = '\0';
                         sprintf(full_path, start + 1, username);
                         len = strlen(full_path);
+
+                        if (path_exists(full_path))
+                        {
+                            printf("%s exists\n", full_path);
+                            continue;
+                        }
+
                         if (len > 0 && full_path[len-1] == '/')
                         {
                             #ifdef _WIN32
