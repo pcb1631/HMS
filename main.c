@@ -9,7 +9,6 @@
 
 /* file handling */
 #include <sys/stat.h>
-#include <errno.h>
 #ifndef _WIN32
 #include <sys/file.h>
 #endif
@@ -33,7 +32,6 @@
 
 int main(void)
 {
-	struct stat st;
 	char path[256];
 
 	char * pw_file = "./users/creds.txt";
@@ -53,9 +51,6 @@ int main(void)
 	Defined in main because global variables aren't allowed */
 	user_login_t * logins = NULL;
 	user_login_t * user_ptr = NULL;
-
-	ValueType args_add[] = {TYPE_INT, TYPE_INT};
-	ValueType args_make_user[] = {TYPE_STRING, TYPE_STRING};
 
 	/* COMMAND(function name, alias, permission, argument types) */
 	command cmd_list[] = {
@@ -137,52 +132,37 @@ int main(void)
 			strcpy(path, "./users/");
 			strcat(path, current_username);
 
-			if (stat(path, &st) == -1) /* if dir doesn't exist */
+			if (!path_exists(path)) /* if dir doesn't exist */
       		{
-        		if (errno == ENOENT)
+                char * password;
+                /*check if username exists in hashtable*/
+                load_users_from_file(pw_file, &logins);
+                if(lookup_user(current_username, &logins) != NULL)
                 {
-                    char * password;
-                    /*check if username exists in hashtable*/
-                    load_users_from_file(pw_file, &logins);
-                    if(lookup_user(current_username, &logins) != NULL)
-                    {
-                        fprintf(stderr, "This username has been taken (hashtable)\n");
-                        goto reg_get_username;
-                    }
-
-
-                    /* get password, save to hashtable, dealloc string */
-                    reg_get_password:
-                    password = (char*)malloc(sizeof(char)*256);
-                    printf("enter your password\n");
-                    fgets(password, 256, stdin);
-                    if(!string_trim(password))
-                    {
-                        fprintf(stderr, "Password cannot be empty or contain spaces\n");
-                        free(password);
-                        goto reg_get_password;
-                    }
-
-
-                    /* hash the password */
-                    register_user_hashtable(current_username, password, pw_file);
-                }else
-                {
-                    perror("Error checking dir\n");
-                    strcpy(pretext, "Error checking dir");
+                    fprintf(stderr, "This username has been taken (hashtable)\n");
+                    goto reg_get_username;
                 }
+
+
+                /* get password, save to hashtable, dealloc string */
+                reg_get_password:
+                password = (char*)malloc(sizeof(char)*256);
+                printf("enter your password\n");
+                fgets(password, 256, stdin);
+                if(!string_trim(password))
+                {
+                    fprintf(stderr, "Password cannot be empty or contain spaces\n");
+                    free(password);
+                    goto reg_get_password;
+                }
+
+
+                /* hash the password */
+                register_user_hashtable(current_username, password, pw_file);
 		    }
 			else /* if dir exists */
       		{
-				if (S_ISDIR(st.st_mode))
-				{
-                    fprintf(stderr, "This username has been taken (dir exists)\n");
-                    goto reg_get_username;
-				} else
-				{
-					strcpy(pretext, "Path exists, but it's not a dir (please contact admin)");
-					goto main_menu;
-				}
+                fprintf(stderr, "This username has been taken (dir exists)\n");
 		    }
 			generate_file_structure("Patient", current_username);
             sprintf(pretext, "Registered %s as patient, please login again\n", current_username);
