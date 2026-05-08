@@ -15,6 +15,7 @@
 #include <fcntl.h>
 #ifdef _WIN32
 #include <io.h>
+#include <direct.h>
 #else
 #include <unistd.h>
 #endif
@@ -30,11 +31,10 @@
 	#include <wincrypt.h>
 #endif
 
-int main(void)
+int main(int argc, char ** argv)
 {
+    char * pw_file;
 	char path[256];
-
-	char * pw_file = "./users/creds.txt";
 	char * options[3] = {
 		"Login\0",
 		"Register\0",
@@ -59,6 +59,13 @@ int main(void)
 
 	int cmd_list_n = sizeof(cmd_list)/sizeof(command);
 
+	/* in case anyone is stupid enough to run the program by typing the full path */
+	#ifdef _WIN32
+	    _chdir(argv[0]);
+	#else
+        chdir(argv[0]);
+	#endif
+	pw_file = "./users/creds.txt";
 
 
 
