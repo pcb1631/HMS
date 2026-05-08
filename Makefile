@@ -6,6 +6,7 @@ SRCS =	main.c \
 		tui.c \
 		commands.c \
 		bookings.c \
+		globals.c \
        	deps/crypt_blowfish/crypt_blowfish.c \
         deps/crypt_blowfish/crypt_gensalt.c \
         deps/crypt_blowfish/wrapper.c \

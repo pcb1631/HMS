@@ -1,6 +1,7 @@
 #include "commands.h"
 #include "bookings.h"
 #include "tui.h"
+#include "globals.h"
 
 #ifdef _WIN32
     #include <ncurses/curses.h>
@@ -14,7 +15,7 @@
 #define MAX_SLOTS 100
 
 
-Value doctor_booking_frontend(Value * list)
+Value doctor_booking_frontend(void)
 {
     char username[64];
     int select_d;
@@ -24,7 +25,7 @@ Value doctor_booking_frontend(Value * list)
         "Add slot",
         "View slots"
     };
-    strcpy(username, list[0].data.as_string);
+    strcpy(username, current_username);
 
 
     clear();

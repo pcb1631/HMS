@@ -66,7 +66,7 @@ Value call(command f, Value * args, int n_of_args, char * perm)
 	}
 
 	if(f.n_of_args == 0)
-	    return ((Value (*)(Value *, int))f.ptr)(args, n_of_args);
+	    return ((Value (*)(void))f.ptr)();
 
 	if(n_of_args != f.n_of_args && n_of_args != -1)
 	{

@@ -1,1 +1,1 @@
-gcc main.c utils.c logins.c tui.c commands.c bookings.c deps/crypt_blowfish/wrapper.c deps/crypt_blowfish/crypt_blowfish.c deps/crypt_blowfish/crypt_gensalt.c -Ideps/crypt_blowfish -o main.exe -ansi -pedantic -Wextra -Wall -D_WIN32 -lncurses -DNCURSES_STATIC -ladvapi32
+gcc main.c utils.c logins.c tui.c commands.c bookings.c globals.c deps/crypt_blowfish/wrapper.c deps/crypt_blowfish/crypt_blowfish.c deps/crypt_blowfish/crypt_gensalt.c -Ideps/crypt_blowfish -o main.exe -ansi -pedantic -Wextra -Wall -D_WIN32 -lncurses -DNCURSES_STATIC -ladvapi32

@@ -203,14 +203,11 @@ void command_select(command_node *head, char *utype, char *username)
                     Value * args;
                     int i;
                     int n;
-                    cmd_list[selection].n_of_args++;
+
                     n = cmd_list[selection].n_of_args;
                     args = malloc(sizeof(Value) * n);
 
-                    args[0] = make_string(username);
-
-
-                    for(i=1; i<n; i++)
+                    for(i=0; i<n; i++)
                     {
                         args[i].type = cmd_list[selection].arg_type[i];
                         printf("Argument %d:\n", i);
@@ -241,15 +238,14 @@ void command_select(command_node *head, char *utype, char *username)
                     endwin();
                     call(cmd_list[selection], args, cmd_list[selection].n_of_args, utype);
                     free(args);
-                    getchar();
+                    getch();
 
                 }else
                 {
                     endwin();
                     call(cmd_list[selection], varray_username, 1, utype);
-
+                    getch();
                 }
-                getchar();
                 break;
 
             default:

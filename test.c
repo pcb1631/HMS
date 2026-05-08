@@ -11,6 +11,6 @@
 
 int main(int argc, char ** argv)
 {
-    char * username = "doctorwho";
+    char * username = "spoingus";
     generate_file_structure("Doctor", username);
 }

@@ -4,7 +4,7 @@
 #include "utils.h"
 #include <stdlib.h>
 #include <string.h>
-
+#include "globals.h"
 #include "commands.h"
 
 /* file handling */
@@ -31,8 +31,10 @@
 	#include <wincrypt.h>
 #endif
 
+
 int main(int argc, char ** argv)
 {
+    char current_utype[10];
     char * pw_file;
 	char path[256];
 	char * options[3] = {
@@ -43,8 +45,6 @@ int main(int argc, char ** argv)
 	char pretext[128] = "Please select an option";
 	char selection[20] = "";
 
-	char current_username[64];
-	char current_utype[10];
 
 	/*Pass to logins.h functions as a pointer to hash pointer, as per uthash doc
 
@@ -52,9 +52,17 @@ int main(int argc, char ** argv)
 	user_login_t * logins = NULL;
 	user_login_t * user_ptr = NULL;
 
+
+	/* i have 0 clue why const doesnt work
+	 * if i don't define with static, clangd will scream something about aggregate not being a compile time constant
+	 */
+	static ValueType makeuser_args[] = {TYPE_STRING, TYPE_STRING};
+
+
 	/* COMMAND(function name, alias, permission, argument types) */
 	command cmd_list[] = {
         COMMAND_NOARGS(doctor_booking_frontend, "Doctor Booking", "Doctor", "Booking options for doctors"),
+        COMMAND(make_user, "Create account", "Admin", makeuser_args, "Create accounts for patients, doctors, etc"),
 	};
 
 	int cmd_list_n = sizeof(cmd_list)/sizeof(command);

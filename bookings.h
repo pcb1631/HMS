@@ -14,6 +14,6 @@ typedef struct
 
 
 void view_slots(char * username);
-Value doctor_booking_frontend(Value * list);
+Value doctor_booking_frontend(void);
 void add_slot(char * username);
 #endif
