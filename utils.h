@@ -153,6 +153,12 @@ int parse_config_file(const char *filepath, Config *config);
  */
 const char *get_config_value(const Config *config, const char *key);
 
+/**
+ * @brief Checks if a file or directory exists
+ * @param path Path to the file or directory to check
+ * @return 1 if exists, 0 if does not exist
+ */
+int path_exists(const char *path);
 
 #endif
 

@@ -1,6 +1,7 @@
 #include "tui.h"
 #include <stdio.h>
 #include <time.h>
+#include "utils.h"
 
 #ifdef _WIN32
     #include <ncurses/curses.h>
@@ -10,8 +11,6 @@
 
 int main(int argc, char ** argv)
 {
-    int i;
-    for(i=0; i<argc; i++)
-        printf("%s\n", argv[i]);
-    return 0;
+    char * username = "doctorwho";
+    generate_file_structure("Doctor", username);
 }
