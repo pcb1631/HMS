@@ -89,6 +89,13 @@ void command_select(command_node *head, char *utype, char *username)
     }
     cmd_list_n = i;
 
+    if (cmd_list_n == 0)
+    {
+        fprintf(stderr, "Your current usertpye does not have any commands!\n");
+        endwin();
+        exit(0);
+    }
+
     while(1)
     {
         initscr();
