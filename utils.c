@@ -35,19 +35,6 @@ Value add(Value* list)
 	return make_int(list[0].data.as_int + list[1].data.as_int);
 }
 
-Value meow(Value* list)
-{
-	printf("Meow\n");
-
-	return make_int(1);
-}
-
-Value cat(Value * list)
-{
-    printf("ᓚ₍ ^. .^₎\n");
-    return make_int(1);
-}
-
 
 void print_list(Value* list, int n)
 {
