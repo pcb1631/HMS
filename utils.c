@@ -234,9 +234,9 @@ int parse_config_file(const char *filepath, Config *config)
 
         if (eq != NULL)
         {
-            *eq = '\0';
+            *eq = '\0'; /* to mark the end of key */
             key_str = line;
-            val_str = eq + 1;
+            val_str = eq + 1; /* eq is the location of =, therefore the value string is at eq+1 */
 
             string_trim(key_str);
             string_trim(val_str);
@@ -275,10 +275,10 @@ const char *get_config_value(const Config *config, const char *key)
 int path_exists(const char *path)
 {
     struct stat buffer;
-    
+
     if (path == NULL)
         return 0;
-    
+
     return (stat(path, &buffer) == 0);
 }
 
