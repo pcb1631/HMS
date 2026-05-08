@@ -271,7 +271,15 @@ const char *get_config_value(const Config *config, const char *key)
     return NULL;
 }
 
-#include <sys/stat.h>
+int path_exists(const char *path)
+{
+    struct stat buffer;
+    
+    if (path == NULL)
+        return 0;
+    
+    return (stat(path, &buffer) == 0);
+}
 
 void generate_file_structure(const char *role, const char *username)
 {
