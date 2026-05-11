@@ -271,7 +271,7 @@ void generate_slots() {
 
 
 
-
+/*
 void edit_slot() {
     FILE *sl = fopen("slots.txt", "r");
     if (sl == NULL) {
@@ -348,5 +348,5 @@ void edit_slot() {
     sort_slots();
 }
 
-
+*/
  
