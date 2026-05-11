@@ -62,12 +62,17 @@ int main(int argc, char ** argv)
 	/* COMMAND(function name, alias, permission, argument types) */
 	command cmd_list[] = {
         COMMAND_NOARGS(doctor_booking_frontend, "Doctor Booking", "Doctor", "Booking options for doctors"),
+        COMMAND_NOARGS(admin_view_cfg, "View users profile", "Admin", ""),
         COMMAND(make_user, "Create account", "Admin", makeuser_args, "Create accounts for patients, doctors, etc"),
 	};
 
 	int cmd_list_n = sizeof(cmd_list)/sizeof(command);
 
-	/* in case anyone is stupid enough to run the program by typing the full path */
+	/* in case anyone is stupid enough to run the program by typing the full path instead of cding in
+	 * the first argv is always the path used to run main.out;
+		* On windows, it's always the full path
+		* For example on linux, if you run it by doing ./main.out, it will be exactly that. if you run it by /home/username/github/main.out, it will also be that.
+	 */
 	#ifdef _WIN32
 	    _chdir(argv[0]);
 	#else

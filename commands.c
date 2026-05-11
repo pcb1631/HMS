@@ -2,9 +2,17 @@
 #include "utils.h"
 #include "logins.h"
 #include "globals.h"
+#include "tui.h"
+
+#ifdef _WIN32
+    #include <ncursesw/curses.h>
+#else
+    #include <ncurses.h>
+#endif
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+
 
 void test(void)
 {
@@ -61,4 +69,68 @@ Value make_user(Value * list)
 
     generate_file_structure(utype, username);
     return make_int(0);
+}
+
+Value admin_view_cfg(Value * list)
+{
+    const char * allowed[] =
+        {
+            "Doctor",
+            "Nurse"
+        };
+
+    char username[64];
+    user_select_menu(allowed, 2, username);
+    printf("%s\n", username);
+
+    return make_int(0);
+}
+
+void user_select_menu(const char * const * allowed_utypes, int allowed_n, char * selected_username)
+{
+    Config users;
+    char ** options;
+    int options_n = 0;
+    int i;
+    int ii;
+    char utype[20];
+    parse_config_file(PW_FILE, &users);
+
+    options = (char **) malloc(sizeof(char *) * users.count);
+    for(i=0; i<users.count; i++)
+    {
+        options[i] = (char *) malloc(sizeof(char) * 64);
+    }
+
+
+
+    for(i=0; i<users.count; i++)
+    {
+        char * username = users.entries[i].key;
+        strcpy(utype, get_utype(users.entries[i].key));
+
+        for(ii=0; ii<allowed_n; ii++)
+            if(strcmp(utype, allowed_utypes[ii]) == 0)
+            {
+                strcpy(options[options_n], username);
+                options_n++;
+            }
+    }
+
+    clear();
+    simple_select(COLOR_BLUE, COLOR_BLACK, options_n, options, selected_username, "Select a user");
+
+    for(i=0; i<users.count; i++)
+       free(options[i]);
+    free(options);
+}
+
+void view_cfg(const char * username)
+{
+
+}
+
+void edit_cfg(const char * username)
+{
+
 }

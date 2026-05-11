@@ -1,5 +1,6 @@
 /*
- * This file should be used to generate one binary to regenerate user file sturcture, in case you change file_struct.yaml.txt
+ * @file regen_file_structure.c
+ * This file should be used to make one binary to regenerate user file sturcture, in case you change file_struct.yaml.txt
  */
 
 

@@ -1,3 +1,4 @@
 admin=$2b$12$kkZ3BUv.yThkgAyQrYMrdOFiZyPfTDTIZ4H0fqLBUTvRUIkewxxa.
 test=$2b$12$wLKVkLHU7pVGK5VIOTuPkOsvuYHuV4Ai6xE6BfDUsAevlYx0Hj3yy
 doctorwho=$2b$12$RIh/ROfsxQoPEO8lGzVQLedwIyKHBupUL3gv.50U1K.GfyFUcYi66
+drhouse=$2b$12$meZNf/0GWzFAWGC3dx96t./YppGpcU/Chq.EDXE3tpJblzkjZAndm
