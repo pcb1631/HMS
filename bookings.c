@@ -348,5 +348,76 @@ void edit_slot() {
     sort_slots();
 }
 
+
+void delete_slot(char * username){
+
+    Slot slots[MAX_SLOTS];
+    int count;
+    int i;
+    int j;
+    int slot_index;
+    int found;
+
+    FILE *sl;
+    char filepath[256];
+
+    count = 0;
+    found = 0;
+
+    sprintf(filepath, "./users/%s/bookings.csv.txt", username);
+    sl = fopen(filepath, "r");
+    if (sl == NULL){
+        printf("Error opening file for reading!\n");
+        return;
+    }
+
+    while (count < MAX_SLOTS &&
+           fscanf(sl, "%ld,%ld,%49[^,],%49s",
+                  &slots[count].start,
+                  &slots[count].end,
+                  slots[count].venue,
+                  slots[count].patient) == 4)
+    {
+        count ++;
+    }
+
+    fclose(sl);
+    printf("Enter slot number to delete: ");
+    scanf("%d", &slot_index);
+
+    for (i = 0; i < count; i ++){
+        if (i == slot_index){
+            found = 1;
+            for (j = i; j < count - 1; j ++){
+                slots[j] = slots[j + 1];
+            }
+            count --;
+            break;
+        }
+    }
+
+    if (!found){
+        printf("Slot not found!\n");
+        return;
+    }
+
+    sl = fopen(filepath, "w");
+    if (sl == NULL){
+        printf("Error opening file for writing!\n");
+        return;
+    }
+
+    for (i = 0; i < count; i ++){
+        fprintf(sl, "%ld,%ld,%s,%s\n",
+                slots[i].start,
+                slots[i].end,
+                slots[i].venue,
+                slots[i].patient);
+    }
+
+    fclose(sl);
+    printf("Slot deleted successfully!\n");
+}
+
 */
  
