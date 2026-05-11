@@ -73,6 +73,7 @@ Value make_user(Value * list)
 
 Value admin_view_cfg(Value * list)
 {
+    Config user;
     const char * allowed[] =
         {
             "Doctor",
@@ -80,8 +81,19 @@ Value admin_view_cfg(Value * list)
         };
 
     char username[64];
+    char path[64];
+    int i;
     user_select_menu(allowed, 2, username);
-    printf("%s\n", username);
+    sprintf(path, "./users/%s/profile.txt", username);
+    parse_config_file(path, &user);
+
+    printf("\n%s:\n", username);
+    for(i=0; i<user.count; i++)
+    {
+        printf("%s: %s\n", user.entries[i].key, user.entries[i].value);
+    }
+
+
 
     return make_int(0);
 }
