@@ -1,6 +1,3 @@
 admin=$2b$12$kkZ3BUv.yThkgAyQrYMrdOFiZyPfTDTIZ4H0fqLBUTvRUIkewxxa.
 test=$2b$12$wLKVkLHU7pVGK5VIOTuPkOsvuYHuV4Ai6xE6BfDUsAevlYx0Hj3yy
-test123=$2b$12$mZlu7OB2GxHfqES5dOkgcOuWNuV6esAWwkPkXUQqzB6NkfHxqVFxC
-Doctorwho=$2b$12$7J4Ti7cAbDG.4FUZkHKSJOt8ogmKOs65m2k3m1ekBFV1DGOJsTDAW
-doctowho=$2b$12$n9FHTMvn7fG/iik0Trf2GOk7mHEX.M/VshBgomaNEk1XbcRlTZqku
 doctorwho=$2b$12$RIh/ROfsxQoPEO8lGzVQLedwIyKHBupUL3gv.50U1K.GfyFUcYi66

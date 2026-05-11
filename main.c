@@ -199,6 +199,10 @@ int main(int argc, char ** argv)
             {
                 strncpy(current_utype, val, sizeof(current_utype) - 1);
                 current_utype[sizeof(current_utype) - 1] = '\0';
+            }else
+            {
+                fprintf(stderr, "Usertype is empty\n");
+                return 1;
             }
         }
     }
