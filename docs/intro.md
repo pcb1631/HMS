@@ -45,11 +45,10 @@ Use the provided Makefile to compile the project:
 make
 ```
 
-When making changes in files other than main.c:
+When making changes in files other than main.c, delete the binary and run make again:
 ```bash
-make clean
+make clean; make
 ```
-Then run make again.
 
 
   

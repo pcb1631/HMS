@@ -102,6 +102,7 @@ void user_select_menu(const char * const * allowed_utypes, int allowed_n, char *
 {
     Config users;
     char ** options;
+    const char ** options_const;
     int options_n = 0;
     int i;
     int ii;
@@ -129,8 +130,10 @@ void user_select_menu(const char * const * allowed_utypes, int allowed_n, char *
             }
     }
 
+    options_const = (const char **)options;
+
     clear();
-    simple_select(COLOR_BLUE, COLOR_BLACK, options_n, options, selected_username, "Select a user");
+    simple_select(COLOR_BLUE, COLOR_BLACK, options_n, options_const, selected_username, "Select a user");
 
     for(i=0; i<users.count; i++)
        free(options[i]);

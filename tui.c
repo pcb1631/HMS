@@ -1,4 +1,5 @@
-#include "utils.h"
+#include "tui.h"
+#include "globals.h"
 #include <stdio.h>
 #ifndef _WIN32
 	#include <ncurses.h>
@@ -7,10 +8,9 @@
 	#include <ncurses/curses.h>
 #endif
 #include <string.h>
-#include "tui.h"
 #include <time.h>
 
-int simple_select(int color_foreground, int color_background, int n_of_options, char ** options, char * selection_s, const char * pretext)
+int simple_select(int color_foreground, int color_background, int n_of_options, const char * const * options, char * selection_s, const char * pretext)
 {
 	int ch = 0;
 	int i;
@@ -93,7 +93,7 @@ void command_select(command_node *head, char *utype, char *username)
     {
         fprintf(stderr, "Your current usertpye does not have any commands!\n");
         endwin();
-        exit(0);
+        exit(1);
     }
 
     while(1)
@@ -398,4 +398,126 @@ time_t time_picker(char * pretext, int color_fg, int color_bg, time_t pre_time)
 
 	}
 	return time;
+}
+
+int booking_slot_view(Slot * slots, int slots_n, const char * doctor, bool patient)
+{
+    char readable_start[80][128];
+    char readable_end[80][128];
+    int i;
+
+    time_t time;
+    struct tm *time_tm;
+    char buffer[80];
+    char username[64];
+    strcpy(username, current_username);
+
+
+
+    for(i=0; i<slots_n; i++)
+    {
+        time = slots[i].start;
+        time_tm = localtime(&time);
+        strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", time_tm);
+        strcpy(readable_start[i], buffer);
+
+        time = slots[i].end;
+        time_tm = localtime(&time);
+        strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", time_tm);
+        strcpy(readable_end[i], buffer);
+    }
+
+
+
+    {
+       	WINDOW *left_win, *right_win;
+        int selection = 0;
+        int i;
+        int ch = 0;
+        int y_max, x_max;
+        while(1)
+        {
+            initscr();
+            cbreak();
+            noecho();
+            curs_set(0);
+            keypad(stdscr, 1);
+            start_color();
+
+           	init_color(10, 106*(1000/255), 90*(1000/255), 205*(1000/255));
+            init_pair(1, COLOR_WHITE, 10);
+            getmaxyx(stdscr, y_max, x_max);
+
+            left_win = newwin(y_max, x_max/2, 0, 0);
+            box(left_win, 0 ,0);
+            keypad(left_win, 1);
+
+            right_win = newwin(y_max, (x_max/2), 0, (x_max/2));
+
+            mvwprintw(left_win, 0, 0, "%s's appointment slots", doctor);
+
+            for(i=0; i<slots_n; i++)
+            {
+                if(i == selection)
+				wattron(left_win, A_REVERSE);
+
+                mvwprintw(left_win, i+1, 1, "%s %d", "slop", i);
+
+                if(i == selection)
+				wattroff(left_win, A_REVERSE);
+            }
+            wbkgd(left_win, COLOR_PAIR(1));
+            wrefresh(left_win);
+
+            mvwprintw(right_win, 1, 1, "start: %s", readable_start[selection]);
+            mvwprintw(right_win, 2, 1, "end: %s", readable_end[selection]);
+            mvwprintw(right_win, 3, 1, "venue: %s", slots[selection].venue);
+            if(patient)
+            {
+                if(strcmp(slots[selection].patient, username) == 0)
+                    mvwprintw(right_win, 5, 1, "Booked by you");
+
+                else if(strcmp(slots[selection].patient, "NULL") == 0)
+                    mvwprintw(right_win, 5, 1, "Vacant!");
+            }else
+            {
+                mvwprintw(right_win, 5, 1, "%s", slots[selection].patient);
+            }
+
+            wrefresh(right_win);
+
+
+
+            ch = wgetch(left_win);
+
+            switch (ch)
+            {
+                case KEY_LEFT:
+                case KEY_UP:
+                    selection = (selection - 1 % slots_n + slots_n) % slots_n;
+                    break;
+                case KEY_RIGHT:
+                case KEY_DOWN:
+                    selection = (selection + 1 % slots_n + slots_n) % slots_n;
+                    break;
+                case KEY_RESIZE:
+                    break;
+
+                case '\n':
+                    delwin(right_win);
+                    delwin(left_win);
+                    endwin();
+
+                    if(patient)
+                    {
+                        if(strcmp(slots[selection].patient, "NULL") == 0 OR strcmp(slots[selection].patient, username) == 0)
+                            return selection;
+                    }
+                    else
+                        return selection;
+            }
+        }
+
+    }
+
 }

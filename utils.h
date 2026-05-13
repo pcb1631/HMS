@@ -13,6 +13,9 @@
 
 #define PW_FILE "./users/creds.txt"
 
+#define OR ||
+#define AND &&
+
 #include <stdlib.h>
 #include <signal.h>
 typedef enum

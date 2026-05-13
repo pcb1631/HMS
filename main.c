@@ -37,7 +37,7 @@ int main(int argc, char ** argv)
     char current_utype[10];
     char * pw_file;
 	char path[256];
-	char * options[3] = {
+	const char * options[3] = {
 		"Login\0",
 		"Register\0",
 		"Exit\0"
@@ -62,6 +62,8 @@ int main(int argc, char ** argv)
 	/* COMMAND(function name, alias, permission, argument types) */
 	command cmd_list[] = {
         COMMAND_NOARGS(doctor_booking_frontend, "Doctor Booking", "Doctor", "Booking options for doctors"),
+        COMMAND_NOARGS(patient_booking_frontend, "Patient Booking", "Patient", "Booking options for patients"),
+
         COMMAND_NOARGS(admin_view_cfg, "View users profile", "Admin", ""),
         COMMAND(make_user, "Create account", "Admin", makeuser_args, "Create accounts for patients, doctors, etc"),
 	};

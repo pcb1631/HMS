@@ -13,8 +13,9 @@ This will reset the terminal to it's usual state.
 1. Zed Editor terminal
   - RGB is supported, but won't display correctly
   - Will need to prepend \\n to scanf format string, if scanf is used consecutively. Or use fgets so you can trim newlines
-  - debug terminal broken
+  - debug terminal broken, first ncurses menu will not render properly, and window borders won't use the correct char
   - If debugging, SIGINT (CTRL+C) during an ncurses menu will fill up your RAM very quickly 
+  - it works at least 
 2. vscode terminal
   - RGB is supported 
   - Won't render black background
@@ -22,11 +23,14 @@ This will reset the terminal to it's usual state.
   - RGB isn't supported
   - Ugly
 4. Ghostty
-  - Perfect
+  - Good
   - Is available on Linux and MacOS
+  - It might crash if you highlight with your cursor for some reason
 5. kitty
   - Perfect
 6. xterm
   - No
 7. Linux TTY
   - RGB isn't supported
+8. ratty
+  - no
