@@ -52,7 +52,7 @@ Patient:
       last_name:
       blood_type:
       height:
-  - path: "users/%s/payments.txt.csv"
+  - path: "users/%s/payments.csv.txt"
     type: file
 
 
