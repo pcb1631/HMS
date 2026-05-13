@@ -497,7 +497,7 @@ void patient_booking(char * username)
 
     strcpy(slots[slot_index].patient, current_username);
     sl = fopen(filepath, "w");
-    
+
     if (sl == NULL){
         printf("Error opening file for writing!\n");
         return;
@@ -518,10 +518,278 @@ void patient_booking(char * username)
 }
 
 
-void patient_view_booking(char * username);
+void patient_view_booking(char * username){
 
-void patient_reschedule(char * username);
+    FILE *sl;
+    char filepath[256];
+    Slot slot;
+
+    char readable_start[80];
+    char readable_end[80];
+
+    struct tm * start_tm;
+    struct tm * end_tm;
+
+    int found;
+    found = 0;
+
+    sprintf(filepath, "./users/%s/bookings.csv.txt", username);
+    sl = fopen(filepath, "r");
+    if (sl == NULL){
+        printf("Error opening file for reading!\n");
+        return;
+    }
+
+    printf("\n--- Your Bookings ---\n\n");
+    while (fscanf(sl,
+                  "%ld,%ld,%49[^,],%49s",
+                  &slot.start,
+                  &slot.end,
+                  slot.venue,
+                  slot.patient) == 4)
+    {
+        if (strcmp(slot.patient, current_username) == 0){
+            found = 1;
+
+            start_tm = localtime(&slot.start);
+            end_tm   = localtime(&slot.end);
+
+            strftime(readable_start,sizeof(readable_start),"%Y-%m-%d %H:%M",start_tm);
+            strftime(readable_end,sizeof(readable_end),"%Y-%m-%d %H:%M",end_tm);
+
+            printf("Start  : %s\n", readable_start);
+            printf("End    : %s\n", readable_end);
+            printf("Venue  : %s\n\n", slot.venue);
+        }
+    }
+
+    fclose(sl);
+    if (!found){
+        printf("No bookings found!\n");
+    }
+    printf("-------------------------\n");
+
+}
+
+void patient_reschedule(char * username){
+    FILE *sl;
+    char filepath[256];
+    Slot slots[MAX_SLOTS];
+
+    int count;
+    int i;
+    int booking_index;
+    int new_slot_index;
+    int found;
+
+    char readable_start[80];
+    char readable_end[80];
+
+    struct tm * start_tm;
+    struct tm * end_tm;
+
+    count = 0;
+    found = 0;
+
+    sprintf(filepath, "./users/%s/bookings.csv.txt", username);
+    sl = fopen(filepath, "r");
+    if (sl == NULL){
+        printf("Error opening file for reading!\n");
+        return;
+    }
+
+    while (count < MAX_SLOTS &&
+           fscanf(sl,
+                  "%ld,%ld,%49[^,],%49s",
+                  &slots[count].start,
+                  &slots[count].end,
+                  slots[count].venue,
+                  slots[count].patient) == 4)
+    {
+        count ++;
+    }
+
+    fclose(sl);
+    printf("\n--- Your Current Bookings ---\n\n");
+    for (i = 0; i < count; i ++){
+        if (strcmp(slots[i].patient,current_username) == 0){
+            found = 1;
+            start_tm = localtime(&slots[i].start);
+            end_tm   = localtime(&slots[i].end);
+
+            strftime(readable_start,sizeof(readable_start),"%Y-%m-%d %H:%M",start_tm);
+            strftime(readable_end,sizeof(readable_end),"%Y-%m-%d %H:%M",end_tm);
+
+            printf("Booking %d\n", i);
+            printf("Start  : %s\n", readable_start);
+            printf("End    : %s\n", readable_end);
+            printf("Venue  : %s\n\n", slots[i].venue);
+        }
+    }
+
+    if (!found){
+        printf("No bookings found!\n");
+        return;
+    }
+
+    printf("Enter booking number to reschedule: ");
+    scanf("%d", &booking_index);
+    getchar();
+
+    if (booking_index < 0 || booking_index >= count){
+        printf("Invalid booking number!\n");
+        return;
+    }
+
+    if (strcmp(slots[booking_index].patient,current_username) != 0){
+        printf("This booking does not belong to you!\n");
+        return;
+    }
+
+    printf("\n--- Available Slots ---\n\n");
+    for (i = 0; i < count; i ++){
+        if (strcmp(slots[i].patient, "NULL") == 0){
+            start_tm = localtime(&slots[i].start);
+            end_tm   = localtime(&slots[i].end);
+
+            strftime(readable_start,sizeof(readable_start),"%Y-%m-%d %H:%M",start_tm);
+            strftime(readable_end,sizeof(readable_end),"%Y-%m-%d %H:%M",end_tm);
+
+            printf("Slot %d\n", i);
+            printf("Start  : %s\n", readable_start);
+            printf("End    : %s\n", readable_end);
+            printf("Venue  : %s\n\n", slots[i].venue);
+        }
+    }
+
+    printf("Enter new slot number: ");
+    scanf("%d", &new_slot_index);
+    getchar();
+
+    if (new_slot_index < 0 || new_slot_index >= count){
+        printf("Invalid slot number!\n");
+        return;
+    }
+
+    if (strcmp(slots[new_slot_index].patient, "NULL") != 0){
+        printf("Slot already booked!\n");
+        return;
+    }
+
+    strcpy(slots[new_slot_index].patient, current_username);
+    strcpy(slots[booking_index].patient, "NULL");
+    sl = fopen(filepath, "w");
+
+    if (sl == NULL){
+        printf("Error opening file for writing!\n");
+        return;
+    }
+
+    for (i = 0; i < count; i ++){
+        fprintf(sl,
+                "%ld,%ld,%s,%s\n",
+                slots[i].start,
+                slots[i].end,
+                slots[i].venue,
+                slots[i].patient);
+    }
+
+    fclose(sl);
+    printf("Booking rescheduled successfully!\n");
+}
 
 
-void patient_cancel(char * username);
+void patient_cancel(char * username){
+    FILE *sl;
+    char filepath[256];
+    Slot slots[MAX_SLOTS];
+
+    int count;
+    int i;
+    int booking_index;
+    int found;
+
+    char readable_start[80];
+    char readable_end[80];
+
+    struct tm * start_tm;
+    struct tm * end_tm;
+
+    count = 0;
+    found = 0;
+
+    sprintf(filepath, "./users/%s/bookings.csv.txt", username);
+    sl = fopen(filepath, "r");
+    if (sl == NULL){
+        printf("Error opening file for reading!\n");
+        return;
+    }
+
+    while (count < MAX_SLOTS &&
+           fscanf(sl,
+                  "%ld,%ld,%49[^,],%49s",
+                  &slots[count].start,
+                  &slots[count].end,
+                  slots[count].venue,
+                  slots[count].patient) == 4)
+    {
+        count ++;
+    }
+
+    fclose(sl);
+    printf("\n--- Your Current Bookings ---\n\n");
+    for (i = 0; i < count; i ++){
+        if (strcmp(slots[i].patient,current_username) == 0){
+            found = 1;
+            start_tm = localtime(&slots[i].start);
+            end_tm   = localtime(&slots[i].end);
+
+            strftime(readable_start,sizeof(readable_start),"%Y-%m-%d %H:%M",start_tm);
+            strftime(readable_end,sizeof(readable_end),"%Y-%m-%d %H:%M",end_tm);
+
+            printf("Booking %d\n", i);
+            printf("Start  : %s\n", readable_start);
+            printf("End    : %s\n", readable_end);
+            printf("Venue  : %s\n\n", slots[i].venue);
+        }
+    }
+
+    if (!found){
+        printf("No bookings found!\n");
+        return;
+    }
+
+    printf("Enter booking number to cancel: ");
+    scanf("%d", &booking_index);
+    getchar();
+
+    if (booking_index < 0 || booking_index >= count){
+        printf("Invalid booking number!\n");
+        return;
+    }
+
+    if (strcmp(slots[booking_index].patient, current_username) != 0){
+        printf("This booking does not belong to you!\n");
+        return;
+    }
+
+    strcpy(slots[booking_index].patient,"NULL");
+    sl = fopen(filepath, "w");
+    if (sl == NULL){
+        printf("Error opening file for writing!\n");
+        return;
+    }
+
+    for (i = 0; i < count; i ++){
+        fprintf(sl,
+                "%ld,%ld,%s,%s\n",
+                slots[i].start,
+                slots[i].end,
+                slots[i].venue,
+                slots[i].patient);
+    }
+
+    fclose(sl);
+    printf("Booking cancelled successfully!\n");
+}
 
