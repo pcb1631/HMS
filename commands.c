@@ -81,7 +81,7 @@ Value admin_view_cfg(Value * list)
         };
 
     char username[64];
-    char path[64];
+    char path[128];
     int i;
     user_select_menu(allowed, 2, username);
     sprintf(path, "./users/%s/profile.txt", username);
