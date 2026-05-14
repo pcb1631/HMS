@@ -52,6 +52,10 @@ Patient:
       last_name:
       blood_type:
       height:
+  - path: "users/%s/payments.csv.txt"
+    type: file
+
+
 
 Nurse:
   - path: "users/%s/"

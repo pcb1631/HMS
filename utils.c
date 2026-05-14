@@ -413,3 +413,23 @@ void free_cmd_list(command_node* head)
         free(temp);
     }
 }
+
+const char * get_utype(const char * username)
+{
+    Config user;
+    char path[64] = "";
+    sprintf(path, "./users/%s/profile.txt", username);
+
+    if(parse_config_file(path, &user) == -1)
+    {
+        fprintf(stderr, "Config file is empty or doesn't exist: %s\n", username);
+        return "";
+    }
+
+    return get_config_value(&user, "USERTYPE");
+}
+
+
+void handle_sigint(int sig)
+{
+}

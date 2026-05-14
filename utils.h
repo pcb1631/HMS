@@ -11,7 +11,13 @@
     #include <ncursesw/curses.h>
 #endif
 
+#define PW_FILE "./users/creds.txt"
+
+#define OR ||
+#define AND &&
+
 #include <stdlib.h>
+#include <signal.h>
 typedef enum
 {
     TYPE_INT,
@@ -131,6 +137,8 @@ typedef struct {
 
 /**
  * @brief Configuration structure holding multiple entries
+ * Used for any file with key=value format
+ * You can access a specific entry by doing x.entries[i].key or .value
  */
 typedef struct {
     ConfigEntry entries[MAX_CONFIG_ENTRIES];
@@ -166,3 +174,6 @@ int path_exists(const char *path);
  * @brief Parses file_struct.yaml.txt and generates files/directories for a user
  */
 void generate_file_structure(const char *role, const char *username);
+void handle_sigint(int sig);
+
+const char * get_utype(const char * username);
