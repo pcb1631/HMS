@@ -1,0 +1,68 @@
+Admin:
+  - path: "users/%s/"
+    type: directory
+  - path: "users/%s/prefs.txt"
+    type: file
+    content:
+      TUI:
+
+Director:
+  - path: "users/%s/"
+    type: directory
+  - path: "users/%s/prefs.txt"
+    type: file
+    content:
+      TUI:
+
+Doctor:
+  - path: "users/%s/"
+    type: directory
+  - path: "users/%s/bookings.csv.txt"
+    type: file
+  - path: "users/%s/prefs.txt"
+    type: file
+    content:
+      TUI:
+  - path: "users/%s/profile.txt"
+    type: file
+    content:
+      USERTYPE: Doctor
+      first_name:
+      middle_name:
+      last_name:
+      blood_type:
+      height:
+
+Patient:
+  - path: "users/%s/"
+    type: directory
+  - path: "users/%s/diag_report/"
+  - path: "users/%s/notes/"
+    type: directory
+  - path: "users/%s/prefs.txt"
+    type: file
+    content:
+      TUI:
+  - path: "users/%s/profile.txt"
+    type: file
+    content:
+      USERTYPE: Patient
+      first_name:
+      middle_name:
+      last_name:
+      blood_type:
+      height:
+
+Nurse:
+  - path: "users/%s/"
+    type: directory
+  - path: "users/%s/prefs.txt"
+    type: file
+    content:
+      TUI:
+  - path: "users/%s/profile.txt"
+    type: file
+    content:
+      USERTYPE: Nurse
+      first_name:
+      last_name:

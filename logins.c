@@ -1,6 +1,3 @@
-/*
- * Ideally, I would run a server that accepts requests for lookup, add, and delete to prevent race condition. But that is outside the scope of the project.
- */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -29,7 +26,6 @@ void add_user(const char *username, const char *password, user_login_t **logins)
     s->password[MAX_PASSWORD_LEN - 1] = '\0';
 }
 
-/*returns pointer to login data if found, else returns NULL. */
 user_login_t *lookup_user(const char *username, user_login_t **logins)
 {
     user_login_t *s;
@@ -113,88 +109,6 @@ void free_all_users(user_login_t **logins)
     }
 }
 
-void build_patient(const char *username)
-{
-    char path[256];
-    char command[512];
-    FILE *fp;
-
-    /* Check if user directory already exists */
-    sprintf(path, "./users/%s", username);
-
-    /* Create user directory */
-    sprintf(command, "mkdir -p ./users/%s", username);
-    system(command);
-
-    /* Create profile.txt */
-    sprintf(path, "./users/%s/profile.txt", username);
-    fp = fopen(path, "w");
-    if (fp != NULL) {
-        fprintf(fp, "USERTYPE=Patient\n");
-        fprintf(fp, "first_name=\n");
-        fprintf(fp, "middle_name=\n");
-        fprintf(fp, "last_name=\n");
-        fprintf(fp, "blood_type=\n");
-        fprintf(fp, "height=\n");
-        fprintf(fp, "birth=\n");
-        fclose(fp);
-    }
-
-    /* Create prefs.txt */
-    sprintf(path, "./users/%s/prefs.txt", username);
-    fp = fopen(path, "w");
-    if (fp != NULL) {
-        fclose(fp);
-    }
-
-    /* Create diag_report directory */
-    sprintf(command, "mkdir -p ./users/%s/diag_report", username);
-    system(command);
-
-    /* Create notes directory */
-    sprintf(command, "mkdir -p ./users/%s/notes", username);
-    system(command);
-}
-
-void build_doctor(const char *username)
-{
-    char path[256];
-    char command[512];
-    FILE *fp;
-
-    /* Check if user directory already exists */
-    sprintf(path, "./users/%s", username);
-
-    /* Create user directory */
-    sprintf(command, "mkdir -p ./users/%s", username);
-    system(command);
-
-    /* Create profile.txt */
-    sprintf(path, "./users/%s/profile.txt", username);
-    fp = fopen(path, "w");
-    if (fp != NULL) {
-        fprintf(fp, "USERTYPE=Doctor\n");
-        fprintf(fp, "first_name=\n");
-        fprintf(fp, "middle_name=\n");
-        fprintf(fp, "last_name=\n");
-        fprintf(fp, "birth=\n");
-        fclose(fp);
-    }
-
-    /* Create prefs.txt */
-    sprintf(path, "./users/%s/prefs.txt", username);
-    fp = fopen(path, "w");
-    if (fp != NULL) {
-        fclose(fp);
-    }
-
-    /* Create bookings.csv.txt */
-    sprintf(path, "./users/%s/bookings.csv.txt", username);
-    fp = fopen(path, "w");
-    if (fp != NULL) {
-        fclose(fp);
-    }
-}
 
 #define SALT_BUF   32
 #define HASH_BUF   64
@@ -224,4 +138,70 @@ int verify_password(const char *password, const char *stored_hash) {
         return -1;
 
     return strcmp(result, stored_hash) == 0 ? 1 : 0;
+}
+
+#include <sys/stat.h>
+#ifndef _WIN32
+#include <sys/file.h>
+#endif
+#include <fcntl.h>
+#ifdef _WIN32
+#include <io.h>
+#else
+#include <unistd.h>
+#endif
+int register_user_hashtable(const char *current_username, char *password, const char *pw_file)
+{
+    char *hash;
+    int pw_fd;
+    user_login_t *logins = NULL;
+
+    /* hash the password */
+    hash = (char*)malloc(256 * sizeof(char));
+
+    if(hash_password(password, hash) == -1)
+    {
+        free(hash);
+        fprintf(stderr, "Failed to hash password\n");
+        return 1;
+    }
+
+    logins = NULL;
+
+    pw_fd = open(pw_file, O_RDWR | O_CREAT, 0666);
+    if (pw_fd != -1)
+    {
+        #ifdef _WIN32
+
+            HANDLE hFile = (HANDLE)_get_osfhandle(pw_fd);
+            LockFile(hFile, 0, 0, 0xFFFFFFFF, 0xFFFFFFFF);
+
+        #else
+
+            flock(pw_fd, LOCK_EX);
+
+        #endif
+    }
+
+    load_users_from_file(pw_file, &logins);
+    add_user(current_username, hash, &logins);
+    save_users_to_file(pw_file, &logins);
+
+    if (pw_fd != -1)
+    {
+        #ifdef _WIN32
+            HANDLE hFile = (HANDLE)_get_osfhandle(pw_fd);
+            UnlockFile(hFile, 0, 0, 0xFFFFFFFF, 0xFFFFFFFF);
+        #else
+            flock(pw_fd, LOCK_UN);
+        #endif
+
+        close(pw_fd);
+    }
+
+
+    free(password);
+    free(hash);
+
+    return 0;
 }

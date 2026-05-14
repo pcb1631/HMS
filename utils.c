@@ -3,28 +3,40 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <sys/stat.h>
 
 
-Value make_int(int x)          	{ Value v; v.type = TYPE_INT;    v.data.as_int    = x; return v; }
-Value make_float(float x)      	{ Value v; v.type = TYPE_FLOAT;  v.data.as_float  = x; return v; }
-Value make_string(char * s)		{ Value v; v.type = TYPE_STRING; v.data.as_string = s; return v; }
+Value make_int(int x)
+{
+    Value v;
+    v.type = TYPE_INT;
+    v.data.as_int = x;
+    return v;
+}
+Value make_float(float x)
+{
+    Value v;
+    v.type = TYPE_FLOAT;
+    v.data.as_float = x;
+    return v;
+}
+Value make_string(char * s)
+{
+    Value v;
+    v.type = TYPE_STRING;
+    strcpy(v.data.as_string, s);
+    return v;
+}
 
 
-/* Example usage of "Value" array (1)*/
 Value add(Value* list)
 {
+    printf("Result: %d", list[0].data.as_int + list[1].data.as_int);
+    getchar();
 	return make_int(list[0].data.as_int + list[1].data.as_int);
 }
 
-Value meow(Value* list)
-{
-	printf("Meow\n");
 
-	return make_int(1);
-}
-
-
-/* Example usage of "Value" array (2) */
 void print_list(Value* list, int n)
 {
 	int i;
@@ -42,17 +54,19 @@ void print_list(Value* list, int n)
 }
 
 
-/* Call arbitrary function */
 Value call(command f, Value * args, int n_of_args, char * perm)
 {
 	int i;
 	Value err = make_int(0);
 
-	if(perm != f.permission)
+	if(strcmp(perm, f.permission) != 0)
 	{
 		fprintf(stderr, "Permission denied (current user perm: %s, command perm: %s)\n", perm, f.permission);
 		return err;
 	}
+
+	if(f.n_of_args == 0)
+	    return ((Value (*)(void))f.ptr)();
 
 	if(n_of_args != f.n_of_args && n_of_args != -1)
 	{
@@ -63,6 +77,8 @@ Value call(command f, Value * args, int n_of_args, char * perm)
 	/* Check types */
 	for(i=0; i<n_of_args; i++)
 	{
+	    if(f.arg_type[i] == TYPE_VOID)
+			break;
 		if(f.arg_type[i] != args[i].type)
 		{
 			fprintf(stderr, "argument %d type mismatch for command %s\n", i, f.alias);
@@ -70,7 +86,7 @@ Value call(command f, Value * args, int n_of_args, char * perm)
 		}
 	}
 
-	return ((Value (*)(Value *, int))f.ptr)(args, n_of_args);
+	return ((Value (*)(Value *))f.ptr)(args);
 }
 
 void cmd_parse(char *str)
@@ -170,4 +186,230 @@ int string_trim(char * s)
         }else {
             return 1;
         }
+}
+
+void trim_trailing(char *str)
+{
+    int len;
+
+    if (str == NULL)
+        return;
+
+    len = strlen(str);
+    while (len > 0 && isspace((unsigned char)str[len - 1]))
+    {
+        len--;
+    }
+    str[len] = '\0';
+}
+
+int parse_config_file(const char *filepath, Config *config)
+{
+    FILE *fp;
+    char line[512];
+    char *eq;
+    char *key_str;
+    char *val_str;
+
+    if (config == NULL)
+    {
+        return -1;
+    }
+
+    config->count = 0;
+
+    fp = fopen(filepath, "r");
+    if (fp == NULL)
+    {
+        return -1;
+    }
+
+    while (fgets(line, sizeof(line), fp))
+    {
+        eq = strchr(line, '=');
+        if (eq == NULL)
+        {
+            eq = strchr(line, ':'); /* Fallback to colon if used as delimiter */
+        }
+
+        if (eq != NULL)
+        {
+            *eq = '\0'; /* to mark the end of key */
+            key_str = line;
+            val_str = eq + 1; /* eq is the location of =, therefore the value string is at eq+1 */
+
+            string_trim(key_str);
+            string_trim(val_str);
+
+            strncpy(config->entries[config->count].key, key_str, MAX_CONFIG_KEY_LEN - 1);
+            config->entries[config->count].key[MAX_CONFIG_KEY_LEN - 1] = '\0';
+
+            strncpy(config->entries[config->count].value, val_str, MAX_CONFIG_VAL_LEN - 1);
+            config->entries[config->count].value[MAX_CONFIG_VAL_LEN - 1] = '\0';
+
+            config->count++;
+            if (config->count >= MAX_CONFIG_ENTRIES)
+            {
+                break;
+            }
+        }
+    }
+
+    fclose(fp);
+    return 0;
+}
+
+const char *get_config_value(const Config *config, const char *key)
+{
+    int i;
+    if (config == NULL || key == NULL) return NULL;
+
+    for (i = 0; i < config->count; i++) {
+        if (strcmp(config->entries[i].key, key) == 0) {
+            return config->entries[i].value;
+        }
+    }
+    return NULL;
+}
+
+int path_exists(const char *path)
+{
+    struct stat buffer;
+
+    if (path == NULL)
+        return 0;
+
+    return (stat(path, &buffer) == 0);
+}
+
+void generate_file_structure(const char *role, const char *username)
+{
+    FILE *fp;
+    char line[512];
+    int in_role = 0;
+    char full_path[512];
+    char role_header[128];
+    FILE *out_fp = NULL;
+    char *start;
+    char *end;
+    char *key;
+    int len;
+
+    sprintf(full_path, "./users/%s/", username);
+    sprintf(role_header, "%s:", role);
+
+    fp = fopen("file_struct.yaml.txt", "r");
+    if (!fp) return;
+
+    while (fgets(line, sizeof(line), fp))
+    {
+        if (line[0] != ' ' && line[0] != '\n' && line[0] != '\r')
+        {
+            if (strncmp(line, role_header, strlen(role_header)) == 0)
+                in_role = 1;
+            else
+                in_role = 0;
+
+            if (out_fp)
+            {
+                fclose(out_fp);
+                out_fp = NULL;
+            }
+            continue;
+        }
+
+        if (in_role)
+        {
+            if (strstr(line, "- path:"))
+            {
+                if (out_fp)
+                {
+                    fclose(out_fp);
+                    out_fp = NULL;
+                }
+                start = strchr(line, '"');
+                if (start)
+                {
+                    end = strchr(start + 1, '"');
+                    if (end)
+                    {
+                        *end = '\0';
+                        sprintf(full_path, start + 1, username);
+                        len = strlen(full_path);
+
+                        if (path_exists(full_path))
+                        {
+                            printf("%s exists\n", full_path);
+                            continue;
+                        }
+
+                        if (len > 0 && full_path[len-1] == '/')
+                        {
+                            #ifdef _WIN32
+                            mkdir(full_path);
+
+                            #else
+                            mkdir(full_path, 0755);
+
+                            #endif
+                        }
+                        else
+                        {
+                            out_fp = fopen(full_path, "w");
+                        }
+                    }
+                }
+            }
+            else if (strstr(line, "type: directory"))
+            {
+                /* Handled by trailing slash */
+            }
+            else if (strstr(line, "type: file") || strstr(line, "content:"))
+            {
+                /* Skip */
+            }
+            else if (out_fp && strstr(line, ":"))
+            {
+                key = line;
+                while (*key == ' ') key++;
+                if (*key != '\n' && *key != '\r' && *key != '\0')
+                {
+                    fputs(key, out_fp);
+                }
+            }
+        }
+    }
+
+    if (out_fp)
+    {
+        fclose(out_fp);
+    }
+
+    fclose(fp);
+    printf("OK\n");
+}
+
+command_node* new_command_node(command f)
+{
+    command_node* node = (command_node*)malloc(sizeof(command_node));
+    if (node == NULL)
+    {
+        fprintf(stderr, "Failed to allocate command node\n");
+        exit(1);
+    }
+
+    node->f=f;
+    node->next=NULL;
+    return node;
+}
+
+void free_cmd_list(command_node* head)
+{
+    command_node* temp;
+    while(head != NULL)
+    {
+        temp = head;
+        head = temp->next;
+        free(temp);
+    }
 }

@@ -1,10 +1,16 @@
-\#include <stdio.h>
-#include "logins.h"
+#include "tui.h"
+#include <stdio.h>
+#include <time.h>
+#include "utils.h"
 
-int main(void)
+#ifdef _WIN32
+    #include <ncurses/curses.h>
+#else
+    #include <ncurses.h>
+#endif
+
+int main(int argc, char ** argv)
 {
-	if(-1)
-		printf("hoyyy\n");
-	
-	return 0;
+    char * username = "spoingus";
+    generate_file_structure("Doctor", username);
 }
