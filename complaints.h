@@ -4,3 +4,4 @@
 
 void viewComplaints(void);
 void searchComplaint(const char *searchID);
+#endif

@@ -21,3 +21,4 @@ typedef struct {
     float amount;
     char status[MAX_TYPE];
 } Payment;
+#endif
