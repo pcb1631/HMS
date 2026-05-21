@@ -81,17 +81,12 @@ Value admin_view_cfg(Value * list)
 
     char username[64];
     char path[128];
-    int i;
     user_select_menu(allowed, 2, username);
     sprintf(path, "./users/%s/profile.txt", username);
     parse_config_file(path, &user);
 
     printf("\n%s:\n", username);
-    for(i=0; i<user.count; i++)
-    {
-        printf("%s: %s\n", user.entries[i].key, user.entries[i].value);
-    }
-
+    print_cfg(user);
 
 
     return make_int(0);
@@ -139,12 +134,9 @@ void user_select_menu(const char * const * allowed_utypes, int allowed_n, char *
     free(options);
 }
 
-void view_cfg(const char * username)
+void print_cfg(Config cfg)
 {
-
-}
-
-void edit_cfg(const char * username)
-{
-
+    int i;
+    for(i=0; i<cfg.count; i++)
+        printf("%s: %s", cfg.entries[i].key, cfg.entries[i].value);
 }
