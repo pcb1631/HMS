@@ -81,7 +81,7 @@ int main(int argc, char ** argv)
         chdir(argv[0]);
 	#endif
 	pw_file = "./users/creds.txt";
-
+	printf("%d", argc); /* annoying warning */
 
 
 	main_menu:
