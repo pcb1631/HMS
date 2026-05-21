@@ -17,11 +17,4 @@ typedef struct {
     char description[MAX_TEXT];
 } Complaint;
 
-typedef struct {
-    char patientID[MAX_ID];
-    char paymentID[MAX_ID];
-    char date[MAX_DATE];
-    float amount;
-    char status[MAX_TYPE];
-} Payment;
 #endif

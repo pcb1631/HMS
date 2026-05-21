@@ -1,12 +1,12 @@
 CC = gcc
 
 SRCS =	main.c \
-		utils.c \
-		logins.c \
-		tui.c \
-		commands.c \
-		bookings.c \
-		globals.c \
+		utils/utils.c \
+		utils/logins.c \
+		utils/tui.c \
+		user_commands/commands.c \
+		user_commands/bookings.c \
+		utils/globals.c \
        	deps/crypt_blowfish/crypt_blowfish.c \
         deps/crypt_blowfish/crypt_gensalt.c \
         deps/crypt_blowfish/wrapper.c \
