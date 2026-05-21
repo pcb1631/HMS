@@ -1,7 +1,6 @@
 #include "commands.h"
 #include "utils.h"
 #include "logins.h"
-#include "globals.h"
 #include "tui.h"
 
 #ifdef _WIN32

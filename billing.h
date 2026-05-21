@@ -4,3 +4,4 @@
 
 void performPayment(const char *patientID);
 void viewPaymentHistory(const char *patientID);
+#endif
