@@ -11,7 +11,7 @@
 #ifndef LOGINS_H
 #define LOGINS_H
 
-#include "uthash.h"
+#include "../uthash.h"
 
 #define MAX_USERNAME_LEN 64
 #define MAX_PASSWORD_LEN 64

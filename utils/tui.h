@@ -17,7 +17,7 @@
  * @return Index of the selected option
  */
 #include "utils.h"
-#include "bookings.h"
+#include "../user_commands/bookings.h"
 #include <time.h>
 int simple_select(int color_foreground, int color_background, int n_of_options, const char * const * options, char * selection_s, const char * pretext);
 

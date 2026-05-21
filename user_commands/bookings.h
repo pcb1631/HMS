@@ -1,7 +1,7 @@
 #ifndef BOOKINGS_H
 #define BOOKINGS_H
 
-#include "utils.h"
+#include "../utils/utils.h"
 #include <time.h>
 
 typedef struct

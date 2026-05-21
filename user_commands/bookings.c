@@ -1,7 +1,7 @@
 #include "commands.h"
 #include "bookings.h"
-#include "tui.h"
-#include "globals.h"
+#include "../utils/tui.h"
+#include "../utils/globals.h"
 
 #ifdef _WIN32
     #include <ncurses/curses.h>

@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "logins.h"
-#include "deps/crypt_blowfish/ow-crypt.h"
-#include "deps/crypt_blowfish/crypt_blowfish.h"
+#include "../deps/crypt_blowfish/ow-crypt.h"
+#include "../deps/crypt_blowfish/crypt_blowfish.h"
 #include "platform_random.h"
 
 

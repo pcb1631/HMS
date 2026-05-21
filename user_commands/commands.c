@@ -1,7 +1,7 @@
 #include "commands.h"
-#include "utils.h"
-#include "logins.h"
-#include "tui.h"
+#include "../utils/utils.h"
+#include "../utils/logins.h"
+#include "../utils/tui.h"
 
 #ifdef _WIN32
     #include <ncursesw/curses.h>

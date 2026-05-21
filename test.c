@@ -1,7 +1,4 @@
-#include "tui.h"
-#include <stdio.h>
-#include <time.h>
-#include "utils.h"
+#include "utils/utils.h"
 
 #ifdef _WIN32
     #include <ncurses/curses.h>
