@@ -62,3 +62,6 @@ Then, use the Makefile to compile:
 ```bash
 ./make
 ```
+
+TODO: Add subpages in usage.md on how to use TUI. Command TUI, simple TUI, and time tui
+
