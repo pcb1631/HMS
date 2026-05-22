@@ -3,3 +3,4 @@
 *.o
 doxygen/*
 .vscode/settings.json
+*.dSYM/
