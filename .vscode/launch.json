@@ -2,24 +2,52 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug main (GCC)",
+            "name": "Debug main (macOS, LLDB DAP)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.out",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "Build with Makefile",
+            "env": 
+            {
+                "TERM": "xterm-256color"
+            },
+            "terminal": "integrated"
+        },
+        {
+            "name": "Debug main (Linux)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/main.exe",
-            "linux": {
-                "program": "${workspaceFolder}/main.out",
-            },
-            "windows": {
-                "program": "${workspaceFolder}/main.exe",
-                "MIMode": "gdb",
-                "miDebuggerPath": "C:/msys64/ucrt64/bin/gdb.exe"
-            },
+            "program": "${workspaceFolder}/main.out",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
-            "preLaunchTask": "Build main (GCC)"
+            "preLaunchTask": "Build with Makefile",
+            "linux": {
+                "program": "${workspaceFolder}/main.out",
+                "MIMode": "gdb",
+                "miDebuggerPath": "/usr/bin/gdb"
+            }
+        },
+        {
+            "name": "Debug main (Windows)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "preLaunchTask": "Build with Makefile",
+            "windows": {
+                "program": "${workspaceFolder}/main.exe",
+                "MIMode": "gdb",
+                "miDebuggerPath": "C:/msys64/ucrt64/bin/gdb.exe"
+            }
         }
     ]
 }
