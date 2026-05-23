@@ -60,7 +60,7 @@ int main(int argc, char ** argv)
 
 
 	/* COMMAND(function name, alias, permission, argument types) */
-	command cmd_list[] = {
+	const command cmd_list[] = {
         COMMAND_NOARGS(doctor_booking_frontend, "Doctor Booking", "Doctor", "Booking options for doctors"),
         COMMAND_NOARGS(patient_booking_frontend, "Patient Booking", "Patient", "Booking options for patients"),
 
@@ -84,9 +84,20 @@ int main(int argc, char ** argv)
         system("reset"); /* in case the program crashes and fucks up the terminal */
 	#endif
 	pw_file = "./users/creds.txt";
-	printf("%d", argc); /* annoying warning */
+
+	if(argc > 1)
+	{
+    	if ( strcmp(argv[1], "login") == 0 )
+    	    goto login_get_username;
+    					
+    	else if ( strcmp(argv[1], "register") == 0 )
+    	    goto reg_get_username;
+	}
 
 
+
+
+	
 	main_menu:
 
 	switch (simple_select(COLOR_BLUE, COLOR_BLACK, 3, options, selection, pretext))
