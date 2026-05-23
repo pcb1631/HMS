@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "utils/globals.h"
-#include "user_commands/bookings.h"
 #include "utils/logins.h"
 #include "utils/utils.h"
+#include "user_commands/bookings.h"
 #include "user_commands/commands.h"
 
 /* file handling */

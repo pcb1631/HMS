@@ -232,6 +232,8 @@ int parse_config_file(const char *filepath, Config *config)
             eq = strchr(line, ':'); /* Fallback to colon if used as delimiter */
         }
 
+        /* scanf is not used here to facilitate multiple delim chars */
+
         if (eq != NULL)
         {
             *eq = '\0'; /* to mark the end of key */
