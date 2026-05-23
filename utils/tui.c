@@ -477,7 +477,7 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patien
                 if(i == selection)
 				wattron(left_win, A_REVERSE);
 
-                mvwprintw(left_win, i+1, 1, "%s %d", "slop", i);
+                mvwprintw(left_win, i-selection + (y_max/2), 1, "%s %d", "slop", i);
 
                 if(i == selection)
 				wattroff(left_win, A_REVERSE | COLOR_PAIR(2));
