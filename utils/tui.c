@@ -10,18 +10,23 @@
 #include <string.h>
 #include <time.h>
 
+void ncurses_init(void)
+{
+    initscr();
+    cbreak();
+    noecho();
+    curs_set(0);
+    keypad(stdscr, 1);
+    start_color();
+}
+
 int simple_select(int color_foreground, int color_background, int n_of_options, const char * const * options, char * selection_s, const char * pretext)
 {
 	int ch = 0;
 	int i;
 	int selection=0;
 
-	initscr();
-	cbreak();
-	noecho();
-	keypad(stdscr, 1);
-
-	start_color();
+	ncurses_init();
 	init_pair(1, color_foreground, color_background);
 
 	while(ch != '\n')
@@ -96,17 +101,12 @@ void command_select(command_node *head, char *utype, char *username)
         exit(1);
     }
 
+    ncurses_init();
+
+    init_color(10, 106*(1000/255), 90*(1000/255), 205*(1000/255));
+    init_pair(2, COLOR_WHITE, 10);
     while(1)
     {
-        initscr();
-        cbreak();
-        noecho();
-        curs_set(0);
-        keypad(stdscr, 1);
-        start_color();
-
-       	init_color(10, 106*(1000/255), 90*(1000/255), 205*(1000/255));
-        init_pair(2, COLOR_WHITE, 10);
         getmaxyx(stdscr, y_max, x_max);
 
         left_win = newwin(y_max, x_max/2, 0, 0);
@@ -413,6 +413,11 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patien
     strcpy(username, current_username);
 
 
+    if(slots_n == 0)
+    {
+        printf("No appointment slots available for %s\n", doctor);
+        return -1;
+    }
 
     for(i=0; i<slots_n; i++)
     {
@@ -435,17 +440,12 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patien
         int i;
         int ch = 0;
         int y_max, x_max;
+
+        ncurses_init();        
+        init_color(10, 106*(1000/255), 90*(1000/255), 205*(1000/255));
+        init_pair(2, COLOR_WHITE, 10);
         while(1)
         {
-            initscr();
-            cbreak();
-            noecho();
-            curs_set(0);
-            keypad(stdscr, 1);
-            start_color();
-
-           	init_color(10, 106*(1000/255), 90*(1000/255), 205*(1000/255));
-            init_pair(2, COLOR_WHITE, 10);
             getmaxyx(stdscr, y_max, x_max);
 
             left_win = newwin(y_max, x_max/2, 0, 0);

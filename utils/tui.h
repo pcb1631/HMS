@@ -25,4 +25,6 @@ void command_select(command_node* head, char * utype, char * username);
 
 time_t time_picker(char * pretext, int color_fg, int color_bg, time_t pre_time);
 int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patient);
+
+void ncurses_init(void);
 #endif
