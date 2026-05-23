@@ -4,11 +4,11 @@ Every terminal has different behaviour when running HMS, due to the nature of nc
 
 As such we have compiled a list of terminals we tested and their behaviour.
 
-In case the program crashes, ncurses will not be able to call endwin(), and the terminal will most likely be broken because it can't revert ANSI escape codes. If this happens:
+**In case the program crashes, ncurses will not be able to call endwin(), and the terminal will most likely be broken because it can't revert ANSI escape codes. If this happens:**
 ```bash
 reset
 ```
-This will reset the terminal to it's usual state.
+**This will reset the terminal to it's usual state.**
 
 1. Zed Editor terminal
   - RGB is supported, but won't display correctly
@@ -34,3 +34,7 @@ This will reset the terminal to it's usual state.
   - RGB isn't supported
 8. ratty
   - no
+
+- macOS
+  - Behaviour between every terminal emulator seems similar, might render colors differently
+  - RGB is supported
