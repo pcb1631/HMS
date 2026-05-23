@@ -67,7 +67,7 @@ void write_to_file_booking(const char * doctor, Slot * slots, int slots_n)
     printf("Successfully wrote to file %s\n", path);
 }
 
-Value doctor_booking_frontend(void)
+Value doctor_booking_frontend(void) 
 {
     char username[64];
     int select_d;
@@ -108,6 +108,7 @@ void add_slot(char * username)
     char venue[64];
     FILE *sl;
     char filepath[256];
+    char patient[64];
     sprintf(filepath, "./users/%s/bookings.csv.txt", username);
 
 
@@ -131,7 +132,13 @@ void add_slot(char * username)
     fgets(venue, 64, stdin);
     trim_trailing(venue);
 
-    fprintf(sl, "%ld,%ld,%s,%s\n", start, end, venue, "NULL");
+    printf("Enter username of patient (or NULL to make empty slot)\n");
+    fgets(patient, 64, stdin);
+    trim_trailing(patient);
+    if ( strcmp(patient, "") == 0)
+        strcpy(patient, "NULL");
+    
+    fprintf(sl, "%ld,%ld,%s,%s\n", start, end, venue, patient);
 
     fclose(sl);
     printf("Slot added successfully!\n");
@@ -250,34 +257,6 @@ Value patient_booking_frontend(void)
     return make_string("OK");
 }
 /*
-void patient_booking()
-{
-    int user_input;
-    printf("Select an option: "
-        "\n1. Book slot"
-        "\n2. View booking"
-        "\n3. Reschedule booking"
-        "\n4. Cancel booking");
-    scanf("%d", &user_input);
-
-    switch (user_input){
-        case 1:
-            patient_booking();
-            break;
-        case 2:
-            patient_view_booking();
-            break;
-        case 3:
-            patient_reschedule();
-            break;
-        case 4:
-            patient_cancel();
-            break;
-        default:
-            printf("Invalid option");
-            break;
-    }
-}
 int compare_slots(const void *a, const void *b) {
     Slot *slot_a = (Slot *)a;
     Slot *slot_b = (Slot *)b;
@@ -285,66 +264,7 @@ int compare_slots(const void *a, const void *b) {
 
     return 0;
 }
- *
-void sort_slots(){
-    FILE *z = fopen("slots.txt", "r");
-    if (z == NULL) {
-        printf("Error opening file for reading!\n");
-        return;
-    }
-
-    Slot slots[MAX_SLOTS];
-    int count = 0;
-
-    // Read slots from file
-    while (fscanf(z, "%d,%19[^,],%9[^,],%9[^,],%9s",
-                  &slots[count].index,
-                  slots[count].date,
-                  slots[count].start,
-                  slots[count].end,
-                  slots[count].status) == 5) {
-        count++;
-    }
-    fclose(z);
-
-    // Sort slots by start time
-    qsort(slots, count, sizeof(Slot), compare_slots);
-
-    // Rewrite file with new indices
-    z = fopen("slots.txt", "w");
-    if (z == NULL) {
-        printf("Error opening file for writing!\n");
-        return;
-    }
-
-    for (int i = 0; i < count; i++) {
-        fprintf(z, "%d,%s,%s,%s,%s\n",
-                i + 1, slots[i].date, slots[i].start, slots[i].end, slots[i].status);
-    }
-
-    fclose(z);
-    printf("Slots sorted and re-indexed!\n");
-
-    return 0;
-}
  */
-
-
-
-
-/***  idk what to do for this yet
-
-float patient_booking_selection(int doctorID, char*slotTime, char *status){
-
-    FILE *fp = fopen("slots.txt", "r");
-    FILE *temp = fopen("temp.txt","w");
-    char line[100];
-
-}
-
-*/
-
-
 
 
 /*
