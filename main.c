@@ -87,10 +87,18 @@ int main(int argc, char ** argv)
 
 	if(argc > 1)
 	{
-    	if ( strcmp(argv[1], "login") == 0 )
-    	    goto login_get_username;
-    					
-    	else if ( strcmp(argv[1], "register") == 0 )
+        if ( strcmp(argv[1], "login") == 0 )
+            if(argc > 2)
+            {
+                strcpy(current_username, argv[2]);
+                goto login_get_password;
+            }
+
+            else
+                goto login_get_username;
+
+
+        else if ( strcmp(argv[1], "register") == 0 )
     	    goto reg_get_username;
 	}
 
