@@ -136,5 +136,6 @@ void print_cfg(Config cfg)
 {
     int i;
     for(i=0; i<cfg.count; i++)
-        printf("%s: %s", cfg.entries[i].key, cfg.entries[i].value);
+        printf("%s: %s\n", cfg.entries[i].key, cfg.entries[i].value);
+    printf("\n");
 }
