@@ -4,3 +4,4 @@
 doxygen/*
 .vscode/settings.json
 *.dSYM/
+.DS_Store
