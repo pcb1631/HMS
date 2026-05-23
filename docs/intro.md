@@ -24,9 +24,7 @@ Clone the repo:
 git clone https://github.com/pcb1631/HMS
 ```
 
-1. crypt_blowfish 
-  - crypt_blowfish is the library we use for password hashing. 
-Add it as a git submodule: 
+Add git submodules: 
 ```bash
 git submodule update --init --recursive
 ```
@@ -65,4 +63,3 @@ Then, use the Makefile to compile:
 ```
 
 TODO: Add subpages in usage.md on how to use TUI. Command TUI, simple TUI, and time tui
-
