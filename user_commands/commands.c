@@ -87,6 +87,7 @@ Value admin_view_cfg(void)
 
     printf("\n%s:\n", username);
     print_cfg(user);
+    return make_string("OK");
 }
 
 void user_select_menu(const char * const * allowed_utypes, int allowed_n, char * selected_username)

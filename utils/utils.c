@@ -432,4 +432,8 @@ const char * get_utype(const char * username)
 
 void handle_sigint(int sig)
 {
+    endwin();
+    printf("%d\n", sig);
+    printf("SIGINT\n");
+    exit(0);
 }
