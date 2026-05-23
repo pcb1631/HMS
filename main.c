@@ -79,6 +79,7 @@ int main(int argc, char ** argv)
 	    _chdir(argv[0]);
 	#else
         chdir(argv[0]);
+        system("reset"); /* in case the program crashes and fucks up the terminal */
 	#endif
 	pw_file = "./users/creds.txt";
 	printf("%d", argc); /* annoying warning */
