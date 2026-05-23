@@ -12,11 +12,10 @@ reset
 **This will reset the terminal to it's usual state.**
 
 1. Zed Editor terminal
-  - RGB is supported, but won't display correctly
+  - RGB is supported, but colors won't display correctly
   - Will need to prepend \\n to scanf format string, if scanf is used consecutively. Or use fgets so you can trim newlines
-  - debug terminal broken, first ncurses menu will not render properly, and window borders won't use the correct char
-  - If debugging, SIGINT (CTRL+C) during an ncurses menu will fill up your RAM very quickly 
-  - it works at least 
+  - debug terminal broken; first ncurses menu will not render properly, and window borders won't use the correct char. But on macOS works correctly
+  - **Do not do SIGINT (CTRL+C) when debugging and in ncurses menu. Will fill up your RAM very quickly**
 2. vscode terminal
   - RGB is supported 
   - Won't render black background
