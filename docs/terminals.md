@@ -4,7 +4,8 @@ Every terminal has different behaviour when running HMS, due to the nature of nc
 
 As such we have compiled a list of terminals we tested and their behaviour.
 
-**In case the program crashes, ncurses will not be able to call endwin(), and the terminal will most likely be broken because it can't revert ANSI escape codes. If this happens:**
+**In case the program crashes, ncurses will not be able to call endwin(), and the terminal will most likely be broken because it can't revert ANSI escape codes. (e.g. if you see ^M or similar if you try to backspace or press enter during login)**
+**If this happens:**
 ```bash
 reset
 ```

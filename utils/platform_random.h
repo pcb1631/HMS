@@ -13,7 +13,7 @@
 #endif
 
 /**
- * @brief Gets random bytes, different implementations depending on OS
+ * @brief Gets random bytes with length n, different implementations depending on OS
  * \nThis is used for salting. If passwords are hashed without salting, that means people with the same password end up with the same hash.
  * \nSalting means same passwords will end up with a different hash.
  * @param buf String to store random bytes

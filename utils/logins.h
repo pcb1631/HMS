@@ -19,9 +19,12 @@
 typedef struct {
     /** key */
     char username[MAX_USERNAME_LEN];
+    
     /** value */
     char password[MAX_PASSWORD_LEN];
-    UT_hash_handle hh; /** makes this structure hashable */
+
+    /** makes this structure hashable */
+    UT_hash_handle hh; 
 } user_login_t;
 
 
