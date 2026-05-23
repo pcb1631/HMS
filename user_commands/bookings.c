@@ -64,7 +64,7 @@ void write_to_file_booking(const char * doctor, Slot * slots, int slots_n)
 
     fclose(file);
 
-    printf("Successfully wrote to file %s", path);
+    printf("Successfully wrote to file %s\n", path);
 }
 
 Value doctor_booking_frontend(void)
@@ -203,6 +203,9 @@ Value patient_booking_frontend(void)
     user_select_menu(allowed_utype, 1, selected_doctor);
     parse_slots(selected_doctor, slots, &slots_n);
     select_slot = booking_slot_view(slots, slots_n, selected_doctor, 1);
+
+    if(select_slot == -1)
+        return make_string("Booking slots empty");
 
     erase();
     if(strcmp(slots[select_slot].patient, username) == 0)
