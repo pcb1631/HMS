@@ -53,6 +53,9 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 
 		switch(ch)
 		{
+		    case KEY_RESIZE:
+				break;
+
 			case KEY_UP:
 			case KEY_LEFT:
 				selection = (selection - 1 % n_of_options + n_of_options) % n_of_options; break;
@@ -125,7 +128,7 @@ void command_select(command_node *head, char *utype, char *username)
 
 
         mvwprintw(left_win ,0, 0, "%s %s", username, utype);
-        
+
         wbkgd(left_win, COLOR_PAIR(2));
         for(i=0; i<cmd_list_n; i++)
         {
@@ -469,19 +472,30 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patien
             }
             wrefresh(left_win);
 
-            mvwprintw(right_win, 1, 1, "start: %s", readable_start[selection]);
-            mvwprintw(right_win, 2, 1, "end: %s", readable_end[selection]);
-            mvwprintw(right_win, 3, 1, "venue: %s", slots[selection].venue);
             if(patient)
             {
+                /* if booked by me or is vacant, show details */
+                if(strcmp(slots[selection].patient, username) == 0 OR strcmp(slots[selection].patient, "NULL") == 0) 
+                {
+                    mvwprintw(right_win, 1, 1, "start: %s", readable_start[selection]);
+                    mvwprintw(right_win, 2, 1, "end: %s", readable_end[selection]);
+                    mvwprintw(right_win, 3, 1, "venue: %s", slots[selection].venue);
+                }
+
                 if(strcmp(slots[selection].patient, username) == 0)
                     mvwprintw(right_win, 5, 1, "Booked by you");
 
                 else if(strcmp(slots[selection].patient, "NULL") == 0)
                     mvwprintw(right_win, 5, 1, "Vacant!");
+
+                
             }else
             {
-                mvwprintw(right_win, 5, 1, "%s", slots[selection].patient);
+                mvwprintw(right_win, 1, 1, "start: %s", readable_start[selection]);
+                mvwprintw(right_win, 2, 1, "end: %s", readable_end[selection]);
+                mvwprintw(right_win, 3, 1, "venue: %s", slots[selection].venue);
+
+                mvwprintw(right_win, 5, 1, "Patient: %s", slots[selection].patient);
             }
 
             wrefresh(right_win);

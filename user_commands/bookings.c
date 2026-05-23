@@ -172,6 +172,29 @@ void view_slots(char * username)
     printf("----------------------\n");
 }
 
+Value nurse_view_booking(void)
+{
+    const char * allowed_utype[] =
+    {
+        "Doctor"
+    };
+    char selected_doctor[64] = "";
+    int select_slot;
+    Slot slots[128];
+    int slots_n;
+
+    char username[64];
+    strcpy(username, current_username);
+
+    user_select_menu(allowed_utype, 1, selected_doctor);
+    parse_slots(selected_doctor, slots, &slots_n);
+    select_slot = booking_slot_view(slots, slots_n, selected_doctor, 0);
+
+    if(select_slot == -1)
+        return make_string("Booking slots empty");
+
+    return make_string("OK");
+}
 
 Value patient_booking_frontend(void)
 {
