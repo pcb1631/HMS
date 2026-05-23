@@ -1,6 +1,6 @@
-\page db The user "database"
+\page db The user database
 
-We make use of files and folders to create our database, which can be described in the file_struct.yaml.txt:
+We make use of files and folders to create our "database" (**the users/ folder**, if you haven't renamed it), which can be described in file_struct.yaml.txt:
 
 YAML format:
 @code{.yaml}
@@ -13,6 +13,13 @@ Usertype:
     content:
       key: value
       blabla: blablabla
+
+Usertype2:
+  - path: "users/%s/"
+  - type: directory
+
+  - path: "users/%s/profile.txt"
+...
 @endcode
 ./users contain folders of usernames, where each stores their own data
 

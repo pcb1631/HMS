@@ -31,11 +31,13 @@
 	#include <wincrypt.h>
 #endif
 
+#define DATABASE_PATH "./users/"
+#define CREDENTIALS_PATH "./users/creds.txt"
 
 int main(int argc, char ** argv)
 {
     char current_utype[10];
-    char * pw_file;
+    char * pw_file = CREDENTIALS_PATH;
 	char path[256];
 	const char * options[3] = {
 		"Login\0",
@@ -77,13 +79,22 @@ int main(int argc, char ** argv)
 		* On windows, it's always the full path
 		* For example on linux, if you run it by doing ./main.out, it will be exactly that. if you run it by /home/username/github/main.out, it will also be that.
 	 */
+    char argv_path[256];
+    char * last_slash;
+    strcpy(argv_path, argv[0]);
+    last_slash = strrchr(argv_path, '/');
+
+    if (last_slash != NULL)
+    {
+        *last_slash = '\0';
+    }
+    
 	#ifdef _WIN32
-	    _chdir(argv[0]);
+        _chdir(argv_path);
 	#else
-        chdir(argv[0]);
+        chdir(argv_path);
         system("reset"); /* in case the program crashes and fucks up the terminal */
-	#endif
-	pw_file = "./users/creds.txt";
+    #endif
 
 	if(argc > 1)
 	{
@@ -173,7 +184,7 @@ int main(int argc, char ** argv)
 			}
 
 
-			strcpy(path, "./users/");
+			strcpy(path, DATABASE_PATH);
 			strcat(path, current_username);
 
 			if (!path_exists(path)) /* if dir doesn't exist */

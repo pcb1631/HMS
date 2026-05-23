@@ -7,7 +7,7 @@
   - \subpage nurses
   - \subpage patients
 - \subpage term
-- Design
+- \subpage design
   - \subpage db
 \section intro_sec Introduction
  The Hospital Management System (HMS for short) is an interactive program to facilitate hospital documentation, appointment booking, among other services.
