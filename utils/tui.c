@@ -106,7 +106,7 @@ void command_select(command_node *head, char *utype, char *username)
         start_color();
 
        	init_color(10, 106*(1000/255), 90*(1000/255), 205*(1000/255));
-        init_pair(1, COLOR_WHITE, 10);
+        init_pair(2, COLOR_WHITE, 10);
         getmaxyx(stdscr, y_max, x_max);
 
         left_win = newwin(y_max, x_max/2, 0, 0);
@@ -125,7 +125,8 @@ void command_select(command_node *head, char *utype, char *username)
 
 
         mvwprintw(left_win ,0, 0, "%s %s", username, utype);
-
+        
+        wbkgd(left_win, COLOR_PAIR(2));
         for(i=0; i<cmd_list_n; i++)
         {
 
@@ -139,7 +140,6 @@ void command_select(command_node *head, char *utype, char *username)
         }
 
 
-        wbkgd(left_win, COLOR_PAIR(1));
         wrefresh(left_win);
 
         mvwprintw(right_win, 1, 1, "Permission: %s", cmd_list[selection].permission);
@@ -286,11 +286,11 @@ time_t time_picker(char * pretext, int color_fg, int color_bg, time_t pre_time)
 	curs_set(0);
 
 	start_color();
-	init_pair(1, color_fg, color_bg);
+	init_pair(2, color_fg, color_bg);
 
-	attron(COLOR_PAIR(1));
+	attron(COLOR_PAIR(2));
 	mvprintw(0, 0, "%s", pretext);
-	attroff(COLOR_PAIR(1));
+	attroff(COLOR_PAIR(2));
 
 	while(ch != '\n')
 	{
@@ -323,13 +323,13 @@ time_t time_picker(char * pretext, int color_fg, int color_bg, time_t pre_time)
 		strftime(readable_time, sizeof(readable_time),"%Y-%m-%d %H:%M:%S", ts);
   		mvprintw(1, 0, "%s", readable_time);
 
-		attron(COLOR_PAIR(1));
+		attron(COLOR_PAIR(2));
             mvprintw(2, 0, "         "); /*funny clear*/
 
             attron(A_REVERSE);
             mvprintw(2, 0, "%s", range_s);
             attroff(A_REVERSE);
-		attroff(COLOR_PAIR(1));
+		attroff(COLOR_PAIR(2));
 
 
 		refresh();
@@ -400,7 +400,7 @@ time_t time_picker(char * pretext, int color_fg, int color_bg, time_t pre_time)
 	return time;
 }
 
-int booking_slot_view(Slot * slots, int slots_n, const char * doctor, bool patient)
+int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patient)
 {
     char readable_start[80][128];
     char readable_end[80][128];
@@ -445,7 +445,7 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, bool patie
             start_color();
 
            	init_color(10, 106*(1000/255), 90*(1000/255), 205*(1000/255));
-            init_pair(1, COLOR_WHITE, 10);
+            init_pair(2, COLOR_WHITE, 10);
             getmaxyx(stdscr, y_max, x_max);
 
             left_win = newwin(y_max, x_max/2, 0, 0);
@@ -456,6 +456,7 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, bool patie
 
             mvwprintw(left_win, 0, 0, "%s's appointment slots", doctor);
 
+            wbkgd(left_win, COLOR_PAIR(2));
             for(i=0; i<slots_n; i++)
             {
                 if(i == selection)
@@ -464,9 +465,8 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, bool patie
                 mvwprintw(left_win, i+1, 1, "%s %d", "slop", i);
 
                 if(i == selection)
-				wattroff(left_win, A_REVERSE);
+				wattroff(left_win, A_REVERSE | COLOR_PAIR(2));
             }
-            wbkgd(left_win, COLOR_PAIR(1));
             wrefresh(left_win);
 
             mvwprintw(right_win, 1, 1, "start: %s", readable_start[selection]);

@@ -216,7 +216,7 @@ int main(int argc, char ** argv)
 
     {
         int i;
-        bool first = 1;
+        int first = 1;
         command_node* head;
         command_node* Node;
 

@@ -1,5 +1,5 @@
 {
     "C_Cpp.default.compilerPath": "C:/msys64/ucrt64/bin/gcc.exe",
     "makefile.configureOnOpen": true,
-    "clangd.path": "C:/msys64/ucrt64/bin/clangd.exe"
+    "clangd.path": "/usr/bin/clangd"
 }

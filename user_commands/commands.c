@@ -70,7 +70,7 @@ Value make_user(Value * list)
     return make_int(0);
 }
 
-Value admin_view_cfg(Value * list)
+Value admin_view_cfg(void)
 {
     Config user;
     const char * allowed[] =
@@ -87,9 +87,7 @@ Value admin_view_cfg(Value * list)
 
     printf("\n%s:\n", username);
     print_cfg(user);
-
-
-    return make_int(0);
+    return make_string("OK");
 }
 
 void user_select_menu(const char * const * allowed_utypes, int allowed_n, char * selected_username)
@@ -138,5 +136,6 @@ void print_cfg(Config cfg)
 {
     int i;
     for(i=0; i<cfg.count; i++)
-        printf("%s: %s", cfg.entries[i].key, cfg.entries[i].value);
+        printf("%s: %s\n", cfg.entries[i].key, cfg.entries[i].value);
+    printf("\n");
 }
