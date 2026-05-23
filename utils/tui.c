@@ -25,23 +25,30 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 	int ch = 0;
 	int i;
 	int selection=0;
-
+	int y_max;
+	
 	ncurses_init();
 	init_pair(1, color_foreground, color_background);
 
 	while(ch != '\n')
 	{
+	    clear();
+	    y_max = getmaxy(stdscr);
+
 		attron(COLOR_PAIR(1));
 		mvprintw(0, 0, "%s", pretext);
 		attroff(COLOR_PAIR(1));
 
 		for(i=0; i<n_of_options; i++)
 		{
+		    if (i-selection + (y_max/2) < 1) /* if its gonna cover the pretext, just skip */
+				continue;
+						
 			if(i == selection)
 				attron(A_REVERSE);
 			attron(COLOR_PAIR(1));
 
-			mvprintw(i+1, 0, "%s", options[i]);
+			mvprintw(i-selection + (y_max/2), 0, "%s", options[i]);
 
 			if(i == selection)
 				attroff(A_REVERSE);
@@ -132,11 +139,13 @@ void command_select(command_node *head, char *utype, char *username)
         wbkgd(left_win, COLOR_PAIR(2));
         for(i=0; i<cmd_list_n; i++)
         {
+            if (i-selection + (y_max/2) < 1) /* if its gonna cover the pretext, just skip */
+				continue;
 
             if(i == selection)
 				wattron(left_win, A_REVERSE);
 
-            mvwprintw(left_win, i+1, 1, "%s", cmd_list[i].alias);
+            mvwprintw(left_win, i-selection + (y_max/2) , 1, "%s", cmd_list[i].alias);
 
             if(i == selection)
 				wattroff(left_win, A_REVERSE);
@@ -462,6 +471,9 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patien
             wbkgd(left_win, COLOR_PAIR(2));
             for(i=0; i<slots_n; i++)
             {
+                if (i-selection + (y_max/2) < 1) /* if its gonna cover the pretext, just skip */
+                    continue;
+
                 if(i == selection)
 				wattron(left_win, A_REVERSE);
 

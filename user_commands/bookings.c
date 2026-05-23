@@ -72,10 +72,12 @@ Value doctor_booking_frontend(void)
     char username[64];
     int select_d;
     char select_c[64];
-    const char * options[2] =
+    const char * options[] =
     {
         "Add slot",
-        "View slots"
+        "View slots",
+        "Edit slots",
+        "Generate slots for this week"
     };
     strcpy(username, current_username);
 

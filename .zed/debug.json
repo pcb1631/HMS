@@ -8,4 +8,14 @@
     "request": "launch",
     "adapter": "CodeLLDB"
   }
+  ,
+  {
+     "label": "debug test.c",
+     "build":{
+       "command": "gcc test.c utils/tui.c utils/globals.c utils/utils.c -ansi -lncurses"
+     },
+     "program": "$ZED_WORKTREE_ROOT/a.out",
+     "request": "launch",
+     "adapter": "CodeLLDB"
+   }
 ]
