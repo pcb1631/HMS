@@ -65,19 +65,21 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 
 			case 0x03: /* ETX */
 			case 0x04: /* EOF */
-				printf("EOF/EOT\n");
 				strcpy(selection_s, "");
-				endwin(); return -1;
+				endwin();
+				printf("EOF/EOT received\n");
+				return -1;
 
 
 			case KEY_UP:
 			case KEY_LEFT:
-				selection = (selection - 1 % n_of_options + n_of_options) % n_of_options; break;
+				selection = (selection - 1 + n_of_options) % n_of_options; break;
 			case KEY_DOWN:
 			case KEY_RIGHT:
-				selection = (selection + 1 % n_of_options + n_of_options) % n_of_options; break;
+				selection = (selection + 1) % n_of_options; break;
 			case '\n':
-				endwin(); break;
+				endwin();
+				break;
 		}
 	}
 
@@ -86,6 +88,7 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 	return selection;
 }
 
+#define COMMAND_LIST_SIZE 30
 void command_select(command_node *head, char *utype, char *username)
 {
     int selection = 0;
@@ -94,7 +97,7 @@ void command_select(command_node *head, char *utype, char *username)
    	WINDOW *left_win, *right_win;
     int y_max, x_max;
 
-    command cmd_list[30];
+    command cmd_list[COMMAND_LIST_SIZE];
     int cmd_list_n;
     command_node* Node;
 
@@ -124,7 +127,7 @@ void command_select(command_node *head, char *utype, char *username)
     init_pair(2, COLOR_WHITE, 10);
     while(1)
     {
-   		ncurses_init();
+	   	refresh(); /* resumes ncurses mode  */
         getmaxyx(stdscr, y_max, x_max);
 
         left_win = newwin(y_max, x_max/2, 0, 0);
@@ -194,21 +197,21 @@ void command_select(command_node *head, char *utype, char *username)
         switch(ch)
         {
         	case 0x03: /* ETX */
-       			printf("Received EOT\n");
         		endwin();
+       			printf("Received EOT\n");
         		return;
 			case 0x04: /* EOF */
-				printf("Received EOF");
 				endwin();
+				printf("Received EOF");
 				return;
 
             case KEY_LEFT:
             case KEY_UP:
-                selection = (selection - 1 % cmd_list_n + cmd_list_n) % cmd_list_n;
+                selection = (selection - 1 + cmd_list_n) % cmd_list_n;
                 break;
             case KEY_RIGHT:
             case KEY_DOWN:
-                selection = (selection + 1 % cmd_list_n + cmd_list_n) % cmd_list_n;
+                selection = (selection + 1) % cmd_list_n;
                 break;
 
             case KEY_RESIZE:
@@ -243,14 +246,13 @@ void command_select(command_node *head, char *utype, char *username)
                         switch (args[i].type)
                         {
                             case TYPE_BOOL:
-                                printf("Using int as bool\n");
                             case TYPE_INT:
                                 printf("Enter an integer\n");
                                 scanf("\n%d", &args[i].data.as_int); break;
 
                             case TYPE_STRING:
                                 printf("Enter a string\n");
-                                scanf("\n%s", args[i].data.as_string); break;
+                                scanf("\n%128s", args[i].data.as_string); break;
 
                             case TYPE_FLOAT:
                                 printf("Enter a decimal");
@@ -266,14 +268,23 @@ void command_select(command_node *head, char *utype, char *username)
 
                     call(cmd_list[selection], args, cmd_list[selection].n_of_args, utype);
                     free(args);
+
+                    raw();
                     getch();
-                    ch = KEY_RESIZE;
 
                 }else
                 {
                     call(cmd_list[selection], varray_username, 1, utype);
+
+                    /* This one took me a while...
+                     *
+                     * Sets terminal to raw mode to immediately consume character, (default is cooked mode aka dont stop until EOL)
+                     * This way the program can immediately continue after calling the function pointer, without showing the user funny characters, or having to go back to ncurses mode and the user misses the output from the function
+                     *
+                     * Thankfully ncurses abstracts everything involved with termios
+                     */
+                    raw();
                     getch();
-                    ch = KEY_RESIZE;
                 }
                 break;
 
@@ -308,13 +319,7 @@ time_t time_picker(char * pretext, int color_fg, int color_bg, time_t pre_time)
 	ts = localtime(&time);
 
 
-	initscr();
-	cbreak();
-	noecho();
-	keypad(stdscr, 1);
-	curs_set(0);
-
-	start_color();
+	ncurses_init();
 	init_pair(2, color_fg, color_bg);
 
 	attron(COLOR_PAIR(2));
@@ -323,7 +328,7 @@ time_t time_picker(char * pretext, int color_fg, int color_bg, time_t pre_time)
 
 	while(ch != '\n')
 	{
-		ncurses_init();
+		refresh();
 		switch(select)
 		{
 		    case YEAR:
@@ -382,11 +387,11 @@ time_t time_picker(char * pretext, int color_fg, int color_bg, time_t pre_time)
 			    break;
 
 			case KEY_LEFT:
-                select = (select - 1 % 6 + 6) % 6;
+                select = (select - 1 + 6) % 6;
                 change = 0;
                 break;
 			case KEY_RIGHT:
-    			select = (select + 1 % 6 + 6) % 6;
+    			select = (select + 1) % 6;
                 change = 0;
                 break;
 
@@ -397,7 +402,12 @@ time_t time_picker(char * pretext, int color_fg, int color_bg, time_t pre_time)
 				return time;
 
 			case KEY_RESIZE:
+				change = 0;
                 break;
+
+            default:
+            	change = 0;
+            	break;
 		}
 
 		switch(select)
@@ -435,10 +445,11 @@ time_t time_picker(char * pretext, int color_fg, int color_bg, time_t pre_time)
 	return time;
 }
 
+#define MAX_BOOKING_SLOTS 128
 int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patient)
 {
-    char readable_start[80][128];
-    char readable_end[80][128];
+    char readable_start[MAX_BOOKING_SLOTS][80];
+    char readable_end[MAX_BOOKING_SLOTS][80];
     int i;
 
     time_t time;
@@ -481,7 +492,7 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patien
         init_pair(2, COLOR_WHITE, 10);
         while(1)
         {
-       		ncurses_init();
+       		refresh();
             getmaxyx(stdscr, y_max, x_max);
 
             left_win = newwin(y_max, x_max/2, 0, 0);
@@ -544,18 +555,19 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patien
             {
 	            case 0x03: /* ETX */
 				case 0x04: /* EOF */
+					endwin();
 					fprintf(stderr, "Received EOF/EOT, cancelled booking view\n");
-					endwin(); return -1;
+					return -1;
 
 
 
                 case KEY_LEFT:
                 case KEY_UP:
-                    selection = (selection - 1 % slots_n + slots_n) % slots_n;
+                    selection = (selection - 1 + slots_n) % slots_n;
                     break;
                 case KEY_RIGHT:
                 case KEY_DOWN:
-                    selection = (selection + 1 % slots_n + slots_n) % slots_n;
+                    selection = (selection + 1) % slots_n;
                     break;
                 case KEY_RESIZE:
                     break;

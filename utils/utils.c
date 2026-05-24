@@ -480,3 +480,12 @@ int levenshtein_distance(const char* s, const char* t, int m, int n)
     free(v0); free(v1);
     return result;
 }
+
+void wipe_stdin(void)
+{
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF)
+    {
+
+    }
+}

@@ -247,7 +247,7 @@ Value patient_booking_frontend(void)
 
     if(strcmp(selected_doctor, "") == 0)
     	return make_string("EOF/EOT");
-    
+
     parse_slots(selected_doctor, slots, &slots_n);
     select_slot = booking_slot_view(slots, slots_n, selected_doctor, 1);
 
@@ -259,7 +259,10 @@ Value patient_booking_frontend(void)
     {
         select_option = simple_select(COLOR_CYAN, COLOR_BLACK, 2, booked_options, select_s, "Slot booked by you");
         if(select_option == 0)
+        {
             strcpy(slots[select_slot].patient, "NULL");
+            printf("Removed patient from slot\n");
+        }
 
         else if (select_option == -1)
         	return make_string("EOF");
@@ -268,7 +271,10 @@ Value patient_booking_frontend(void)
     {
         select_option = simple_select(COLOR_CYAN, COLOR_BLACK, 2, null_options, select_s, "Vacant slot");
         if(select_option == 0)
+        {
             strcpy(slots[select_slot].patient, username);
+            printf("Claimed slot for patient\n");
+        }
 
         else if (select_option == -1)
         	return make_string("EOF");

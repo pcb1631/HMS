@@ -177,3 +177,5 @@ void generate_file_structure(const char *role, const char *username);
 void handle_sigint(int sig);
 
 const char * get_utype(const char * username);
+void wipe_stdin(void);
+
