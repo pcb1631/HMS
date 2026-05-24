@@ -81,6 +81,8 @@ int main(int argc, char ** argv)
 	 */
     char argv_path[256];
     char * last_slash;
+    char * term_type = getenv("TERM");
+
     strcpy(argv_path, argv[0]);
     last_slash = strrchr(argv_path, '/');
 
@@ -93,7 +95,7 @@ int main(int argc, char ** argv)
         _chdir(argv_path);
 	#else
         chdir(argv_path);
-        system("reset"); /* in case the program crashes and fucks up the terminal */
+       	system("reset"); /* in case the program crashes and messes up the terminal */
     #endif
 
 	if(argc > 1)

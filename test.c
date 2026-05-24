@@ -17,6 +17,7 @@ int main(int argc, char ** argv)
     for(i=0; i<argc; i++)
     {
         printf("%s\n", argv[i]);
+        printf("%s\n", getenv("TERM"));
     }
 
     return 0;
