@@ -149,7 +149,7 @@ typedef struct {
  * @brief Parses a configuration file into a Config struct
  * @param filepath Path to the configuration file
  * @param config Pointer to the Config struct to populate
- * @return 0 on success, -1 on failure
+ * @return 0 on success, -1 if failed to open file, or empty config
  */
 int parse_config_file(const char *filepath, Config *config);
 

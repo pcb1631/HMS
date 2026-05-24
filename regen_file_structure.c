@@ -46,6 +46,11 @@ signed main(void)
                     return 1;
                 }
             }
+            else
+            {
+           		fprintf(stderr, "Profile is empty / failed to open file (%s)\n", current_username);
+             	return 1;
+            }
         }
     }
     return 0;

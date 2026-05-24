@@ -67,7 +67,7 @@ void write_to_file_booking(const char * doctor, Slot * slots, int slots_n)
     printf("Successfully wrote to file %s\n", path);
 }
 
-Value doctor_booking_frontend(void) 
+Value doctor_booking_frontend(void)
 {
     char username[64];
     int select_d;
@@ -84,6 +84,7 @@ Value doctor_booking_frontend(void)
 
     clear();
     select_d = simple_select(COLOR_BLUE, COLOR_BLACK, sizeof(options)/sizeof(char *), options, select_c, "Doctor booking options");
+    return make_string("EOF/EOT");
 
     switch (select_d)
     {
@@ -139,7 +140,7 @@ void add_slot(char * username)
     trim_trailing(patient);
     if ( strcmp(patient, "") == 0)
         strcpy(patient, "NULL");
-    
+
     fprintf(sl, "%ld,%ld,%s,%s\n", start, end, venue, patient);
 
     fclose(sl);
@@ -196,6 +197,15 @@ Value nurse_view_booking(void)
     strcpy(username, current_username);
 
     user_select_menu(allowed_utype, 1, selected_doctor);
+
+    if(strcmp(selected_doctor, "") == 0)
+    {
+   		printf("cancelled doctor select\n");
+    	return make_string("EOF/EOT");
+    }
+
+
+
     parse_slots(selected_doctor, slots, &slots_n);
     select_slot = booking_slot_view(slots, slots_n, selected_doctor, 0);
 
@@ -246,12 +256,17 @@ Value patient_booking_frontend(void)
         if(select_option == 0)
             strcpy(slots[select_slot].patient, "NULL");
 
+        else if (select_option == -1)
+        	return make_string("EOF");
     }
     else if(strcmp(slots[select_slot].patient, "NULL") == 0)
     {
         select_option = simple_select(COLOR_CYAN, COLOR_BLACK, 2, null_options, select_s, "Vacant slot");
         if(select_option == 0)
             strcpy(slots[select_slot].patient, username);
+
+        else if (select_option == -1)
+        	return make_string("EOF");
     }
 
     write_to_file_booking(selected_doctor, slots, slots_n);

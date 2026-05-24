@@ -13,7 +13,7 @@
 void ncurses_init(void)
 {
     initscr();
-    cbreak();
+    raw();
     noecho();
     curs_set(0);
     keypad(stdscr, 1);
@@ -26,7 +26,7 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 	int i;
 	int selection=0;
 	int y_max;
-	
+
 	ncurses_init();
 	init_pair(1, color_foreground, color_background);
 
@@ -43,7 +43,7 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 		{
 		    if (i-selection + (y_max/2) < 1) /* if its gonna cover the pretext, just skip */
 				continue;
-						
+
 			if(i == selection)
 				attron(A_REVERSE);
 			attron(COLOR_PAIR(1));
@@ -62,6 +62,12 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 		{
 		    case KEY_RESIZE:
 				break;
+
+			case 0x03: /* ETX */
+			case 0x04: /* EOF */
+				strcpy(selection_s, "");
+				endwin(); return -1;
+
 
 			case KEY_UP:
 			case KEY_LEFT:
@@ -185,6 +191,15 @@ void command_select(command_node *head, char *utype, char *username)
 
         switch(ch)
         {
+        	case 0x03: /* ETX */
+       			printf("Received EOT\n");
+        		endwin();
+        		return;
+			case 0x04: /* EOF */
+				printf("Received EOF");
+				endwin();
+				return;
+
             case KEY_LEFT:
             case KEY_UP:
                 selection = (selection - 1 % cmd_list_n + cmd_list_n) % cmd_list_n;
@@ -351,6 +366,11 @@ time_t time_picker(char * pretext, int color_fg, int color_bg, time_t pre_time)
 
 		switch(ch)
 		{
+			case 0x03: /* ETX */
+			case 0x04: /* EOF */
+				fprintf(stderr, "Received EOF/EOT, cancelling time picker");
+				endwin(); return -1;
+
 			case KEY_UP:
 			    change = 1;
 			    break;
@@ -453,7 +473,7 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patien
         int ch = 0;
         int y_max, x_max;
 
-        ncurses_init();        
+        ncurses_init();
         init_color(10, 106*(1000/255), 90*(1000/255), 205*(1000/255));
         init_pair(2, COLOR_WHITE, 10);
         while(1)
@@ -487,7 +507,7 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patien
             if(patient)
             {
                 /* if booked by me or is vacant, show details */
-                if(strcmp(slots[selection].patient, username) == 0 OR strcmp(slots[selection].patient, "NULL") == 0) 
+                if(strcmp(slots[selection].patient, username) == 0 OR strcmp(slots[selection].patient, "NULL") == 0)
                 {
                     mvwprintw(right_win, 1, 1, "start: %s", readable_start[selection]);
                     mvwprintw(right_win, 2, 1, "end: %s", readable_end[selection]);
@@ -500,7 +520,7 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patien
                 else if(strcmp(slots[selection].patient, "NULL") == 0)
                     mvwprintw(right_win, 5, 1, "Vacant!");
 
-                
+
             }else
             {
                 mvwprintw(right_win, 1, 1, "start: %s", readable_start[selection]);
@@ -518,6 +538,13 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patien
 
             switch (ch)
             {
+	            case 0x03: /* ETX */
+				case 0x04: /* EOF */
+					fprintf(stderr, "Received EOF/EOT, cancelled booking view\n");
+					endwin(); return -1;
+
+
+
                 case KEY_LEFT:
                 case KEY_UP:
                     selection = (selection - 1 % slots_n + slots_n) % slots_n;

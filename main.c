@@ -88,7 +88,7 @@ int main(int argc, char ** argv)
     {
         *last_slash = '\0';
     }
-    
+
 	#ifdef _WIN32
         _chdir(argv_path);
 	#else
@@ -116,11 +116,13 @@ int main(int argc, char ** argv)
 
 
 
-	
+
 	main_menu:
 
 	switch (simple_select(COLOR_BLUE, COLOR_BLACK, 3, options, selection, pretext))
 	{
+		case -1: /* EOT or EOF */
+			return 0;
 	    /* login */
 		case 0:
 
