@@ -29,27 +29,46 @@ This file is parsed in regen_file_structure.c (which is meant to generate one ex
 \n it regenerates the file structure while ignoring existing files and lines to prevent data loss.
 
 \dot
-digraph regen_flow {
-    node [shape=box, fontname="Helvetica", fontsize=10];
-    edge [fontname="Helvetica", fontsize=10];
-    
-    start [shape=oval, label="Start"];
-    read_creds [label="Parse ./users/creds.txt\n(Get list of users)"];
-    loop_check [shape=diamond, label="For each\nuser?"];
-    read_profile [label="Parse ./users/<username>/profile.txt\n(Get USERTYPE)"];
-    gen_struct [label="generate_file_structure(USERTYPE, username)"];
-    end [shape=oval, label="End"];
+digraph RegenFileStructure {
+    // Graph settings
+    rankdir=TB;
+    node [shape=box, style=filled, fillcolor=white, fontname="Helvetica,Arial,sans-serif"];
+    edge [fontname="Helvetica,Arial,sans-serif", fontsize=10];
 
-    start -> read_creds;
-    read_creds -> loop_check;
-    loop_check -> read_profile [label="Yes"];
-    read_profile -> gen_struct;
-    gen_struct -> loop_check;
-    loop_check -> end [label="No"];
+    // Nodes
+    Start [shape=oval, fillcolor=lightblue, label="Start"];
+    ReadCreds [label="Read user credentials\n(users/creds.txt)"];
+    UserLoop [shape=diamond, label="For each user?", fillcolor=lightyellow];
+    
+    ReadProfile [label="Read user profile\n(users/%s/profile.txt)"];
+    ProfileExists [shape=diamond, label="Is profile empty\nor failed to open file?", fillcolor=lightyellow];
+    
+    CheckUsertype [shape=diamond, label="Has USERTYPE?", fillcolor=lightyellow];
+    GenStructure [label="Generate file structure\nfor user", fillcolor=lightgreen];
+    
+    ErrorExit [shape=oval, label="Exit with Error\n(Missing USERTYPE)", fillcolor=lightpink];
+    ErrorExit_2 [shape=oval, label="Exit with Error\n(Failed to open file)", fillcolor=lightpink];
+    End [shape=oval, label="Success / End", fillcolor=lightgreen];
+
+    // Edges
+    Start -> ReadCreds;
+    ReadCreds -> UserLoop;
+    
+    UserLoop -> ReadProfile [label="Yes (Next User)"];
+    UserLoop -> End [label="Done"];
+    
+    ReadProfile -> ProfileExists;
+    ProfileExists -> CheckUsertype [label="Yes"];
+    ProfileExists -> ErrorExit_2 [label="No"];
+    
+    CheckUsertype -> GenStructure [label="Yes"];
+    CheckUsertype -> ErrorExit [label="No"];
+    
+    GenStructure -> UserLoop;
 }
 \enddot
 
-One major structure we use is the key=value format, which we store in the **Config** data structure. (or user_login_t if you need hashtable)
+One major structure we use is the key=value format, which we store in the **Config** data structure. (or user_login_t if you need hashtable. We use Config here because its gonna be o(n) anyway)
 \n The util functions for **Config** are:
 
 - a
