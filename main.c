@@ -95,7 +95,8 @@ int main(int argc, char ** argv)
         _chdir(argv_path);
 	#else
         chdir(argv_path);
-       	system("reset"); /* in case the program crashes and messes up the terminal */
+        if(isatty(STDOUT_FILENO))
+       		system("reset"); /* in case the program crashes and messes up the terminal */
     #endif
 
 	if(argc > 1)
