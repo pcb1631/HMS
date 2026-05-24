@@ -4,3 +4,4 @@ doctorwho=$2b$12$RIh/ROfsxQoPEO8lGzVQLedwIyKHBupUL3gv.50U1K.GfyFUcYi66
 drhouse=$2b$12$meZNf/0GWzFAWGC3dx96t./YppGpcU/Chq.EDXE3tpJblzkjZAndm
 patient0=$2b$12$JT.j1tz.ID9AAbR.Vyjis.9clHotinq6iMikQyK2LCYXQRb32ECQi
 nurse0=$2b$12$Jb9.iiyTanKHfrGCYn8D0esSK1J9F0is70oKqnN2J9HK/JuhhU2PW
+nurse1=$2b$12$N2Q7zKtaLP2v0gm8aRrrVOzUEYxBCGssXBxTXMDDH.Myif8A9igry
