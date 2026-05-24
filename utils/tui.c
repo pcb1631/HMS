@@ -80,6 +80,9 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 			case '\n':
 				endwin();
 				break;
+
+			default:
+				break;
 		}
 	}
 
@@ -106,7 +109,7 @@ void command_select(command_node *head, char *utype, char *username)
 
     i = 0;
     Node = head;
-    while(Node != NULL)
+    while(Node != NULL && i < COMMAND_LIST_SIZE)
     {
         cmd_list[i] = Node->f;
         i++;
@@ -198,11 +201,11 @@ void command_select(command_node *head, char *utype, char *username)
         {
         	case 0x03: /* ETX */
         		endwin();
-       			printf("Received EOT\n");
+       			printf("Received SIGINT\n");
         		return;
-			case 0x04: /* EOF */
+			case 0x04: /* EOT */
 				endwin();
-				printf("Received EOF");
+				printf("Received EOT");
 				return;
 
             case KEY_LEFT:
@@ -218,8 +221,6 @@ void command_select(command_node *head, char *utype, char *username)
                 break;
 
             case '\n':
-                delwin(right_win);
-                delwin(left_win);
                 endwin();
 
                 if(strcmp(utype, cmd_list[selection].permission) != 0)
@@ -276,12 +277,11 @@ void command_select(command_node *head, char *utype, char *username)
                 {
                     call(cmd_list[selection], varray_username, 1, utype);
 
-                    /* This one took me a while...
+                    /*
                      *
                      * Sets terminal to raw mode to immediately consume character, (default is cooked mode aka dont stop until EOL)
                      * This way the program can immediately continue after calling the function pointer, without showing the user funny characters, or having to go back to ncurses mode and the user misses the output from the function
                      *
-                     * Thankfully ncurses abstracts everything involved with termios
                      */
                     raw();
                     getch();
@@ -291,6 +291,8 @@ void command_select(command_node *head, char *utype, char *username)
             default:
                 break;
         }
+	    delwin(right_win);
+	    delwin(left_win);
     }
 }
 
@@ -456,7 +458,8 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patien
     struct tm *time_tm;
     char buffer[80];
     char username[64];
-    strcpy(username, current_username);
+    strncpy(username, current_username, sizeof(username) - 1);
+    username[sizeof(username) - 1] = '\0';
 
 
     if(slots_n == 0)
@@ -465,7 +468,7 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patien
         return -1;
     }
 
-    for(i=0; i<slots_n; i++)
+    for(i=0; i<slots_n && i < MAX_BOOKING_SLOTS; i++)
     {
         time = slots[i].start;
         time_tm = localtime(&time);
