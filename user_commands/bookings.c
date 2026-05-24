@@ -84,7 +84,8 @@ Value doctor_booking_frontend(void)
 
     clear();
     select_d = simple_select(COLOR_BLUE, COLOR_BLACK, sizeof(options)/sizeof(char *), options, select_c, "Doctor booking options");
-    return make_string("EOF/EOT");
+    if (select_d == -1)
+    	return make_string("EOF/EOT");
 
     switch (select_d)
     {
@@ -243,6 +244,10 @@ Value patient_booking_frontend(void)
     strcpy(username, current_username);
 
     user_select_menu(allowed_utype, 1, selected_doctor);
+
+    if(strcmp(selected_doctor, "") == 0)
+    	return make_string("EOF/EOT");
+    
     parse_slots(selected_doctor, slots, &slots_n);
     select_slot = booking_slot_view(slots, slots_n, selected_doctor, 1);
 

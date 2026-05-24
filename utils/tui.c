@@ -65,6 +65,7 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 
 			case 0x03: /* ETX */
 			case 0x04: /* EOF */
+				printf("EOF/EOT\n");
 				strcpy(selection_s, "");
 				endwin(); return -1;
 
@@ -123,6 +124,7 @@ void command_select(command_node *head, char *utype, char *username)
     init_pair(2, COLOR_WHITE, 10);
     while(1)
     {
+   		ncurses_init();
         getmaxyx(stdscr, y_max, x_max);
 
         left_win = newwin(y_max, x_max/2, 0, 0);
@@ -262,16 +264,16 @@ void command_select(command_node *head, char *utype, char *username)
                         printf("\n");
                     }
 
-                    endwin();
                     call(cmd_list[selection], args, cmd_list[selection].n_of_args, utype);
                     free(args);
                     getch();
+                    ch = KEY_RESIZE;
 
                 }else
                 {
-                    endwin();
                     call(cmd_list[selection], varray_username, 1, utype);
                     getch();
+                    ch = KEY_RESIZE;
                 }
                 break;
 
@@ -321,6 +323,7 @@ time_t time_picker(char * pretext, int color_fg, int color_bg, time_t pre_time)
 
 	while(ch != '\n')
 	{
+		ncurses_init();
 		switch(select)
 		{
 		    case YEAR:
@@ -478,6 +481,7 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patien
         init_pair(2, COLOR_WHITE, 10);
         while(1)
         {
+       		ncurses_init();
             getmaxyx(stdscr, y_max, x_max);
 
             left_win = newwin(y_max, x_max/2, 0, 0);

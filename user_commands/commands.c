@@ -82,6 +82,10 @@ Value admin_view_cfg(void)
     char username[64];
     char path[128];
     user_select_menu(allowed, 2, username);
+
+    if(strcmp(username, "")==0)
+    	return make_string("EOF/EOT");
+    
     sprintf(path, "./users/%s/profile.txt", username);
     parse_config_file(path, &user);
 
