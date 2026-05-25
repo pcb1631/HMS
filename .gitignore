@@ -4,3 +4,4 @@
 .vscode/settings.json
 *.dSYM/
 .DS_Store
+docs_gen/
