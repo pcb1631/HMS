@@ -1,0 +1,6 @@
+<map id="command_node" name="command_node">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,106,131,134"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="147,110,157,120,149,128,131,132,131,126,147,124,152,120,145,115"/>
+<area shape="rect" id="Node000002" href="$structcommand.html" title="This struct contains information of a function, as we use manual vtable dispatch for menu." alt="" coords="25,5,111,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="70,47,71,106,65,105,66,50"/>
+</map>

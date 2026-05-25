@@ -1,0 +1,15 @@
+\doxysection{Dependencies, third-\/party libraries of HMS }
+\hypertarget{deps}{}\label{deps}\index{Dependencies, third-\/party libraries of HMS@{Dependencies, third-\/party libraries of HMS}}
+\hypertarget{deps_uthash_h}{}\doxysubsection{\texorpdfstring{uthash.\+h}{uthash.\+h}}\label{deps_uthash_h}
+uthash is a header-\/only library, which provides hash table lookup for user credentials. We chose this library for its simplicity\hypertarget{deps_crypt_blowfish}{}\doxysubsection{\texorpdfstring{crypt\+\_\+blowfish}{crypt\+\_\+blowfish}}\label{deps_crypt_blowfish}
+This library provides password hashing for security. ~\newline
+ You will see a warning emmited for crypt\+\_\+gensalt\+\_\+ra when compiling for ANSI C, but we won\textquotesingle{}t be using the function. ~\newline
+ git submodule\hypertarget{deps_doxygen-awesome-css}{}\doxysubsection{\texorpdfstring{doxygen-\/awesome-\/css}{doxygen-\/awesome-\/css}}\label{deps_doxygen-awesome-css}
+This is only for HTML docs. ~\newline
+ git submodule\hypertarget{deps_ncurses}{}\doxysubsection{\texorpdfstring{ncurses}{ncurses}}\label{deps_ncurses}
+ncurses allows us to make TUI libraries to make the program more interactive and user-\/friendly. ~\newline
+ It is shipped with mac\+OS (ncurses 5.\+x) and most linux distros.
+
+{\bfseries{However, you need to install ncurses with UCRT64 on Windows.}}
+
+For compatibility, we only use the curses.\+h subset, ncursesw for wide char support on Windows. 

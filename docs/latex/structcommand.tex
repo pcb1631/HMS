@@ -1,0 +1,105 @@
+\doxysection{command Struct Reference}
+\hypertarget{structcommand}{}\label{structcommand}\index{command@{command}}
+
+
+This struct contains information of a function, as we use manual vtable dispatch for menu.  
+
+
+
+
+{\ttfamily \+\#include $<$utils.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{utils_8h_a1f163a2da91312e2d9def3b5516f210d}{generic\+\_\+fn}} \doxymbox{\hyperlink{structcommand_a743d84e8f40ca8167f8b88e45952689e}{ptr}}
+\item 
+char \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcommand_a9027b352db4085a0122952932d065705}{alias}}
+\item 
+char \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcommand_a5b0696639232e0d0c5ab70c467f0e6e2}{permission}}
+\item 
+int \doxymbox{\hyperlink{structcommand_a545bc0e6110383a0163b4f48c8b4583b}{n\+\_\+of\+\_\+args}}
+\item 
+\doxymbox{\hyperlink{utils_8h_ad9971b6ef33e02ba2c75d19c1d2518a1}{Value\+Type}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcommand_aaabd6774867d5bf46a1f7f923f39aac3}{arg\+\_\+type}}
+\item 
+char \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcommand_a3aad16fd4bea1b9717f232ea75ad6449}{desc}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This struct contains information of a function, as we use manual vtable dispatch for menu. 
+
+Not calling the function pointer with correct return and arg types WILL result in undefined behaviour 
+
+Definition at line \doxymbox{\hyperlink{utils_8h_source_l00063}{63}} of file \doxymbox{\hyperlink{utils_8h_source}{utils.\+h}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{structcommand_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structcommand_a9027b352db4085a0122952932d065705}\index{command@{command}!alias@{alias}}
+\index{alias@{alias}!command@{command}}
+\doxysubsubsection{\texorpdfstring{alias}{alias}}
+{\footnotesize\ttfamily \label{structcommand_a9027b352db4085a0122952932d065705} 
+char\texorpdfstring{$\ast$}{*} alias}
+
+
+
+Definition at line \doxymbox{\hyperlink{utils_8h_source_l00068}{68}} of file \doxymbox{\hyperlink{utils_8h_source}{utils.\+h}}.
+
+\Hypertarget{structcommand_aaabd6774867d5bf46a1f7f923f39aac3}\index{command@{command}!arg\_type@{arg\_type}}
+\index{arg\_type@{arg\_type}!command@{command}}
+\doxysubsubsection{\texorpdfstring{arg\_type}{arg\_type}}
+{\footnotesize\ttfamily \label{structcommand_aaabd6774867d5bf46a1f7f923f39aac3} 
+\doxymbox{\hyperlink{utils_8h_ad9971b6ef33e02ba2c75d19c1d2518a1}{Value\+Type}}\texorpdfstring{$\ast$}{*} arg\+\_\+type}
+
+enum array 
+
+Definition at line \doxymbox{\hyperlink{utils_8h_source_l00075}{75}} of file \doxymbox{\hyperlink{utils_8h_source}{utils.\+h}}.
+
+\Hypertarget{structcommand_a3aad16fd4bea1b9717f232ea75ad6449}\index{command@{command}!desc@{desc}}
+\index{desc@{desc}!command@{command}}
+\doxysubsubsection{\texorpdfstring{desc}{desc}}
+{\footnotesize\ttfamily \label{structcommand_a3aad16fd4bea1b9717f232ea75ad6449} 
+char\texorpdfstring{$\ast$}{*} desc}
+
+Description to be displayed in command selector 
+
+Definition at line \doxymbox{\hyperlink{utils_8h_source_l00078}{78}} of file \doxymbox{\hyperlink{utils_8h_source}{utils.\+h}}.
+
+\Hypertarget{structcommand_a545bc0e6110383a0163b4f48c8b4583b}\index{command@{command}!n\_of\_args@{n\_of\_args}}
+\index{n\_of\_args@{n\_of\_args}!command@{command}}
+\doxysubsubsection{\texorpdfstring{n\_of\_args}{n\_of\_args}}
+{\footnotesize\ttfamily \label{structcommand_a545bc0e6110383a0163b4f48c8b4583b} 
+int n\+\_\+of\+\_\+args}
+
+-\/1 means any amount 
+
+Definition at line \doxymbox{\hyperlink{utils_8h_source_l00072}{72}} of file \doxymbox{\hyperlink{utils_8h_source}{utils.\+h}}.
+
+\Hypertarget{structcommand_a5b0696639232e0d0c5ab70c467f0e6e2}\index{command@{command}!permission@{permission}}
+\index{permission@{permission}!command@{command}}
+\doxysubsubsection{\texorpdfstring{permission}{permission}}
+{\footnotesize\ttfamily \label{structcommand_a5b0696639232e0d0c5ab70c467f0e6e2} 
+char\texorpdfstring{$\ast$}{*} permission}
+
+
+
+Definition at line \doxymbox{\hyperlink{utils_8h_source_l00069}{69}} of file \doxymbox{\hyperlink{utils_8h_source}{utils.\+h}}.
+
+\Hypertarget{structcommand_a743d84e8f40ca8167f8b88e45952689e}\index{command@{command}!ptr@{ptr}}
+\index{ptr@{ptr}!command@{command}}
+\doxysubsubsection{\texorpdfstring{ptr}{ptr}}
+{\footnotesize\ttfamily \label{structcommand_a743d84e8f40ca8167f8b88e45952689e} 
+\doxymbox{\hyperlink{utils_8h_a1f163a2da91312e2d9def3b5516f210d}{generic\+\_\+fn}} ptr}
+
+The type-\/erased function pointer. 
+
+Definition at line \doxymbox{\hyperlink{utils_8h_source_l00066}{66}} of file \doxymbox{\hyperlink{utils_8h_source}{utils.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+utils/\+\doxymbox{\hyperlink{utils_8h}{utils.\+h}}\end{DoxyCompactItemize}

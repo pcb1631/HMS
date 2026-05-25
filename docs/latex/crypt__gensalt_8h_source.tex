@@ -1,0 +1,36 @@
+\doxysection{crypt\+\_\+gensalt.\+h}
+\hypertarget{crypt__gensalt_8h_source}{}\label{crypt__gensalt_8h_source}\index{deps/crypt\_blowfish/crypt\_gensalt.h@{deps/crypt\_blowfish/crypt\_gensalt.h}}
+\doxymbox{\hyperlink{crypt__gensalt_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00002}00002\ \textcolor{comment}{\ *\ Written\ by\ Solar\ Designer\ <solar\ at\ openwall.com>\ in\ 2000-\/2011.}}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00003}00003\ \textcolor{comment}{\ *\ No\ copyright\ is\ claimed,\ and\ the\ software\ is\ hereby\ placed\ in\ the\ public}}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00004}00004\ \textcolor{comment}{\ *\ domain.\ \ In\ case\ this\ attempt\ to\ disclaim\ copyright\ and\ place\ the\ software}}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00005}00005\ \textcolor{comment}{\ *\ in\ the\ public\ domain\ is\ deemed\ null\ and\ void,\ then\ the\ software\ is}}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00006}00006\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2000-\/2011\ Solar\ Designer\ and\ it\ is\ hereby\ released\ to\ the}}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00007}00007\ \textcolor{comment}{\ *\ general\ public\ under\ the\ following\ terms:}}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00008}00008\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00009}00009\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00010}00010\ \textcolor{comment}{\ *\ modification,\ are\ permitted.}}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00011}00011\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00012}00012\ \textcolor{comment}{\ *\ There's\ ABSOLUTELY\ NO\ WARRANTY,\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00013}00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00014}00014\ \textcolor{comment}{\ *\ See\ crypt\_blowfish.c\ for\ more\ information.}}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00015}00015\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00017}00017\ \textcolor{preprocessor}{\#ifndef\ \_CRYPT\_GENSALT\_H}}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00018}00018\ \textcolor{preprocessor}{\#define\ \_CRYPT\_GENSALT\_H}}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00020}00020\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{crypt__gensalt_8c_a4a0590bc7b46a7b1d5c5947bf3555633}{\_crypt\_itoa64}}[];}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00021}00021\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{char}\ *\doxymbox{\hyperlink{crypt__gensalt_8h_aef47aba85b6ffaebb6d8bd2c0d06c482}{\_crypt\_gensalt\_traditional\_rn}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *prefix,}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00022}00022\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ count,}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00023}00023\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *input,\ \textcolor{keywordtype}{int}\ size,\ \textcolor{keywordtype}{char}\ *output,\ \textcolor{keywordtype}{int}\ output\_size);}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00024}00024\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{char}\ *\doxymbox{\hyperlink{crypt__gensalt_8h_a2cfd14c2edc3ee80ccab11a54de98416}{\_crypt\_gensalt\_extended\_rn}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *prefix,}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00025}00025\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ count,}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00026}00026\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *input,\ \textcolor{keywordtype}{int}\ size,\ \textcolor{keywordtype}{char}\ *output,\ \textcolor{keywordtype}{int}\ output\_size);}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00027}00027\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{char}\ *\doxymbox{\hyperlink{crypt__gensalt_8h_aa1dad8333711d173783b89b85e388a09}{\_crypt\_gensalt\_md5\_rn}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *prefix,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ count,}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00028}00028\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *input,\ \textcolor{keywordtype}{int}\ size,\ \textcolor{keywordtype}{char}\ *output,\ \textcolor{keywordtype}{int}\ output\_size);}
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{crypt__gensalt_8h_source_l00030}00030\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

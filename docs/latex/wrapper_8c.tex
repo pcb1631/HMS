@@ -1,0 +1,197 @@
+\doxysection{deps/\+crypt\+\_\+blowfish/\+wrapper.c File Reference}
+\hypertarget{wrapper_8c}{}\label{wrapper_8c}\index{deps/crypt\_blowfish/wrapper.c@{deps/crypt\_blowfish/wrapper.c}}
+{\ttfamily \+\#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \+\#include $<$string.\+h$>$}\newline
+{\ttfamily \+\#include $<$errno.\+h$>$}\newline
+{\ttfamily \+\#include "{}ow-\/crypt.\+h"{}}\newline
+{\ttfamily \+\#include "{}crypt\+\_\+blowfish.\+h"{}}\newline
+{\ttfamily \+\#include "{}crypt\+\_\+gensalt.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{wrapper_8c_afedd4c7f8e193b28d8fc61ef3c76286a}{\+\_\+\+\_\+set\+\_\+errno}}(val)
+\item 
+\+\#define \doxymbox{\hyperlink{wrapper_8c_a57dedad871f3bdc082b9f582d6c4cb51}{CRYPT\+\_\+\+OUTPUT\+\_\+\+SIZE}}~(7 + 22 + 31 + 1)
+\item 
+\+\#define \doxymbox{\hyperlink{wrapper_8c_ac5ef29cbb82c40fc1133e7e50b4773f7}{CRYPT\+\_\+\+GENSALT\+\_\+\+OUTPUT\+\_\+\+SIZE}}~(7 + 22 + 1)
+\item 
+\+\#define \doxymbox{\hyperlink{wrapper_8c_a655564eb9389ff52be43d1ddfab5603b}{\+\_\+\+\_\+crypt\+\_\+gensalt\+\_\+rn}}~\doxymbox{\hyperlink{ow-crypt_8h_a7b709f65ba563484c8b090ddb4762871}{crypt\+\_\+gensalt\+\_\+rn}}
+\item 
+\+\#define \doxymbox{\hyperlink{wrapper_8c_aed193e57845bbeaffe2b8b5817055cc6}{\+\_\+\+\_\+crypt\+\_\+gensalt\+\_\+ra}}~\doxymbox{\hyperlink{ow-crypt_8h_ad8d129162856993d07fdc07a1fd46e99}{crypt\+\_\+gensalt\+\_\+ra}}
+\item 
+\+\#define \doxymbox{\hyperlink{wrapper_8c_ab3ae3e60e1b5c6e516d245f0f17d6c30}{\+\_\+\+\_\+crypt\+\_\+gensalt}}~\doxymbox{\hyperlink{ow-crypt_8h_ac017062f1485e78fd9941b0c20753dcd}{crypt\+\_\+gensalt}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \doxymbox{\hyperlink{wrapper_8c_ac12b6e3a9526fd03ae02d06cfd1a6b4e}{\+\_\+crypt\+\_\+data\+\_\+alloc}} (void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}data, int \texorpdfstring{$\ast$}{*}size, int need)
+\item 
+static char \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{wrapper_8c_afa45b716347d953c4a59468360f90e38}{\+\_\+crypt\+\_\+retval\+\_\+magic}} (char \texorpdfstring{$\ast$}{*}retval, const char \texorpdfstring{$\ast$}{*}setting, char \texorpdfstring{$\ast$}{*}output, int size)
+\item 
+char \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{wrapper_8c_a6a675cda94958490911993af782e444e}{crypt\+\_\+rn}} (const char \texorpdfstring{$\ast$}{*}key, const char \texorpdfstring{$\ast$}{*}setting, void \texorpdfstring{$\ast$}{*}data, int size)
+\item 
+char \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{wrapper_8c_afb4ad70e8bfa22e25812370fdd910293}{crypt\+\_\+ra}} (const char \texorpdfstring{$\ast$}{*}key, const char \texorpdfstring{$\ast$}{*}setting, void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}data, int \texorpdfstring{$\ast$}{*}size)
+\item 
+char \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{wrapper_8c_ae7739ee09cc40b339ac079749f68376f}{crypt\+\_\+r}} (const char \texorpdfstring{$\ast$}{*}key, const char \texorpdfstring{$\ast$}{*}setting, void \texorpdfstring{$\ast$}{*}data)
+\item 
+char \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{wrapper_8c_a9dc07997f7146ea50c7ee3c483b2f02d}{crypt}} (const char \texorpdfstring{$\ast$}{*}key, const char \texorpdfstring{$\ast$}{*}setting)
+\item 
+char \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{wrapper_8c_ab9d4aae742176c3fb314e756657b17e0}{\+\_\+\+\_\+crypt\+\_\+gensalt\+\_\+rn}} (const char \texorpdfstring{$\ast$}{*}prefix, unsigned long count, const char \texorpdfstring{$\ast$}{*}input, int size, char \texorpdfstring{$\ast$}{*}output, int output\+\_\+size)
+\item 
+char \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{wrapper_8c_acb3b31a1bb1883735a4214f7f1be3fc2}{\+\_\+\+\_\+crypt\+\_\+gensalt}} (const char \texorpdfstring{$\ast$}{*}prefix, unsigned long count, const char \texorpdfstring{$\ast$}{*}input, int size)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{wrapper_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{wrapper_8c_ab3ae3e60e1b5c6e516d245f0f17d6c30}\index{wrapper.c@{wrapper.c}!\_\_crypt\_gensalt@{\_\_crypt\_gensalt}}
+\index{\_\_crypt\_gensalt@{\_\_crypt\_gensalt}!wrapper.c@{wrapper.c}}
+\doxysubsubsection{\texorpdfstring{\_\_crypt\_gensalt}{\_\_crypt\_gensalt}}
+{\footnotesize\ttfamily \label{wrapper_8c_ab3ae3e60e1b5c6e516d245f0f17d6c30} 
+\+\#define \+\_\+\+\_\+crypt\+\_\+gensalt~\doxymbox{\hyperlink{ow-crypt_8h_ac017062f1485e78fd9941b0c20753dcd}{crypt\+\_\+gensalt}}}
+
+
+
+Definition at line \doxymbox{\hyperlink{wrapper_8c_source_l00197}{197}} of file \doxymbox{\hyperlink{wrapper_8c_source}{wrapper.\+c}}.
+
+\Hypertarget{wrapper_8c_aed193e57845bbeaffe2b8b5817055cc6}\index{wrapper.c@{wrapper.c}!\_\_crypt\_gensalt\_ra@{\_\_crypt\_gensalt\_ra}}
+\index{\_\_crypt\_gensalt\_ra@{\_\_crypt\_gensalt\_ra}!wrapper.c@{wrapper.c}}
+\doxysubsubsection{\texorpdfstring{\_\_crypt\_gensalt\_ra}{\_\_crypt\_gensalt\_ra}}
+{\footnotesize\ttfamily \label{wrapper_8c_aed193e57845bbeaffe2b8b5817055cc6} 
+\+\#define \+\_\+\+\_\+crypt\+\_\+gensalt\+\_\+ra~\doxymbox{\hyperlink{ow-crypt_8h_ad8d129162856993d07fdc07a1fd46e99}{crypt\+\_\+gensalt\+\_\+ra}}}
+
+
+
+Definition at line \doxymbox{\hyperlink{wrapper_8c_source_l00196}{196}} of file \doxymbox{\hyperlink{wrapper_8c_source}{wrapper.\+c}}.
+
+\Hypertarget{wrapper_8c_a655564eb9389ff52be43d1ddfab5603b}\index{wrapper.c@{wrapper.c}!\_\_crypt\_gensalt\_rn@{\_\_crypt\_gensalt\_rn}}
+\index{\_\_crypt\_gensalt\_rn@{\_\_crypt\_gensalt\_rn}!wrapper.c@{wrapper.c}}
+\doxysubsubsection{\texorpdfstring{\_\_crypt\_gensalt\_rn}{\_\_crypt\_gensalt\_rn}}
+{\footnotesize\ttfamily \label{wrapper_8c_a655564eb9389ff52be43d1ddfab5603b} 
+\+\#define \+\_\+\+\_\+crypt\+\_\+gensalt\+\_\+rn~\doxymbox{\hyperlink{ow-crypt_8h_a7b709f65ba563484c8b090ddb4762871}{crypt\+\_\+gensalt\+\_\+rn}}}
+
+
+
+Definition at line \doxymbox{\hyperlink{wrapper_8c_source_l00195}{195}} of file \doxymbox{\hyperlink{wrapper_8c_source}{wrapper.\+c}}.
+
+\Hypertarget{wrapper_8c_afedd4c7f8e193b28d8fc61ef3c76286a}\index{wrapper.c@{wrapper.c}!\_\_set\_errno@{\_\_set\_errno}}
+\index{\_\_set\_errno@{\_\_set\_errno}!wrapper.c@{wrapper.c}}
+\doxysubsubsection{\texorpdfstring{\_\_set\_errno}{\_\_set\_errno}}
+{\footnotesize\ttfamily \label{wrapper_8c_afedd4c7f8e193b28d8fc61ef3c76286a} 
+\+\#define \+\_\+\+\_\+set\+\_\+errno(\begin{DoxyParamCaption}\item[{}]{val}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{errno\ =\ (val)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{wrapper_8c_source_l00022}{22}} of file \doxymbox{\hyperlink{wrapper_8c_source}{wrapper.\+c}}.
+
+\Hypertarget{wrapper_8c_ac5ef29cbb82c40fc1133e7e50b4773f7}\index{wrapper.c@{wrapper.c}!CRYPT\_GENSALT\_OUTPUT\_SIZE@{CRYPT\_GENSALT\_OUTPUT\_SIZE}}
+\index{CRYPT\_GENSALT\_OUTPUT\_SIZE@{CRYPT\_GENSALT\_OUTPUT\_SIZE}!wrapper.c@{wrapper.c}}
+\doxysubsubsection{\texorpdfstring{CRYPT\_GENSALT\_OUTPUT\_SIZE}{CRYPT\_GENSALT\_OUTPUT\_SIZE}}
+{\footnotesize\ttfamily \label{wrapper_8c_ac5ef29cbb82c40fc1133e7e50b4773f7} 
+\+\#define CRYPT\+\_\+\+GENSALT\+\_\+\+OUTPUT\+\_\+\+SIZE~(7 + 22 + 1)}
+
+
+
+Definition at line \doxymbox{\hyperlink{wrapper_8c_source_l00038}{38}} of file \doxymbox{\hyperlink{wrapper_8c_source}{wrapper.\+c}}.
+
+\Hypertarget{wrapper_8c_a57dedad871f3bdc082b9f582d6c4cb51}\index{wrapper.c@{wrapper.c}!CRYPT\_OUTPUT\_SIZE@{CRYPT\_OUTPUT\_SIZE}}
+\index{CRYPT\_OUTPUT\_SIZE@{CRYPT\_OUTPUT\_SIZE}!wrapper.c@{wrapper.c}}
+\doxysubsubsection{\texorpdfstring{CRYPT\_OUTPUT\_SIZE}{CRYPT\_OUTPUT\_SIZE}}
+{\footnotesize\ttfamily \label{wrapper_8c_a57dedad871f3bdc082b9f582d6c4cb51} 
+\+\#define CRYPT\+\_\+\+OUTPUT\+\_\+\+SIZE~(7 + 22 + 31 + 1)}
+
+
+
+Definition at line \doxymbox{\hyperlink{wrapper_8c_source_l00037}{37}} of file \doxymbox{\hyperlink{wrapper_8c_source}{wrapper.\+c}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{wrapper_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{wrapper_8c_acb3b31a1bb1883735a4214f7f1be3fc2}\index{wrapper.c@{wrapper.c}!\_\_crypt\_gensalt@{\_\_crypt\_gensalt}}
+\index{\_\_crypt\_gensalt@{\_\_crypt\_gensalt}!wrapper.c@{wrapper.c}}
+\doxysubsubsection{\texorpdfstring{\_\_crypt\_gensalt()}{\_\_crypt\_gensalt()}}
+{\footnotesize\ttfamily \label{wrapper_8c_acb3b31a1bb1883735a4214f7f1be3fc2} 
+char \texorpdfstring{$\ast$}{*} \+\_\+\+\_\+crypt\+\_\+gensalt (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{prefix}{, }\item[{unsigned long}]{count}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{input}{, }\item[{int}]{size}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{wrapper_8c_source_l00261}{261}} of file \doxymbox{\hyperlink{wrapper_8c_source}{wrapper.\+c}}.
+
+\Hypertarget{wrapper_8c_ab9d4aae742176c3fb314e756657b17e0}\index{wrapper.c@{wrapper.c}!\_\_crypt\_gensalt\_rn@{\_\_crypt\_gensalt\_rn}}
+\index{\_\_crypt\_gensalt\_rn@{\_\_crypt\_gensalt\_rn}!wrapper.c@{wrapper.c}}
+\doxysubsubsection{\texorpdfstring{\_\_crypt\_gensalt\_rn()}{\_\_crypt\_gensalt\_rn()}}
+{\footnotesize\ttfamily \label{wrapper_8c_ab9d4aae742176c3fb314e756657b17e0} 
+char \texorpdfstring{$\ast$}{*} \+\_\+\+\_\+crypt\+\_\+gensalt\+\_\+rn (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{prefix}{, }\item[{unsigned long}]{count}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{input}{, }\item[{int}]{size}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{output}{, }\item[{int}]{output\+\_\+size}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{wrapper_8c_source_l00200}{200}} of file \doxymbox{\hyperlink{wrapper_8c_source}{wrapper.\+c}}.
+
+\Hypertarget{wrapper_8c_ac12b6e3a9526fd03ae02d06cfd1a6b4e}\index{wrapper.c@{wrapper.c}!\_crypt\_data\_alloc@{\_crypt\_data\_alloc}}
+\index{\_crypt\_data\_alloc@{\_crypt\_data\_alloc}!wrapper.c@{wrapper.c}}
+\doxysubsubsection{\texorpdfstring{\_crypt\_data\_alloc()}{\_crypt\_data\_alloc()}}
+{\footnotesize\ttfamily \label{wrapper_8c_ac12b6e3a9526fd03ae02d06cfd1a6b4e} 
+int \+\_\+crypt\+\_\+data\+\_\+alloc (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{size}{, }\item[{int}]{need}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{wrapper_8c_source_l00060}{60}} of file \doxymbox{\hyperlink{wrapper_8c_source}{wrapper.\+c}}.
+
+\Hypertarget{wrapper_8c_afa45b716347d953c4a59468360f90e38}\index{wrapper.c@{wrapper.c}!\_crypt\_retval\_magic@{\_crypt\_retval\_magic}}
+\index{\_crypt\_retval\_magic@{\_crypt\_retval\_magic}!wrapper.c@{wrapper.c}}
+\doxysubsubsection{\texorpdfstring{\_crypt\_retval\_magic()}{\_crypt\_retval\_magic()}}
+{\footnotesize\ttfamily \label{wrapper_8c_afa45b716347d953c4a59468360f90e38} 
+char \texorpdfstring{$\ast$}{*} \+\_\+crypt\+\_\+retval\+\_\+magic (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{retval}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{setting}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{output}{, }\item[{int}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{wrapper_8c_source_l00087}{87}} of file \doxymbox{\hyperlink{wrapper_8c_source}{wrapper.\+c}}.
+
+\Hypertarget{wrapper_8c_a9dc07997f7146ea50c7ee3c483b2f02d}\index{wrapper.c@{wrapper.c}!crypt@{crypt}}
+\index{crypt@{crypt}!wrapper.c@{wrapper.c}}
+\doxysubsubsection{\texorpdfstring{crypt()}{crypt()}}
+{\footnotesize\ttfamily \label{wrapper_8c_a9dc07997f7146ea50c7ee3c483b2f02d} 
+char \texorpdfstring{$\ast$}{*} crypt (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{key}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{setting}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{wrapper_8c_source_l00186}{186}} of file \doxymbox{\hyperlink{wrapper_8c_source}{wrapper.\+c}}.
+
+\Hypertarget{wrapper_8c_ae7739ee09cc40b339ac079749f68376f}\index{wrapper.c@{wrapper.c}!crypt\_r@{crypt\_r}}
+\index{crypt\_r@{crypt\_r}!wrapper.c@{wrapper.c}}
+\doxysubsubsection{\texorpdfstring{crypt\_r()}{crypt\_r()}}
+{\footnotesize\ttfamily \label{wrapper_8c_ae7739ee09cc40b339ac079749f68376f} 
+char \texorpdfstring{$\ast$}{*} crypt\+\_\+r (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{key}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{setting}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{wrapper_8c_source_l00179}{179}} of file \doxymbox{\hyperlink{wrapper_8c_source}{wrapper.\+c}}.
+
+\Hypertarget{wrapper_8c_afb4ad70e8bfa22e25812370fdd910293}\index{wrapper.c@{wrapper.c}!crypt\_ra@{crypt\_ra}}
+\index{crypt\_ra@{crypt\_ra}!wrapper.c@{wrapper.c}}
+\doxysubsubsection{\texorpdfstring{crypt\_ra()}{crypt\_ra()}}
+{\footnotesize\ttfamily \label{wrapper_8c_afb4ad70e8bfa22e25812370fdd910293} 
+char \texorpdfstring{$\ast$}{*} crypt\+\_\+ra (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{key}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{setting}{, }\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{size}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{wrapper_8c_source_l00171}{171}} of file \doxymbox{\hyperlink{wrapper_8c_source}{wrapper.\+c}}.
+
+\Hypertarget{wrapper_8c_a6a675cda94958490911993af782e444e}\index{wrapper.c@{wrapper.c}!crypt\_rn@{crypt\_rn}}
+\index{crypt\_rn@{crypt\_rn}!wrapper.c@{wrapper.c}}
+\doxysubsubsection{\texorpdfstring{crypt\_rn()}{crypt\_rn()}}
+{\footnotesize\ttfamily \label{wrapper_8c_a6a675cda94958490911993af782e444e} 
+char \texorpdfstring{$\ast$}{*} crypt\+\_\+rn (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{key}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{setting}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{size}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{wrapper_8c_source_l00166}{166}} of file \doxymbox{\hyperlink{wrapper_8c_source}{wrapper.\+c}}.
+

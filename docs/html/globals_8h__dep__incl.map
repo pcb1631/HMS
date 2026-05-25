@@ -1,0 +1,11 @@
+<map id="utils/globals.h" name="utils/globals.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="230,5,342,33"/>
+<area shape="rect" id="Node000002" href="$main_8c.html" title=" " alt="" coords="5,81,71,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="228,40,72,86,70,81,227,35"/>
+<area shape="rect" id="Node000003" href="$bookings_8c.html" title=" " alt="" coords="94,81,296,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="260,42,213,83,210,78,255,44"/>
+<area shape="rect" id="Node000004" href="$globals_8c.html" title=" " alt="" coords="321,81,432,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="315,41,363,81,358,80,313,46"/>
+<area shape="rect" id="Node000005" href="$tui_8c.html" title=" " alt="" coords="456,81,537,109"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="338,36,462,80,456,81,337,41"/>
+</map>

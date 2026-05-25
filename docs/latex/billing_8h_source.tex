@@ -1,0 +1,24 @@
+\doxysection{billing.\+h}
+\hypertarget{billing_8h_source}{}\label{billing_8h_source}\index{user\_commands/billing.h@{user\_commands/billing.h}}
+\doxymbox{\hyperlink{billing_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{billing_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ BILLING\_H}}
+\DoxyCodeLine{\Hypertarget{billing_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ BILLING\_H}}
+\DoxyCodeLine{\Hypertarget{billing_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{billing_8h_source_l00004}\doxymbox{\hyperlink{billing_8h_ac7c0207aa5a0e10d378be03b68041350}{00004}}\ \textcolor{preprocessor}{\#define\ MAX\_NAME\ 50}}
+\DoxyCodeLine{\Hypertarget{billing_8h_source_l00005}\doxymbox{\hyperlink{billing_8h_a1cdef4472847c938fc165b7d2737c4e4}{00005}}\ \textcolor{preprocessor}{\#define\ MAX\_ID\ 15}}
+\DoxyCodeLine{\Hypertarget{billing_8h_source_l00006}\doxymbox{\hyperlink{billing_8h_ab2854f198e119d1843f14002a2621aa7}{00006}}\ \textcolor{preprocessor}{\#define\ MAX\_DATE\ 12}}
+\DoxyCodeLine{\Hypertarget{billing_8h_source_l00007}\doxymbox{\hyperlink{billing_8h_aa47d8edb512a07387ff40fff7317ace0}{00007}}\ \textcolor{preprocessor}{\#define\ MAX\_TEXT\ 200}}
+\DoxyCodeLine{\Hypertarget{billing_8h_source_l00008}\doxymbox{\hyperlink{billing_8h_a5acd8ca9bc6199921957a2363589304e}{00008}}\ \textcolor{preprocessor}{\#define\ MAX\_TYPE\ 20}}
+\DoxyCodeLine{\Hypertarget{billing_8h_source_l00009}\doxymbox{\hyperlink{structPayment}{00009}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\Hypertarget{billing_8h_source_l00010}\doxymbox{\hyperlink{structPayment_a0441d1377eaa049edd6122534ba53be1}{00010}}\ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{structPayment_a0441d1377eaa049edd6122534ba53be1}{patientID}}[\doxymbox{\hyperlink{billing_8h_a1cdef4472847c938fc165b7d2737c4e4}{MAX\_ID}}];}
+\DoxyCodeLine{\Hypertarget{billing_8h_source_l00011}\doxymbox{\hyperlink{structPayment_a6f3bc86d644ada960e258560ee54b02d}{00011}}\ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{structPayment_a6f3bc86d644ada960e258560ee54b02d}{paymentID}}[\doxymbox{\hyperlink{billing_8h_a1cdef4472847c938fc165b7d2737c4e4}{MAX\_ID}}];}
+\DoxyCodeLine{\Hypertarget{billing_8h_source_l00012}\doxymbox{\hyperlink{structPayment_a264d037708f3b925b250b4db3700efdb}{00012}}\ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{structPayment_a264d037708f3b925b250b4db3700efdb}{date}}[\doxymbox{\hyperlink{billing_8h_ab2854f198e119d1843f14002a2621aa7}{MAX\_DATE}}];}
+\DoxyCodeLine{\Hypertarget{billing_8h_source_l00013}\doxymbox{\hyperlink{structPayment_a8937702ad328ce8656cb75a43d42cc4a}{00013}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structPayment_a8937702ad328ce8656cb75a43d42cc4a}{amount}};}
+\DoxyCodeLine{\Hypertarget{billing_8h_source_l00014}\doxymbox{\hyperlink{structPayment_a08c850db3260c816617cadfa545e9f42}{00014}}\ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{structPayment_a08c850db3260c816617cadfa545e9f42}{status}}[\doxymbox{\hyperlink{billing_8h_a5acd8ca9bc6199921957a2363589304e}{MAX\_TYPE}}];}
+\DoxyCodeLine{\Hypertarget{billing_8h_source_l00015}00015\ \}\ \doxymbox{\hyperlink{structPayment}{Payment}};}
+\DoxyCodeLine{\Hypertarget{billing_8h_source_l00016}00016\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{billing_8h_ad2ee223b0fb7f6f93ed45d74e0c3cae0}{performPayment}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *patientID);}
+\DoxyCodeLine{\Hypertarget{billing_8h_source_l00017}00017\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{billing_8h_a95e3fa6e91a2a9d59beed715618ddca1}{viewPaymentHistory}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *patientID);}
+\DoxyCodeLine{\Hypertarget{billing_8h_source_l00018}00018\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

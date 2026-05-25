@@ -1,0 +1,306 @@
+\doxysection{main.\+c}
+\hypertarget{main_8c_source}{}\label{main_8c_source}\doxymbox{\hyperlink{main_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{globals_8h}{utils/globals.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{logins_8h}{utils/logins.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{utils_8h}{utils/utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{bookings_8h}{user\_commands/bookings.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{commands_8h}{user\_commands/commands.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00010}00010\ \textcolor{comment}{/*\ file\ handling\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <sys/stat.h>}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00012}00012\ \textcolor{preprocessor}{\#ifndef\ \_WIN32}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <sys/file.h>}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00014}00014\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <fcntl.h>}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00016}00016\ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00017}00017\ \textcolor{preprocessor}{\#include\ <io.h>}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00018}00018\ \textcolor{preprocessor}{\#include\ <direct.h>}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00019}00019\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00020}00020\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00021}00021\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00024}00024\ \textcolor{comment}{/*\ TUI\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00025}00025\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{tui_8h}{utils/tui.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00026}00026\ \textcolor{preprocessor}{\#ifndef\ \_WIN32}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00027}00027\ \textcolor{preprocessor}{\ \ \ \ \#include\ <ncurses.h>}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00028}00028\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00029}00029\ \textcolor{preprocessor}{\ \ \ \ \#include\ <ncursesw/curses.h>}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00030}00030\ \textcolor{preprocessor}{\ \ \ \ \#include\ <windows.h>}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00031}00031\ \textcolor{preprocessor}{\ \ \ \ \#include\ <wincrypt.h>}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00032}00032\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00034}\doxymbox{\hyperlink{main_8c_a2e2e697ff7ae93026c6f59fa1e02aa57}{00034}}\ \textcolor{preprocessor}{\#define\ DATABASE\_PATH\ "{}./users/"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00035}\doxymbox{\hyperlink{main_8c_a5f7ba8e1ca94628be5af73eb0efa891b}{00035}}\ \textcolor{preprocessor}{\#define\ CREDENTIALS\_PATH\ "{}./users/creds.txt"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00037}\doxymbox{\hyperlink{main_8c_a3c04138a5bfe5d72780bb7e82a18e627}{00037}}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{regen__file__structure_8c_acf0ba67194dd8f699009977bb264217e}{main}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **\ argv)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00038}00038\ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00039}00039\ \ \ \ \ \textcolor{keywordtype}{char}\ current\_utype[10];}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00040}00040\ \ \ \ \ \textcolor{keywordtype}{char}\ *\ pw\_file\ =\ \doxymbox{\hyperlink{main_8c_a5f7ba8e1ca94628be5af73eb0efa891b}{CREDENTIALS\_PATH}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00041}00041\ \ \ \ \ \textcolor{keywordtype}{char}\ path[256];}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00042}00042\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ options[3]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Login\(\backslash\)0"{}},}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Register\(\backslash\)0"{}},}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Exit\(\backslash\)0"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00046}00046\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00047}00047\ \ \ \ \ \textcolor{keywordtype}{char}\ pretext[128]\ =\ \textcolor{stringliteral}{"{}Please\ select\ an\ option"{}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00048}00048\ \ \ \ \ \textcolor{keywordtype}{char}\ selection[20]\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00051}00051\ \ \ \ \ \textcolor{comment}{/*Pass\ to\ logins.h\ functions\ as\ a\ pointer\ to\ hash\ pointer,\ as\ per\ uthash\ doc}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00052}00052\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00053}00053\ \textcolor{comment}{\ \ \ \ Defined\ in\ main\ because\ global\ variables\ aren't\ allowed\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00054}00054\ \ \ \ \ \doxymbox{\hyperlink{structuser__login__t}{user\_login\_t}}\ *\ logins\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00055}00055\ \ \ \ \ \doxymbox{\hyperlink{structuser__login__t}{user\_login\_t}}\ *\ user\_ptr\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00058}00058\ \ \ \ \ \textcolor{comment}{/*\ i\ have\ 0\ clue\ why\ const\ doesnt\ work}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00059}00059\ \textcolor{comment}{\ \ \ \ \ *\ if\ i\ don't\ define\ with\ static,\ clangd\ will\ scream\ something\ about\ aggregate\ not\ being\ a\ compile\ time\ constant}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00060}00060\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00061}00061\ \ \ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{utils_8h_ad9971b6ef33e02ba2c75d19c1d2518a1}{ValueType}}\ makeuser\_args[]\ =\ \{\doxymbox{\hyperlink{utils_8h_ad9971b6ef33e02ba2c75d19c1d2518a1addb4be6b1cc25112defabef75f73427a}{TYPE\_STRING}},\ \doxymbox{\hyperlink{utils_8h_ad9971b6ef33e02ba2c75d19c1d2518a1addb4be6b1cc25112defabef75f73427a}{TYPE\_STRING}}\};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00064}00064\ \ \ \ \ \textcolor{comment}{/*\ COMMAND(function\ name,\ alias,\ permission,\ argument\ types)\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00065}00065\ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{structcommand}{command}}\ cmd\_list[]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00066}00066\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{utils_8h_a3088c180357ddb4840adf337762901a6}{COMMAND\_NOARGS}}(\doxymbox{\hyperlink{bookings_8c_aaae1e0d010ef58c6f1ab63de1e78bafb}{doctor\_booking\_frontend}},\ \textcolor{stringliteral}{"{}Doctor\ Booking"{}},\ \textcolor{stringliteral}{"{}Doctor"{}},\ \textcolor{stringliteral}{"{}Booking\ options\ for\ doctors"{}}),}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00067}00067\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{utils_8h_a3088c180357ddb4840adf337762901a6}{COMMAND\_NOARGS}}(\doxymbox{\hyperlink{bookings_8c_a8cfa5a3e93b7e46813a1d72f322deda8}{patient\_booking\_frontend}},\ \textcolor{stringliteral}{"{}Patient\ Booking"{}},\ \textcolor{stringliteral}{"{}Patient"{}},\ \textcolor{stringliteral}{"{}Booking\ options\ for\ patients"{}}),}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00069}00069\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{utils_8h_a3088c180357ddb4840adf337762901a6}{COMMAND\_NOARGS}}(\doxymbox{\hyperlink{commands_8c_af3d79917f472952f77de2e36f341f68c}{admin\_view\_cfg}},\ \textcolor{stringliteral}{"{}View\ users\ profile"{}},\ \textcolor{stringliteral}{"{}Admin"{}},\ \textcolor{stringliteral}{"{}"{}}),}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00070}00070\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{utils_8h_aa31cd606b2d124583c5c1c8fcd58e9f3}{COMMAND}}(\doxymbox{\hyperlink{commands_8c_a793783b5d9356c65130074c09b88985f}{make\_user}},\ \textcolor{stringliteral}{"{}Create\ account"{}},\ \textcolor{stringliteral}{"{}Admin"{}},\ makeuser\_args,\ \textcolor{stringliteral}{"{}Create\ accounts\ for\ patients,\ doctors,\ etc\(\backslash\)n\(\backslash\)n\ First\ arg\ is\ username,\(\backslash\)n\ second\ arg\ is\ usertype\ (cAsE\ sEnSiTiVe)"{}}),}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00072}00072\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{utils_8h_a3088c180357ddb4840adf337762901a6}{COMMAND\_NOARGS}}(\doxymbox{\hyperlink{bookings_8c_a5f74192d6407d20c3285a092abdffddd}{nurse\_view\_booking}},\ \textcolor{stringliteral}{"{}View\ doctor's\ appointments"{}},\ \textcolor{stringliteral}{"{}Nurse"{}},\ \textcolor{stringliteral}{"{}"{}}),}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00073}00073\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00075}00075\ \ \ \ \ \textcolor{keywordtype}{int}\ cmd\_list\_n\ =\ \textcolor{keyword}{sizeof}(cmd\_list)/\textcolor{keyword}{sizeof}(\doxymbox{\hyperlink{structcommand}{command}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00077}00077\ \ \ \ \ \textcolor{comment}{/*\ in\ case\ anyone\ is\ stupid\ enough\ to\ run\ the\ program\ by\ typing\ the\ full\ path\ instead\ of\ cding\ in}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00078}00078\ \textcolor{comment}{\ \ \ \ \ *\ the\ first\ argv\ is\ always\ the\ path\ used\ to\ run\ main.out;}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00079}00079\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ On\ windows,\ it's\ always\ the\ full\ path}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00080}00080\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ For\ example\ on\ linux,\ if\ you\ run\ it\ by\ doing\ ./main.out,\ it\ will\ be\ exactly\ that.\ if\ you\ run\ it\ by\ /home/username/github/main.out,\ it\ will\ also\ be\ that.}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00081}00081\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00082}00082\ \ \ \ \ \textcolor{keywordtype}{char}\ argv\_path[256];}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00083}00083\ \ \ \ \ \textcolor{keywordtype}{char}\ *\ last\_slash;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00084}00084\ \ \ \ \ \textcolor{keywordtype}{char}\ *\ term\_type\ =\ getenv(\textcolor{stringliteral}{"{}TERM"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00086}00086\ \ \ \ \ strcpy(argv\_path,\ argv[0]);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00087}00087\ \ \ \ \ last\_slash\ =\ strrchr(argv\_path,\ \textcolor{charliteral}{'/'});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00089}00089\ \ \ \ \ \textcolor{keywordflow}{if}\ (last\_slash\ !=\ NULL)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00090}00090\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00091}00091\ \ \ \ \ \ \ \ \ *last\_slash\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00092}00092\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00094}00094\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_WIN32}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00095}00095\ \ \ \ \ \ \ \ \ \_chdir(argv\_path);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00096}00096\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00097}00097\ \ \ \ \ \ \ \ \ chdir(argv\_path);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(isatty(STDOUT\_FILENO))}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ system(\textcolor{stringliteral}{"{}reset"{}});\ \textcolor{comment}{/*\ in\ case\ the\ program\ crashes\ and\ messes\ up\ the\ terminal\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00100}00100\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00102}00102\ \ \ \ \ \textcolor{keywordflow}{if}(argc\ >\ 1)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00103}00103\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ strcmp(argv[1],\ \textcolor{stringliteral}{"{}login"{}})\ ==\ 0\ )}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(argc\ >\ 2)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(\doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}},\ argv[2]);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ login\_get\_password;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ login\_get\_username;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(argv[1],\ \textcolor{stringliteral}{"{}register"{}})\ ==\ 0\ )}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ reg\_get\_username;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00117}00117\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00123}00123\ \ \ \ \ main\_menu:}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00125}00125\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\doxymbox{\hyperlink{tui_8c_ae7eae98c1d28139bd16ec2a71459b2f8}{simple\_select}}(COLOR\_BLUE,\ COLOR\_BLACK,\ 3,\ options,\ selection,\ pretext))}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00126}00126\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00127}00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ -\/1:\ \textcolor{comment}{/*\ EOT\ or\ EOF\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00129}00129\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ login\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00130}00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00132}00132\ \ \ \ \ \ \ \ \ login\_get\_username:}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00133}00133\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}enter\ your\ username\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00135}00135\ \ \ \ \ \ \ \ \ fgets(\doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}},\ \textcolor{keyword}{sizeof}(\doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}})/\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}),\ stdin);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00136}00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\doxymbox{\hyperlink{utils_8c_acde9c0d53c4eb2d1442e5e832334a8fc}{string\_trim}}(\doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}}))}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00137}00137\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Username\ cannot\ be\ empty\ or\ contain\ spaces\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ login\_get\_username;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00140}00140\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00142}00142\ \ \ \ \ \ \ \ \ login\_get\_password:}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00143}00143\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *\ password;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ password\ =\ (\textcolor{keywordtype}{char}*)malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})*256);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}enter\ your\ password\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ fgets(password,\ 256,\ stdin);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\doxymbox{\hyperlink{utils_8c_acde9c0d53c4eb2d1442e5e832334a8fc}{string\_trim}}(password))}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Password\ cannot\ be\ empty\ or\ contain\ spaces\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ free(password);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ login\_get\_password;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{logins_8c_a3da8e7414374ec378d5363775860cc05}{load\_users\_from\_file}}(pw\_file,\ \&logins);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ user\_ptr\ =\ \doxymbox{\hyperlink{logins_8c_afc3b11c72547af365dc8af84aa51d166}{lookup\_user}}(\doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}},\ \&logins);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(user\_ptr\ ==\ NULL)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Wrong\ username\ or\ password\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ free(password);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ login\_get\_username;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)033c"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{logins_8c_a54f32098ab9b90a6b5487e0038d4860e}{verify\_password}}(password,\ user\_ptr-\/>\doxymbox{\hyperlink{structuser__login__t_afac5a19e43f8073ff5d62b8c69014df0}{password}}))}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Password\ hash\ matched\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Wrong\ username\ or\ password\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ login\_get\_username;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ free(password);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00177}00177\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00179}00179\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ register\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00180}00180\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00181}00181\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ reg\_get\_username:}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}enter\ your\ desired\ username\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ fgets(\doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}},\ \textcolor{keyword}{sizeof}(\doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}})/\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}),\ stdin);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\doxymbox{\hyperlink{utils_8c_acde9c0d53c4eb2d1442e5e832334a8fc}{string\_trim}}(\doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}}))}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Username\ cannot\ be\ empty\ or\ contain\ spaces\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ reg\_get\_username;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00191}00191\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(path,\ \doxymbox{\hyperlink{main_8c_a2e2e697ff7ae93026c6f59fa1e02aa57}{DATABASE\_PATH}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ strcat(path,\ \doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{utils_8c_af48c526de8ae85a65c501beed33f7eda}{path\_exists}}(path))\ \textcolor{comment}{/*\ if\ dir\ doesn't\ exist\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *\ password;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*check\ if\ username\ exists\ in\ hashtable*/}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{logins_8c_a3da8e7414374ec378d5363775860cc05}{load\_users\_from\_file}}(pw\_file,\ \&logins);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{logins_8c_afc3b11c72547af365dc8af84aa51d166}{lookup\_user}}(\doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}},\ \&logins)\ !=\ NULL)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}This\ username\ has\ been\ taken\ (hashtable)\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ reg\_get\_username;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00205}00205\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00206}00206\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ get\ password,\ save\ to\ hashtable,\ dealloc\ string\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ reg\_get\_password:}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ password\ =\ (\textcolor{keywordtype}{char}*)malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})*256);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}enter\ your\ password\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00211}00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fgets(password,\ 256,\ stdin);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\doxymbox{\hyperlink{utils_8c_acde9c0d53c4eb2d1442e5e832334a8fc}{string\_trim}}(password))}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00213}00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00214}00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Password\ cannot\ be\ empty\ or\ contain\ spaces\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ free(password);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00216}00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ reg\_get\_password;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00218}00218\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00219}00219\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ hash\ the\ password\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{logins_8c_aea42d8113c094649ea49d42e8c2a50a5}{register\_user\_hashtable}}(\doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}},\ password,\ pw\_file);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{comment}{/*\ if\ dir\ exists\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}This\ username\ has\ been\ taken\ (dir\ exists)\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{utils_8c_affe7dcccfeb7d953365474cf8d02c802}{generate\_file\_structure}}(\textcolor{stringliteral}{"{}Patient"{}},\ \doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ sprintf(pretext,\ \textcolor{stringliteral}{"{}Registered\ \%s\ as\ patient,\ please\ login\ again\(\backslash\)n"{}},\ \doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ main\_menu;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00230}00230\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00231}00231\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ exit\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00232}00232\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00234}00234\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00235}00235\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00236}00236\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00237}00237\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structConfig}{Config}}\ cfg;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00238}00238\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *val;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00239}00239\ \ \ \ \ \ \ \ \ sprintf(path,\ \textcolor{stringliteral}{"{}./users/\%s/profile.txt"{}},\ \doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00240}00240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{utils_8c_a89448941e042941353b8e90d5f8666e7}{parse\_config\_file}}(path,\ \&cfg)\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00241}00241\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00242}00242\ \ \ \ \ \ \ \ \ \ \ \ \ val\ =\ \doxymbox{\hyperlink{utils_8c_a1de21a1f7c04a8c1aff780d3113b54c1}{get\_config\_value}}(\&cfg,\ \textcolor{stringliteral}{"{}USERTYPE"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (val\ !=\ NULL)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strncpy(current\_utype,\ val,\ \textcolor{keyword}{sizeof}(current\_utype)\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ current\_utype[\textcolor{keyword}{sizeof}(current\_utype)\ -\/\ 1]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00248}00248\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00249}00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Usertype\ is\ empty\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00251}00251\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00252}00252\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00253}00253\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00254}00254\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00255}00255\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00256}00256\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00257}00257\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ first\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00258}00258\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structcommand__node}{command\_node}}*\ head;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00259}00259\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structcommand__node}{command\_node}}*\ Node;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00260}00260\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00261}00261\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(i=0;\ i<cmd\_list\_n;\ i++)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00262}00262\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00263}00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ strcmp(cmd\_list[i].permission,\ current\_utype)\ ==\ 0\ )}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00264}00264\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(first)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ head\ =\ \doxymbox{\hyperlink{utils_8c_a15c4e22b029e77407c9bb8dc8868acf1}{new\_command\_node}}(cmd\_list[i]);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Node\ =\ head;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ first\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00272}00272\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Node-\/>\doxymbox{\hyperlink{structcommand__node_a25f16b82d55b8291aeda853582e0a4a6}{next}}\ =\ \doxymbox{\hyperlink{utils_8c_a15c4e22b029e77407c9bb8dc8868acf1}{new\_command\_node}}(cmd\_list[i]);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Node\ =\ Node-\/>\doxymbox{\hyperlink{structcommand__node_a25f16b82d55b8291aeda853582e0a4a6}{next}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00276}00276\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00277}00277\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00278}00278\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00279}00279\ \ \ \ \ \ \ \ \ Node\ =\ head;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00280}00280\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}utype:\ \%s\(\backslash\)n"{}},\ current\_utype);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00281}00281\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(Node\ !=\ NULL)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00282}00282\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%s\(\backslash\)n"{}},\ Node-\/>\doxymbox{\hyperlink{structcommand__node_a81c9cabd690b43373fd151a7134f929b}{f}}.\doxymbox{\hyperlink{structcommand_a9027b352db4085a0122952932d065705}{alias}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ Node\ =\ Node-\/>\doxymbox{\hyperlink{structcommand__node_a25f16b82d55b8291aeda853582e0a4a6}{next}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00285}00285\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00286}00286\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00287}00287\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00288}00288\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{tui_8c_a18eb2555dda32a03520091ece15a8ae9}{command\_select}}(head,\ current\_utype,\ \doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00289}00289\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00290}00290\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{utils_8c_ae586ef16c78ede02401e329f79e84f26}{free\_cmd\_list}}(head);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00291}00291\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00292}00292\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00293}00293\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00294}00294\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00295}00295\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00296}00296\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00297}00297\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00298}00298\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00299}00299\ \ \ \ \ endwin();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00300}00300\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00301}00301\ \}}
+
+\end{DoxyCode}

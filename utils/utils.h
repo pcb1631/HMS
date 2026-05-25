@@ -136,9 +136,6 @@ typedef struct {
 } ConfigEntry;
 
 /**
- * @brief Configuration structure holding multiple entries
- * Used for any file with key=value format
- * You can access a specific entry by doing x.entries[i].key or .value
  */
 typedef struct {
     ConfigEntry entries[MAX_CONFIG_ENTRIES];
@@ -161,6 +158,8 @@ int parse_config_file(const char *filepath, Config *config);
  */
 const char *get_config_value(const Config *config, const char *key);
 
+int dump_config_to_file(const Config config, const char* path);
+
 /**
  * @brief Checks if a file or directory exists
  * @param path Path to the file or directory to check
@@ -168,7 +167,6 @@ const char *get_config_value(const Config *config, const char *key);
  */
 int path_exists(const char *path);
 
-#endif
 
 /**
  * @brief Parses file_struct.yaml.txt and generates files/directories for a user
@@ -179,3 +177,5 @@ void handle_sigint(int sig);
 const char * get_utype(const char * username);
 void wipe_stdin(void);
 
+
+#endif

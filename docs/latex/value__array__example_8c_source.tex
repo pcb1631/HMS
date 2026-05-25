@@ -1,0 +1,54 @@
+\doxysection{value\+\_\+array\+\_\+example.\+c}
+\hypertarget{value__array__example_8c_source}{}\label{value__array__example_8c_source}\doxymbox{\hyperlink{value__array__example_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{utils_8h}{utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00004}\doxymbox{\hyperlink{value__array__example_8c_a840291bc02cba5474a4cb46a9b9566fe}{00004}}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{value__array__example_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00005}00005\ \{}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00006}00006\ \ \ \ \ \doxymbox{\hyperlink{structValue}{Value}}\ list[2];}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00007}00007\ \ \ \ \ \doxymbox{\hyperlink{structValue}{Value}}\ list2[3];}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00008}00008\ \ \ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{utils_8h_ad9971b6ef33e02ba2c75d19c1d2518a1}{ValueType}}\ args\_add[]\ =\ \{\doxymbox{\hyperlink{utils_8h_ad9971b6ef33e02ba2c75d19c1d2518a1a4fcd4421533bb21c827865bdbac4fef9}{TYPE\_INT}},\ \doxymbox{\hyperlink{utils_8h_ad9971b6ef33e02ba2c75d19c1d2518a1a4fcd4421533bb21c827865bdbac4fef9}{TYPE\_INT}}\};}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00009}00009\ \ \ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{utils_8h_ad9971b6ef33e02ba2c75d19c1d2518a1}{ValueType}}\ args\_meow[]\ =\ \{\doxymbox{\hyperlink{utils_8h_ad9971b6ef33e02ba2c75d19c1d2518a1a84de340fe64164ed0dcf473aad846961}{TYPE\_VOID}}\};}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00010}00010\ \ \ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{structcommand}{command}}\ cmd\_list[]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00011}00011\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{utils_8h_aa31cd606b2d124583c5c1c8fcd58e9f3}{COMMAND}}(\doxymbox{\hyperlink{utils_8c_ab9e3ef0b6795065d2f14dc8069cbb914}{add}},\ \textcolor{stringliteral}{"{}add"{}},\ \textcolor{stringliteral}{"{}debug"{}},\ args\_add),}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00012}00012\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{utils_8h_aa31cd606b2d124583c5c1c8fcd58e9f3}{COMMAND}}(\doxymbox{\hyperlink{utils_8h_a3172dac790d0d0cb4036a0c414814b15}{meow}},\ \textcolor{stringliteral}{"{}meow"{}},\ \textcolor{stringliteral}{"{}debug"{}},\ args\_meow),}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00013}00013\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00014}00014\ \ \ \ \ \doxymbox{\hyperlink{structValue}{Value}}\ result;}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00015}00015\ \ \ \ \ \textcolor{keywordtype}{char}\ *\ current\_perm\ =\ \textcolor{stringliteral}{"{}debug"{}};}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00016}00016\ \ \ \ \ \doxymbox{\hyperlink{structValue}{Value}}\ args[2];}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00017}00017\ \ \ \ \ \ \ \ \ args[0]\ =\ \doxymbox{\hyperlink{utils_8c_aa551d58e7e496ca51e2d3c66f4626a52}{make\_int}}(2);}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00018}00018\ \ \ \ \ \ \ \ \ args[1]\ =\ \doxymbox{\hyperlink{utils_8c_aa551d58e7e496ca51e2d3c66f4626a52}{make\_int}}(3);}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00020}00020\ \ \ \ \ list[0]\ =\ \doxymbox{\hyperlink{utils_8c_aa551d58e7e496ca51e2d3c66f4626a52}{make\_int}}(10);}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00021}00021\ \ \ \ \ list[1]\ =\ \doxymbox{\hyperlink{utils_8c_aa551d58e7e496ca51e2d3c66f4626a52}{make\_int}}(20);}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00023}00023\ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%d\(\backslash\)n"{}},\doxymbox{\hyperlink{utils_8c_ab9e3ef0b6795065d2f14dc8069cbb914}{add}}(list).data.\doxymbox{\hyperlink{structValue_ac3e90c63965e684981a9ca1ec8ab8e29}{as\_int}});}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00025}00025\ \ \ \ \ list2[0]\ =\ \doxymbox{\hyperlink{utils_8c_aa551d58e7e496ca51e2d3c66f4626a52}{make\_int}}(1);}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00026}00026\ \ \ \ \ list2[1]\ =\ \doxymbox{\hyperlink{utils_8c_ad58d96226ac55e98c24ce17377c05c3b}{make\_float}}(2.2f);}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00027}00027\ \ \ \ \ list2[2]\ =\ \doxymbox{\hyperlink{utils_8c_a2e61a78446780329baac3a81adc319b5}{make\_string}}(\textcolor{stringliteral}{"{}Threee"{}});}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00032}00032\ \ \ \ \ \textcolor{comment}{/*\ list2\ automatically\ decays\ to\ \&list2[0]\ (pointer\ to\ first\ element)\ */}}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00033}00033\ \ \ \ \ \doxymbox{\hyperlink{utils_8c_a1f308bbc9b99d2072520b8f10e838ebb}{print\_list}}(list2,\ \textcolor{keyword}{sizeof}(list2)\ /\ \textcolor{keyword}{sizeof}(list2[0]));}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00040}00040\ \ \ \ \ result\ =\ \doxymbox{\hyperlink{utils_8c_a017662a7845649afccb7d3a653d794f3}{call}}(cmd\_list[0],\ args,\ \textcolor{keyword}{sizeof}(args)/\textcolor{keyword}{sizeof}(\doxymbox{\hyperlink{structValue}{Value}}),\ current\_perm);}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00042}00042\ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%d\(\backslash\)n"{}},\ result.\doxymbox{\hyperlink{structValue_abd33397f50eb011b7d8dc2abcb839eae}{data}}.\doxymbox{\hyperlink{structValue_ac3e90c63965e684981a9ca1ec8ab8e29}{as\_int}});}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00048}00048\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{value__array__example_8c_source_l00049}00049\ \}}
+
+\end{DoxyCode}

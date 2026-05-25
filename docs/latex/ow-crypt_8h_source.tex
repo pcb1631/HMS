@@ -1,0 +1,49 @@
+\doxysection{ow-\/crypt.h}
+\hypertarget{ow-crypt_8h_source}{}\label{ow-crypt_8h_source}\index{deps/crypt\_blowfish/ow-\/crypt.h@{deps/crypt\_blowfish/ow-\/crypt.h}}
+\doxymbox{\hyperlink{ow-crypt_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00002}00002\ \textcolor{comment}{\ *\ Written\ by\ Solar\ Designer\ <solar\ at\ openwall.com>\ in\ 2000-\/2011.}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00003}00003\ \textcolor{comment}{\ *\ No\ copyright\ is\ claimed,\ and\ the\ software\ is\ hereby\ placed\ in\ the\ public}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00004}00004\ \textcolor{comment}{\ *\ domain.\ \ In\ case\ this\ attempt\ to\ disclaim\ copyright\ and\ place\ the\ software}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00005}00005\ \textcolor{comment}{\ *\ in\ the\ public\ domain\ is\ deemed\ null\ and\ void,\ then\ the\ software\ is}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00006}00006\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2000-\/2011\ Solar\ Designer\ and\ it\ is\ hereby\ released\ to\ the}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00007}00007\ \textcolor{comment}{\ *\ general\ public\ under\ the\ following\ terms:}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00008}00008\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00009}00009\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00010}00010\ \textcolor{comment}{\ *\ modification,\ are\ permitted.}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00011}00011\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00012}00012\ \textcolor{comment}{\ *\ There's\ ABSOLUTELY\ NO\ WARRANTY,\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00013}00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00014}00014\ \textcolor{comment}{\ *\ See\ crypt\_blowfish.c\ for\ more\ information.}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00015}00015\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00017}00017\ \textcolor{preprocessor}{\#ifndef\ \_OW\_CRYPT\_H}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00018}00018\ \textcolor{preprocessor}{\#define\ \_OW\_CRYPT\_H}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00020}00020\ \textcolor{preprocessor}{\#ifndef\ \_\_GNUC\_\_}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00021}00021\ \textcolor{preprocessor}{\#undef\ \_\_const}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00022}\doxymbox{\hyperlink{ow-crypt_8h_a237c48d7689530103740c2294e0575e0}{00022}}\ \textcolor{preprocessor}{\#define\ \_\_const\ const}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00023}00023\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00025}00025\ \textcolor{preprocessor}{\#ifndef\ \_\_SKIP\_GNU}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00026}\doxymbox{\hyperlink{ow-crypt_8h_af7f2079308e115829a512d7513121224}{00026}}\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{char}\ *\doxymbox{\hyperlink{ow-crypt_8h_af7f2079308e115829a512d7513121224}{crypt}}(\doxymbox{\hyperlink{ow-crypt_8h_a237c48d7689530103740c2294e0575e0}{\_\_const}}\ \textcolor{keywordtype}{char}\ *key,\ \doxymbox{\hyperlink{ow-crypt_8h_a237c48d7689530103740c2294e0575e0}{\_\_const}}\ \textcolor{keywordtype}{char}\ *setting);}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00027}\doxymbox{\hyperlink{ow-crypt_8h_aa3c01e6d4f337ee59ab994ddd5fe9ac9}{00027}}\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{char}\ *\doxymbox{\hyperlink{ow-crypt_8h_aa3c01e6d4f337ee59ab994ddd5fe9ac9}{crypt\_r}}(\doxymbox{\hyperlink{ow-crypt_8h_a237c48d7689530103740c2294e0575e0}{\_\_const}}\ \textcolor{keywordtype}{char}\ *key,\ \doxymbox{\hyperlink{ow-crypt_8h_a237c48d7689530103740c2294e0575e0}{\_\_const}}\ \textcolor{keywordtype}{char}\ *setting,\ \textcolor{keywordtype}{void}\ *data);}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00028}00028\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00030}00030\ \textcolor{preprocessor}{\#ifndef\ \_\_SKIP\_OW}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00031}\doxymbox{\hyperlink{ow-crypt_8h_adcc0175c01ae0f043992c7b867d1ea22}{00031}}\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{char}\ *\doxymbox{\hyperlink{ow-crypt_8h_adcc0175c01ae0f043992c7b867d1ea22}{crypt\_rn}}(\doxymbox{\hyperlink{ow-crypt_8h_a237c48d7689530103740c2294e0575e0}{\_\_const}}\ \textcolor{keywordtype}{char}\ *key,\ \doxymbox{\hyperlink{ow-crypt_8h_a237c48d7689530103740c2294e0575e0}{\_\_const}}\ \textcolor{keywordtype}{char}\ *setting,}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00032}00032\ \ \ \ \ \textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{int}\ size);}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00033}\doxymbox{\hyperlink{ow-crypt_8h_a9fb2f1c0ca9acd3d70540b35e0ce6385}{00033}}\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{char}\ *\doxymbox{\hyperlink{ow-crypt_8h_a9fb2f1c0ca9acd3d70540b35e0ce6385}{crypt\_ra}}(\doxymbox{\hyperlink{ow-crypt_8h_a237c48d7689530103740c2294e0575e0}{\_\_const}}\ \textcolor{keywordtype}{char}\ *key,\ \doxymbox{\hyperlink{ow-crypt_8h_a237c48d7689530103740c2294e0575e0}{\_\_const}}\ \textcolor{keywordtype}{char}\ *setting,}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00034}00034\ \ \ \ \ \textcolor{keywordtype}{void}\ **data,\ \textcolor{keywordtype}{int}\ *size);}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00035}\doxymbox{\hyperlink{ow-crypt_8h_ac017062f1485e78fd9941b0c20753dcd}{00035}}\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{char}\ *\doxymbox{\hyperlink{ow-crypt_8h_ac017062f1485e78fd9941b0c20753dcd}{crypt\_gensalt}}(\doxymbox{\hyperlink{ow-crypt_8h_a237c48d7689530103740c2294e0575e0}{\_\_const}}\ \textcolor{keywordtype}{char}\ *prefix,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ count,}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00036}00036\ \ \ \ \ \doxymbox{\hyperlink{ow-crypt_8h_a237c48d7689530103740c2294e0575e0}{\_\_const}}\ \textcolor{keywordtype}{char}\ *input,\ \textcolor{keywordtype}{int}\ size);}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00037}\doxymbox{\hyperlink{ow-crypt_8h_a7b709f65ba563484c8b090ddb4762871}{00037}}\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{char}\ *\doxymbox{\hyperlink{ow-crypt_8h_a7b709f65ba563484c8b090ddb4762871}{crypt\_gensalt\_rn}}(\doxymbox{\hyperlink{ow-crypt_8h_a237c48d7689530103740c2294e0575e0}{\_\_const}}\ \textcolor{keywordtype}{char}\ *prefix,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ count,}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00038}00038\ \ \ \ \ \doxymbox{\hyperlink{ow-crypt_8h_a237c48d7689530103740c2294e0575e0}{\_\_const}}\ \textcolor{keywordtype}{char}\ *input,\ \textcolor{keywordtype}{int}\ size,\ \textcolor{keywordtype}{char}\ *output,\ \textcolor{keywordtype}{int}\ output\_size);}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00039}\doxymbox{\hyperlink{ow-crypt_8h_ad8d129162856993d07fdc07a1fd46e99}{00039}}\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{char}\ *\doxymbox{\hyperlink{ow-crypt_8h_ad8d129162856993d07fdc07a1fd46e99}{crypt\_gensalt\_ra}}(\doxymbox{\hyperlink{ow-crypt_8h_a237c48d7689530103740c2294e0575e0}{\_\_const}}\ \textcolor{keywordtype}{char}\ *prefix,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ count,}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00040}00040\ \ \ \ \ \doxymbox{\hyperlink{ow-crypt_8h_a237c48d7689530103740c2294e0575e0}{\_\_const}}\ \textcolor{keywordtype}{char}\ *input,\ \textcolor{keywordtype}{int}\ size);}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00041}00041\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{ow-crypt_8h_source_l00043}00043\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,15 @@
+<map id="regen_file_structure.c" name="regen_file_structure.c">
+<area shape="rect" id="Node000001" title=" " alt="" coords="49,5,211,33"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,81,71,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,36,68,73,64,69,115,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="95,81,165,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="131,31,133,66,127,65,129,36"/>
+<area shape="rect" id="Node000004" href="$utils_8h.html" title="Utility functions, value types, and command parsing." alt="" coords="189,81,282,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="149,31,207,71,202,73,148,36"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="94,157,177,184"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="220,108,166,150,164,145,215,110"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="201,157,270,184"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="237,107,238,142,233,140,233,111"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="294,157,366,184"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="253,107,304,147,299,147,251,112"/>
+</map>

@@ -1,0 +1,62 @@
+\doxysection{utils/\+platform\+\_\+random.h File Reference}
+\hypertarget{platform__random_8h}{}\label{platform__random_8h}\index{utils/platform\_random.h@{utils/platform\_random.h}}
+
+
+Provides get\+\_\+random\+\_\+bytes.  
+
+
+{\ttfamily \+\#include $<$stdio.\+h$>$}\newline
+Include dependency graph for platform\+\_\+random.\+h:\+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{platform__random_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{platform__random_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \doxymbox{\hyperlink{platform__random_8h_a9bede435de70157ec3fcb91684672172}{get\+\_\+random\+\_\+bytes}} (char \texorpdfstring{$\ast$}{*}buf, int n)
+\begin{DoxyCompactList}\small\item\em Gets random bytes with length n, different implementations depending on OS \textbackslash{}n\+This is used for salting. If passwords are hashed without salting, that means people with the same password end up with the same hash. \textbackslash{}n\+Salting means same passwords will end up with a different hash. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Provides get\+\_\+random\+\_\+bytes. 
+
+get\+\_\+random\+\_\+bytes has an implementation for Windows and unix 
+
+Definition in file \doxymbox{\hyperlink{platform__random_8h_source}{platform\+\_\+random.\+h}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{platform__random_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{platform__random_8h_a9bede435de70157ec3fcb91684672172}\index{platform\_random.h@{platform\_random.h}!get\_random\_bytes@{get\_random\_bytes}}
+\index{get\_random\_bytes@{get\_random\_bytes}!platform\_random.h@{platform\_random.h}}
+\doxysubsubsection{\texorpdfstring{get\_random\_bytes()}{get\_random\_bytes()}}
+{\footnotesize\ttfamily \label{platform__random_8h_a9bede435de70157ec3fcb91684672172} 
+int get\+\_\+random\+\_\+bytes (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{int}]{n}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Gets random bytes with length n, different implementations depending on OS \textbackslash{}n\+This is used for salting. If passwords are hashed without salting, that means people with the same password end up with the same hash. \textbackslash{}n\+Salting means same passwords will end up with a different hash. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buf} & String to store random bytes \\
+\hline
+{\em n} & How many bytes \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{platform__random_8h_source_l00022}{22}} of file \doxymbox{\hyperlink{platform__random_8h_source}{platform\+\_\+random.\+h}}.
+

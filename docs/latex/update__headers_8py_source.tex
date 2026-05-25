@@ -1,0 +1,108 @@
+\doxysection{update\+\_\+headers.\+py}
+\hypertarget{update__headers_8py_source}{}\label{update__headers_8py_source}\doxymbox{\hyperlink{update__headers_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00001}\doxymbox{\hyperlink{namespaceupdate__headers}{00001}}\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00002}00002\ \textcolor{keyword}{import}\ re}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00004}\doxymbox{\hyperlink{namespaceupdate__headers_aaba98fd2cc6bda96ac6882b74b3fc126}{00004}}\ \textcolor{keyword}{def\ }\doxymbox{\hyperlink{namespaceupdate__headers_aaba98fd2cc6bda96ac6882b74b3fc126}{update\_logins}}():}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00005}00005\ \ \ \ \ \textcolor{keyword}{with}\ open(\textcolor{stringliteral}{'logins.h'},\ \textcolor{stringliteral}{'r'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00006}00006\ \ \ \ \ \ \ \ \ content\ =\ f.read()}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00007}00007\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00008}00008\ \ \ \ \ \textcolor{comment}{\#\ Replace\ comments\ with\ Javadoc\ style}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00009}00009\ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'/*\ key\ */'},\ \textcolor{stringliteral}{'/**\ key\ */'})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00010}00010\ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'/*\ makes\ this\ structure\ hashable\ */'},\ \textcolor{stringliteral}{'/**\ makes\ this\ structure\ hashable\ */'})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00011}00011\ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'/*\ Add\ or\ update\ a\ login\ */'},\ \textcolor{stringliteral}{'/**\(\backslash\)n\ *\ @brief\ Add\ or\ update\ a\ login\(\backslash\)n\ *\ @param\ username\ Username\ to\ add/update\(\backslash\)n\ *\ @param\ password\ Password\ for\ the\ user\(\backslash\)n\ *\ @param\ logins\ Pointer\ to\ the\ hash\ table\(\backslash\)n\ */'})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00012}00012\ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'/*\ Lookup\ a\ login\ by\ username\ */'},\ \textcolor{stringliteral}{'/**\(\backslash\)n\ *\ @brief\ Lookup\ a\ login\ by\ username\(\backslash\)n\ *\ @param\ username\ Username\ to\ lookup\(\backslash\)n\ *\ @param\ logins\ Pointer\ to\ the\ hash\ table\(\backslash\)n\ *\ @return\ Pointer\ to\ user\_login\_t\ if\ found,\ NULL\ otherwise\(\backslash\)n\ */'})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00013}00013\ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'/*\ Delete\ a\ login\ by\ username\ */'},\ \textcolor{stringliteral}{'/**\(\backslash\)n\ *\ @brief\ Delete\ a\ login\ by\ username\(\backslash\)n\ *\ @param\ username\ Username\ to\ delete\(\backslash\)n\ *\ @param\ logins\ Pointer\ to\ the\ hash\ table\(\backslash\)n\ */'})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00014}00014\ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'/*\ Read\ the\ hash\ table\ from\ a\ file\ (format:\ username=password)\ */'},\ \textcolor{stringliteral}{'/**\(\backslash\)n\ *\ @brief\ Read\ the\ hash\ table\ from\ a\ file\ (format:\ username=password)\(\backslash\)n\ *\ @param\ filename\ File\ to\ read\ from\(\backslash\)n\ *\ @param\ logins\ Pointer\ to\ the\ hash\ table\(\backslash\)n\ *\ @return\ 1\ on\ success,\ -\/1\ on\ failure\(\backslash\)n\ */'})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00015}00015\ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'/*\ Save\ the\ hash\ table\ to\ a\ file\ */'},\ \textcolor{stringliteral}{'/**\(\backslash\)n\ *\ @brief\ Save\ the\ hash\ table\ to\ a\ file\(\backslash\)n\ *\ @param\ filename\ File\ to\ save\ to\(\backslash\)n\ *\ @param\ logins\ Pointer\ to\ the\ hash\ table\(\backslash\)n\ *\ @return\ 1\ on\ success,\ -\/1\ on\ failure\(\backslash\)n\ */'})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00016}00016\ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'/*\ Free\ all\ entries\ in\ the\ hash\ table\ */'},\ \textcolor{stringliteral}{'/**\(\backslash\)n\ *\ @brief\ Free\ all\ entries\ in\ the\ hash\ table\(\backslash\)n\ *\ @param\ logins\ Pointer\ to\ the\ hash\ table\(\backslash\)n\ */'})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00017}00017\ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'/*\ Build\ patient\ user\ profile\ structure\ */'},\ \textcolor{stringliteral}{'/**\(\backslash\)n\ *\ @brief\ Build\ patient\ user\ profile\ structure\(\backslash\)n\ *\ @param\ username\ Username\ of\ the\ patient\(\backslash\)n\ */'})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00018}00018\ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'/*\ Build\ doctor\ user\ profile\ structure\ */'},\ \textcolor{stringliteral}{'/**\(\backslash\)n\ *\ @brief\ Build\ doctor\ user\ profile\ structure\(\backslash\)n\ *\ @param\ username\ Username\ of\ the\ doctor\(\backslash\)n\ */'})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00019}00019\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00020}00020\ \ \ \ \ \textcolor{comment}{\#\ Add\ Javadoc\ for\ missing\ functions}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00021}00021\ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'user\_login\_t\ *lookup\_user(const\ char\ *username,\ user\_login\_t\ **logins);'},\ \textcolor{stringliteral}{'/**\(\backslash\)n\ *\ @brief\ Returns\ pointer\ to\ login\ data\ if\ found,\ else\ returns\ NULL.\(\backslash\)n\ *\ @param\ username\ Username\ to\ lookup\(\backslash\)n\ *\ @param\ logins\ Pointer\ to\ the\ hash\ table\(\backslash\)n\ *\ @return\ Pointer\ to\ user\_login\_t\ if\ found,\ NULL\ otherwise\(\backslash\)n\ */\(\backslash\)nuser\_login\_t\ *lookup\_user(const\ char\ *username,\ user\_login\_t\ **logins);'})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00022}00022\ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'int\ hash\_password(const\ char\ *\ password,\ char\ *\ hashout);'},\ \textcolor{stringliteral}{'/**\(\backslash\)n\ *\ @brief\ Hash\ a\ password\ using\ bcrypt\(\backslash\)n\ *\ @param\ password\ Password\ to\ hash\(\backslash\)n\ *\ @param\ hashout\ Buffer\ to\ store\ the\ hash\(\backslash\)n\ *\ @return\ 0\ on\ success,\ -\/1\ on\ failure\(\backslash\)n\ */\(\backslash\)nint\ hash\_password(const\ char\ *\ password,\ char\ *\ hashout);'})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00023}00023\ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'int\ verify\_password(const\ char\ *\ password,\ const\ char\ *\ stored\_hash);'},\ \textcolor{stringliteral}{'/**\(\backslash\)n\ *\ @brief\ Verify\ a\ password\ against\ a\ stored\ hash\(\backslash\)n\ *\ @param\ password\ Password\ to\ verify\(\backslash\)n\ *\ @param\ stored\_hash\ Stored\ hash\ to\ verify\ against\(\backslash\)n\ *\ @return\ 1\ if\ match,\ 0\ if\ no\ match,\ -\/1\ on\ error\(\backslash\)n\ */\(\backslash\)nint\ verify\_password(const\ char\ *\ password,\ const\ char\ *\ stored\_hash);'})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00025}00025\ \ \ \ \ file\_header\ =\ \textcolor{stringliteral}{"{}"{}"{}/**}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00026}00026\ \textcolor{stringliteral}{\ *\ @file\ logins.h}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00027}00027\ \textcolor{stringliteral}{\ *\ @brief\ User\ login\ management\ and\ hashing.}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00028}00028\ \textcolor{stringliteral}{\ *\ }}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00029}00029\ \textcolor{stringliteral}{\ *\ Ideally,\ I\ would\ run\ a\ server\ that\ accepts\ requests\ for\ lookup,\ add,\ and\ delete\ to\ prevent\ race\ condition.\ But\ that\ is\ outside\ the\ scope\ of\ the\ project.}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00030}00030\ \textcolor{stringliteral}{\ */}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00031}00031\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00032}00032\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}@file\ logins.h"{}}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ content:}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ content\ =\ file\_header\ +\ content}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00035}00035\ \ \ \ \ \textcolor{keyword}{with}\ open(\textcolor{stringliteral}{'logins.h'},\ \textcolor{stringliteral}{'w'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ f.write(content)}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00038}00038\ \ \ \ \ \textcolor{comment}{\#\ Cleanup\ logins.c}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00039}00039\ \ \ \ \ \textcolor{keyword}{with}\ open(\textcolor{stringliteral}{'logins.c'},\ \textcolor{stringliteral}{'r'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00040}00040\ \ \ \ \ \ \ \ \ c\_content\ =\ f.read()}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00041}00041\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00042}00042\ \ \ \ \ c\_content\ =\ re.sub(\textcolor{stringliteral}{r'/\(\backslash\)*\(\backslash\)n\ \(\backslash\)*\ Ideally,\ I\ would\ run\ a\ server.*?\(\backslash\)n\ \(\backslash\)*/\(\backslash\)n'},\ \textcolor{stringliteral}{''},\ c\_content,\ flags=re.DOTALL)}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00043}00043\ \ \ \ \ c\_content\ =\ c\_content.replace(\textcolor{stringliteral}{'/*returns\ pointer\ to\ login\ data\ if\ found,\ else\ returns\ NULL.\ */\(\backslash\)n'},\ \textcolor{stringliteral}{''})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00044}00044\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00045}00045\ \ \ \ \ \textcolor{keyword}{with}\ open(\textcolor{stringliteral}{'logins.c'},\ \textcolor{stringliteral}{'w'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ f.write(c\_content)}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00048}\doxymbox{\hyperlink{namespaceupdate__headers_ae97b34c70011952f3f2ef8101690de30}{00048}}\ \textcolor{keyword}{def\ }\doxymbox{\hyperlink{namespaceupdate__headers_ae97b34c70011952f3f2ef8101690de30}{update\_utils}}():}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00049}00049\ \ \ \ \ \textcolor{keyword}{with}\ open(\textcolor{stringliteral}{'utils.h'},\ \textcolor{stringliteral}{'r'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00050}00050\ \ \ \ \ \ \ \ \ content\ =\ f.read()}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00052}00052\ \ \ \ \ file\_header\ =\ \textcolor{stringliteral}{"{}"{}"{}/**}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00053}00053\ \textcolor{stringliteral}{\ *\ @file\ utils.h}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00054}00054\ \textcolor{stringliteral}{\ *\ @brief\ Utility\ functions,\ value\ types,\ and\ command\ parsing.}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00055}00055\ \textcolor{stringliteral}{\ */}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00056}00056\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00057}00057\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}@file\ utils.h"{}}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ content:}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'\#ifndef\ UTILS\_H\(\backslash\)n\(\backslash\)n\#define\ UTILS\_H\(\backslash\)n'},\ \textcolor{stringliteral}{'\#ifndef\ UTILS\_H\(\backslash\)n\#define\ UTILS\_H\(\backslash\)n\(\backslash\)n'}\ +\ file\_header)}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00060}00060\ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'/*\ -\/1\ means\ any\ amount\ */'},\ \textcolor{stringliteral}{'/**\ -\/1\ means\ any\ amount\ */'})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00061}00061\ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'/*\ enum\ array\ */'},\ \textcolor{stringliteral}{'/**\ enum\ array\ */'})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00062}00062\ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'/*\ Hoo\ boy\ we\(\backslash\)'re\ gonna\ need\ a\ lot\ of\ documentation\ */'},\ \textcolor{stringliteral}{'/**\ \(\backslash\)n\ *\ @brief\ Macro\ to\ define\ a\ command\ with\ arguments\(\backslash\)n\ */'})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00064}00064\ \ \ \ \ \textcolor{comment}{\#\ Move\ comments\ from\ utils.c}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00065}00065\ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'Value\ add(Value\ *\ list);'},\ \textcolor{stringliteral}{'/**\(\backslash\)n\ *\ @brief\ Example\ usage\ of\ "{}Value"{}\ array\ (1)\(\backslash\)n\ */\(\backslash\)nValue\ add(Value\ *\ list);'})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00066}00066\ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'void\ print\_list(Value\ *\ list,\ int\ n);'},\ \textcolor{stringliteral}{'/**\(\backslash\)n\ *\ @brief\ Example\ usage\ of\ "{}Value"{}\ array\ (2)\(\backslash\)n\ */\(\backslash\)nvoid\ print\_list(Value\ *\ list,\ int\ n);'})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00067}00067\ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'Value\ call(command\ f,\ Value\ *\ args,\ int\ n\_of\_args,\ char\ *\ perm);'},\ \textcolor{stringliteral}{'/**\(\backslash\)n\ *\ @brief\ Call\ arbitrary\ function\(\backslash\)n\ */\(\backslash\)nValue\ call(command\ f,\ Value\ *\ args,\ int\ n\_of\_args,\ char\ *\ perm);'})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00069}00069\ \ \ \ \ \textcolor{keyword}{with}\ open(\textcolor{stringliteral}{'utils.h'},\ \textcolor{stringliteral}{'w'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ f.write(content)}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00072}00072\ \ \ \ \ \textcolor{comment}{\#\ Cleanup\ utils.c}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00073}00073\ \ \ \ \ \textcolor{keyword}{with}\ open(\textcolor{stringliteral}{'utils.c'},\ \textcolor{stringliteral}{'r'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ c\_content\ =\ f.read()}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00075}00075\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00076}00076\ \ \ \ \ c\_content\ =\ c\_content.replace(\textcolor{stringliteral}{'/*\ Example\ usage\ of\ "{}Value"{}\ array\ (1)*/\(\backslash\)n'},\ \textcolor{stringliteral}{''})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00077}00077\ \ \ \ \ c\_content\ =\ c\_content.replace(\textcolor{stringliteral}{'/*\ Example\ usage\ of\ "{}Value"{}\ array\ (2)\ */\(\backslash\)n'},\ \textcolor{stringliteral}{''})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00078}00078\ \ \ \ \ c\_content\ =\ c\_content.replace(\textcolor{stringliteral}{'/*\ Call\ arbitrary\ function\ */\(\backslash\)n'},\ \textcolor{stringliteral}{''})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00079}00079\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00080}00080\ \ \ \ \ \textcolor{keyword}{with}\ open(\textcolor{stringliteral}{'utils.c'},\ \textcolor{stringliteral}{'w'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ f.write(c\_content)}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00084}\doxymbox{\hyperlink{namespaceupdate__headers_a94ea78d97eed1c303d1fbcbab2e5a907}{00084}}\ \textcolor{keyword}{def\ }\doxymbox{\hyperlink{namespaceupdate__headers_a94ea78d97eed1c303d1fbcbab2e5a907}{update\_tui}}():}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00085}00085\ \ \ \ \ \textcolor{keyword}{with}\ open(\textcolor{stringliteral}{'tui.h'},\ \textcolor{stringliteral}{'r'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ content\ =\ f.read()}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00088}00088\ \ \ \ \ file\_header\ =\ \textcolor{stringliteral}{"{}"{}"{}/**}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00089}00089\ \textcolor{stringliteral}{\ *\ @file\ tui.h}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00090}00090\ \textcolor{stringliteral}{\ *\ @brief\ Text\ User\ Interface\ functions.}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00091}00091\ \textcolor{stringliteral}{\ */}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00092}00092\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00093}00093\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}@file\ tui.h"{}}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ content:}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'\#ifndef\ TUI\_H\(\backslash\)n\#define\ TUI\_H\(\backslash\)n'},\ \textcolor{stringliteral}{'\#ifndef\ TUI\_H\(\backslash\)n\#define\ TUI\_H\(\backslash\)n\(\backslash\)n'}\ +\ file\_header)}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00096}00096\ \ \ \ \ content\ =\ content.replace(\textcolor{stringliteral}{'int\ simple\_select(int\ color\_foreground,\ int\ color\_background,\ int\ n\_of\_options,\ char\ **\ options,\ char\ *\ selection\_s,\ const\ char\ *\ pretext);'},\ \textcolor{stringliteral}{'/**\(\backslash\)n\ *\ @brief\ Simple\ select\ menu\ for\ TUI\(\backslash\)n\ *\ @param\ color\_foreground\ Foreground\ color\ pair\(\backslash\)n\ *\ @param\ color\_background\ Background\ color\ pair\(\backslash\)n\ *\ @param\ n\_of\_options\ Number\ of\ options\(\backslash\)n\ *\ @param\ options\ Array\ of\ option\ strings\(\backslash\)n\ *\ @param\ selection\_s\ Buffer\ to\ store\ selected\ string\(\backslash\)n\ *\ @param\ pretext\ Text\ to\ display\ before\ options\(\backslash\)n\ *\ @return\ Index\ of\ the\ selected\ option\(\backslash\)n\ */\(\backslash\)nint\ simple\_select(int\ color\_foreground,\ int\ color\_background,\ int\ n\_of\_options,\ char\ **\ options,\ char\ *\ selection\_s,\ const\ char\ *\ pretext);'})}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00098}00098\ \ \ \ \ \textcolor{keyword}{with}\ open(\textcolor{stringliteral}{'tui.h'},\ \textcolor{stringliteral}{'w'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ f.write(content)}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00101}00101\ \doxymbox{\hyperlink{namespaceupdate__headers_aaba98fd2cc6bda96ac6882b74b3fc126}{update\_logins}}()}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00102}00102\ \doxymbox{\hyperlink{namespaceupdate__headers_ae97b34c70011952f3f2ef8101690de30}{update\_utils}}()}
+\DoxyCodeLine{\Hypertarget{update__headers_8py_source_l00103}00103\ \doxymbox{\hyperlink{namespaceupdate__headers_a94ea78d97eed1c303d1fbcbab2e5a907}{update\_tui}}()}
+
+\end{DoxyCode}

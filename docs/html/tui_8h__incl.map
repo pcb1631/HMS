@@ -1,0 +1,17 @@
+<map id="utils/tui.h" name="utils/tui.h">
+<area shape="rect" id="Node000001" title="Text User Interface functions." alt="" coords="164,5,247,33"/>
+<area shape="rect" id="Node000002" href="$utils_8h.html" title="Utility functions, value types, and command parsing." alt="" coords="116,157,178,184"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,31,122,50,103,64,88,82,84,99,89,115,101,131,117,147,112,148,97,134,84,117,79,99,83,80,99,61,120,46,166,28"/>
+<area shape="rect" id="Node000006" href="$bookings_8h.html" title=" " alt="" coords="98,81,313,109"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="207,31,208,66,203,64,205,36"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="231,157,295,184"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="247,27,292,46,312,61,328,80,333,99,327,118,314,135,297,149,294,145,310,131,322,115,327,99,323,82,308,64,289,50,247,32"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,232,89,260"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="132,184,78,225,75,221,127,186"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="112,232,182,260"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="149,183,149,218,145,215,145,187"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="206,232,278,260"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="165,182,216,222,210,223,163,187"/>
+<area shape="poly" id="edge6_Node000006_Node000002" title=" " alt="" coords="197,107,169,146,165,143,193,111"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="217,107,246,145,241,144,215,112"/>
+</map>

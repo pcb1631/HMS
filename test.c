@@ -13,12 +13,10 @@
 
 int main(int argc, char ** argv)
 {
-    int i;
-    for(i=0; i<argc; i++)
-    {
-        printf("%s\n", argv[i]);
-        printf("%s\n", getenv("TERM"));
-    }
+	Config cfg;
+	parse_config_file("temp1.txt", &cfg);
+
+	dump_config_to_file(cfg, "temp2.txt");
 
     return 0;
 }

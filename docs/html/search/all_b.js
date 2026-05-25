@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['macos_0',['Linux/MacOS',['../index.html#autotoc_md0',1,'']]],
+  ['macos_1',['macOS',['../term.html#mac',1,'']]],
+  ['main_2',['main',['../main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;main.c'],['../regen__file__structure_8c.html#acf0ba67194dd8f699009977bb264217e',1,'main(void):&#160;regen_file_structure.c'],['../test_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;test.c'],['../value__array__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe',1,'main(void):&#160;value_array_example.c']]],
+  ['main_2ec_3',['main.c',['../main_8c.html',1,'']]],
+  ['make_5ffloat_4',['make_float',['../utils_8c.html#ad58d96226ac55e98c24ce17377c05c3b',1,'make_float(float x):&#160;utils.c'],['../utils_8h.html#ad58d96226ac55e98c24ce17377c05c3b',1,'make_float(float x):&#160;utils.c']]],
+  ['make_5fint_5',['make_int',['../utils_8c.html#aa551d58e7e496ca51e2d3c66f4626a52',1,'make_int(int x):&#160;utils.c'],['../utils_8h.html#aa551d58e7e496ca51e2d3c66f4626a52',1,'make_int(int x):&#160;utils.c']]],
+  ['make_5fstring_6',['make_string',['../utils_8c.html#a2e61a78446780329baac3a81adc319b5',1,'make_string(char *s):&#160;utils.c'],['../utils_8h.html#a2e61a78446780329baac3a81adc319b5',1,'make_string(char *s):&#160;utils.c']]],
+  ['make_5fuser_7',['make_user',['../commands_8c.html#a793783b5d9356c65130074c09b88985f',1,'make_user(Value *list):&#160;commands.c'],['../commands_8h.html#a793783b5d9356c65130074c09b88985f',1,'make_user(Value *list):&#160;commands.c']]],
+  ['management_20system_8',['Hospital Management System',['../index.html',1,'']]],
+  ['max_5fbooking_5fslots_9',['MAX_BOOKING_SLOTS',['../tui_8c.html#a6423403decc09caaaa42f117cd86e325',1,'tui.c']]],
+  ['max_5fconfig_5fentries_10',['MAX_CONFIG_ENTRIES',['../utils_8h.html#a7f31f651a40575eac16fc0635e3e53e7',1,'utils.h']]],
+  ['max_5fconfig_5fkey_5flen_11',['MAX_CONFIG_KEY_LEN',['../utils_8h.html#aa22212acc7ee2ee2f10f4008883702e3',1,'utils.h']]],
+  ['max_5fconfig_5fval_5flen_12',['MAX_CONFIG_VAL_LEN',['../utils_8h.html#aef03ff7d7c3701e1a2e825be5a82b294',1,'utils.h']]],
+  ['max_5fdate_13',['MAX_DATE',['../billing_8h.html#ab2854f198e119d1843f14002a2621aa7',1,'MAX_DATE:&#160;billing.h'],['../complaints_8h.html#ab2854f198e119d1843f14002a2621aa7',1,'MAX_DATE:&#160;complaints.h']]],
+  ['max_5fid_14',['MAX_ID',['../billing_8h.html#a1cdef4472847c938fc165b7d2737c4e4',1,'MAX_ID:&#160;billing.h'],['../complaints_8h.html#a1cdef4472847c938fc165b7d2737c4e4',1,'MAX_ID:&#160;complaints.h']]],
+  ['max_5fname_15',['MAX_NAME',['../billing_8h.html#ac7c0207aa5a0e10d378be03b68041350',1,'MAX_NAME:&#160;billing.h'],['../complaints_8h.html#ac7c0207aa5a0e10d378be03b68041350',1,'MAX_NAME:&#160;complaints.h']]],
+  ['max_5fpassword_5flen_16',['MAX_PASSWORD_LEN',['../logins_8h.html#ae9169c3fda2dfecbb7a13e394a69e5be',1,'logins.h']]],
+  ['max_5fslots_17',['MAX_SLOTS',['../bookings_8c.html#a487ed1795a5ca9744954435f788569e2',1,'bookings.c']]],
+  ['max_5ftext_18',['MAX_TEXT',['../billing_8h.html#aa47d8edb512a07387ff40fff7317ace0',1,'MAX_TEXT:&#160;billing.h'],['../complaints_8h.html#aa47d8edb512a07387ff40fff7317ace0',1,'MAX_TEXT:&#160;complaints.h']]],
+  ['max_5ftype_19',['MAX_TYPE',['../billing_8h.html#a5acd8ca9bc6199921957a2363589304e',1,'MAX_TYPE:&#160;billing.h'],['../complaints_8h.html#a5acd8ca9bc6199921957a2363589304e',1,'MAX_TYPE:&#160;complaints.h']]],
+  ['max_5fusername_5flen_20',['MAX_USERNAME_LEN',['../logins_8h.html#a6c4647395896246d6710ba980c31666c',1,'logins.h']]],
+  ['menu_21',['menu',['../usage.html#booking_tui',1,'Booking menu'],['../usage.html#command_tui',1,'Command menu'],['../usage.html#simple_tui',1,'Simple menu']]],
+  ['meow_22',['meow',['../utils_8h.html#a3172dac790d0d0cb4036a0c414814b15',1,'utils.h']]],
+  ['min_23',['min',['../utils_8c.html#ac6afabdc09a49a433ee19d8a9486056d',1,'utils.c']]]
+];

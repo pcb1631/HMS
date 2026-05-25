@@ -1,7 +1,6 @@
 *.out
 *.exe
 *.o
-doxygen/*
 .vscode/settings.json
 *.dSYM/
 .DS_Store

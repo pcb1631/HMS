@@ -1,0 +1,31 @@
+<map id="user_commands/bookings.c" name="user_commands/bookings.c">
+<area shape="rect" id="Node000001" title=" " alt="" coords="255,5,458,33"/>
+<area shape="rect" id="Node000002" href="$commands_8h.html" title=" " alt="" coords="45,157,150,184"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="297,35,243,55,186,83,148,114,118,147,114,143,144,110,183,79,241,50,301,32"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,308,89,336"/>
+<area shape="poly" id="edge14_Node000001_Node000004" title=" " alt="" coords="253,32,194,47,131,71,102,87,76,107,53,131,35,158,24,192,24,228,30,263,39,293,33,294,24,265,18,229,19,191,30,156,49,127,72,103,99,83,129,66,192,42,257,28"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="310,308,379,336"/>
+<area shape="poly" id="edge15_Node000001_Node000005" title=" " alt="" coords="362,31,380,98,386,141,384,185,372,244,356,295,352,291,367,242,379,184,380,141,375,99,360,36"/>
+<area shape="rect" id="Node000007" href="$bookings_8h.html" title=" " alt="" coords="277,157,369,184"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="355,31,332,142,327,140,352,35"/>
+<area shape="rect" id="Node000009" href="$tui_8h.html" title="Text User Interface functions." alt="" coords="196,81,290,109"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="334,35,277,75,274,70,338,32"/>
+<area shape="rect" id="Node000010" href="$globals_8h.html" title=" " alt="" coords="436,81,560,109"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="382,31,462,73,456,74,381,36"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="584,81,654,109"/>
+<area shape="poly" id="edge16_Node000001_Node000011" title=" " alt="" coords="403,31,571,79,566,80,403,36"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="678,81,744,109"/>
+<area shape="poly" id="edge17_Node000001_Node000012" title=" " alt="" coords="432,31,666,80,661,82,432,36"/>
+<area shape="rect" id="Node000003" href="$utils_8h.html" title="Utility functions, value types, and command parsing." alt="" coords="136,232,241,260"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="114,182,163,222,158,223,113,188"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="166,261,87,303,84,298,160,260"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="217,258,305,301,300,301,216,263"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="152,308,224,336"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="190,259,191,294,186,291,187,262"/>
+<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="301,184,226,227,224,222,297,186"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="278,232,341,260"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="322,183,317,219,313,215,319,187"/>
+<area shape="poly" id="edge10_Node000009_Node000003" title=" " alt="" coords="240,107,223,158,200,219,196,216,218,156,236,111"/>
+<area shape="poly" id="edge11_Node000009_Node000007" title=" " alt="" coords="258,107,300,146,295,146,257,112"/>
+<area shape="poly" id="edge12_Node000009_Node000008" title=" " alt="" coords="246,107,253,143,267,183,290,221,285,220,262,185,248,145,243,112"/>
+</map>

@@ -1,0 +1,62 @@
+\doxysection{regen\+\_\+file\+\_\+structure.\+c}
+\hypertarget{regen__file__structure_8c_source}{}\label{regen__file__structure_8c_source}\doxymbox{\hyperlink{regen__file__structure_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00002}00002\ \textcolor{comment}{\ *\ @file\ regen\_file\_structure.c}}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00003}00003\ \textcolor{comment}{\ *\ This\ file\ should\ be\ used\ to\ make\ one\ binary\ to\ regenerate\ user\ file\ sturcture,\ in\ case\ you\ change\ file\_struct.yaml.txt}}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00004}00004\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{utils_8h}{utils/utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00011}\doxymbox{\hyperlink{regen__file__structure_8c_acf0ba67194dd8f699009977bb264217e}{00011}}\ \textcolor{keywordtype}{signed}\ \doxymbox{\hyperlink{regen__file__structure_8c_acf0ba67194dd8f699009977bb264217e}{main}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00012}00012\ \{}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00013}00013\ \ \ \ \ \doxymbox{\hyperlink{structConfig}{Config}}\ users;}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00014}00014\ \ \ \ \ \textcolor{keywordtype}{int}\ n;}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00015}00015\ \ \ \ \ \textcolor{keywordtype}{int}\ i=0;}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00016}00016\ \ \ \ \ \textcolor{keywordtype}{char}\ path[64];}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00019}00019\ \ \ \ \ \doxymbox{\hyperlink{utils_8c_a89448941e042941353b8e90d5f8666e7}{parse\_config\_file}}(\textcolor{stringliteral}{"{}./users/creds.txt"{}},\ \&users);}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00020}00020\ \ \ \ \ n\ =\ users.\doxymbox{\hyperlink{structConfig_ad43c3812e6d13e0518d9f8b8f463ffcf}{count}};}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00022}00022\ \ \ \ \ \textcolor{keywordflow}{for}(i=0;\ i<n;\ i++)}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00023}00023\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00024}00024\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%s\(\backslash\)n"{}},\ users.\doxymbox{\hyperlink{structConfig_a5b5d3fe04bf2756127ea0926a74f77e3}{entries}}[i].\doxymbox{\hyperlink{structConfigEntry_a9ee27e69714d841b708522598ad983a9}{key}});}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00026}00026\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}}[64];}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ current\_utype[64];}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structConfig}{Config}}\ cfg;}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *val;}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(\doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}},\ users.\doxymbox{\hyperlink{structConfig_a5b5d3fe04bf2756127ea0926a74f77e3}{entries}}[i].\doxymbox{\hyperlink{structConfigEntry_a9ee27e69714d841b708522598ad983a9}{key}});}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ sprintf(path,\ \textcolor{stringliteral}{"{}./users/\%s/profile.txt"{}},\ \doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}});}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{utils_8c_a89448941e042941353b8e90d5f8666e7}{parse\_config\_file}}(path,\ \&cfg)\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ val\ =\ \doxymbox{\hyperlink{utils_8c_a1de21a1f7c04a8c1aff780d3113b54c1}{get\_config\_value}}(\&cfg,\ \textcolor{stringliteral}{"{}USERTYPE"{}});}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (val\ !=\ NULL)}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strncpy(current\_utype,\ val,\ \textcolor{keyword}{sizeof}(current\_utype)\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ current\_utype[\textcolor{keyword}{sizeof}(current\_utype)\ -\/\ 1]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{utils_8c_affe7dcccfeb7d953365474cf8d02c802}{generate\_file\_structure}}(current\_utype,\ \doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}});}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Usertype\ is\ empty:\ \%s\(\backslash\)n"{}},\ \doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}});}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Profile\ is\ empty\ /\ failed\ to\ open\ file\ (\%s)\(\backslash\)n"{}},\ \doxymbox{\hyperlink{globals_8c_a7906a5902d4aaf42dac295701be2697e}{current\_username}});}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00054}00054\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00055}00055\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00056}00056\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{regen__file__structure_8c_source_l00057}00057\ \}}
+
+\end{DoxyCode}

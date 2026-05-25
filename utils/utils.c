@@ -275,6 +275,30 @@ const char *get_config_value(const Config *config, const char *key)
     return NULL;
 }
 
+int dump_config_to_file(const Config config, const char* path)
+{
+	FILE * file;
+	int i;
+
+	file = fopen(path, "w");
+	if(file == NULL)
+	{
+		perror("fopen");
+		return -1;
+	}
+
+	for(i=0; i<config.count; i++)
+		fprintf(file, "%s: %s\n", config.entries[i].key, config.entries[i].value);
+
+	printf("Dumped config to %s\n", path);
+
+	if(fclose(file) !=0 )
+		perror("fclose");
+
+	file = NULL;
+	return 0;
+}
+
 int path_exists(const char *path)
 {
     struct stat buffer;
@@ -484,8 +508,5 @@ int levenshtein_distance(const char* s, const char* t, int m, int n)
 void wipe_stdin(void)
 {
     int c;
-    while ((c = getchar()) != '\n' && c != EOF)
-    {
-
-    }
+    while ((c = getchar()) != '\n' && c != EOF);
 }
