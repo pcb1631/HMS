@@ -83,7 +83,7 @@ int main(int argc, char ** argv)
 	 */
     char argv_path[256];
     char * last_slash;
-    char * term_type = getenv("TERM");
+
 
     strcpy(argv_path, argv[0]);
     last_slash = strrchr(argv_path, '/');

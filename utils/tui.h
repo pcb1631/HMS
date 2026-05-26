@@ -47,6 +47,6 @@ time_t time_picker(char * pretext, int color_fg, int color_bg, time_t pre_time);
  * @return Index of selection of Slot array. return -1 if no slots.
  */
 int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int is_patient);
-int config_editor(Config config, const char * path);
+int config_editor(Config config, const char * path, const char * const * disallow, int disallow_n);
 void ncurses_init(void);
 #endif

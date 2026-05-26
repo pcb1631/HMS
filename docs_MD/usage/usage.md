@@ -33,7 +33,7 @@ The binary only requires the DB folder and credentials file, and you can name th
 
 \section booking_tui Booking menu
 
-\Section time_tui Time selection
+\section time_tui Time selection
 
 
 \section login Login/Register

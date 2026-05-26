@@ -129,6 +129,7 @@ void command_select(command_node *head, char *utype, char *username)
 
     init_color(10, 106*(1000/255), 90*(1000/255), 205*(1000/255));
     init_pair(2, COLOR_WHITE, 10);
+    clear();
     while(1)
     {
 	   	refresh(); /* resumes ncurses mode  */
@@ -138,7 +139,7 @@ void command_select(command_node *head, char *utype, char *username)
         box(left_win, 0 ,0);
         keypad(left_win, 1);
 
-        right_win = newwin(y_max, (x_max/2), 0, (x_max/2));
+        right_win = newwin(y_max, (x_max/2), 0, (x_max/2)+1);
 
         /*
         box(right_win, 0, 0);
@@ -147,8 +148,6 @@ void command_select(command_node *head, char *utype, char *username)
         /*
         mvwprintw(left_win, 0,0, "%c %d", ch, selection);
          */
-
-
         mvwprintw(left_win ,0, 0, "%s %s", username, utype);
 
         wbkgd(left_win, COLOR_PAIR(2));
@@ -169,7 +168,7 @@ void command_select(command_node *head, char *utype, char *username)
 
         wrefresh(left_win);
 
-        mvwprintw(right_win, 1, 1, "Permission: %s", cmd_list[selection].permission);
+        mvwprintw(right_win, 1, 0, "Permission: %s", cmd_list[selection].permission);
 
         /*
          *
@@ -187,11 +186,11 @@ void command_select(command_node *head, char *utype, char *username)
                     case TYPE_BOOL: taip = "0 or 1"; break;
                     case TYPE_VOID: taip = "Nothing"; break;
                 }
-                mvwprintw(right_win, i+3, 1, "Argument %d: %s", i, taip);
+                mvwprintw(right_win, i+3, 0, "Argument %d: %s", i, taip);
             }
 
-            mvwprintw(right_win, i+4, 1, "Description:");
-            mvwprintw(right_win, i+5, 1, "%s" ,cmd_list[selection].desc);
+            mvwprintw(right_win, i+4, 0, "Description:");
+            mvwprintw(right_win, i+5, 0, "%s" ,cmd_list[selection].desc);
         }
 
         wrefresh(right_win);
@@ -219,6 +218,7 @@ void command_select(command_node *head, char *utype, char *username)
                 break;
 
             case KEY_RESIZE:
+           		clear();
                 break;
 
             case '\n':
@@ -597,7 +597,7 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patien
 
 }
 
-int config_editor(Config config, const char * path)
+int config_editor(Config config, const char * path, const char * const * disallow, int disallow_n)
 {
 	int ch, y_max, x_max, selection = 0;
 	int i;
@@ -606,9 +606,13 @@ int config_editor(Config config, const char * path)
 	WINDOW *left_win, *right_win;
 	char edit_buffer[MAX_CONFIG_VAL_LEN];
 	int buffer_max;
+	int allow = 1;
 
 
 	ncurses_init();
+	init_pair(1, COLOR_BLACK, COLOR_RED);
+
+	clear();
 	getmaxyx(stdscr, y_max, x_max);
 	while(1)
 	{
@@ -618,23 +622,24 @@ int config_editor(Config config, const char * path)
 
 		if(edit_mode)
 		{
+			mvprintw(0, 0, "EDIT MODE  ");
 			curs_set(1);
-			clear();
-			mvprintw(0, 0, "%s", config.entries[selection].key);
-			mvprintw(1, 0, "%s", edit_buffer);
-			move(1, cur_pos_x);
+			mvprintw(y_max/2, (x_max/4), "                                                     "); /*goofy ahh clear */
+			mvprintw(y_max/2, (x_max/4) + 1, "%s", edit_buffer);
+			move(y_max/2, cur_pos_x + (x_max/4) + 1);
 		}
 		else
 		{
+			mvprintw(0, 0, "SELECT MODE");
+
 			curs_set(0);
 
-			left_win = newwin(y_max, x_max/2, 0, 0);
+			left_win = newwin(y_max, (x_max/4), 0, 0);
 			box(left_win, 0, 0);
 			keypad(left_win, 1);
 
-			right_win = newwin(y_max, (x_max/2), 0, (x_max/2));
-			mvwprintw(right_win, 0, 1, "CTRL+C/CTRL+D to exit without saving, CTRL+W to save. Enter to select a field to edit");
-
+			right_win = newwin(y_max, (3*x_max/4), 0, (x_max/4) + 1);
+			mvwprintw(right_win, 0, 0, "CTRL+C/CTRL+D to exit without saving, CTRL+W to save.\nEnter to select a field to edit\nIn edit mode, you can use arrow keys and backspace or del key");
 			for(i=0; i<config.count; i++)
 			{
 				if (i-selection + (y_max/2) < 1) /* if its gonna cover the pretext, just skip */
@@ -650,11 +655,18 @@ int config_editor(Config config, const char * path)
 			}
 			wrefresh(left_win);
 
-			mvwprintw(right_win, y_max/2, 1, "%s", config.entries[selection].value);
+			if(allow)
+			{
+				mvwprintw(right_win, y_max/2, 0, "%s", config.entries[selection].value);
+			}else
+			{
+				wattron(right_win, COLOR_PAIR(1));
+				mvwprintw(right_win, y_max/2, 0, "You are not allowed to change this");
+				wattroff(right_win, COLOR_PAIR(1));
+
+				allow = 1;
+			}
 			wrefresh(right_win);
-
-
-
 		}
 
 		ch = getch();
@@ -663,6 +675,7 @@ int config_editor(Config config, const char * path)
 		switch (ch)
 		{
 			case KEY_RESIZE:
+				clear();
 				getmaxyx(stdscr, y_max, x_max); break;
 
 			case 0x03: /* ETX */
@@ -674,7 +687,7 @@ int config_editor(Config config, const char * path)
 			default: break;
 		}
 
-		if(edit_mode)
+		if(edit_mode == 1)
 			switch (ch)
 			{
 				case KEY_LEFT:
@@ -740,7 +753,7 @@ int config_editor(Config config, const char * path)
 
 						edit_buffer[buffer_max] = '\0';
 						i = buffer_max - 1;
-						while(cur_pos_x < i) /* replace current char with the char before */
+						while(cur_pos_x < i) /* replace current char with the char before */ /* im doing insert mode only cus lazy */
 						{
 							edit_buffer[i] = edit_buffer[i-1];
 							i--;
@@ -769,6 +782,19 @@ int config_editor(Config config, const char * path)
 	                break;
 
 				case '\n':
+					allow = 1;
+					for(i=0; i<disallow_n; i++)
+						if(strcmp(disallow[i], config.entries[selection].key) == 0)
+						{
+							allow = 0;
+							break;
+						}
+
+					if(!allow)
+					{
+						break;
+					}
+
 					edit_mode = 1;
 					strcpy(edit_buffer, config.entries[selection].value); /* value is null terminated during parsing */
 

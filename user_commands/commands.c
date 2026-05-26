@@ -141,13 +141,17 @@ Value edit_profile_self_admin(void)
 {
 	char path[256];
 	char username[MAX_USERNAME_LEN];
+	const char* disallow[] = {"USERTYPE", };
 	Config profile;
+
 	strcpy(username, current_username);
 	sprintf(path, "./users/%s/profile.txt", username);
 
+
+
 	parse_config_file(path, &profile);
 
-	return make_int(config_editor(profile, path));
+	return make_int(config_editor(profile, path, disallow, 1));
 }
 
 
