@@ -11,6 +11,7 @@ reset
 ```
 **This will reset the terminal to it's usual state.**
 
+\section terms Terminals we tested
 1. Zed Editor terminal
   - RGB is supported, but colors won't display correctly
   - Will need to prepend \\n to scanf format string, if scanf is used consecutively. Or use fgets so you can trim newlines

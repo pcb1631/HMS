@@ -1,4 +1,7 @@
 \mainpage Hospital Management System
+
+**For anyone viewing the PDF, docs are also hosted at https://pcb1631.github.io/HMS/**
+
 - \subpage deps 
 - \subpage usage
   - \subpage usage_basics
@@ -10,6 +13,8 @@
 - \subpage design
   - \subpage db
 \section intro_sec Introduction
+
+
  The Hospital Management System (HMS for short) is an interactive program to facilitate hospital documentation, appointment booking, among other services.
  HMS is designed to run in every major OS, as it is written purely in ANSI C
 
