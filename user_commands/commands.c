@@ -2,6 +2,7 @@
 #include "../utils/utils.h"
 #include "../utils/logins.h"
 #include "../utils/tui.h"
+#include "../utils/globals.h"
 
 #ifdef _WIN32
     #include <ncursesw/curses.h>
@@ -79,13 +80,13 @@ Value admin_view_cfg(void)
             "Nurse"
         };
 
-    char username[64];
+    char username[MAX_USERNAME_LEN];
     char path[128];
     user_select_menu(allowed, 2, username);
 
     if(strcmp(username, "")==0)
     	return make_string("EOF/EOT");
-    
+
     sprintf(path, "./users/%s/profile.txt", username);
     parse_config_file(path, &user);
 
@@ -135,6 +136,20 @@ void user_select_menu(const char * const * allowed_utypes, int allowed_n, char *
        free(options[i]);
     free(options);
 }
+
+Value edit_profile_self_admin(void)
+{
+	char path[256];
+	char username[MAX_USERNAME_LEN];
+	Config profile;
+	strcpy(username, current_username);
+	sprintf(path, "./users/%s/profile.txt", username);
+
+	parse_config_file(path, &profile);
+
+	return make_int(config_editor(profile, path));
+}
+
 
 void print_cfg(Config cfg)
 {

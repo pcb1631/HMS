@@ -16,4 +16,5 @@ void test(void);
 void user_select_menu(const char * const * allowed_utypes, int allowed_n, char * selected_username);
 Value admin_view_cfg(void);
 void print_cfg(Config cfg);
+Value edit_profile_self_admin(void);
 #endif

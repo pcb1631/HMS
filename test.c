@@ -1,8 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "utils/utils.h"
-
 #ifdef _WIN32
     #include <ncurses/curses.h>
 #else
@@ -11,12 +7,16 @@
 
 #define OPTIONS 64
 
-int main(int argc, char ** argv)
+int main(void)
 {
-	Config cfg;
-	parse_config_file("temp1.txt", &cfg);
-
-	dump_config_to_file(cfg, "temp2.txt");
-
-    return 0;
+	char string[] = "abcdefg\0\b\0";
+	int i = 3;
+	printf("%s\n", string);
+	while(string[i] != '\0')
+	{
+		string[i] = string[i+1];
+		i++;
+	}
+	printf("%s\n", string);
+	return 0;
 }

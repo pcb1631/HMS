@@ -23,10 +23,10 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 
 /**
  * @brief The command select menu that is shown after login.
- * 
- * To only show the commands that the user is allowed to use, this function takes in a singly null terminated LL of Command variables. 
- * 
- * 
+ *
+ * To only show the commands that the user is allowed to use, this function takes in a singly null terminated LL of Command variables.
+ *
+ *
  */
 void command_select(command_node* head, char * utype, char * username);
 
@@ -47,6 +47,6 @@ time_t time_picker(char * pretext, int color_fg, int color_bg, time_t pre_time);
  * @return Index of selection of Slot array. return -1 if no slots.
  */
 int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int is_patient);
-
+int config_editor(Config config, const char * path);
 void ncurses_init(void);
 #endif

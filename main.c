@@ -31,7 +31,6 @@
 	#include <wincrypt.h>
 #endif
 
-#define DATABASE_PATH "./users/"
 #define CREDENTIALS_PATH "./users/creds.txt"
 
 int main(int argc, char ** argv)
@@ -68,6 +67,9 @@ int main(int argc, char ** argv)
 
         COMMAND_NOARGS(admin_view_cfg, "View users profile", "Admin", ""),
         COMMAND(make_user, "Create account", "Admin", makeuser_args, "Create accounts for patients, doctors, etc\n\n First arg is username,\n second arg is usertype (cAsE sEnSiTiVe)"),
+        COMMAND_NOARGS(edit_profile_self_admin, "Edit your profile", "Admin", ""),
+
+
 
         COMMAND_NOARGS(nurse_view_booking, "View doctor's appointments", "Nurse", ""),
 	};

@@ -1,5 +1,6 @@
 #include "tui.h"
 #include "globals.h"
+#include "utils.h"
 #include <stdio.h>
 #ifndef _WIN32
 	#include <ncurses.h>
@@ -20,7 +21,7 @@ void ncurses_init(void)
     start_color();
 }
 
-int simple_select(int color_foreground, int color_background, int n_of_options, const char * const * options, char * selection_s, const char * pretext)
+int simple_select(int color_foreground, int color_background, int n_of_options, const char* const* options, char * selection_s, const char * pretext)
 {
 	int ch = 0;
 	int i;
@@ -201,11 +202,11 @@ void command_select(command_node *head, char *utype, char *username)
         {
         	case 0x03: /* ETX */
         		endwin();
-       			printf("Received SIGINT\n");
+       			printf("Received SIGINT, bye!\n");
         		return;
 			case 0x04: /* EOT */
 				endwin();
-				printf("Received EOT");
+				printf("Received EOT, bye!");
 				return;
 
             case KEY_LEFT:
@@ -558,6 +559,8 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patien
             {
 	            case 0x03: /* ETX */
 				case 0x04: /* EOF */
+					delwin(right_win);
+                    delwin(left_win);
 					endwin();
 					fprintf(stderr, "Received EOF/EOT, cancelled booking view\n");
 					return -1;
@@ -592,4 +595,201 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patien
 
     }
 
+}
+
+int config_editor(Config config, const char * path)
+{
+	int ch, y_max, x_max, selection = 0;
+	int i;
+	int edit_mode = 0;
+	int cur_pos_x;
+	WINDOW *left_win, *right_win;
+	char edit_buffer[MAX_CONFIG_VAL_LEN];
+	int buffer_max;
+
+
+	ncurses_init();
+	getmaxyx(stdscr, y_max, x_max);
+	while(1)
+	{
+		refresh();
+
+		bkgd(COLOR_BLACK);
+
+		if(edit_mode)
+		{
+			curs_set(1);
+			clear();
+			mvprintw(0, 0, "%s", config.entries[selection].key);
+			mvprintw(1, 0, "%s", edit_buffer);
+			move(1, cur_pos_x);
+		}
+		else
+		{
+			curs_set(0);
+
+			left_win = newwin(y_max, x_max/2, 0, 0);
+			box(left_win, 0, 0);
+			keypad(left_win, 1);
+
+			right_win = newwin(y_max, (x_max/2), 0, (x_max/2));
+			mvwprintw(right_win, 0, 1, "CTRL+C/CTRL+D to exit without saving, CTRL+W to save. Enter to select a field to edit");
+
+			for(i=0; i<config.count; i++)
+			{
+				if (i-selection + (y_max/2) < 1) /* if its gonna cover the pretext, just skip */
+					continue;
+
+				if(i == selection)
+					wattron(left_win, A_REVERSE);
+
+				mvwprintw(left_win, i-selection + (y_max/2), 1, "%s", config.entries[i].key);
+
+				if(i == selection)
+					wattroff(left_win, A_REVERSE);
+			}
+			wrefresh(left_win);
+
+			mvwprintw(right_win, y_max/2, 1, "%s", config.entries[selection].value);
+			wrefresh(right_win);
+
+
+
+		}
+
+		ch = getch();
+
+
+		switch (ch)
+		{
+			case KEY_RESIZE:
+				getmaxyx(stdscr, y_max, x_max); break;
+
+			case 0x03: /* ETX */
+			case 0x04: /* EOF */
+				endwin();
+				fprintf(stderr, "config_editor(): Received EOF/EOT, discarded changes\n");
+				return -1;
+
+			default: break;
+		}
+
+		if(edit_mode)
+			switch (ch)
+			{
+				case KEY_LEFT:
+					if(cur_pos_x > 0)
+						cur_pos_x--;
+					break;
+
+				case KEY_RIGHT:
+					if(cur_pos_x < buffer_max)
+						cur_pos_x++;
+					break;
+
+				case KEY_BACKSPACE: /* replace current char with the char after, stop at /0 */
+					if(cur_pos_x > 0)
+					{
+						i = cur_pos_x - 1;
+						while(edit_buffer[i] != '\0')
+						{
+							edit_buffer[i] = edit_buffer[i+1];
+							i++;
+						}
+						cur_pos_x--;
+						buffer_max--;
+					}
+					break;
+
+				case KEY_DC: /* delete key */
+					i = cur_pos_x;
+					while(edit_buffer[i] != '\0')
+					{
+						edit_buffer[i] = edit_buffer[i+1];
+						i++;
+					}
+
+					if(cur_pos_x != 0)
+						cur_pos_x--;
+
+
+					buffer_max--;
+					break;
+
+				case '\n':
+					edit_mode = 0;
+					strcpy(config.entries[selection].value, edit_buffer);
+
+					delwin(right_win);
+					right_win = NULL;
+					delwin(left_win);
+					left_win = NULL;
+
+					break;
+
+				default:
+					if(ch >= 32 AND ch <= 126) /* printable ASCII */
+					{
+						buffer_max++;
+						if(buffer_max > MAX_CONFIG_VAL_LEN)
+						{
+							mvprintw(y_max, 0, "Warning: character length limit");
+							buffer_max--;
+							break;
+						}
+
+						edit_buffer[buffer_max] = '\0';
+						i = buffer_max - 1;
+						while(cur_pos_x < i) /* replace current char with the char before */
+						{
+							edit_buffer[i] = edit_buffer[i-1];
+							i--;
+						}
+						edit_buffer[cur_pos_x] = ch;
+						cur_pos_x++;
+					}
+					break;;
+			}
+		else
+			switch (ch)
+			{
+				case 0x17: /* CTRL+W */
+					endwin();
+					printf("Saving to %s\n", path);
+					dump_config_to_file(config, path);
+					return 0;
+
+				case KEY_LEFT:
+	            case KEY_UP:
+	                selection = (selection - 1 + config.count) % config.count;
+	                break;
+	            case KEY_RIGHT:
+	            case KEY_DOWN:
+	                selection = (selection + 1) % config.count;
+	                break;
+
+				case '\n':
+					edit_mode = 1;
+					strcpy(edit_buffer, config.entries[selection].value); /* value is null terminated during parsing */
+
+					cur_pos_x = strlen(edit_buffer);
+					buffer_max = cur_pos_x;
+					break;
+
+
+	            default: break;
+			}
+
+		if(right_win != NULL)
+		{
+			delwin(right_win);
+			right_win = NULL;
+		}
+
+		if(left_win != NULL)
+		{
+			delwin(left_win);
+			left_win = NULL;
+		}
+	}
 }

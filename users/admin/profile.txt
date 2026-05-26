@@ -1,7 +1,7 @@
-USERTYPE=Admin
-first_name=
-middle_name=
-last_name=
-blood_type=
-height=
-birth=
+USERTYPE: Admin
+first_name: Josiah
+middle_name: 
+last_name: H
+blood_type: O-
+height: 170
+birth: 17/02/2007

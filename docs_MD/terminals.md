@@ -4,12 +4,14 @@ Every terminal has different behaviour when running and debugging HMS/ncurses, d
 
 As such we have compiled a list of terminals we tested and their behaviour.
 
-**In case the program crashes, ncurses will not be able to call endwin(), and the terminal will most likely be broken because it can't revert ANSI escape codes. (e.g. if you see strange characters when you backspace or press enter during login)**
+**In case the program crashes, ncurses will not be able to call endwin(), and the terminal will most likely be broken because it can't revert ANSI escape codes. (e.g. if you see strange characters when you backspace or press enter)**
 **If this happens:**
 ```bash
 reset
 ```
 **This will reset the terminal to it's usual state.**
+
+The program already does `reset` first just in case (This stops the terminal on macOS for a couple seconds)
 
 \section terms Terminals we tested
 1. Zed Editor terminal
