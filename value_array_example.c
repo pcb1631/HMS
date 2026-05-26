@@ -1,4 +1,4 @@
-#include "utils.h"
+#include "utils/utils.h"
 #include <stdio.h>
 
 int main(void)
@@ -8,8 +8,8 @@ int main(void)
 	static ValueType args_add[] = {TYPE_INT, TYPE_INT};
 	static ValueType args_meow[] = {TYPE_VOID};
 	static command cmd_list[] = {
-		COMMAND(add, "add", "debug", args_add),
-		COMMAND(meow, "meow", "debug", args_meow),
+		COMMAND(add, "add", "debug", args_add, "add"),
+		COMMAND(meow, "meow", "debug", args_meow, "debug"),
 	};
 	Value result;
 	char * current_perm = "debug";

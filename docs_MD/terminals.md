@@ -14,23 +14,23 @@ reset
 The program already does `reset` first just in case (This stops the terminal on macOS for a couple seconds)
 
 \section terms Terminals we tested
-1. Zed Editor terminal
+-# Zed Editor terminal
   - RGB is supported, but colors won't display correctly
   - Will need to prepend \\n to scanf format string, if scanf is used consecutively. Or use fgets so you can trim newlines
   - debug terminal mostly broken (But not on macOS); won't receive KEY_RESIZE 
-  - Need to use `xterm-256color` for $TERM if you're debugging on macos
-2. vscode terminal
+  - Need to use `xterm-256color` for $TERM if you're debugging on macos, we have done this for you in the provided .zed folder
+-# vscode terminal
   - RGB is supported 
   - Won't render black background
-3. cmd/Powershell
+-# cmd/Powershell
   - RGB isn't supported
-4. Ghostty
+-# Ghostty
   - Good
   - Is available on Linux and MacOS
   - It might crash if you highlight with your cursor for some reason
-5. kitty
-  - Perfect
-6. xterm
+-# kitty
+  - Good
+-# xterm
   - It works, supports rgb, but needs some setup;
 	- Need to change $TERM to xterm-256color
 		 ```bash 
@@ -40,10 +40,12 @@ The program already does `reset` first just in case (This stops the terminal on 
 		```bash
 			stty erase '^H' # sets the erase char to ^H
 	```
-7. Linux TTY
+-# Linux TTY
   - Absolutely not
-8. ratty
+-# ratty
   - no
+-# xfce4-terminal
+	- Good
 
 \section mac macOS
 	Behaviour between every terminal emulator is similar because they advertise themselves as `xterm-256color`
