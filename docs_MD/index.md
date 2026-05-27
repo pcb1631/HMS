@@ -13,6 +13,7 @@
 - \subpage dev
 - \subpage design
   - \subpage db
+  - \subpage tui
 
 
 
