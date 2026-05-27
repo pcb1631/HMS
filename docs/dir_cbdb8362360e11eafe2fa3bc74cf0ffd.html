@@ -10,6 +10,9 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -23,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="APUlogo.png"/></td>
   <td id="projectalign">
    <div id="projectname">Hospital Management System
    </div>
@@ -43,11 +47,27 @@ $(function() { codefold.init(); });
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
 $(function() {
-  initMenu('',true,false,'search.php','Search',false);
+  initMenu('',true,false,'search.php','Search',true);
   $(function() { init_search(); });
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('dir_cbdb8362360e11eafe2fa3bc74cf0ffd.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -69,19 +89,14 @@ $(function() {
 </div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a href="dir_cbdb8362360e11eafe2fa3bc74cf0ffd.html">utils</a></li>  </ul>
-</div>
-</div><!-- top -->
-<div id="doc-content">
 <div class="header">
   <div class="headertitle"><div class="title">utils Directory Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Directory dependency graph for utils:</div>
-<div class="dyncontent">
+<div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Directory dependency graph for utils:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="dir_cbdb8362360e11eafe2fa3bc74cf0ffd_dep.png" border="0" usemap="#adir__cbdb8362360e11eafe2fa3bc74cf0ffd__dep" loading="lazy" alt="utils"/></div>
 <map name="adir__cbdb8362360e11eafe2fa3bc74cf0ffd__dep" id="adir__cbdb8362360e11eafe2fa3bc74cf0ffd__dep">
 <area shape="rect" href="dir_cbdb8362360e11eafe2fa3bc74cf0ffd.html" title="utils" alt="" coords="45,5,94,33"/>
@@ -100,6 +115,8 @@ Files</h2></td></tr>
 <tr class="memdesc:logins_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">User login management and hashing. <br /></td></tr>
 <tr class="memitem:platform_5Frandom_2Eh" id="r_platform_5Frandom_2Eh"><td class="memItemLeft"><a href="platform__random_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="platform__random_8h.html">platform_random.h</a></td></tr>
 <tr class="memdesc:platform__random_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides get_random_bytes. <br /></td></tr>
+<tr class="memitem:string_5Futils_2Ec" id="r_string_5Futils_2Ec"><td class="memItemLeft"><a href="string__utils_8c_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="string__utils_8c.html">string_utils.c</a></td></tr>
+<tr class="memitem:string_5Futils_2Eh" id="r_string_5Futils_2Eh"><td class="memItemLeft"><a href="string__utils_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="string__utils_8h.html">string_utils.h</a></td></tr>
 <tr class="memitem:tui_2Ec" id="r_tui_2Ec"><td class="memItemLeft"><a href="tui_8c_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="tui_8c.html">tui.c</a></td></tr>
 <tr class="memitem:tui_2Eh" id="r_tui_2Eh"><td class="memItemLeft"><a href="tui_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="tui_8h.html">tui.h</a></td></tr>
 <tr class="memdesc:tui_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Text User Interface functions. <br /></td></tr>
@@ -108,10 +125,21 @@ Files</h2></td></tr>
 <tr class="memdesc:utils_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility functions, value types, and command parsing. <br /></td></tr>
 </table>
 </div><!-- contents -->
-<!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
-</small></address>
 </div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_cbdb8362360e11eafe2fa3bc74cf0ffd.html">utils</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
 </body>
 </html>

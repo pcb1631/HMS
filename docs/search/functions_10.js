@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['wipe_5fstdin_0',['wipe_stdin',['../utils_8c.html#a25768450bdaa57e9b76f04797cf78a99',1,'wipe_stdin(void):&#160;utils.c'],['../utils_8h.html#a25768450bdaa57e9b76f04797cf78a99',1,'wipe_stdin(void):&#160;utils.c']]],
-  ['write_5fto_5ffile_5fbooking_1',['write_to_file_booking',['../bookings_8c.html#a8e56b4b3c78e44b2d8487a20e4f7a0e1',1,'bookings.c']]]
+  ['verify_5fpassword_0',['verify_password',['../logins_8c.html#a54f32098ab9b90a6b5487e0038d4860e',1,'verify_password(const char *password, const char *stored_hash):&#160;logins.c'],['../logins_8h.html#a54f32098ab9b90a6b5487e0038d4860e',1,'verify_password(const char *password, const char *stored_hash):&#160;logins.c']]],
+  ['view_5fslots_1',['view_slots',['../bookings_8c.html#a5eb3ec898bc66f1c7c76be7de0ec8069',1,'view_slots(char *username):&#160;bookings.c'],['../bookings_8h.html#a5eb3ec898bc66f1c7c76be7de0ec8069',1,'view_slots(char *username):&#160;bookings.c']]],
+  ['viewcomplaints_2',['viewComplaints',['../complaints_8c.html#a56b905d1e820e170f724fca26f86dce8',1,'viewComplaints(void):&#160;complaints.c'],['../complaints_8h.html#a56b905d1e820e170f724fca26f86dce8',1,'viewComplaints(void):&#160;complaints.c']]],
+  ['viewpaymenthistory_3',['viewPaymentHistory',['../billing_8c.html#a95e3fa6e91a2a9d59beed715618ddca1',1,'viewPaymentHistory(const char *patientID):&#160;billing.c'],['../billing_8h.html#a95e3fa6e91a2a9d59beed715618ddca1',1,'viewPaymentHistory(const char *patientID):&#160;billing.c']]]
 ];

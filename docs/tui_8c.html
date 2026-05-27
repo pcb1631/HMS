@@ -10,6 +10,9 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -23,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="APUlogo.png"/></td>
   <td id="projectalign">
    <div id="projectname">Hospital Management System
    </div>
@@ -43,11 +47,27 @@ $(function() { codefold.init(); });
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
 $(function() {
-  initMenu('',true,false,'search.php','Search',false);
+  initMenu('',true,false,'search.php','Search',true);
   $(function() { init_search(); });
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('tui_8c.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -69,57 +89,54 @@ $(function() {
 </div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a href="dir_cbdb8362360e11eafe2fa3bc74cf0ffd.html">utils</a></li>  </ul>
-</div>
-</div><!-- top -->
-<div id="doc-content">
 <div class="header">
-  <div class="summary">
-<a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">tui.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="tui_8h_source.html">tui.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="globals_8h_source.html">globals.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="string__utils_8h_source.html">string_utils.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="utils_8h_source.html">utils.h</a>&quot;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;ncurses.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;time.h&gt;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for tui.c:</div>
-<div class="dyncontent">
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for tui.c:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="tui_8c__incl.png" border="0" usemap="#autils_2tui_8c" loading="lazy" alt=""/></div>
 <map name="autils_2tui_8c" id="autils_2tui_8c">
-<area shape="rect" title=" " alt="" coords="352,5,434,33"/>
-<area shape="rect" href="tui_8h.html" title="Text User Interface functions." alt="" coords="239,81,289,109"/>
-<area shape="poly" title=" " alt="" coords="368,35,301,75,298,71,372,32"/>
-<area shape="rect" title=" " alt="" coords="7,308,91,336"/>
-<area shape="poly" title=" " alt="" coords="350,21,299,26,233,35,164,53,131,66,100,83,60,113,37,145,22,183,10,233,8,246,10,259,30,295,25,296,5,261,3,246,5,232,17,181,32,142,57,110,97,79,129,62,162,48,232,30,298,20,355,19"/>
-<area shape="rect" title=" " alt="" coords="333,308,402,336"/>
-<area shape="poly" title=" " alt="" coords="394,32,373,294,368,292,390,35"/>
-<area shape="rect" title=" " alt="" coords="20,232,83,260"/>
-<area shape="poly" title=" " alt="" coords="350,24,285,36,203,58,161,75,122,97,87,125,58,158,51,172,48,187,49,218,43,217,43,186,46,170,54,155,83,121,119,93,159,70,201,53,284,30,354,22"/>
-<area shape="rect" href="globals_8h.html" title=" " alt="" coords="430,81,511,109"/>
-<area shape="poly" title=" " alt="" coords="407,31,448,70,443,70,407,36"/>
-<area shape="rect" title=" " alt="" coords="535,81,600,109"/>
-<area shape="poly" title=" " alt="" coords="424,31,526,74,520,75,424,36"/>
-<area shape="rect" title=" " alt="" coords="625,81,695,109"/>
-<area shape="poly" title=" " alt="" coords="434,29,613,79,608,81,434,34"/>
-<area shape="rect" href="utils_8h.html" title="Utility functions, value types, and command parsing." alt="" coords="192,232,253,260"/>
-<area shape="poly" title=" " alt="" coords="282,106,300,122,315,142,323,163,320,185,297,212,268,230,266,226,293,208,315,183,318,164,310,144,296,126,281,112"/>
-<area shape="rect" href="bookings_8h.html" title=" " alt="" coords="89,157,305,184"/>
-<area shape="poly" title=" " alt="" coords="254,107,221,147,217,143,250,111"/>
-<area shape="poly" title=" " alt="" coords="236,99,203,104,160,114,116,131,79,158,63,187,56,218,51,216,58,185,75,155,114,126,158,109,202,99,240,96"/>
-<area shape="poly" title=" " alt="" coords="193,263,95,304,93,299,190,258"/>
-<area shape="poly" title=" " alt="" coords="249,258,331,301,326,301,248,263"/>
-<area shape="rect" title=" " alt="" coords="186,308,259,336"/>
-<area shape="poly" title=" " alt="" coords="224,259,225,294,220,291,221,262"/>
-<area shape="poly" title=" " alt="" coords="203,182,216,218,210,217,201,187"/>
-<area shape="poly" title=" " alt="" coords="170,187,93,227,90,223,173,183"/>
+<area shape="rect" title=" " alt="" coords="500,5,581,33"/>
+<area shape="rect" href="tui_8h.html" title="Text User Interface functions." alt="" coords="335,81,386,109"/>
+<area shape="poly" title=" " alt="" coords="506,35,401,80,399,75,510,32"/>
+<area shape="rect" href="utils_8h.html" title="Utility functions, value types, and command parsing." alt="" coords="118,232,179,260"/>
+<area shape="poly" title=" " alt="" coords="497,21,422,29,375,37,325,49,276,66,230,89,188,120,155,158,148,172,145,187,145,218,140,217,139,186,143,170,150,155,185,116,227,85,274,61,324,44,374,31,421,24,502,19"/>
+<area shape="rect" title=" " alt="" coords="5,308,89,336"/>
+<area shape="poly" title=" " alt="" coords="497,25,337,46,253,63,220,72,196,83,168,104,143,129,103,187,75,246,57,294,52,292,70,244,99,185,139,126,165,100,194,79,218,67,252,57,336,41,502,22"/>
+<area shape="rect" title=" " alt="" coords="356,308,426,336"/>
+<area shape="poly" title=" " alt="" coords="542,31,541,75,534,134,517,200,503,232,485,262,463,285,436,303,434,298,459,281,481,258,498,230,512,198,529,133,536,74,539,35"/>
+<area shape="rect" title=" " alt="" coords="407,232,471,260"/>
+<area shape="poly" title=" " alt="" coords="537,32,453,220,449,216,532,34"/>
+<area shape="rect" href="globals_8h.html" title=" " alt="" coords="578,81,658,109"/>
+<area shape="poly" title=" " alt="" coords="555,31,596,70,590,70,554,36"/>
+<area shape="rect" href="string__utils_8h.html" title=" " alt="" coords="682,81,788,109"/>
+<area shape="poly" title=" " alt="" coords="575,31,689,75,684,76,575,36"/>
+<area shape="rect" title=" " alt="" coords="812,81,877,109"/>
+<area shape="poly" title=" " alt="" coords="582,27,799,79,794,81,581,32"/>
+<area shape="rect" title=" " alt="" coords="901,81,972,109"/>
+<area shape="poly" title=" " alt="" coords="581,24,714,45,889,80,883,81,713,50,582,29"/>
+<area shape="poly" title=" " alt="" coords="332,98,299,104,256,114,213,131,176,158,159,187,152,218,147,216,154,185,172,155,210,126,255,109,298,99,337,96"/>
+<area shape="rect" href="bookings_8h.html" title=" " alt="" coords="186,157,401,184"/>
+<area shape="poly" title=" " alt="" coords="351,108,317,147,314,143,346,111"/>
+<area shape="poly" title=" " alt="" coords="376,107,397,129,416,155,429,187,437,219,432,216,424,188,411,158,393,132,374,112"/>
+<area shape="poly" title=" " alt="" coords="133,260,79,301,76,297,128,261"/>
+<area shape="poly" title=" " alt="" coords="180,254,344,304,340,307,179,260"/>
+<area shape="rect" title=" " alt="" coords="112,308,184,336"/>
+<area shape="poly" title=" " alt="" coords="150,259,151,294,146,291,147,263"/>
+<area shape="poly" title=" " alt="" coords="265,186,189,227,187,223,270,184"/>
+<area shape="poly" title=" " alt="" coords="320,182,402,225,397,225,319,188"/>
 </map>
 </div>
 </div>
@@ -127,6 +144,9 @@ Include dependency graph for tui.c:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:a3f4ec241d99ec4297896a8a21e2aa7e2" id="r_a3f4ec241d99ec4297896a8a21e2aa7e2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a3f4ec241d99ec4297896a8a21e2aa7e2">KEY_ETX</a>&#160;&#160;&#160;0x03 /* CTRL+C */</td></tr>
+<tr class="memitem:a956032c368753239e3513499d0474bf2" id="r_a956032c368753239e3513499d0474bf2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a956032c368753239e3513499d0474bf2">KEY_EOT</a>&#160;&#160;&#160;0x04 /* CTRL+D */</td></tr>
+<tr class="memitem:a721e4b1ab5f88489e40fe2f7c541b2b8" id="r_a721e4b1ab5f88489e40fe2f7c541b2b8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a721e4b1ab5f88489e40fe2f7c541b2b8">KEY_CTRL_W</a>&#160;&#160;&#160;0x17</td></tr>
 <tr class="memitem:afaa7a1011ac4ab391c1dfb1551f2543c" id="r_afaa7a1011ac4ab391c1dfb1551f2543c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#afaa7a1011ac4ab391c1dfb1551f2543c">COMMAND_LIST_SIZE</a>&#160;&#160;&#160;30</td></tr>
 <tr class="memitem:a6423403decc09caaaa42f117cd86e325" id="r_a6423403decc09caaaa42f117cd86e325"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a6423403decc09caaaa42f117cd86e325">MAX_BOOKING_SLOTS</a>&#160;&#160;&#160;128</td></tr>
 </table><table class="memberdecls">
@@ -141,6 +161,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:aa9e50b98de6ede2ecc13846a8b44462c"><td class="mdescLeft">&#160;</td><td class="mdescRight">TUI for picking a specific time.  <br /></td></tr>
 <tr class="memitem:a91e4922586ea5f1a187045104430740b" id="r_a91e4922586ea5f1a187045104430740b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a91e4922586ea5f1a187045104430740b">booking_slot_view</a> (<a class="el" href="structSlot.html">Slot</a> *slots, int slots_n, const char *doctor, int patient)</td></tr>
 <tr class="memdesc:a91e4922586ea5f1a187045104430740b"><td class="mdescLeft">&#160;</td><td class="mdescRight">TUI Viewer/selection menu for appointment/booking slots.  <br /></td></tr>
+<tr class="memitem:af87cdb83bc1ad50c80a452b5e80c2550" id="r_af87cdb83bc1ad50c80a452b5e80c2550"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#af87cdb83bc1ad50c80a452b5e80c2550">config_editor</a> (<a class="el" href="structConfig.html">Config</a> config, const char *path, const char *const *disallow, int disallow_n)</td></tr>
 </table>
 <a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="afaa7a1011ac4ab391c1dfb1551f2543c" name="afaa7a1011ac4ab391c1dfb1551f2543c"></a>
@@ -155,7 +176,55 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00094">94</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00100">100</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+
+</div>
+</div>
+<a id="a721e4b1ab5f88489e40fe2f7c541b2b8" name="a721e4b1ab5f88489e40fe2f7c541b2b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a721e4b1ab5f88489e40fe2f7c541b2b8">&#9670;&#160;</a></span>KEY_CTRL_W</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define KEY_CTRL_W&#160;&#160;&#160;0x17</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00017">17</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+
+</div>
+</div>
+<a id="a956032c368753239e3513499d0474bf2" name="a956032c368753239e3513499d0474bf2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a956032c368753239e3513499d0474bf2">&#9670;&#160;</a></span>KEY_EOT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define KEY_EOT&#160;&#160;&#160;0x04 /* CTRL+D */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00016">16</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+
+</div>
+</div>
+<a id="a3f4ec241d99ec4297896a8a21e2aa7e2" name="a3f4ec241d99ec4297896a8a21e2aa7e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f4ec241d99ec4297896a8a21e2aa7e2">&#9670;&#160;</a></span>KEY_ETX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define KEY_ETX&#160;&#160;&#160;0x03 /* CTRL+C */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00015">15</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
 
 </div>
 </div>
@@ -171,7 +240,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00450">450</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00456">456</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
 
 </div>
 </div>
@@ -217,7 +286,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Index of selection of <a class="el" href="structSlot.html">Slot</a> array. return -1 if no slots. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00451">451</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00457">457</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
 
 </div>
 </div>
@@ -248,7 +317,40 @@ Functions</h2></td></tr>
 <p>The command select menu that is shown after login. </p>
 <p>To only show the commands that the user is allowed to use, this function takes in a singly null terminated LL of Command variables. </p>
 
-<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00095">95</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00101">101</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+
+</div>
+</div>
+<a id="af87cdb83bc1ad50c80a452b5e80c2550" name="af87cdb83bc1ad50c80a452b5e80c2550"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af87cdb83bc1ad50c80a452b5e80c2550">&#9670;&#160;</a></span>config_editor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int config_editor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structConfig.html">Config</a></td>          <td class="paramname"><span class="paramname"><em>config</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>path</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *const *</td>          <td class="paramname"><span class="paramname"><em>disallow</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>disallow_n</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00605">605</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
 
 </div>
 </div>
@@ -267,7 +369,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00013">13</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00019">19</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
 
 </div>
 </div>
@@ -324,7 +426,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Index of the selected option </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00023">23</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00029">29</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
 
 </div>
 </div>
@@ -367,15 +469,26 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>UNIX timestamp (seconds) of what user chose </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00299">299</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00305">305</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
-<!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
-</small></address>
 </div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_cbdb8362360e11eafe2fa3bc74cf0ffd.html">utils</a></li><li class="navelem"><a href="tui_8c.html">tui.c</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
 </body>
 </html>

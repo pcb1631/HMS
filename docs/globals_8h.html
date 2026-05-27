@@ -10,6 +10,9 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -23,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="APUlogo.png"/></td>
   <td id="projectalign">
    <div id="projectname">Hospital Management System
    </div>
@@ -43,11 +47,27 @@ $(function() { codefold.init(); });
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
 $(function() {
-  initMenu('',true,false,'search.php','Search',false);
+  initMenu('',true,false,'search.php','Search',true);
   $(function() { init_search(); });
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('globals_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -69,41 +89,57 @@ $(function() {
 </div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a href="dir_cbdb8362360e11eafe2fa3bc74cf0ffd.html">utils</a></li>  </ul>
-</div>
-</div><!-- top -->
-<div id="doc-content">
 <div class="header">
-  <div class="summary">
-<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">globals.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
+<div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="globals_8h__dep__incl.png" border="0" usemap="#autils_2globals_8hdep" loading="lazy" alt=""/></div>
 <map name="autils_2globals_8hdep" id="autils_2globals_8hdep">
-<area shape="rect" title=" " alt="" coords="230,5,342,33"/>
+<area shape="rect" title=" " alt="" coords="372,5,485,33"/>
 <area shape="rect" href="main_8c.html" title=" " alt="" coords="5,81,71,109"/>
-<area shape="poly" title=" " alt="" coords="228,40,72,86,70,81,227,35"/>
+<area shape="poly" title=" " alt="" coords="354,31,229,54,83,84,72,86,70,81,81,78,228,49,360,30"/>
 <area shape="rect" href="bookings_8c.html" title=" " alt="" coords="94,81,296,109"/>
-<area shape="poly" title=" " alt="" coords="260,42,213,83,210,78,255,44"/>
-<area shape="rect" href="globals_8c.html" title=" " alt="" coords="321,81,432,109"/>
-<area shape="poly" title=" " alt="" coords="315,41,363,81,358,80,313,46"/>
-<area shape="rect" href="tui_8c.html" title=" " alt="" coords="456,81,537,109"/>
-<area shape="poly" title=" " alt="" coords="338,36,462,80,456,81,337,41"/>
+<area shape="poly" title=" " alt="" coords="376,38,238,83,236,78,370,38"/>
+<area shape="rect" href="commands_8c.html" title=" " alt="" coords="321,81,536,109"/>
+<area shape="poly" title=" " alt="" coords="431,47,431,82,427,79,427,51"/>
+<area shape="rect" href="globals_8c.html" title=" " alt="" coords="561,81,672,109"/>
+<area shape="poly" title=" " alt="" coords="477,36,586,81,581,80,476,42"/>
+<area shape="rect" href="tui_8c.html" title=" " alt="" coords="696,81,777,109"/>
+<area shape="poly" title=" " alt="" coords="500,34,685,78,698,84,693,83,684,84,499,40"/>
 </map>
 </div>
 </div>
 <p><a href="globals_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a2e2e697ff7ae93026c6f59fa1e02aa57" id="r_a2e2e697ff7ae93026c6f59fa1e02aa57"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a2e2e697ff7ae93026c6f59fa1e02aa57">DATABASE_PATH</a>&#160;&#160;&#160;&quot;./users/&quot;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a7906a5902d4aaf42dac295701be2697e" id="r_a7906a5902d4aaf42dac295701be2697e"><td class="memItemLeft">char&#160;</td><td class="memItemRight"><a class="el" href="#a7906a5902d4aaf42dac295701be2697e">current_username</a> [64]</td></tr>
 </table>
+<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="a2e2e697ff7ae93026c6f59fa1e02aa57" name="a2e2e697ff7ae93026c6f59fa1e02aa57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e2e697ff7ae93026c6f59fa1e02aa57">&#9670;&#160;</a></span>DATABASE_PATH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DATABASE_PATH&#160;&#160;&#160;&quot;./users/&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="globals_8h_source.html#l00003">3</a> of file <a class="el" href="globals_8h_source.html">globals.h</a>.</p>
+
+</div>
+</div>
 <a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
 <a id="a7906a5902d4aaf42dac295701be2697e" name="a7906a5902d4aaf42dac295701be2697e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7906a5902d4aaf42dac295701be2697e">&#9670;&#160;</a></span>current_username</h2>
@@ -130,10 +166,21 @@ Variables</h2></td></tr>
 </div>
 </div>
 </div><!-- contents -->
-<!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
-</small></address>
 </div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_cbdb8362360e11eafe2fa3bc74cf0ffd.html">utils</a></li><li class="navelem"><a href="globals_8h.html">globals.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
 </body>
 </html>

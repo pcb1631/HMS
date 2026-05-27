@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['simple_20menu_0',['Simple menu',['../usage.html#simple_tui',1,'']]],
-  ['system_1',['Hospital Management System',['../index.html',1,'']]]
+  ['register_0',['Login/Register',['../usage.html#login',1,'']]],
+  ['requirements_1',['Project requirements',['../requirements.html',1,'']]]
 ];

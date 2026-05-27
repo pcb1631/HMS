@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['libraries_20of_20hms_0',['Dependencies, third-party libraries of HMS',['../deps.html',1,'index']]],
-  ['linux_20macos_1',['Linux/MacOS',['../index.html#autotoc_md0',1,'']]],
-  ['login_20register_2',['Login/Register',['../usage.html#login',1,'']]]
+  ['installation_20compiling_0',['Installation / Compiling',['../index.html#installation',1,'']]],
+  ['interfaces_1',['Text User Interfaces',['../tui.html',1,'design']]],
+  ['introduction_2',['Introduction',['../index.html#intro_sec',1,'']]]
 ];

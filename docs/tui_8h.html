@@ -10,6 +10,9 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -23,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="APUlogo.png"/></td>
   <td id="projectalign">
    <div id="projectname">Hospital Management System
    </div>
@@ -43,11 +47,27 @@ $(function() { codefold.init(); });
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
 $(function() {
-  initMenu('',true,false,'search.php','Search',false);
+  initMenu('',true,false,'search.php','Search',true);
   $(function() { init_search(); });
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('tui_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -69,15 +89,7 @@ $(function() {
 </div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a href="dir_cbdb8362360e11eafe2fa3bc74cf0ffd.html">utils</a></li>  </ul>
-</div>
-</div><!-- top -->
-<div id="doc-content">
 <div class="header">
-  <div class="summary">
-<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">tui.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -87,9 +99,10 @@ $(function() {
 <div class="textblock"><code>#include &quot;<a class="el" href="utils_8h_source.html">utils.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="bookings_8h_source.html">../user_commands/bookings.h</a>&quot;</code><br />
 <code>#include &lt;time.h&gt;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for tui.h:</div>
-<div class="dyncontent">
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for tui.h:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="tui_8h__incl.png" border="0" usemap="#autils_2tui_8h" loading="lazy" alt=""/></div>
 <map name="autils_2tui_8h" id="autils_2tui_8h">
 <area shape="rect" title="Text User Interface functions." alt="" coords="164,5,247,33"/>
@@ -109,9 +122,10 @@ Include dependency graph for tui.h:</div>
 <area shape="poly" title=" " alt="" coords="217,107,246,145,241,144,215,112"/>
 </map>
 </div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
+</div><div class="textblock"><div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="tui_8h__dep__incl.png" border="0" usemap="#autils_2tui_8hdep" loading="lazy" alt=""/></div>
 <map name="autils_2tui_8hdep" id="autils_2tui_8hdep">
 <area shape="rect" title="Text User Interface functions." alt="" coords="270,5,352,33"/>
@@ -138,6 +152,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:aa9e50b98de6ede2ecc13846a8b44462c"><td class="mdescLeft">&#160;</td><td class="mdescRight">TUI for picking a specific time.  <br /></td></tr>
 <tr class="memitem:aba3ef837d15d38af94c9aef7e148b5f1" id="r_aba3ef837d15d38af94c9aef7e148b5f1"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aba3ef837d15d38af94c9aef7e148b5f1">booking_slot_view</a> (<a class="el" href="structSlot.html">Slot</a> *slots, int slots_n, const char *doctor, int is_patient)</td></tr>
 <tr class="memdesc:aba3ef837d15d38af94c9aef7e148b5f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">TUI Viewer/selection menu for appointment/booking slots.  <br /></td></tr>
+<tr class="memitem:af87cdb83bc1ad50c80a452b5e80c2550" id="r_af87cdb83bc1ad50c80a452b5e80c2550"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#af87cdb83bc1ad50c80a452b5e80c2550">config_editor</a> (<a class="el" href="structConfig.html">Config</a> config, const char *path, const char *const *disallow, int disallow_n)</td></tr>
 <tr class="memitem:a2426a1120a129e26b07f900a1374128f" id="r_a2426a1120a129e26b07f900a1374128f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2426a1120a129e26b07f900a1374128f">ncurses_init</a> (void)</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
@@ -186,7 +201,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Index of selection of <a class="el" href="structSlot.html">Slot</a> array. return -1 if no slots. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00451">451</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00457">457</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
 
 </div>
 </div>
@@ -217,7 +232,40 @@ Functions</h2></td></tr>
 <p>The command select menu that is shown after login. </p>
 <p>To only show the commands that the user is allowed to use, this function takes in a singly null terminated LL of Command variables. </p>
 
-<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00095">95</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00101">101</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+
+</div>
+</div>
+<a id="af87cdb83bc1ad50c80a452b5e80c2550" name="af87cdb83bc1ad50c80a452b5e80c2550"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af87cdb83bc1ad50c80a452b5e80c2550">&#9670;&#160;</a></span>config_editor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int config_editor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structConfig.html">Config</a></td>          <td class="paramname"><span class="paramname"><em>config</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>path</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *const *</td>          <td class="paramname"><span class="paramname"><em>disallow</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>disallow_n</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00605">605</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
 
 </div>
 </div>
@@ -236,7 +284,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00013">13</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00019">19</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
 
 </div>
 </div>
@@ -293,7 +341,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Index of the selected option </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00023">23</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00029">29</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
 
 </div>
 </div>
@@ -336,15 +384,26 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>UNIX timestamp (seconds) of what user chose </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00299">299</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00305">305</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
-<!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
-</small></address>
 </div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_cbdb8362360e11eafe2fa3bc74cf0ffd.html">utils</a></li><li class="navelem"><a href="tui_8h.html">tui.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
 </body>
 </html>

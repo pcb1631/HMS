@@ -17,6 +17,8 @@ var searchData=
   ['prev_14',['prev',['../structUT__hash__handle.html#af714e69444763fb9a76ec901a014baf1',1,'UT_hash_handle']]],
   ['print_5fcfg_15',['print_cfg',['../commands_8c.html#ab5575d6e0fea56b9b4f056fc4fa5b1fe',1,'print_cfg(Config cfg):&#160;commands.c'],['../commands_8h.html#ab5575d6e0fea56b9b4f056fc4fa5b1fe',1,'print_cfg(Config cfg):&#160;commands.c']]],
   ['print_5flist_16',['print_list',['../utils_8c.html#a1f308bbc9b99d2072520b8f10e838ebb',1,'print_list(Value *list, int n):&#160;utils.c'],['../utils_8h.html#a1f308bbc9b99d2072520b8f10e838ebb',1,'print_list(Value *list, int n):&#160;utils.c']]],
-  ['ptr_17',['ptr',['../structcommand.html#a743d84e8f40ca8167f8b88e45952689e',1,'command']]],
-  ['pw_5ffile_18',['PW_FILE',['../utils_8h.html#ad342e7c2ad0444c76f6873383f65e396',1,'utils.h']]]
+  ['program_17',['Adding commands to the program',['../dev.html#add_commands',1,'']]],
+  ['project_20requirements_18',['Project requirements',['../requirements.html',1,'']]],
+  ['ptr_19',['ptr',['../structcommand.html#a743d84e8f40ca8167f8b88e45952689e',1,'command']]],
+  ['pw_5ffile_20',['PW_FILE',['../utils_8h.html#ad342e7c2ad0444c76f6873383f65e396',1,'utils.h']]]
 ];

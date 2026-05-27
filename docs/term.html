@@ -10,6 +10,9 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -23,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="APUlogo.png"/></td>
   <td id="projectalign">
    <div id="projectname">Hospital Management System
    </div>
@@ -43,11 +47,27 @@ $(function() { codefold.init(); });
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
 $(function() {
-  initMenu('',true,false,'search.php','Search',false);
+  initMenu('',true,false,'search.php','Search',true);
   $(function() { init_search(); });
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('term.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -69,20 +89,15 @@ $(function() {
 </div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a href="index.html">Hospital Management System</a></li>  </ul>
-</div>
-</div><!-- top -->
-<div id="doc-content">
 <div><div class="header">
   <div class="headertitle"><div class="title">Compatible terminals with HMS </div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>Every terminal has different behaviour when running and debugging HMS/ncurses, due to the the fact that terminals don't seem to agree on one ANSI escape code standard</p>
 <p>As such we have compiled a list of terminals we tested and their behaviour.</p>
-<p><b>In case the program crashes, ncurses will not be able to call endwin(), and the terminal will most likely be broken because it can't revert ANSI escape codes. (e.g. if you see strange characters when you backspace or press enter during login)</b> <b>If this happens:</b> </p><div class="fragment"><div class="line">reset</div>
+<p><b>In case the program crashes, ncurses will not be able to call endwin(), and the terminal will most likely be broken because it can't revert ANSI escape codes. (e.g. if you see strange characters when you backspace or press enter)</b> <b>If this happens:</b> </p><div class="fragment"><div class="line">reset</div>
 </div><!-- fragment --><p> <b>This will reset the terminal to it's usual state.</b></p>
+<p>The program already does <span class="tt">reset</span> first just in case (This stops the terminal on macOS for a couple seconds)</p>
 <h1 class="doxsection"><a class="anchor" id="terms"></a>
 Terminals we tested</h1>
 <ol type="1">
@@ -90,7 +105,7 @@ Terminals we tested</h1>
 <li>RGB is supported, but colors won't display correctly</li>
 <li>Will need to prepend \n to scanf format string, if scanf is used consecutively. Or use fgets so you can trim newlines</li>
 <li>debug terminal mostly broken (But not on macOS); won't receive KEY_RESIZE</li>
-<li>Need to use <span class="tt">xterm-256color</span> for $TERM if you're debugging on macos</li>
+<li>Need to use <span class="tt">xterm-256color</span> for $TERM if you're debugging on macos, we have done this for you in the provided .zed folder</li>
 </ul>
 </li>
 <li>vscode terminal<ul>
@@ -109,7 +124,7 @@ Terminals we tested</h1>
 </ul>
 </li>
 <li>kitty<ul>
-<li>Perfect</li>
+<li>Good</li>
 </ul>
 </li>
 <li>xterm<ul>
@@ -121,6 +136,14 @@ Terminals we tested</h1>
 </div><!-- fragment --></li>
 </ul>
 </li>
+</ul>
+</li>
+<li>xfce4-terminal<ul>
+<li>Good</li>
+</ul>
+</li>
+<li>Alacritty<ul>
+<li>Good</li>
 </ul>
 </li>
 <li>Linux TTY<ul>
@@ -138,10 +161,21 @@ macOS</h1>
 <p>The VT100 (1978) was the first widely successful terminal implementing ANSI standards, making it the hardware de facto standard. xterm introduced its own features like mouse tracking and configurable color pallete, which prompted xterm clones to spawn, then eventually it became the new de factor standard. (<a href="https://gpanders.com/blog/state-of-the-terminal/">https://gpanders.com/blog/state-of-the-terminal/</a>) </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
-<!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
-</small></address>
 </div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="index.html">Hospital Management System</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
 </body>
 </html>

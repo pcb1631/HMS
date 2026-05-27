@@ -10,6 +10,9 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -23,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="APUlogo.png"/></td>
   <td id="projectalign">
    <div id="projectname">Hospital Management System
    </div>
@@ -43,11 +47,27 @@ $(function() { codefold.init(); });
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
 $(function() {
-  initMenu('',true,false,'search.php','Search',false);
+  initMenu('',true,false,'search.php','Search',true);
   $(function() { init_search(); });
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('dev.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -69,18 +89,95 @@ $(function() {
 </div>
 </div>
 
-</div><!-- top -->
-<div id="doc-content">
 <div><div class="header">
   <div class="headertitle"><div class="title">Developing the codebase </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"></div></div><!-- contents -->
+<div class="textblock"><p>We have provided debug tasks for Visual Studio Code and Zed editor, which are located in .zed and .vscode</p>
+<p>clangd and CodeLLDB are automatically installed by Zed editor, tested on Arch and macOS</p>
+<p>If you are using Visual Studio Code, you need to install the extensions: clangd (For strict ANSI C syntax highlighting) C/C++ Extension Pack CodeLLDB or LLDB DAP</p>
+<p>You also need to have <span class="tt">gdb</span> installed</p>
+<p>When using makefile to compile, you will see a warning for crypt_gensalt_ra from crypt_blowfish. You can safely ignore this because we aren't using that function; you can edit the source to comment out the function</p>
+<h1 class="doxsection"><a class="anchor" id="add_commands"></a>
+Adding commands to the program</h1>
+<p>At the first half of main in <a class="el" href="main_8c.html">main.c</a>, you will see cmd_list, which is what the menu after login shows. </p><div class="fragment"><div class="line"><span class="keyword">static</span> <a class="code hl_enumeration" href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1">ValueType</a> makeuser_args[] = {<a class="code hl_enumvalue" href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1addb4be6b1cc25112defabef75f73427a">TYPE_STRING</a>, <a class="code hl_enumvalue" href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1addb4be6b1cc25112defabef75f73427a">TYPE_STRING</a>};</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line"><span class="comment">/* COMMAND(function name, alias, permission, argument types) */</span></div>
+<div class="line"><span class="keyword">const</span> <a class="code hl_struct" href="structcommand.html">command</a> cmd_list[] = {</div>
+<div class="line">    <a class="code hl_define" href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a>(<a class="code hl_function" href="bookings_8c.html#aaae1e0d010ef58c6f1ab63de1e78bafb">doctor_booking_frontend</a>, <span class="stringliteral">&quot;Doctor Booking&quot;</span>, <span class="stringliteral">&quot;Doctor&quot;</span>, <span class="stringliteral">&quot;Booking options for doctors&quot;</span>),</div>
+<div class="line">    <a class="code hl_define" href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a>(<a class="code hl_function" href="bookings_8c.html#a8cfa5a3e93b7e46813a1d72f322deda8">patient_booking_frontend</a>, <span class="stringliteral">&quot;Patient Booking&quot;</span>, <span class="stringliteral">&quot;Patient&quot;</span>, <span class="stringliteral">&quot;Booking options for patients&quot;</span>),</div>
+<div class="line"> </div>
+<div class="line">    <a class="code hl_define" href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a>(<a class="code hl_function" href="commands_8c.html#af3d79917f472952f77de2e36f341f68c">admin_view_cfg</a>, <span class="stringliteral">&quot;View users profile&quot;</span>, <span class="stringliteral">&quot;Admin&quot;</span>, <span class="stringliteral">&quot;&quot;</span>),</div>
+<div class="line">    <a class="code hl_define" href="utils_8h.html#aa31cd606b2d124583c5c1c8fcd58e9f3">COMMAND</a>(<a class="code hl_function" href="commands_8c.html#a793783b5d9356c65130074c09b88985f">make_user</a>, <span class="stringliteral">&quot;Create account&quot;</span>, <span class="stringliteral">&quot;Admin&quot;</span>, makeuser_args, <span class="stringliteral">&quot;Create accounts for patients, doctors, etc\n\n First arg is username,\n second arg is usertype (cAsE sEnSiTiVe)&quot;</span>),</div>
+<div class="line">    <a class="code hl_define" href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a>(<a class="code hl_function" href="commands_8c.html#a7386e842c6fcd14b7c80e6f9563cc1c4">edit_profile_self_admin</a>, <span class="stringliteral">&quot;Edit your profile&quot;</span>, <span class="stringliteral">&quot;Admin&quot;</span>, <span class="stringliteral">&quot;&quot;</span>),</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">    <a class="code hl_define" href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a>(<a class="code hl_function" href="bookings_8c.html#a5f74192d6407d20c3285a092abdffddd">nurse_view_booking</a>, <span class="stringliteral">&quot;View doctor&#39;s appointments&quot;</span>, <span class="stringliteral">&quot;Nurse&quot;</span>, <span class="stringliteral">&quot;&quot;</span>),</div>
+<div class="line">};</div>
+<div class="ttc" id="abookings_8c_html_a5f74192d6407d20c3285a092abdffddd"><div class="ttname"><a href="bookings_8c.html#a5f74192d6407d20c3285a092abdffddd">nurse_view_booking</a></div><div class="ttdeci">Value nurse_view_booking(void)</div><div class="ttdef"><b>Definition</b> <a href="bookings_8c_source.html#l00187">bookings.c:187</a></div></div>
+<div class="ttc" id="abookings_8c_html_a8cfa5a3e93b7e46813a1d72f322deda8"><div class="ttname"><a href="bookings_8c.html#a8cfa5a3e93b7e46813a1d72f322deda8">patient_booking_frontend</a></div><div class="ttdeci">Value patient_booking_frontend(void)</div><div class="ttdef"><b>Definition</b> <a href="bookings_8c_source.html#l00220">bookings.c:220</a></div></div>
+<div class="ttc" id="abookings_8c_html_aaae1e0d010ef58c6f1ab63de1e78bafb"><div class="ttname"><a href="bookings_8c.html#aaae1e0d010ef58c6f1ab63de1e78bafb">doctor_booking_frontend</a></div><div class="ttdeci">Value doctor_booking_frontend(void)</div><div class="ttdef"><b>Definition</b> <a href="bookings_8c_source.html#l00071">bookings.c:71</a></div></div>
+<div class="ttc" id="acommands_8c_html_a7386e842c6fcd14b7c80e6f9563cc1c4"><div class="ttname"><a href="commands_8c.html#a7386e842c6fcd14b7c80e6f9563cc1c4">edit_profile_self_admin</a></div><div class="ttdeci">Value edit_profile_self_admin(void)</div><div class="ttdef"><b>Definition</b> <a href="commands_8c_source.html#l00134">commands.c:134</a></div></div>
+<div class="ttc" id="acommands_8c_html_a793783b5d9356c65130074c09b88985f"><div class="ttname"><a href="commands_8c.html#a793783b5d9356c65130074c09b88985f">make_user</a></div><div class="ttdeci">Value make_user(Value *list)</div><div class="ttdef"><b>Definition</b> <a href="commands_8c_source.html#l00023">commands.c:23</a></div></div>
+<div class="ttc" id="acommands_8c_html_af3d79917f472952f77de2e36f341f68c"><div class="ttname"><a href="commands_8c.html#af3d79917f472952f77de2e36f341f68c">admin_view_cfg</a></div><div class="ttdeci">Value admin_view_cfg(void)</div><div class="ttdef"><b>Definition</b> <a href="commands_8c_source.html#l00068">commands.c:68</a></div></div>
+<div class="ttc" id="astructcommand_html"><div class="ttname"><a href="structcommand.html">command</a></div><div class="ttdoc">This struct contains information of a function, as we use manual vtable dispatch for menu.</div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00063">utils.h:64</a></div></div>
+<div class="ttc" id="autils_8h_html_a3088c180357ddb4840adf337762901a6"><div class="ttname"><a href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a></div><div class="ttdeci">#define COMMAND_NOARGS(fn, alias, perm, desc)</div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00097">utils.h:97</a></div></div>
+<div class="ttc" id="autils_8h_html_aa31cd606b2d124583c5c1c8fcd58e9f3"><div class="ttname"><a href="utils_8h.html#aa31cd606b2d124583c5c1c8fcd58e9f3">COMMAND</a></div><div class="ttdeci">#define COMMAND(fn, alias, perm, arg_types, desc)</div><div class="ttdoc">Macro to define a command with arguments.</div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00094">utils.h:94</a></div></div>
+<div class="ttc" id="autils_8h_html_ad9971b6ef33e02ba2c75d19c1d2518a1"><div class="ttname"><a href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1">ValueType</a></div><div class="ttdeci">ValueType</div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00021">utils.h:22</a></div></div>
+<div class="ttc" id="autils_8h_html_ad9971b6ef33e02ba2c75d19c1d2518a1addb4be6b1cc25112defabef75f73427a"><div class="ttname"><a href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1addb4be6b1cc25112defabef75f73427a">TYPE_STRING</a></div><div class="ttdeci">@ TYPE_STRING</div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00025">utils.h:25</a></div></div>
+</div><!-- fragment --><p> The data structs used here are:</p><ul>
+<li><a class="el" href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1">ValueType</a> (which is just used to make enum arrays)</li>
+<li><a class="el" href="structValue.html" title="Something like a python variable.">Value</a> (contains a union for int, float, and strings, and a tag to use which field. Like a python variable that can store arbitrary datatypes)</li>
+<li><a class="el" href="structcommand.html" title="command">command</a> (contains a type-erased function pointer, <a class="el" href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1">ValueType</a> array (enum array) to tag the datatype of each param, and a string to describe who can use the command)</li>
+</ul>
+<p><a class="el" href="utils_8h.html#aa31cd606b2d124583c5c1c8fcd58e9f3" title="COMMAND">COMMAND</a> and <a class="el" href="utils_8h.html#a3088c180357ddb4840adf337762901a6" title="COMMAND_NOARGS">COMMAND_NOARGS</a> are macros that will simplify populating a command list.</p>
+<p>The return type must be <a class="el" href="structValue.html" title="Something like a python variable.">Value</a> and the param must be a <a class="el" href="structValue.html" title="Something like a python variable.">Value</a> array or void. Or else you will get undefined behaviour.</p>
+<p>For example, to make a nurse command that takes an int, string, and float, and prints everything out: </p><div class="fragment"><div class="line"><span class="keywordtype">void</span> pront(<a class="code hl_struct" href="structValue.html">Value</a>* list)</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordtype">int</span> i;</div>
+<div class="line">    <span class="keywordflow">for</span>(i=0; i&lt;3; i++)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">switch</span> (list[i].type)</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1a4fcd4421533bb21c827865bdbac4fef9">TYPE_INT</a>:      printf(<span class="stringliteral">&quot;int: %d\n&quot;</span>,   list[i].data.as_int);    <span class="keywordflow">break</span>;</div>
+<div class="line">            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1a19a0a402d33a2e049e91ea9e37e90c2f">TYPE_FLOAT</a>:    printf(<span class="stringliteral">&quot;float: %f\n&quot;</span>, list[i].data.as_float);  <span class="keywordflow">break</span>;</div>
+<div class="line">            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1addb4be6b1cc25112defabef75f73427a">TYPE_STRING</a>:   printf(<span class="stringliteral">&quot;str: %s\n&quot;</span>,   list[i].data.as_string); <span class="keywordflow">break</span>;</div>
+<div class="line">            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1a3e0f738756c5205d71c69d955603f46c">TYPE_BOOL</a>:         printf(<span class="stringliteral">&quot;bool: %d\n&quot;</span>,  list[i].data.as_bool);   <span class="keywordflow">break</span>;</div>
+<div class="line">            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1a84de340fe64164ed0dcf473aad846961">TYPE_VOID</a>:         printf(<span class="stringliteral">&quot;void \n&quot;</span>);                                                       <span class="keywordflow">break</span>;</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+<div class="ttc" id="astructValue_html"><div class="ttname"><a href="structValue.html">Value</a></div><div class="ttdoc">Something like a python variable.</div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00035">utils.h:36</a></div></div>
+<div class="ttc" id="autils_8h_html_ad9971b6ef33e02ba2c75d19c1d2518a1a19a0a402d33a2e049e91ea9e37e90c2f"><div class="ttname"><a href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1a19a0a402d33a2e049e91ea9e37e90c2f">TYPE_FLOAT</a></div><div class="ttdeci">@ TYPE_FLOAT</div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00024">utils.h:24</a></div></div>
+<div class="ttc" id="autils_8h_html_ad9971b6ef33e02ba2c75d19c1d2518a1a3e0f738756c5205d71c69d955603f46c"><div class="ttname"><a href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1a3e0f738756c5205d71c69d955603f46c">TYPE_BOOL</a></div><div class="ttdeci">@ TYPE_BOOL</div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00026">utils.h:26</a></div></div>
+<div class="ttc" id="autils_8h_html_ad9971b6ef33e02ba2c75d19c1d2518a1a4fcd4421533bb21c827865bdbac4fef9"><div class="ttname"><a href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1a4fcd4421533bb21c827865bdbac4fef9">TYPE_INT</a></div><div class="ttdeci">@ TYPE_INT</div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00023">utils.h:23</a></div></div>
+<div class="ttc" id="autils_8h_html_ad9971b6ef33e02ba2c75d19c1d2518a1a84de340fe64164ed0dcf473aad846961"><div class="ttname"><a href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1a84de340fe64164ed0dcf473aad846961">TYPE_VOID</a></div><div class="ttdeci">@ TYPE_VOID</div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00027">utils.h:27</a></div></div>
+</div><!-- fragment --><p> Put pront in a header file and include in <a class="el" href="main_8c.html">main.c</a></p>
+<p>Above cmd_list: </p><div class="fragment"><div class="line"><span class="keyword">static</span> <a class="code hl_enumeration" href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1">ValueType</a> pront_args[] = {<a class="code hl_enumvalue" href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1a4fcd4421533bb21c827865bdbac4fef9">TYPE_INT</a>, <a class="code hl_enumvalue" href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1addb4be6b1cc25112defabef75f73427a">TYPE_STRING</a>, <a class="code hl_enumvalue" href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1a19a0a402d33a2e049e91ea9e37e90c2f">TYPE_FLOAT</a>};</div>
+</div><!-- fragment --><p>Then in cmd_list, use the <a class="el" href="utils_8h.html#aa31cd606b2d124583c5c1c8fcd58e9f3" title="COMMAND">COMMAND</a> macro: </p><div class="fragment"><div class="line"><a class="code hl_define" href="utils_8h.html#aa31cd606b2d124583c5c1c8fcd58e9f3">COMMAND</a>(pront, <span class="stringliteral">&quot;Pront&quot;</span>, <span class="stringliteral">&quot;Nurse&quot;</span>, pront_args, <span class="stringliteral">&quot;Print 3 things&quot;</span>),</div>
+</div><!-- fragment --><p> The first string is what is shown in the menu, the second is who is allowed to use the command, and the third is the description <br  />
+ <a class="el" href="tui_8c.html#a18eb2555dda32a03520091ece15a8ae9" title="command_select">command_select</a> will automatically prompt the user for params, and <a class="el" href="utils_8c.html#a017662a7845649afccb7d3a653d794f3" title="call">call</a> will check each type and finally call the function with the function pointer.</p>
+<p>The pattern of casting a function pointer to a type erased pointer, labeling it in a struct, and calling the function with the pointer later is called "manual vtable dispatch".</p>
+<p>Places where you'll see this are CPython, the Linux kernel, and the C stdlib (For example qsort, which takes <span class="tt">int (*compar)(const void *, const void *)</span> as a param). </p>
+</div></div><!-- contents -->
 </div><!-- PageDoc -->
-<!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
-</small></address>
 </div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="index.html">Hospital Management System</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
 </body>
 </html>

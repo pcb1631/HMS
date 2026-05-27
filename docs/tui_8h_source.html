@@ -10,6 +10,9 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -23,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="APUlogo.png"/></td>
   <td id="projectalign">
    <div id="projectname">Hospital Management System
    </div>
@@ -43,11 +47,27 @@ $(function() { codefold.init(); });
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
 $(function() {
-  initMenu('',true,false,'search.php','Search',false);
+  initMenu('',true,false,'search.php','Search',true);
   $(function() { init_search(); });
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('tui_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -69,12 +89,6 @@ $(function() {
 </div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a href="dir_cbdb8362360e11eafe2fa3bc74cf0ffd.html">utils</a></li>  </ul>
-</div>
-</div><!-- top -->
-<div id="doc-content">
 <div class="header">
   <div class="headertitle"><div class="title">tui.h</div></div>
 </div><!--header-->
@@ -93,23 +107,29 @@ $(function() {
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>time_t <a class="code hl_function" href="tui_8h.html#aa9e50b98de6ede2ecc13846a8b44462c">time_picker</a>(<span class="keywordtype">char</span> * pretext, <span class="keywordtype">int</span> color_fg, <span class="keywordtype">int</span> color_bg, time_t pre_time);</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span></div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keywordtype">int</span> <a class="code hl_function" href="tui_8h.html#aba3ef837d15d38af94c9aef7e148b5f1">booking_slot_view</a>(<a class="code hl_struct" href="structSlot.html">Slot</a> * slots, <span class="keywordtype">int</span> slots_n, <span class="keyword">const</span> <span class="keywordtype">char</span> * doctor, <span class="keywordtype">int</span> is_patient);</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keywordtype">int</span> <a class="code hl_function" href="tui_8h.html#af87cdb83bc1ad50c80a452b5e80c2550">config_editor</a>(<a class="code hl_struct" href="structConfig.html">Config</a> config, <span class="keyword">const</span> <span class="keywordtype">char</span> * path, <span class="keyword">const</span> <span class="keywordtype">char</span> * <span class="keyword">const</span> * disallow, <span class="keywordtype">int</span> disallow_n);</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keywordtype">void</span> <a class="code hl_function" href="tui_8h.html#a2426a1120a129e26b07f900a1374128f">ncurses_init</a>(<span class="keywordtype">void</span>);</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="abookings_8h_html"><div class="ttname"><a href="bookings_8h.html">bookings.h</a></div></div>
+<div class="ttc" id="astructConfig_html"><div class="ttname"><a href="structConfig.html">Config</a></div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00138">utils.h:138</a></div></div>
 <div class="ttc" id="astructSlot_html"><div class="ttname"><a href="structSlot.html">Slot</a></div><div class="ttdef"><b>Definition</b> <a href="bookings_8h_source.html#l00007">bookings.h:8</a></div></div>
 <div class="ttc" id="astructcommand__node_html"><div class="ttname"><a href="structcommand__node.html">command_node</a></div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00082">utils.h:83</a></div></div>
-<div class="ttc" id="atui_8h_html_a18eb2555dda32a03520091ece15a8ae9"><div class="ttname"><a href="tui_8h.html#a18eb2555dda32a03520091ece15a8ae9">command_select</a></div><div class="ttdeci">void command_select(command_node *head, char *utype, char *username)</div><div class="ttdoc">The command select menu that is shown after login.</div><div class="ttdef"><b>Definition</b> <a href="tui_8c_source.html#l00095">tui.c:95</a></div></div>
-<div class="ttc" id="atui_8h_html_a2426a1120a129e26b07f900a1374128f"><div class="ttname"><a href="tui_8h.html#a2426a1120a129e26b07f900a1374128f">ncurses_init</a></div><div class="ttdeci">void ncurses_init(void)</div><div class="ttdef"><b>Definition</b> <a href="tui_8c_source.html#l00013">tui.c:13</a></div></div>
-<div class="ttc" id="atui_8h_html_aa9e50b98de6ede2ecc13846a8b44462c"><div class="ttname"><a href="tui_8h.html#aa9e50b98de6ede2ecc13846a8b44462c">time_picker</a></div><div class="ttdeci">time_t time_picker(char *pretext, int color_fg, int color_bg, time_t pre_time)</div><div class="ttdoc">TUI for picking a specific time.</div><div class="ttdef"><b>Definition</b> <a href="tui_8c_source.html#l00299">tui.c:299</a></div></div>
-<div class="ttc" id="atui_8h_html_aba3ef837d15d38af94c9aef7e148b5f1"><div class="ttname"><a href="tui_8h.html#aba3ef837d15d38af94c9aef7e148b5f1">booking_slot_view</a></div><div class="ttdeci">int booking_slot_view(Slot *slots, int slots_n, const char *doctor, int is_patient)</div><div class="ttdoc">TUI Viewer/selection menu for appointment/booking slots.</div><div class="ttdef"><b>Definition</b> <a href="tui_8c_source.html#l00451">tui.c:451</a></div></div>
-<div class="ttc" id="atui_8h_html_ae7eae98c1d28139bd16ec2a71459b2f8"><div class="ttname"><a href="tui_8h.html#ae7eae98c1d28139bd16ec2a71459b2f8">simple_select</a></div><div class="ttdeci">int simple_select(int color_foreground, int color_background, int n_of_options, const char *const *options, char *selection_s, const char *pretext)</div><div class="ttdoc">Simple select TUI made with ncurses.</div><div class="ttdef"><b>Definition</b> <a href="tui_8c_source.html#l00023">tui.c:23</a></div></div>
+<div class="ttc" id="atui_8h_html_a18eb2555dda32a03520091ece15a8ae9"><div class="ttname"><a href="tui_8h.html#a18eb2555dda32a03520091ece15a8ae9">command_select</a></div><div class="ttdeci">void command_select(command_node *head, char *utype, char *username)</div><div class="ttdoc">The command select menu that is shown after login.</div><div class="ttdef"><b>Definition</b> <a href="tui_8c_source.html#l00101">tui.c:101</a></div></div>
+<div class="ttc" id="atui_8h_html_a2426a1120a129e26b07f900a1374128f"><div class="ttname"><a href="tui_8h.html#a2426a1120a129e26b07f900a1374128f">ncurses_init</a></div><div class="ttdeci">void ncurses_init(void)</div><div class="ttdef"><b>Definition</b> <a href="tui_8c_source.html#l00019">tui.c:19</a></div></div>
+<div class="ttc" id="atui_8h_html_aa9e50b98de6ede2ecc13846a8b44462c"><div class="ttname"><a href="tui_8h.html#aa9e50b98de6ede2ecc13846a8b44462c">time_picker</a></div><div class="ttdeci">time_t time_picker(char *pretext, int color_fg, int color_bg, time_t pre_time)</div><div class="ttdoc">TUI for picking a specific time.</div><div class="ttdef"><b>Definition</b> <a href="tui_8c_source.html#l00305">tui.c:305</a></div></div>
+<div class="ttc" id="atui_8h_html_aba3ef837d15d38af94c9aef7e148b5f1"><div class="ttname"><a href="tui_8h.html#aba3ef837d15d38af94c9aef7e148b5f1">booking_slot_view</a></div><div class="ttdeci">int booking_slot_view(Slot *slots, int slots_n, const char *doctor, int is_patient)</div><div class="ttdoc">TUI Viewer/selection menu for appointment/booking slots.</div><div class="ttdef"><b>Definition</b> <a href="tui_8c_source.html#l00457">tui.c:457</a></div></div>
+<div class="ttc" id="atui_8h_html_ae7eae98c1d28139bd16ec2a71459b2f8"><div class="ttname"><a href="tui_8h.html#ae7eae98c1d28139bd16ec2a71459b2f8">simple_select</a></div><div class="ttdeci">int simple_select(int color_foreground, int color_background, int n_of_options, const char *const *options, char *selection_s, const char *pretext)</div><div class="ttdoc">Simple select TUI made with ncurses.</div><div class="ttdef"><b>Definition</b> <a href="tui_8c_source.html#l00029">tui.c:29</a></div></div>
+<div class="ttc" id="atui_8h_html_af87cdb83bc1ad50c80a452b5e80c2550"><div class="ttname"><a href="tui_8h.html#af87cdb83bc1ad50c80a452b5e80c2550">config_editor</a></div><div class="ttdeci">int config_editor(Config config, const char *path, const char *const *disallow, int disallow_n)</div><div class="ttdef"><b>Definition</b> <a href="tui_8c_source.html#l00605">tui.c:605</a></div></div>
 <div class="ttc" id="autils_8h_html"><div class="ttname"><a href="utils_8h.html">utils.h</a></div><div class="ttdoc">Utility functions, value types, and command parsing.</div></div>
 </div><!-- fragment --></div><!-- contents -->
-<!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
-</small></address>
 </div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_cbdb8362360e11eafe2fa3bc74cf0ffd.html">utils</a></li><li class="navelem"><a href="tui_8h.html">tui.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
 </body>
 </html>

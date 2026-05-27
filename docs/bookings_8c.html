@@ -10,6 +10,9 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -23,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="APUlogo.png"/></td>
   <td id="projectalign">
    <div id="projectname">Hospital Management System
    </div>
@@ -43,11 +47,27 @@ $(function() { codefold.init(); });
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
 $(function() {
-  initMenu('',true,false,'search.php','Search',false);
+  initMenu('',true,false,'search.php','Search',true);
   $(function() { init_search(); });
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('bookings_8c.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -69,61 +89,56 @@ $(function() {
 </div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a href="dir_0016210ee680b91b7d6eb0ba3e0e0621.html">user_commands</a></li>  </ul>
-</div>
-</div><!-- top -->
-<div id="doc-content">
 <div class="header">
-  <div class="summary">
-<a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">bookings.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="commands_8h_source.html">commands.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="bookings_8h_source.html">bookings.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="tui_8h_source.html">../utils/tui.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="string__utils_8h_source.html">../utils/string_utils.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="globals_8h_source.html">../utils/globals.h</a>&quot;</code><br />
 <code>#include &lt;ncurses.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for bookings.c:</div>
-<div class="dyncontent">
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for bookings.c:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="bookings_8c__incl.png" border="0" usemap="#auser__commands_2bookings_8c" loading="lazy" alt=""/></div>
 <map name="auser__commands_2bookings_8c" id="auser__commands_2bookings_8c">
-<area shape="rect" title=" " alt="" coords="255,5,458,33"/>
-<area shape="rect" href="commands_8h.html" title=" " alt="" coords="45,157,150,184"/>
-<area shape="poly" title=" " alt="" coords="297,35,243,55,186,83,148,114,118,147,114,143,144,110,183,79,241,50,301,32"/>
-<area shape="rect" title=" " alt="" coords="5,308,89,336"/>
-<area shape="poly" title=" " alt="" coords="253,32,194,47,131,71,102,87,76,107,53,131,35,158,24,192,24,228,30,263,39,293,33,294,24,265,18,229,19,191,30,156,49,127,72,103,99,83,129,66,192,42,257,28"/>
-<area shape="rect" title=" " alt="" coords="310,308,379,336"/>
-<area shape="poly" title=" " alt="" coords="362,31,380,98,386,141,384,185,372,244,356,295,352,291,367,242,379,184,380,141,375,99,360,36"/>
-<area shape="rect" href="bookings_8h.html" title=" " alt="" coords="277,157,369,184"/>
-<area shape="poly" title=" " alt="" coords="355,31,332,142,327,140,352,35"/>
-<area shape="rect" href="tui_8h.html" title="Text User Interface functions." alt="" coords="196,81,290,109"/>
-<area shape="poly" title=" " alt="" coords="334,35,277,75,274,70,338,32"/>
-<area shape="rect" href="globals_8h.html" title=" " alt="" coords="436,81,560,109"/>
-<area shape="poly" title=" " alt="" coords="382,31,462,73,456,74,381,36"/>
-<area shape="rect" title=" " alt="" coords="584,81,654,109"/>
-<area shape="poly" title=" " alt="" coords="403,31,571,79,566,80,403,36"/>
-<area shape="rect" title=" " alt="" coords="678,81,744,109"/>
-<area shape="poly" title=" " alt="" coords="432,31,666,80,661,82,432,36"/>
-<area shape="rect" href="utils_8h.html" title="Utility functions, value types, and command parsing." alt="" coords="136,232,241,260"/>
-<area shape="poly" title=" " alt="" coords="114,182,163,222,158,223,113,188"/>
-<area shape="poly" title=" " alt="" coords="166,261,87,303,84,298,160,260"/>
-<area shape="poly" title=" " alt="" coords="217,258,305,301,300,301,216,263"/>
-<area shape="rect" title=" " alt="" coords="152,308,224,336"/>
-<area shape="poly" title=" " alt="" coords="190,259,191,294,186,291,187,262"/>
-<area shape="poly" title=" " alt="" coords="301,184,226,227,224,222,297,186"/>
-<area shape="rect" title=" " alt="" coords="278,232,341,260"/>
-<area shape="poly" title=" " alt="" coords="322,183,317,219,313,215,319,187"/>
-<area shape="poly" title=" " alt="" coords="240,107,223,158,200,219,196,216,218,156,236,111"/>
-<area shape="poly" title=" " alt="" coords="258,107,300,146,295,146,257,112"/>
-<area shape="poly" title=" " alt="" coords="246,107,253,143,267,183,290,221,285,220,262,185,248,145,243,112"/>
+<area shape="rect" title=" " alt="" coords="284,5,487,33"/>
+<area shape="rect" href="commands_8h.html" title=" " alt="" coords="30,157,136,184"/>
+<area shape="poly" title=" " alt="" coords="335,35,278,56,214,83,159,116,113,149,109,145,156,112,211,79,276,51,340,32"/>
+<area shape="rect" title=" " alt="" coords="7,308,90,336"/>
+<area shape="poly" title=" " alt="" coords="282,27,213,40,139,64,104,81,72,102,43,127,20,158,13,174,9,192,11,228,22,263,36,294,30,295,17,265,6,229,4,191,8,173,15,155,39,124,68,97,101,76,137,59,212,35,286,24"/>
+<area shape="rect" title=" " alt="" coords="311,308,380,336"/>
+<area shape="poly" title=" " alt="" coords="387,31,381,129,364,260,356,295,352,291,359,260,376,128,383,36"/>
+<area shape="rect" href="bookings_8h.html" title=" " alt="" coords="159,157,252,184"/>
+<area shape="poly" title=" " alt="" coords="318,35,276,54,255,67,237,83,220,111,211,142,206,140,215,109,233,79,252,63,274,49,322,32"/>
+<area shape="rect" href="tui_8h.html" title="Text User Interface functions." alt="" coords="246,81,341,109"/>
+<area shape="poly" title=" " alt="" coords="367,35,323,73,320,69,371,32"/>
+<area shape="rect" href="string__utils_8h.html" title=" " alt="" coords="423,81,572,109"/>
+<area shape="poly" title=" " alt="" coords="406,31,468,72,463,73,405,36"/>
+<area shape="rect" href="globals_8h.html" title=" " alt="" coords="597,81,721,109"/>
+<area shape="poly" title=" " alt="" coords="435,31,598,76,593,77,435,36"/>
+<area shape="rect" title=" " alt="" coords="745,81,815,109"/>
+<area shape="poly" title=" " alt="" coords="474,31,593,51,733,80,728,81,592,56,474,36"/>
+<area shape="rect" title=" " alt="" coords="840,81,905,109"/>
+<area shape="poly" title=" " alt="" coords="487,28,642,47,827,80,822,81,641,53,487,33"/>
+<area shape="rect" href="utils_8h.html" title="Utility functions, value types, and command parsing." alt="" coords="153,232,258,260"/>
+<area shape="poly" title=" " alt="" coords="105,182,173,223,168,225,105,188"/>
+<area shape="poly" title=" " alt="" coords="179,262,91,304,89,299,176,259"/>
+<area shape="poly" title=" " alt="" coords="231,258,310,300,305,301,230,263"/>
+<area shape="rect" title=" " alt="" coords="169,308,242,336"/>
+<area shape="poly" title=" " alt="" coords="207,259,208,294,203,291,204,262"/>
+<area shape="poly" title=" " alt="" coords="207,183,208,218,203,216,204,187"/>
+<area shape="rect" title=" " alt="" coords="286,232,349,260"/>
+<area shape="poly" title=" " alt="" coords="226,182,288,223,283,224,225,188"/>
+<area shape="poly" title=" " alt="" coords="293,107,285,145,267,186,235,224,231,220,262,183,279,143,290,111"/>
+<area shape="poly" title=" " alt="" coords="276,111,235,149,231,145,280,108"/>
+<area shape="poly" title=" " alt="" coords="299,107,311,156,318,218,313,216,306,157,296,111"/>
 </map>
 </div>
 </div>
@@ -156,7 +171,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bookings_8c_source.html#l00015">15</a> of file <a class="el" href="bookings_8c_source.html">bookings.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bookings_8c_source.html#l00016">16</a> of file <a class="el" href="bookings_8c_source.html">bookings.c</a>.</p>
 
 </div>
 </div>
@@ -176,7 +191,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bookings_8c_source.html#l00108">108</a> of file <a class="el" href="bookings_8c_source.html">bookings.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bookings_8c_source.html#l00109">109</a> of file <a class="el" href="bookings_8c_source.html">bookings.c</a>.</p>
 
 </div>
 </div>
@@ -195,7 +210,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bookings_8c_source.html#l00070">70</a> of file <a class="el" href="bookings_8c_source.html">bookings.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bookings_8c_source.html#l00071">71</a> of file <a class="el" href="bookings_8c_source.html">bookings.c</a>.</p>
 
 </div>
 </div>
@@ -214,7 +229,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bookings_8c_source.html#l00186">186</a> of file <a class="el" href="bookings_8c_source.html">bookings.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bookings_8c_source.html#l00187">187</a> of file <a class="el" href="bookings_8c_source.html">bookings.c</a>.</p>
 
 </div>
 </div>
@@ -242,7 +257,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bookings_8c_source.html#l00018">18</a> of file <a class="el" href="bookings_8c_source.html">bookings.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bookings_8c_source.html#l00019">19</a> of file <a class="el" href="bookings_8c_source.html">bookings.c</a>.</p>
 
 </div>
 </div>
@@ -261,7 +276,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bookings_8c_source.html#l00219">219</a> of file <a class="el" href="bookings_8c_source.html">bookings.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bookings_8c_source.html#l00220">220</a> of file <a class="el" href="bookings_8c_source.html">bookings.c</a>.</p>
 
 </div>
 </div>
@@ -280,7 +295,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bookings_8c_source.html#l00151">151</a> of file <a class="el" href="bookings_8c_source.html">bookings.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bookings_8c_source.html#l00152">152</a> of file <a class="el" href="bookings_8c_source.html">bookings.c</a>.</p>
 
 </div>
 </div>
@@ -308,15 +323,26 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bookings_8c_source.html#l00039">39</a> of file <a class="el" href="bookings_8c_source.html">bookings.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bookings_8c_source.html#l00040">40</a> of file <a class="el" href="bookings_8c_source.html">bookings.c</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
-<!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
-</small></address>
 </div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_0016210ee680b91b7d6eb0ba3e0e0621.html">user_commands</a></li><li class="navelem"><a href="bookings_8c.html">bookings.c</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
 </body>
 </html>

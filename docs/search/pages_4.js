@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['files_0',['Config files',['../db.html#config',1,'']]]
+  ['editor_0',['Config editor',['../tui.html#cfg_editor',1,'']]]
 ];

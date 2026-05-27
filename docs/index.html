@@ -10,6 +10,9 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -23,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="APUlogo.png"/></td>
   <td id="projectalign">
    <div id="projectname">Hospital Management System
    </div>
@@ -43,12 +47,26 @@ $(function() { codefold.init(); });
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
 $(function() {
-  initMenu('',true,false,'search.php','Search',false);
+  initMenu('',true,false,'search.php','Search',true);
   $(function() { init_search(); });
 });
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('index.html','',''); });
+</script>
+<div id="container">
 <div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -78,26 +96,18 @@ $(function() {
 <div class="textblock"><p><b>For anyone viewing the PDF, docs are also hosted at <a href="https://pcb1631.github.io/HMS/">https://pcb1631.github.io/HMS/</a></b></p>
 <ul>
 <li><a class="el" href="deps.html" title="Dependencies, third-party libraries of HMS">Dependencies, third-party libraries of HMS</a></li>
-<li><a class="el" href="usage.html" title="How to use HMS">How to use HMS</a><ul>
-<li>usage_basics</li>
-<li>director</li>
-<li>doctors</li>
-<li>nurses</li>
-<li>patients</li>
-</ul>
-</li>
+<li><a class="el" href="usage.html" title="How to use HMS">How to use HMS</a></li>
 <li><a class="el" href="term.html" title="Compatible terminals with HMS">Compatible terminals with HMS</a></li>
-<li><a class="el" href="design.html" title="Design of codebase">Design of codebase</a><ul>
-<li><a class="el" href="db.html" title="The user database">The user database</a> </li>
-</ul>
-</li>
+<li><a class="el" href="dev.html" title="Developing the codebase">Developing the codebase</a></li>
+<li><a class="el" href="design.html" title="Design of codebase">Design of codebase</a></li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="intro_sec"></a>
 Introduction</h1>
 <p>The Hospital Management System (HMS for short) is an interactive program to facilitate hospital documentation, appointment booking, among other services. HMS is designed to run in every major OS, as it is written purely in ANSI C</p>
 <h1 class="doxsection"><a class="anchor" id="installation"></a>
 Installation / Compiling</h1>
-<p>HMS was primarily developed for linux, so it is reccomended to use WSL if you're on Windows.</p>
+<p>HMS was primarily developed on unix-like systems, so it is reccomended to use WSL if you're on Windows.</p>
+<p>(Don't use git if you are using the zip file)</p>
 <p>Clone the repo: </p><div class="fragment"><div class="line">git clone https://github.com/pcb1631/HMS</div>
 </div><!-- fragment --><p>Add git submodules: </p><div class="fragment"><div class="line">git submodule update --init --recursive</div>
 </div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md0"></a>
@@ -116,14 +126,50 @@ Linux/MacOS</h2>
 Windows</h2>
 <p>Install <span class="tt">ncurses</span> from the UCRT64 environment (MSYS2): </p><div class="fragment"><div class="line">pacman -S mingw-w64-ucrt-x86_64-ncurses</div>
 </div><!-- fragment --><p> Then, use the Makefile to compile: </p><div class="fragment"><div class="line">./make</div>
-</div><!-- fragment --><p>TODO: Add subpages in <a class="el" href="usage_8md.html">usage.md</a> on how to use TUI. Command TUI, simple TUI, and time tui </p>
+</div><!-- fragment --><p>TODO: Add subpages in <a class="el" href="usage_8md.html">usage.md</a> on how to use TUI. Command TUI, simple TUI, and time tui</p>
+<h1 class="doxsection"><a class="anchor" id="assumptions"></a>
+Assumptions</h1>
+<p>It is assumed that:</p>
+<ol type="1">
+<li>You are using Windows or unix-like system</li>
+<li>You have the programs used in <a class="el" href="#installation" title="Installation / Compiling">Installation / Compiling</a><ul>
+<li>make (replaced with Make.bat for windows)</li>
+<li>MSYS2 for UCRT64, for ncurses</li>
+<li>gcc</li>
+<li>git</li>
+</ul>
+</li>
+<li>You have followed all the steps in <a class="el" href="#installation" title="Installation / Compiling">Installation / Compiling</a></li>
+<li>The program is compiled by yourself with the makefile</li>
+<li>The program is located in the same dir as the db folder (users/)</li>
+<li>You are using a terminal tested by us in <a class="el" href="term.html" title="Compatible terminals with HMS">Compatible terminals with HMS</a>. (At the very least, the linux tty)</li>
+<li>Users<ul>
+<li>have eyes and hands</li>
+<li>know that CTRL+C and CTRL+D can cancel running commands or exit the program</li>
+<li>know that the password is actually hidden and the program is still running</li>
+</ul>
+</li>
+<li>Admins / IT<ul>
+<li>have basic understanding of C and the terminal</li>
+<li>absolutely know how the plaintext files are formatted</li>
+<li>read the documentation and understood how to<ul>
+<li>change the configuration of the program</li>
+<li>use the framework to add commands </li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->
-<!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
-</small></address>
 </div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
 </body>
 </html>
