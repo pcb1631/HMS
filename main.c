@@ -4,6 +4,7 @@
 #include "utils/globals.h"
 #include "utils/logins.h"
 #include "utils/utils.h"
+#include "utils/string_utils.h"
 #include "user_commands/bookings.h"
 #include "user_commands/commands.h"
 
@@ -135,25 +136,15 @@ int main(int argc, char ** argv)
         printf("enter your username\n");
 
         fgets(current_username, sizeof(current_username)/sizeof(char), stdin);
-        if(!string_trim(current_username))
-        {
-            fprintf(stderr, "Username cannot be empty or contain spaces\n");
-            goto login_get_username;
-        }
+        string_trim(current_username);
 
         login_get_password:
 	    {
-			char * password;
-            password = (char*)malloc(sizeof(char)*256);
+			char password[MAX_PASSWORD_LEN];
             printf("enter your password\n");
 
-            fgets(password, 256, stdin);
-            if(!string_trim(password))
-            {
-                fprintf(stderr, "Password cannot be empty or contain spaces\n");
-                free(password);
-                goto login_get_password;
-            }
+            fgets(password, MAX_PASSWORD_LEN, stdin);
+            string_trim(password);
 
             load_users_from_file(pw_file, &logins);
             user_ptr = lookup_user(current_username, &logins);
@@ -161,7 +152,6 @@ int main(int argc, char ** argv)
             if(user_ptr == NULL)
             {
                 fprintf(stderr, "Wrong username or password\n");
-                free(password);
                 goto login_get_username;
             }
 
@@ -174,8 +164,6 @@ int main(int argc, char ** argv)
                 printf("Wrong username or password\n");
                 goto login_get_username;
             }
-
-            free(password);
 		}break;
 
 		/* register */
@@ -184,11 +172,7 @@ int main(int argc, char ** argv)
 		    reg_get_username:
 			printf("enter your desired username\n");
 			fgets(current_username, sizeof(current_username)/sizeof(char), stdin);
-			if(!string_trim(current_username))
-			{
-                fprintf(stderr, "Username cannot be empty or contain spaces\n");
-                goto reg_get_username;
-			}
+			string_trim(current_username);
 
 
 			strcpy(path, DATABASE_PATH);
@@ -196,7 +180,7 @@ int main(int argc, char ** argv)
 
 			if (!path_exists(path)) /* if dir doesn't exist */
       		{
-                char * password;
+                char password[MAX_PASSWORD_LEN];
                 /*check if username exists in hashtable*/
                 load_users_from_file(pw_file, &logins);
                 if(lookup_user(current_username, &logins) != NULL)
@@ -207,28 +191,21 @@ int main(int argc, char ** argv)
 
 
                 /* get password, save to hashtable, dealloc string */
-                reg_get_password:
-                password = (char*)malloc(sizeof(char)*256);
                 printf("enter your password\n");
-                fgets(password, 256, stdin);
-                if(!string_trim(password))
-                {
-                    fprintf(stderr, "Password cannot be empty or contain spaces\n");
-                    free(password);
-                    goto reg_get_password;
-                }
-
+                fgets(password, MAX_PASSWORD_LEN, stdin);
+                string_trim(password);
 
                 /* hash the password */
                 register_user_hashtable(current_username, password, pw_file);
+				generate_file_structure("Patient", current_username);
+	            sprintf(pretext, "Registered %s as patient, please login again\n", current_username);
+	            goto main_menu;
 		    }
 			else /* if dir exists */
       		{
                 fprintf(stderr, "This username has been taken (dir exists)\n");
+                goto reg_get_username;
 		    }
-			generate_file_structure("Patient", current_username);
-            sprintf(pretext, "Registered %s as patient, please login again\n", current_username);
-            goto main_menu;
 
 		/* exit */
 		case 2:

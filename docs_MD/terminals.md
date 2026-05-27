@@ -40,12 +40,15 @@ The program already does `reset` first just in case (This stops the terminal on 
 		```bash
 			stty erase '^H' # sets the erase char to ^H
 	```
+-# xfce4-terminal
+	- Good
+-# Alacritty
+	- Good
+
 -# Linux TTY
   - Absolutely not
 -# ratty
   - no
--# xfce4-terminal
-	- Good
 
 \section mac macOS
 	Behaviour between every terminal emulator is similar because they advertise themselves as `xterm-256color`

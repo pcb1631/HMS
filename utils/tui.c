@@ -11,6 +11,10 @@
 #include <string.h>
 #include <time.h>
 
+#define KEY_ETX 0x03 /* CTRL+C */
+#define KEY_EOT 0x04 /* CTRL+D */
+#define KEY_CTRL_W 0x17
+
 void ncurses_init(void)
 {
     initscr();
@@ -64,8 +68,8 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 		    case KEY_RESIZE:
 				break;
 
-			case 0x03: /* ETX */
-			case 0x04: /* EOF */
+			case KEY_ETX:
+			case KEY_EOT:
 				strcpy(selection_s, "");
 				endwin();
 				printf("EOF/EOT received\n");
@@ -199,11 +203,11 @@ void command_select(command_node *head, char *utype, char *username)
 
         switch(ch)
         {
-        	case 0x03: /* ETX */
+        	case KEY_ETX:
         		endwin();
        			printf("Received SIGINT, bye!\n");
         		return;
-			case 0x04: /* EOT */
+			case KEY_EOT:
 				endwin();
 				printf("Received EOT, bye!");
 				return;
@@ -377,8 +381,8 @@ time_t time_picker(char * pretext, int color_fg, int color_bg, time_t pre_time)
 
 		switch(ch)
 		{
-			case 0x03: /* ETX */
-			case 0x04: /* EOF */
+			case KEY_ETX: /* ETX */
+			case KEY_EOT: /* EOF */
 				fprintf(stderr, "Received EOF/EOT, cancelling time picker");
 				endwin(); return -1;
 
@@ -557,8 +561,8 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patien
 
             switch (ch)
             {
-	            case 0x03: /* ETX */
-				case 0x04: /* EOF */
+	            case KEY_ETX: /* ETX */
+				case KEY_EOT: /* EOF */
 					delwin(right_win);
                     delwin(left_win);
 					endwin();
@@ -678,8 +682,8 @@ int config_editor(Config config, const char * path, const char * const * disallo
 				clear();
 				getmaxyx(stdscr, y_max, x_max); break;
 
-			case 0x03: /* ETX */
-			case 0x04: /* EOF */
+			case KEY_ETX:
+			case KEY_EOT: /* EOF */
 				endwin();
 				fprintf(stderr, "config_editor(): Received EOF/EOT, discarded changes\n");
 				return -1;
@@ -700,7 +704,7 @@ int config_editor(Config config, const char * path, const char * const * disallo
 						cur_pos_x++;
 					break;
 
-				case KEY_BACKSPACE: /* replace current char with the char after, stop at /0 */
+				case KEY_BACKSPACE:
 					if(cur_pos_x > 0)
 					{
 						i = cur_pos_x - 1;
@@ -766,7 +770,7 @@ int config_editor(Config config, const char * path, const char * const * disallo
 		else
 			switch (ch)
 			{
-				case 0x17: /* CTRL+W */
+				case KEY_CTRL_W: /* CTRL+W */
 					endwin();
 					printf("Saving to %s\n", path);
 					dump_config_to_file(config, path);

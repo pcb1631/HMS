@@ -120,8 +120,6 @@ void print_list(Value * list, int n);
  * @return Returns a Value variable.
  */
 Value call(command f, Value * args, int n_of_args, char * perm);
-int string_trim(char * s);
-void trim_trailing(char *str) ;
 
 #define MAX_CONFIG_ENTRIES 64
 #define MAX_CONFIG_KEY_LEN 64

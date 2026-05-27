@@ -3,6 +3,7 @@
 #include "../utils/logins.h"
 #include "../utils/tui.h"
 #include "../utils/globals.h"
+#include "../utils/string_utils.h"
 
 #ifdef _WIN32
     #include <ncursesw/curses.h>
@@ -28,7 +29,7 @@ Value make_user(Value * list)
     int flag=0;
     user_login_t * logins = NULL;
     char * pw_file = "./users/creds.txt";
-    char * pw;
+    char pw[MAX_PASSWORD_LEN];
 
     char * allowed_utypes[4] =
     {
@@ -47,18 +48,11 @@ Value make_user(Value * list)
         return make_int(-1);
     }
 
-    make_user_GETPW:
     printf("Password: ");
-    pw = malloc(sizeof(char)*256);
-    fgets(pw, 256, stdin);
+    fgets(pw, MAX_PASSWORD_LEN, stdin);
     printf("\n");
 
-    if(!string_trim(pw))
-    {
-        fprintf(stderr, "Password cannot be empty or contain spaces\n");
-        free(pw);
-        goto make_user_GETPW;
-    }
+    string_trim(pw);
 
 
 

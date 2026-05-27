@@ -1,6 +1,7 @@
 #include "commands.h"
 #include "bookings.h"
 #include "../utils/tui.h"
+#include "../utils/string_utils.h"
 #include "../utils/globals.h"
 
 #ifdef _WIN32

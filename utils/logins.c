@@ -157,7 +157,7 @@ int register_user_hashtable(const char *current_username, char *password, const 
     user_login_t *logins = NULL;
 
     /* hash the password */
-    hash = (char*)malloc(256 * sizeof(char));
+    hash = (char*)malloc(MAX_PASSWORD_LEN * sizeof(char));
 
     if(hash_password(password, hash) == -1)
     {
@@ -200,7 +200,6 @@ int register_user_hashtable(const char *current_username, char *password, const 
     }
 
 
-    free(password);
     free(hash);
 
     return 0;

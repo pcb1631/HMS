@@ -1,8 +1,8 @@
 #include "utils.h"
+#include "string_utils.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <ctype.h>
 #include <sys/stat.h>
 
 
@@ -160,49 +160,6 @@ void cmd_parse(char *str)
 	free(words);
 }
 
-int string_trim(char * s)
-{
-        int len;
-        int start = 0, end;
-        int has_space = 0;
-        int j;
-
-        len = strlen(s);
-        if (len > 0) end = len - 1;
-        else end = 0;
-
-        while (start < len && isspace((unsigned char)s[start])) start++;
-        while (end >= start && isspace((unsigned char)s[end])) end--;
-
-        len = end - start + 1;
-        for (j = 0; j < len; j++) {
-            s[j] = s[start + j];
-            if (isspace((unsigned char)s[j])) has_space = 1;
-        }
-        s[len] = '\0';
-
-        if (has_space || len == 0)
-        {
-            return 0;
-        }else {
-            return 1;
-        }
-}
-
-void trim_trailing(char *str)
-{
-    int len;
-
-    if (str == NULL)
-        return;
-
-    len = strlen(str);
-    while (len > 0 && isspace((unsigned char)str[len - 1]))
-    {
-        len--;
-    }
-    str[len] = '\0';
-}
 
 int parse_config_file(const char *filepath, Config *config)
 {
