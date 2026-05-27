@@ -4,16 +4,9 @@
 
 - \subpage deps 
 - \subpage usage
-  - \subpage usage_basics
-  - \subpage director
-  - \subpage doctors
-  - \subpage nurses
-  - \subpage patients
 - \subpage term
 - \subpage dev
 - \subpage design
-  - \subpage db
-  - \subpage tui
 
 
 
