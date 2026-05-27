@@ -1,5 +1,6 @@
 #include "tui.h"
 #include "globals.h"
+#include "string_utils.h"
 #include "utils.h"
 #include <stdio.h>
 #ifndef _WIN32
@@ -694,43 +695,41 @@ int config_editor(Config config, const char * path, const char * const * disallo
 		if(edit_mode == 1)
 			switch (ch)
 			{
+				case KEY_HOME:
+					cur_pos_x = 0;
+					break;
+
+				case KEY_END:
+					cur_pos_x = buffer_max;
+					break;
+
 				case KEY_LEFT:
 					if(cur_pos_x > 0)
 						cur_pos_x--;
 					break;
 
 				case KEY_RIGHT:
-					if(cur_pos_x < buffer_max)
+					if(cur_pos_x < buffer_max + 1)
 						cur_pos_x++;
 					break;
 
 				case KEY_BACKSPACE:
 					if(cur_pos_x > 0)
 					{
-						i = cur_pos_x - 1;
-						while(edit_buffer[i] != '\0')
-						{
-							edit_buffer[i] = edit_buffer[i+1];
-							i++;
-						}
+						string_pop(edit_buffer, cur_pos_x-1);
 						cur_pos_x--;
 						buffer_max--;
 					}
 					break;
 
 				case KEY_DC: /* delete key */
-					i = cur_pos_x;
-					while(edit_buffer[i] != '\0')
+					if(cur_pos_x < buffer_max + 1)
 					{
-						edit_buffer[i] = edit_buffer[i+1];
-						i++;
+						string_pop(edit_buffer, cur_pos_x);
+						buffer_max--;
+						if(cur_pos_x > buffer_max)
+							cur_pos_x = buffer_max + 1;
 					}
-
-					if(cur_pos_x != 0)
-						cur_pos_x--;
-
-
-					buffer_max--;
 					break;
 
 				case '\n':
@@ -754,15 +753,7 @@ int config_editor(Config config, const char * path, const char * const * disallo
 							buffer_max--;
 							break;
 						}
-
-						edit_buffer[buffer_max] = '\0';
-						i = buffer_max - 1;
-						while(cur_pos_x < i) /* replace current char with the char before */ /* im doing insert mode only cus lazy */
-						{
-							edit_buffer[i] = edit_buffer[i-1];
-							i--;
-						}
-						edit_buffer[cur_pos_x] = ch;
+						string_insert(edit_buffer, ch, cur_pos_x);
 						cur_pos_x++;
 					}
 					break;;

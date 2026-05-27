@@ -24,7 +24,7 @@ void string_insert(char * str, char ins, int pos)
 	while(i > pos)
 	{
 		str[i] = str[i-1];
-		i++;
+		i--;
 	}
 	str[pos] = ins;
 }
