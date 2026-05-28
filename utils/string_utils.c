@@ -1,4 +1,5 @@
 #include "string_utils.h"
+#include "utils.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -61,8 +62,14 @@ char ** file_to_strings(const char * path, int * lines_out)
 	int i;
 	char ** line;
 	int ch;
-
 	FILE * file = fopen(path, "r");
+	if(!is_file(path))
+	{
+		fprintf(stderr, "file_to_strings(): \"%s\" is not a file\n", path);
+		fclose(file);
+		return NULL;
+	}
+
 	if(file == NULL)
 	{
 		perror("text_editor()");

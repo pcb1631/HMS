@@ -814,3 +814,21 @@ int config_editor(Config config, const char * path, const char * const * disallo
 		}
 	}
 }
+
+int text_editor(const char * path)
+{
+	int n, i;
+	char ** lines = file_to_strings(path, &n);
+
+	if (lines == NULL)
+	{
+		return -1;
+	}
+
+	for(i=0; i<n; i++)
+	{
+		free(lines[i]);
+	}
+	free(lines);
+	return 0;
+}

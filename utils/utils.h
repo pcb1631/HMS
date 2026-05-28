@@ -164,7 +164,7 @@ int dump_config_to_file(const Config config, const char* path);
  * @return 1 if exists, 0 if does not exist
  */
 int path_exists(const char *path);
-
+int is_file(const char * path);
 
 /**
  * @brief Parses file_struct.yaml.txt and generates files/directories for a user

@@ -161,7 +161,7 @@ void cmd_parse(char *str)
 }
 
 
-int parse_config_file(const char *filepath, Config *config)
+int parse_config_file(const char * filepath, Config * config)
 {
     FILE *fp;
     char line[512];
@@ -219,7 +219,7 @@ int parse_config_file(const char *filepath, Config *config)
     return 0;
 }
 
-const char *get_config_value(const Config *config, const char *key)
+const char *get_config_value(const Config * config, const char * key)
 {
     int i;
     if (config == NULL || key == NULL) return NULL;
@@ -232,7 +232,7 @@ const char *get_config_value(const Config *config, const char *key)
     return NULL;
 }
 
-int dump_config_to_file(const Config config, const char* path)
+int dump_config_to_file(const Config config, const char * path)
 {
 	FILE * file;
 	int i;
@@ -256,7 +256,7 @@ int dump_config_to_file(const Config config, const char* path)
 	return 0;
 }
 
-int path_exists(const char *path)
+int path_exists(const char * path)
 {
     struct stat buffer;
 
@@ -264,6 +264,16 @@ int path_exists(const char *path)
         return 0;
 
     return (stat(path, &buffer) == 0);
+}
+
+int is_file(const char * path) {
+    struct stat path_stat;
+
+    if (stat(path, &path_stat) != 0) {
+        return 0;
+    }
+
+    return S_ISREG(path_stat.st_mode);
 }
 
 void generate_file_structure(const char *role, const char *username)

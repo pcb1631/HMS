@@ -14,7 +14,11 @@ int main(void)
 	char ** strings = NULL;
 	int n;
 	int i;
-	strings = file_to_strings("./users/admin/profile.txt", &n);
+	strings = file_to_strings("/", &n);
+	if(strings == NULL)
+	{
+		return -1;
+	}
 	for(i=0; i<n; i++)
 	{
 		printf("%s\n", strings[i]);
