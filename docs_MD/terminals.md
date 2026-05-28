@@ -43,7 +43,7 @@ The program already does `reset` first just in case (This stops the terminal on 
 -# xfce4-terminal
 	- Good
 -# Alacritty
-	- Good
+	- Best performance
 
 -# Linux TTY
   - Absolutely not

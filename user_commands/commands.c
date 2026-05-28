@@ -156,3 +156,13 @@ void print_cfg(Config cfg)
         printf("%s: %s\n", cfg.entries[i].key, cfg.entries[i].value);
     printf("\n");
 }
+
+Value tedit_test(void)
+{
+	char username[MAX_USERNAME_LEN];
+	char path[256] = "";
+	strcpy(username, current_username);
+	sprintf(path, "./users/%s/profile.txt", username);
+
+	return make_int(text_editor(path));
+}
