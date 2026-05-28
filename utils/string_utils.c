@@ -1,4 +1,5 @@
 #include "string_utils.h"
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <string.h>
@@ -50,4 +51,83 @@ void trim_trailing(char *str)
         len--;
 
     str[len] = '\0';
+}
+
+#define LENGTH_PARSE_LIMIT 10
+
+char ** file_to_strings(const char * path, int * lines_out)
+{
+	int lines_n = 1;
+	int i;
+	char ** line;
+	int ch;
+
+	FILE * file = fopen(path, "r");
+	if(file == NULL)
+	{
+		perror("text_editor()");
+		fclose(file);
+		return NULL;
+	}
+
+	line = malloc(lines_n * sizeof(char *));
+	line[0] = malloc(LENGTH_PARSE_LIMIT * sizeof(char));
+
+	i = 0;
+	while( ( ch = getc(file) ) != EOF )
+	{
+		if( (i % LENGTH_PARSE_LIMIT == 0) && (i > 0) )
+		{
+			char * temp;
+			temp = realloc(line[lines_n-1], (i + LENGTH_PARSE_LIMIT) * sizeof(char));
+			if(temp != NULL)
+			{
+				line[lines_n-1] = temp;
+			}
+			else
+			{
+				perror("text_editor() failed to realloc");
+				fclose(file);
+				return NULL;
+			}
+		}
+
+		if(ch == '\n') /* I'm just gonna assume nobody is using pre OS X, and I dont care if windows uses CRLF*/
+		{
+			char ** temp;
+			line[lines_n-1][i] = '\0';
+			i=0;
+
+			lines_n++;
+
+			/* this makes space for one more char pointer, but now that pointer points to garbage
+			 * so need to malloc for the pointer
+			 */
+			temp = realloc(line, lines_n * sizeof(char *));
+			if(temp != NULL)
+			{
+				line = temp;
+			}
+			else
+			{
+				perror("text_editor() failed to realloc");
+				fclose(file);
+				return NULL;
+			}
+
+			line[lines_n-1] = malloc((i + LENGTH_PARSE_LIMIT) * sizeof(char));
+			continue;
+		}
+
+		line[lines_n-1][i] = ch;
+		i++;
+	}
+
+	fclose(file);
+
+	line[lines_n-1][i] = '\0';
+
+	*lines_out = lines_n;
+
+	return line;
 }

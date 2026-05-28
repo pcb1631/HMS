@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include "utils/string_utils.h"
 #ifdef _WIN32
     #include <ncurses/curses.h>
 #else
@@ -9,14 +11,18 @@
 
 int main(void)
 {
-	char string[] = "abcdefg\0\b\0";
-	int i = 3;
-	printf("%s\n", string);
-	while(string[i] != '\0')
+	char ** strings = NULL;
+	int n;
+	int i;
+	strings = file_to_strings("./users/admin/profile.txt", &n);
+	for(i=0; i<n; i++)
 	{
-		string[i] = string[i+1];
-		i++;
+		printf("%s\n", strings[i]);
 	}
-	printf("%s\n", string);
+	for(i=0; i<n; i++)
+	{
+		free(strings[i]);
+	}
+	free(strings);
 	return 0;
 }

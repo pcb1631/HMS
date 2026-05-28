@@ -4,6 +4,8 @@ We make use of the ncurses library to create TUIs, in contrast to our previous p
 
 
 \section cfg_editor Config editor
+TODO: we can be vague about the left side because im going to write about others above
+
 \ref config_editor is a function that provides a TUI for editing `key: value` or `key=value` files.
 \n It shows and scrolls the keys on the left side, while showing the value on the right side. 
 \n When pressing enter, the user can switch between EDIT mode and SELECT mode.
@@ -112,4 +114,6 @@ digraph ConfigEditor {
     
     CleanupWins -> LoopStart;
 }
+
+TODO: explain insert mode during edit mode
 ```

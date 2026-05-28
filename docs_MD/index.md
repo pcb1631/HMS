@@ -72,7 +72,7 @@ TODO: Add subpages in usage.md on how to use TUI. Command TUI, simple TUI, and t
 \section assumptions Assumptions
 It is assumed that:
 
--# You are using Windows or unix-like system
+-# You are using Windows or unix-like system, or older than OS X
 -# You have the programs used in \ref installation
 	- make (replaced with Make.bat for windows)
 	- MSYS2 for UCRT64, for ncurses

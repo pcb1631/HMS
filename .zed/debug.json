@@ -14,7 +14,7 @@
 	{
 		"label": "debug test.c",
 		"build": {
-			"command": "gcc test.c utils/tui.c utils/globals.c utils/utils.c -ansi -lncurses -g",
+			"command": "gcc test.c utils/tui.c utils/globals.c utils/utils.c utils/string_utils.c -ansi -lncurses -g",
 		},
 		"program": "$ZED_WORKTREE_ROOT/a.out",
 		"request": "launch",

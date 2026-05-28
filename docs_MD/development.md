@@ -4,13 +4,13 @@ We have provided debug tasks for Visual Studio Code and Zed editor, which are lo
 clangd and CodeLLDB are automatically installed by Zed editor, tested on Arch and macOS
 
 If you are using Visual Studio Code, you need to install the extensions:
-clangd (For strict ANSI C syntax highlighting)
-C/C++ Extension Pack
-CodeLLDB or LLDB DAP
+- clangd (For strict ANSI C syntax highlighting)
+- C/C++ Extension Pack
+- CodeLLDB or LLDB DAP
 
 You also need to have `gdb` installed
 
-When using makefile to compile, you will see a warning for crypt_gensalt_ra from crypt_blowfish. You can safely ignore this because we aren't using that function; you can edit the source to comment out the function
+When using makefile to compile, you will see a warning for `crypt_gensalt_ra` from `crypt_blowfish`. You can safely ignore this because we aren't using that function; you can edit the source to comment out the function
 
 \section add_commands Adding commands to the program 
 

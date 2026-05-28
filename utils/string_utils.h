@@ -17,7 +17,14 @@ void string_pop(char * str, int pos);
  */
 void string_insert(char * str, char ins, int pos);
 
-
+/*
+ * @brief Parses a file, puts each line in a string pointer array **BUTTTT IT DOESNT FREE THE POINTER FOR YOU**
+ * @param path Path of file
+ * @param lines Size of string pointer array
+ * @return -1 on error, the string pointer array on success
+ *
+ */
+char** file_to_strings(const char * path, int * lines_out);
 void trim_trailing(char *str);
 void string_trim(char * s);
 #endif
