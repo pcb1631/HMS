@@ -862,6 +862,8 @@ int text_editor(const char * path, int readonly)
 
 			length = strlen(lines[i+y_offset]);
 
+			mvprintw(i, 0, "%d", i+y_offset);
+
 			if(length>=x_max - 1) /* if length exceeds terminal size, replace last char with '>'. Like a linux terminal pager */
 			{
 				for(ii = 0; ii < (x_max + line_number_offset - LINE_NUMS_PADDING); ii++)
