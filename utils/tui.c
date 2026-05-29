@@ -815,12 +815,16 @@ int config_editor(Config config, const char * path, const char * const * disallo
 	}
 }
 
+#define LINE_NUMS_PADDING 1
+
 int text_editor(const char * path, int readonly)
 {
 	int lines_n, current_n, i, ch;
 	int y_offset = 0, x_offset = 0, cur_x = 0, cur_y = 0;
 	int x_max, y_max;
 	int line_number_offset=0, temp;
+	int true_pos=0; /* where the operation of the string should happen */
+	int true_line=0;
 
 	char ** lines = file_to_strings(path, &lines_n);
 
@@ -860,15 +864,20 @@ int text_editor(const char * path, int readonly)
 
 			if(length>=x_max - 1) /* if length exceeds terminal size, replace last char with '>'. Like a linux terminal pager */
 			{
-				for(ii=0; ii<x_max+line_number_offset-1; ii++)
-					mvaddch(i, ii+line_number_offset + 1, lines[i+y_offset][ii]);
+				for(ii = 0; ii < (x_max + line_number_offset - LINE_NUMS_PADDING); ii++)
+				{
+					mvaddch(i, ii+line_number_offset + LINE_NUMS_PADDING, lines[i+y_offset][ii]);
+				}
 				mvaddch(i, x_max-1, '>');
 			}else
 			{
-				mvprintw(i, line_number_offset + 1, "%s", lines[i+y_offset]);
+				mvprintw(i, line_number_offset + LINE_NUMS_PADDING, "%s", lines[i+y_offset]);
 			}
 		}
 		move(cur_y, cur_x);
+
+		true_pos = cur_x - line_number_offset - LINE_NUMS_PADDING;
+		true_line = cur_y + y_offset;
 
 		ch = getch();
 		switch(ch)
@@ -880,11 +889,17 @@ int text_editor(const char * path, int readonly)
 
 			case KEY_ETX:
 				endwin();
+				for(i = 0; i<lines_n; i++)
+					free(lines[i]);
+				free(lines);
 				printf("text_editor() SIGINT Received, discarded changes\n");
 			return -1;
 
 			case KEY_EOT:
 				endwin();
+				for(i = 0; i<lines_n; i++)
+					free(lines[i]);
+				free(lines);
 				printf("text_editor() EOF Received, discarded changes\n");
 			return -1;
 
@@ -892,10 +907,10 @@ int text_editor(const char * path, int readonly)
 				if(cur_y > 0)
 				{
 					cur_y--;
-					current_n = strlen(lines[cur_y]);
+					current_n = strlen(lines[true_line]);
 
 					if(cur_x > (current_n + line_number_offset))
-						cur_x = current_n + line_number_offset + 1;
+						cur_x = current_n + line_number_offset + LINE_NUMS_PADDING;
 				}
 			break;
 
@@ -903,10 +918,10 @@ int text_editor(const char * path, int readonly)
 				if(cur_y < y_max-1 && cur_y < lines_n-1)
 				{
 					cur_y++;
-					current_n = strlen(lines[cur_y]);
+					current_n = strlen(lines[true_line]);
 
 					if(cur_x > (current_n + line_number_offset))
-						cur_x = current_n + line_number_offset + 1;
+						cur_x = current_n + line_number_offset + LINE_NUMS_PADDING;
 				}
 			break;
 
@@ -923,26 +938,35 @@ int text_editor(const char * path, int readonly)
 			if(!readonly)
 			{
 				default:
-					if(ch >= 32 AND ch <= 126) /* printable ASCII */
+					if(ch >= 32 && ch <= 126) /* printable ASCII */
+						if(true_pos >= 0 && true_pos <= current_n)
+						{
+							current_n++;
+							string_insert(lines[true_line], ch, true_pos);
+							cur_x++;
+						}
+				break;
+
+				case KEY_BACKSPACE:
+					if( (true_pos > 0) && (true_pos < current_n + 1) )
 					{
-						current_n++;
-						string_insert(lines[i], ch, cur_x+line_number_offset);
-						cur_x++;
+						string_pop(lines[true_line], true_pos - 1);
+						current_n--;
+						cur_x--;
+						clear();
 					}
-					break;;
+				break;
+
+				case KEY_DC:
+					if(true_pos < current_n)
+					{
+						string_pop(lines[true_line], true_pos);
+						current_n--;
+						clear();
+					}
+
+				break;
 			}
 		}
-
-
 	}
-
-
-
-
-	for(i=0; i<lines_n; i++)
-	{
-		free(lines[i]);
-	}
-	free(lines);
-	return 0;
 }

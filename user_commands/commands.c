@@ -164,5 +164,5 @@ Value tedit_test(void)
 	strcpy(username, current_username);
 	sprintf(path, "./users/%s/profile.txt", username);
 
-	return make_int(text_editor(path));
+	return make_int(text_editor(path, 0));
 }
