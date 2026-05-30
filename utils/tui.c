@@ -818,7 +818,9 @@ int config_editor(Config config, const char * path, const char * const * disallo
 #define LINE_NUMS_PADDING 1
 #define LINE_REALLOC_LIMIT 10
 #define TAB_SIZE 4
-
+/*
+ * TODO: add marking for x out of bounds
+ */
 int text_editor(const char * path, int readonly)
 {
 	int lines_n, i, ch;
@@ -896,13 +898,22 @@ int text_editor(const char * path, int readonly)
 			Node = Node->next;
 			i++;
 		}
-		mvprintw(y_max-1, 0, "offset:%d cur_y:%d y_max:%d", y_offset, cur_y, y_max);
+		mvprintw(y_max-1, 0, "offset:%d cur_y:%d y_max:%d Press CTRL+W to save", y_offset, cur_y, y_max);
 
 		move(cur_y, cur_x);
 		ch = getch();
 		true_x = cur_x - line_number_offset - LINE_NUMS_PADDING;
 		switch(ch)
 		{
+			case KEY_CTRL_W:
+				endwin();
+				if(readonly)
+					fprintf(stderr, "readonly, did not save to file\n");
+				else
+					dump_LineLL_to_file(Head, path);
+				free_LineLL(Head);
+			return 0;
+
 			case KEY_RESIZE:
 				getmaxyx(stdscr, y_max, x_max);
 				clear();
@@ -962,7 +973,10 @@ int text_editor(const char * path, int readonly)
 			break;
 
 			case KEY_BACKSPACE:
-				if( true_x <= CurrentLine->str_n && !readonly && true_x>0)
+				if(readonly)
+					break;
+
+				if( true_x <= CurrentLine->str_n && true_x>0)
 				{
 					string_pop(CurrentLine->str, true_x-1);
 					cur_x--;
@@ -976,7 +990,7 @@ int text_editor(const char * path, int readonly)
 
 					if(Prev->str_n + CurrentLine->str_n > 0) /* realloc 0 gives you NULL pointer */
 					{
-						realloc_string(&Prev->str, Prev->str_n + CurrentLine->str_n);
+						realloc_string(&Prev->str, Prev->str_n + CurrentLine->str_n + 1);
 						strcat(Prev->str, CurrentLine->str);
 						Prev->str_n = Prev->str_n + CurrentLine->str_n;
 					}
@@ -986,6 +1000,9 @@ int text_editor(const char * path, int readonly)
 
 					CurrentLine = Prev;
 				}
+
+				if(cur_y == 0)
+					y_offset++;
 
 				clear();
 			break;
@@ -1031,7 +1048,9 @@ int text_editor(const char * path, int readonly)
 
 					if(true_x<CurrentLine->str_n)
 					{
-						New->str = clean_malloc(true_x * sizeof(char) + 2);
+						size_t size =
+							(((CurrentLine->str_n-true_x)/LINE_REALLOC_LIMIT)+1) * LINE_REALLOC_LIMIT ; /* next multiple of limit */
+						New->str = clean_malloc(size);
 						/* since str is equivalent to &str[0], treat &str[true_x] like its the start of array */
 						strcpy(New->str, &CurrentLine->str[true_x]);
 						New->str_n = CurrentLine->str_n - true_x;
@@ -1051,9 +1070,18 @@ int text_editor(const char * path, int readonly)
 
 					clear();
 				}
+
+				if(cur_y == y_max-2)
+					y_offset--;
+
+				else if(cur_y > y_max-2) /* in case resize covers too much */
+					skip_to_current = 1;
 			break;
 
 			case '\t':
+				if(readonly)
+					break;
+
 				for(i=0; i<TAB_SIZE; i++)
 				{
 					CurrentLine->str_n++;
@@ -1061,6 +1089,8 @@ int text_editor(const char * path, int readonly)
 						realloc_string(&CurrentLine->str, CurrentLine->str_n + LINE_REALLOC_LIMIT);
 					string_insert(CurrentLine->str, ' ', true_x);
 				}
+
+				cur_x += TAB_SIZE;
 
 			break;
 

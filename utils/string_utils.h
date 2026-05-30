@@ -41,5 +41,6 @@ LineNode* new_LineNode(void);
 void free_LineLL(LineNode * Head);
 LineNode* file_to_LL_lines(const char * path, int * lines_out);
 void delete_node_LineLL(LineNode * Node);
+void dump_LineLL_to_file(LineNode * Head, const char * path);
 
 #endif

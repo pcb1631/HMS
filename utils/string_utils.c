@@ -158,8 +158,12 @@ LineNode* file_to_LL_lines(const char * path, int * lines_out)
 
 		Node->str = line;
 		Node->str_n = i;
+
+		if(Prev != NULL)
+			Node->prev = Prev;
 		if(first)
 			Head = Node;
+
 		lines_n++;
 	}else
 	{
@@ -172,6 +176,34 @@ LineNode* file_to_LL_lines(const char * path, int * lines_out)
 	fclose(file);
 	*lines_out = lines_n;
 	return Head;
+}
+
+void dump_LineLL_to_file(LineNode * Head, const char * path)
+{
+	FILE * file = fopen(path, "w");
+	if(file == NULL)
+	{
+		perror("dump_LineLL_to_file()");
+		return;
+	}
+
+	if(Head == NULL)
+	{
+		fprintf(stderr, "dump_LineLL_to_file() head is null");
+		return;
+	}
+
+	while(Head != NULL)
+	{
+		if(Head->next != NULL)
+			fprintf(file, "%s\n", Head->str);
+		else
+			fprintf(file, "%s", Head->str);
+		Head = Head->next;
+	}
+
+	printf("successfully saved to %s\n", path);
+	fclose(file);
 }
 
 void realloc_string(char ** s, int n)
