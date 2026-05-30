@@ -816,72 +816,91 @@ int config_editor(Config config, const char * path, const char * const * disallo
 }
 
 #define LINE_NUMS_PADDING 1
+#define LINE_REALLOC_LIMIT 10
+#define TAB_SIZE 4
 
 int text_editor(const char * path, int readonly)
 {
-	int lines_n, current_n, i, ch;
+	int lines_n, i, ch;
 	int y_offset = 0, x_offset = 0, cur_x = 0, cur_y = 0;
 	int x_max, y_max;
-	int line_number_offset=0, temp;
-	int true_pos=0; /* where the operation of the string should happen */
-	int true_line=0;
+	int line_number_offset=0;
+	int true_x=0; /* where the operation of the string should happen */
+	int skip_to_current=0;
 
-	char ** lines = file_to_strings(path, &lines_n);
+	LineNode * Head = file_to_LL_lines(path, &lines_n);
+	LineNode * CurrentLine = Head; /* which line the user's cursor is currently on */
+	LineNode * Node;
 
-	if (lines == NULL)
+	if (Head == NULL)
 		return -1;
 
 	/* count digits of n to get offset, so i can print the line number on left side */
-	temp = lines_n;
-	if(lines_n == 0)
-		line_number_offset = 1;
-	else
-		while(temp != 0)
-		{
-			temp /= 10;
-			line_number_offset++;
-		}
+	{
+		int temp = lines_n;
+		if(lines_n == 0)
+			line_number_offset = 1;
+		else
+			while(temp != 0)
+			{
+				temp /= 10;
+				line_number_offset++;
+			}
+		cur_x = line_number_offset + LINE_NUMS_PADDING;
+	}
 
 	ncurses_init();
 	getmaxyx(stdscr, y_max, x_max);
 	clear();
-	current_n = strlen(lines[0]);
 	while(1)
 	{
+		Node = Head;
 		refresh();
 		curs_set(1);
 
-		for(i=0; i<y_max-1; i++) /* bottom line is reserved for instructions */
+		i=0;
+
+		if(skip_to_current)
 		{
-			int ii;
-			int length;
-			if( (i+y_offset)>=lines_n OR (i+y_offset)<0 ) /* prevent sigsegv */
+			y_offset = 0;
+			while(Node != CurrentLine)
 			{
-				continue;
-			}
-
-			length = strlen(lines[i+y_offset]);
-
-			mvprintw(i, 0, "%d", i+y_offset);
-
-			if(length>=x_max - 1) /* if length exceeds terminal size, replace last char with '>'. Like a linux terminal pager */
-			{
-				for(ii = 0; ii < (x_max + line_number_offset - LINE_NUMS_PADDING); ii++)
-				{
-					mvaddch(i, ii+line_number_offset + LINE_NUMS_PADDING, lines[i+y_offset][ii]);
-				}
-				mvaddch(i, x_max-1, '>');
-			}else
-			{
-				mvprintw(i, line_number_offset + LINE_NUMS_PADDING, "%s", lines[i+y_offset]);
+				Node = Node->next;
+				y_offset--;
 			}
 		}
+		else if(y_offset >= 0) /* if positive, just render n empty lines */
+		{
+			i = y_offset;
+		}
+		else /*else, skip -n nodes*/
+		{
+			int n = y_offset;
+			while(Node != NULL && n++) /* i learned this from codeforces */
+				Node = Node->next;
+		}
+
+		while(Node != NULL && i < y_max -1)
+		{
+			if(Node == CurrentLine)
+			{
+				cur_y = i;
+				mvprintw(i, line_number_offset + LINE_NUMS_PADDING, "%s", Node->str);
+			}
+			else
+			{
+				mvprintw(i, line_number_offset + LINE_NUMS_PADDING, "%s", Node->str);
+			}
+			mvprintw(i, 0, "%d", i-y_offset);
+
+			Node = Node->next;
+			i++;
+		}
+		mvprintw(y_max-1, 0, "offset:%d cur_y:%d y_max:%d", y_offset, cur_y, y_max);
+
 		move(cur_y, cur_x);
-
-		true_pos = cur_x - line_number_offset - LINE_NUMS_PADDING;
-		true_line = cur_y + y_offset;
-
 		ch = getch();
+		true_x = cur_x - line_number_offset - LINE_NUMS_PADDING;
 		switch(ch)
 		{
 			case KEY_RESIZE:
@@ -891,84 +910,175 @@ int text_editor(const char * path, int readonly)
 
 			case KEY_ETX:
 				endwin();
-				for(i = 0; i<lines_n; i++)
-					free(lines[i]);
-				free(lines);
+				free_LineLL(Head);
 				printf("text_editor() SIGINT Received, discarded changes\n");
 			return -1;
 
 			case KEY_EOT:
 				endwin();
-				for(i = 0; i<lines_n; i++)
-					free(lines[i]);
-				free(lines);
+				free_LineLL(Head);
 				printf("text_editor() EOF Received, discarded changes\n");
 			return -1;
 
 			case KEY_UP:
-				if(cur_y > 0)
-				{
-					cur_y--;
-					current_n = strlen(lines[true_line]);
+				if(CurrentLine->prev != NULL)
+					CurrentLine = CurrentLine->prev;
 
-					if(cur_x > (current_n + line_number_offset))
-						cur_x = current_n + line_number_offset + LINE_NUMS_PADDING;
-				}
+				if (true_x > CurrentLine->str_n)
+					cur_x = CurrentLine->str_n + LINE_NUMS_PADDING + line_number_offset;
+
+
+				if(cur_y == 0)
+					y_offset++;
+
+
+				clear();
 			break;
 
-			case KEY_DOWN:
-				if(cur_y < y_max-1 && cur_y < lines_n-1)
-				{
-					cur_y++;
-					current_n = strlen(lines[true_line]);
+			case KEY_DOWN: /* point to next pointer or scroll down*/
+				if(CurrentLine->next != NULL)
+					CurrentLine = CurrentLine->next;
 
-					if(cur_x > (current_n + line_number_offset))
-						cur_x = current_n + line_number_offset + LINE_NUMS_PADDING;
-				}
+				if (true_x > CurrentLine->str_n)
+					cur_x = CurrentLine->str_n + LINE_NUMS_PADDING + line_number_offset;
+
+				if(cur_y == y_max-2)
+					y_offset--;
+
+				else if(cur_y > y_max-2) /* in case resize covers too much */
+					skip_to_current = 1;
+
+				clear();
 			break;
 
 			case KEY_LEFT:
-				if(cur_x > 0)
+				if(true_x>0)
 					cur_x--;
 			break;
 
 			case KEY_RIGHT:
-				if(cur_x < x_max && cur_x <= (current_n + line_number_offset))
+				if( cur_x < x_max && true_x < CurrentLine->str_n)
 					cur_x++;
 			break;
 
-			if(!readonly)
-			{
-				default:
-					if(ch >= 32 && ch <= 126) /* printable ASCII */
-						if(true_pos >= 0 && true_pos <= current_n)
-						{
-							current_n++;
-							string_insert(lines[true_line], ch, true_pos);
-							cur_x++;
-						}
-				break;
+			case KEY_BACKSPACE:
+				if( true_x <= CurrentLine->str_n && !readonly && true_x>0)
+				{
+					string_pop(CurrentLine->str, true_x-1);
+					cur_x--;
+					CurrentLine->str_n--;
+				}
 
-				case KEY_BACKSPACE:
-					if( (true_pos > 0) && (true_pos < current_n + 1) )
-					{
-						string_pop(lines[true_line], true_pos - 1);
-						current_n--;
-						cur_x--;
-						clear();
-					}
-				break;
+				if(true_x == 0 && CurrentLine->prev != NULL)
+				{
+					LineNode * Prev = CurrentLine->prev;
+					cur_x = Prev->str_n + line_number_offset + LINE_NUMS_PADDING;
 
-				case KEY_DC:
-					if(true_pos < current_n)
+					if(Prev->str_n + CurrentLine->str_n > 0) /* realloc 0 gives you NULL pointer */
 					{
-						string_pop(lines[true_line], true_pos);
-						current_n--;
-						clear();
+						realloc_string(&Prev->str, Prev->str_n + CurrentLine->str_n);
+						strcat(Prev->str, CurrentLine->str);
+						Prev->str_n = Prev->str_n + CurrentLine->str_n;
 					}
 
-				break;
-			}
+
+					delete_node_LineLL(CurrentLine);
+
+					CurrentLine = Prev;
+				}
+
+				clear();
+			break;
+
+			case KEY_DC:
+				if( true_x < CurrentLine->str_n && !readonly && true_x>=0)
+				{
+					string_pop(CurrentLine->str, true_x);
+					CurrentLine->str_n--;
+				}
+				clear();
+			break;
+
+			case '\n':
+				if(!readonly)
+				{
+					LineNode * New = new_LineNode();
+					New->str_n = 0;
+					/*
+					* when inserting a new line:
+					* shifting elements in an array of pointers (char**) (O(number of lines))
+					* shifting chars in a big string to insert a newline (O(number of chars))
+					* inserting a node in a LL is O(1)
+					*
+					* I thought char ** would be better because LL is scattered in memory, but it's kind of an anti-pattern
+					*/
+
+					/* TODO: make a graphviz of this */
+					New->next = CurrentLine->next;
+
+					if(CurrentLine->next != NULL)
+						CurrentLine->next->prev = New;
+
+					CurrentLine->next = New;
+					New->prev = CurrentLine;
+
+					/*
+					* move characters in front of cursor to new line,
+					* put null at cursor, then put cursor at start of new line
+					* it's funny how i never even think about this while typing
+					*/
+
+
+					if(true_x<CurrentLine->str_n)
+					{
+						New->str = clean_malloc(true_x * sizeof(char) + 2);
+						/* since str is equivalent to &str[0], treat &str[true_x] like its the start of array */
+						strcpy(New->str, &CurrentLine->str[true_x]);
+						New->str_n = CurrentLine->str_n - true_x;
+					}else
+					{
+						New->str = clean_malloc(LINE_REALLOC_LIMIT * sizeof(char));
+						New->str[0] = '\0';
+						New->str[1] = '\0';
+						New->str_n = 0;
+					}
+
+					CurrentLine->str[true_x] = '\0';
+					CurrentLine->str_n = true_x;
+
+					cur_x = line_number_offset + LINE_NUMS_PADDING;
+					CurrentLine = New;
+
+					clear();
+				}
+			break;
+
+			case '\t':
+				for(i=0; i<TAB_SIZE; i++)
+				{
+					CurrentLine->str_n++;
+					if(CurrentLine->str_n % LINE_REALLOC_LIMIT == 0)
+						realloc_string(&CurrentLine->str, CurrentLine->str_n + LINE_REALLOC_LIMIT);
+					string_insert(CurrentLine->str, ' ', true_x);
+				}
+
+			break;
+
+			default:
+				/* when str was parsed, it was allocated just enough for what it holds
+				 * so if the user wants to add anything, more memory needs to be allocated.
+				 * Also i really doubt that anyone will type so much that they run out of memory, so i'm not decreasing it on backspace
+				 */
+				if((ch >= 32 && ch <= 126) && !readonly) /* printable ASCII */
+				{
+					CurrentLine->str_n++;
+					if(CurrentLine->str_n % LINE_REALLOC_LIMIT == 0)
+						realloc_string(&CurrentLine->str, CurrentLine->str_n + LINE_REALLOC_LIMIT);
+					string_insert(CurrentLine->str, ch, true_x);
+					cur_x++;
+				}
+			break;
+
 		}
 	}
 }

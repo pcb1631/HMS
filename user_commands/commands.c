@@ -162,7 +162,7 @@ Value tedit_test(void)
 	char username[MAX_USERNAME_LEN];
 	char path[256] = "";
 	strcpy(username, current_username);
-	sprintf(path, "./users/%s/profile.txt", username);
+	sprintf(path, "temp1.txt");
 
 	return make_int(text_editor(path, 0));
 }

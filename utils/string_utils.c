@@ -69,17 +69,29 @@ LineNode* new_LineNode(void)
 	return node;
 }
 
-void free_LineLL(LineNode * Head)
+void free_LineLL(LineNode * Node)
 {
-	LineNode * Node = Head;
 	LineNode * temp;
 	while(Node != NULL)
 	{
-		temp = Node->next;
-		free(Node->str);
-		free(Node);
-		Node = temp;
+		temp=Node;
+		Node = Node->next;
+		free(temp->str);
+		free(temp);
 	}
+}
+
+void delete_node_LineLL(LineNode * Node)
+{
+	LineNode *Prev = Node->prev, *Next = Node->next;
+
+	if(Prev != NULL)
+		Prev->next = Next;
+	if(Next != NULL)
+		Next->prev = Prev;
+
+	free(Node->str);
+	free(Node);
 }
 
 #define LENGTH_PARSE_LIMIT 10
@@ -93,20 +105,13 @@ LineNode* file_to_LL_lines(const char * path, int * lines_out)
 	char* line;
 	FILE* file = fopen(path, "r");
 
-	LineNode * Head;
+	LineNode * Head = NULL;
 	LineNode * Node = new_LineNode();
 	LineNode * Prev = NULL;
-	if(!is_file(path))
-	{
-		fprintf(stderr, "file_to_strings(): \"%s\" is not a file\n", path);
-		fclose(file);
-		return NULL;
-	}
-
 	if(file == NULL)
 	{
+		free(Node);
 		perror("text_editor()");
-		fclose(file);
 		return NULL;
 	}
 
@@ -114,11 +119,15 @@ LineNode* file_to_LL_lines(const char * path, int * lines_out)
 	i=0;
 	while((ch = getc(file)) != EOF)
 	{
+		if((i % LENGTH_PARSE_LIMIT == 0) && i!=0)
+			realloc_string(&line, i+LENGTH_PARSE_LIMIT);
+
 		if(ch == '\n')
 		{
+			lines_n++;
 			Node->prev = Prev;
 			Node->str = line;
-			Node->str_n = strlen(line);
+			Node->str_n = i;
 			Node->next = new_LineNode();
 			if(first)
 			{
@@ -137,103 +146,32 @@ LineNode* file_to_LL_lines(const char * path, int * lines_out)
 			continue;
 		}
 
-		if((i % LENGTH_PARSE_LIMIT == 0) && i!=0)
-			realloc_string(&line, i+LENGTH_PARSE_LIMIT);
-
 		line[i] = ch;
 		i++;
 	}
-	Node->str = line;
-	Node->prev = Prev;
+
+	if (i > 0) /* if i isnt 0, that means there wasn't a newline */
+	{
+		if((i % LENGTH_PARSE_LIMIT == 0) && i!=0)
+			realloc_string(&line, i+LENGTH_PARSE_LIMIT);
+		line[i] = '\0';
+
+		Node->str = line;
+		Node->str_n = i;
+		if(first)
+			Head = Node;
+		lines_n++;
+	}else
+	{
+		free(line);
+		free(Node);
+		if(Prev != NULL)
+			Prev->next = NULL;
+	}
 
 	fclose(file);
-
 	*lines_out = lines_n;
 	return Head;
-}
-
-char ** file_to_strings(const char * path, int * lines_out)
-{
-	int lines_n = 1;
-	int i;
-	char ** line;
-	int ch;
-	FILE * file = fopen(path, "r");
-	if(!is_file(path))
-	{
-		fprintf(stderr, "file_to_strings(): \"%s\" is not a file\n", path);
-		fclose(file);
-		return NULL;
-	}
-
-	if(file == NULL)
-	{
-		perror("file_to_strings()");
-		fclose(file);
-		return NULL;
-	}
-
-	line = malloc(lines_n * sizeof(char *));
-	line[0] = malloc(LENGTH_PARSE_LIMIT * sizeof(char));
-
-	i = 0;
-	while( ( ch = getc(file) ) != EOF )
-	{
-		if( (i % LENGTH_PARSE_LIMIT == 0) && (i > 0) )
-		{
-			char * temp;
-			temp = realloc(line[lines_n-1], (i + LENGTH_PARSE_LIMIT) * sizeof(char));
-			if(temp != NULL)
-			{
-				line[lines_n-1] = temp;
-			}
-			else
-			{
-				perror("text_editor() failed to realloc");
-				fclose(file);
-				return NULL;
-			}
-		}
-
-		if(ch == '\n') /* I'm just gonna assume nobody is using pre OS X, and I dont care if windows uses CRLF*/
-		{
-			char ** temp;
-			line[lines_n-1][i] = '\0';
-			i=0;
-
-			lines_n++;
-
-			/* this makes space for one more char pointer, but now that pointer points to garbage
-			 * so need to malloc for the pointer
-			 */
-			temp = realloc(line, lines_n * sizeof(char *));
-			if(temp != NULL)
-			{
-				line = temp;
-			}
-			else
-			{
-				perror("text_editor() failed to realloc");
-				endwin();
-				fclose(file);
-				return NULL;
-			}
-
-			line[lines_n-1] = malloc((i + LENGTH_PARSE_LIMIT) * sizeof(char));
-			continue;
-		}
-
-		line[lines_n-1][i] = ch;
-		i++;
-	}
-
-	fclose(file);
-
-	line[lines_n-1][i] = '\0';
-
-	*lines_out = lines_n;
-
-	return line;
 }
 
 void realloc_string(char ** s, int n)
@@ -241,8 +179,8 @@ void realloc_string(char ** s, int n)
 	char * new = realloc(*s, n * sizeof(char));
 	if(new == NULL)
 	{
-		perror("realloc_string()");
 		endwin();
+		perror("realloc_string()");
 		exit(1);
 	}
 	else

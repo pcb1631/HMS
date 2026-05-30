@@ -10,6 +10,8 @@ int main(void)
 	LineNode * Head;
 	LineNode * Node;
 	Head = file_to_LL_lines("./users/admin/profile.txt", &n);
+	if(Head == NULL)
+		exit(1);
 	Node = Head;
 
 	while(Node != NULL)
@@ -18,6 +20,7 @@ int main(void)
 		Node = Node->next;
 	}
 
-	return 0;
+	free_LineLL(Head);
 
+	return 0;
 }
