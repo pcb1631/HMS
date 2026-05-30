@@ -836,7 +836,6 @@ int text_editor(const char * path, int readonly)
 
 	if (Head == NULL)
 		return -1;
-
 	/* count digits of n to get offset, so i can print the line number on left side */
 	{
 		int temp = lines_n;
@@ -850,6 +849,7 @@ int text_editor(const char * path, int readonly)
 			}
 		cur_x = line_number_offset + LINE_NUMS_PADDING;
 	}
+
 
 	ncurses_init();
 	getmaxyx(stdscr, y_max, x_max);
@@ -1004,6 +1004,22 @@ int text_editor(const char * path, int readonly)
 				if(cur_y == 0)
 					y_offset++;
 
+				lines_n++;
+				{
+					int temp = lines_n;
+					line_number_offset = 0;
+					if(lines_n == 0)
+						line_number_offset = 1;
+					else
+						while(temp != 0)
+						{
+							temp /= 10;
+							line_number_offset++;
+						}
+
+					cur_x = line_number_offset + LINE_NUMS_PADDING;
+				}
+
 				clear();
 			break;
 
@@ -1076,6 +1092,25 @@ int text_editor(const char * path, int readonly)
 
 				else if(cur_y > y_max-2) /* in case resize covers too much */
 					skip_to_current = 1;
+
+
+				/* count digits of n to get offset, so i can print the line number on left side */
+				lines_n++;
+				{
+					int temp = lines_n;
+					line_number_offset = 0;
+					if(lines_n == 0)
+						line_number_offset = 1;
+					else
+						while(temp != 0)
+						{
+							temp /= 10;
+							line_number_offset++;
+						}
+
+					cur_x = line_number_offset + LINE_NUMS_PADDING;
+				}
+
 			break;
 
 			case '\t':
