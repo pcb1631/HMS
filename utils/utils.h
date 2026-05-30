@@ -175,5 +175,5 @@ void handle_sigint(int sig);
 const char * get_utype(const char * username);
 void wipe_stdin(void);
 
-
+void * clean_malloc(size_t size);
 #endif

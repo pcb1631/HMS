@@ -27,4 +27,18 @@ void string_insert(char * str, char ins, int pos);
 char** file_to_strings(const char * path, int * lines_out);
 void trim_trailing(char *str);
 void string_trim(char * s);
+void realloc_string(char ** s, int n);
+
+typedef struct LineNode LineNode;
+struct LineNode
+{
+	char * str;
+	int str_n;
+	LineNode * prev;
+	LineNode * next;
+};
+LineNode* new_LineNode(void);
+void free_LineLL(LineNode * Head);
+LineNode* file_to_LL_lines(const char * path, int * lines_out);
+
 #endif

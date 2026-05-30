@@ -477,3 +477,14 @@ void wipe_stdin(void)
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }
+
+void * clean_malloc(size_t size)
+{
+	void * thing = malloc(size);
+	if(thing == NULL)
+	{
+		perror("malloc()");
+		exit(1);
+	}
+	return thing;
+}

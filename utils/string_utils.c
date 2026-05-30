@@ -1,5 +1,6 @@
 #include "string_utils.h"
 #include "utils.h"
+#include <ncurses.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -54,7 +55,102 @@ void trim_trailing(char *str)
     str[len] = '\0';
 }
 
+LineNode* new_LineNode(void)
+{
+	LineNode* node = (LineNode*)malloc(sizeof(LineNode));
+	if(node == NULL)
+	{
+		perror("new_LineNode()");
+		exit(1);
+	}
+	node->next=NULL;
+	node->prev=NULL;
+	node->str=NULL;
+	return node;
+}
+
+void free_LineLL(LineNode * Head)
+{
+	LineNode * Node = Head;
+	LineNode * temp;
+	while(Node != NULL)
+	{
+		temp = Node->next;
+		free(Node->str);
+		free(Node);
+		Node = temp;
+	}
+}
+
 #define LENGTH_PARSE_LIMIT 10
+
+LineNode* file_to_LL_lines(const char * path, int * lines_out)
+{
+	int lines_n = 0;
+	int i;
+	int ch;
+	int first = 1;
+	char* line;
+	FILE* file = fopen(path, "r");
+
+	LineNode * Head;
+	LineNode * Node = new_LineNode();
+	LineNode * Prev = NULL;
+	if(!is_file(path))
+	{
+		fprintf(stderr, "file_to_strings(): \"%s\" is not a file\n", path);
+		fclose(file);
+		return NULL;
+	}
+
+	if(file == NULL)
+	{
+		perror("text_editor()");
+		fclose(file);
+		return NULL;
+	}
+
+	line = clean_malloc(LENGTH_PARSE_LIMIT * sizeof(char));
+	i=0;
+	while((ch = getc(file)) != EOF)
+	{
+		if(ch == '\n')
+		{
+			Node->prev = Prev;
+			Node->str = line;
+			Node->str_n = strlen(line);
+			Node->next = new_LineNode();
+			if(first)
+			{
+				Head = Node;
+				first = 0;
+			}
+			Prev = Node;
+			Node = Node->next;
+
+			line[i] = '\0';
+
+			i=0;
+			line = malloc(LENGTH_PARSE_LIMIT * sizeof(char)); /* address to string is stored in node, so make a new one for the next node */
+
+
+			continue;
+		}
+
+		if((i % LENGTH_PARSE_LIMIT == 0) && i!=0)
+			realloc_string(&line, i+LENGTH_PARSE_LIMIT);
+
+		line[i] = ch;
+		i++;
+	}
+	Node->str = line;
+	Node->prev = Prev;
+
+	fclose(file);
+
+	*lines_out = lines_n;
+	return Head;
+}
 
 char ** file_to_strings(const char * path, int * lines_out)
 {
@@ -72,7 +168,7 @@ char ** file_to_strings(const char * path, int * lines_out)
 
 	if(file == NULL)
 	{
-		perror("text_editor()");
+		perror("file_to_strings()");
 		fclose(file);
 		return NULL;
 	}
@@ -118,6 +214,7 @@ char ** file_to_strings(const char * path, int * lines_out)
 			else
 			{
 				perror("text_editor() failed to realloc");
+				endwin();
 				fclose(file);
 				return NULL;
 			}
@@ -137,4 +234,19 @@ char ** file_to_strings(const char * path, int * lines_out)
 	*lines_out = lines_n;
 
 	return line;
+}
+
+void realloc_string(char ** s, int n)
+{
+	char * new = realloc(*s, n * sizeof(char));
+	if(new == NULL)
+	{
+		perror("realloc_string()");
+		endwin();
+		exit(1);
+	}
+	else
+	{
+		*s = new;
+	}
 }
