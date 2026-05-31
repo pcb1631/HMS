@@ -5,7 +5,7 @@
 #include "../utils/globals.h"
 
 #ifdef _WIN32
-    #include <ncurses/curses.h>
+    #include <ncursesw/ncurses.h>
 #else
     #include <ncurses.h>
 #endif
@@ -29,10 +29,15 @@ void parse_slots(const char * doctor, Slot * slots, int * slots_n)
         printf("Error opening file for reading! %s\n", filepath);
     }
 
-    while (fscanf(sl, "%ld,%ld,%49[^,],%49s", &slots[i].start, &slots[i].end, slots[i].venue, slots[i].patient) == 4)
-    {
+
+    #ifdef _WIN32
+        while (fscanf(sl, "%lld,%lld,%49[^,],%49s", &slots[i].start, &slots[i].end, slots[i].venue, slots[i].patient) == 4) 
         i++;
-    }
+    #else
+        while (fscanf(sl, "%ld,%ld,%49[^,],%49s", &slots[i].start, &slots[i].end, slots[i].venue, slots[i].patient) == 4) 
+        i++;
+    #endif
+
     *slots_n = i;
     fclose(sl);
 }
@@ -60,7 +65,11 @@ void write_to_file_booking(const char * doctor, Slot * slots, int slots_n)
 
     for(i=0; i<slots_n; i++)
     {
-        fprintf(file, "%ld,%ld,%s,%s\n", slots[i].start, slots[i].end, slots[i].venue, slots[i].patient);
+        #ifdef _WIN32
+            fprintf(file, "%lld,%lld,%s,%s\n", slots[i].start, slots[i].end, slots[i].venue, slots[i].patient);
+        #else
+            fprintf(file, "%ld,%ld,%s,%s\n", slots[i].start, slots[i].end, slots[i].venue, slots[i].patient);
+        #endif
     }
 
     fclose(file);
