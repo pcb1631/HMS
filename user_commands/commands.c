@@ -6,7 +6,7 @@
 #include "../utils/string_utils.h"
 
 #ifdef _WIN32
-    #include <ncursesw/curses.h>
+    #include <ncursesw/ncurses.h>
 #else
     #include <ncurses.h>
 #endif

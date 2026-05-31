@@ -3,11 +3,11 @@
 #include "string_utils.h"
 #include "utils.h"
 #include <stdio.h>
+#include <stdlib.h>
 #ifndef _WIN32
 	#include <ncurses.h>
-	#include <stdlib.h>
 #else
-	#include <ncurses/curses.h>
+    #include <ncursesw/ncurses.h>
 #endif
 #include <string.h>
 #include <time.h>
@@ -16,14 +16,123 @@
 #define KEY_EOT 0x04 /* CTRL+D */
 #define KEY_CTRL_W 0x17
 
+#ifdef _WIN32 
+	/* on windows, setting raw() will prevent the program from receiving KEY_RESIZE, so im using these. Unless you're using WSL 
+	 * These functions can only be used in non-blocking, so we set nodelay(stdscr, 1) in our init function
+	 */
+	
+	 /*
+	 * Source - https://stackoverflow.com/a/78084698
+	 * Posted by greg spears, modified by community. See post 'Timeline' for change history
+	 * Retrieved 2026-05-31, License - CC BY-SA 4.0
+	 */
+	#include <windows.h>
+	HANDLE hConOut = NULL;
+
+	/*------------------------------------------------------------
+	
+	getConsoleOutputHandle()
+
+	There are simpler ways to get the console handle, but they 
+	arguably lack precision.
+
+	*------------------------------------------------------------*/
+	HANDLE getConsoleOutputHandle(void)
+	{
+	SECURITY_ATTRIBUTES sa;
+
+		if(!hConOut)
+		{
+			/* First call -- get the window handle one time and save it*/
+			sa.nLength = sizeof(sa);
+			sa.lpSecurityDescriptor = NULL;
+			sa.bInheritHandle = TRUE;
+			/* Using CreateFile we get the true console handle", avoiding any redirection.*/
+			hConOut = CreateFile( TEXT("CONOUT$"),
+				GENERIC_READ | GENERIC_WRITE,
+				FILE_SHARE_READ | FILE_SHARE_WRITE,
+				&sa, OPEN_EXISTING, (DWORD)0, (HANDLE)0 );
+		}
+		if(!hConOut) /* actually, this is a bad error, let your app handle the error as needed*/
+		{
+			printf("getConsoleOutputHandle(): failed to get Console Window Handle\n");
+			return NULL;
+		}
+		return hConOut;
+	}
+
+
+	/*----------------------------------------------------------------------------------------
+	
+		check_console_window_resize_event()
+
+		Params: COORD to return new window size
+		Returns: TRUE if the console window has changed size.  FALSE if not.
+
+		USAGE: Best practice is to call the function repeatedly from your main application 
+		loop.   Preferably a place where the function can be called several times per second 
+		throughout the program's run time.
+
+		DATE:           Reason:
+		2022.10.05      Created -- placed in public domain
+	*----------------------------------------------------------------------------------------*/
+	int check_console_window_resize_event(COORD *info)
+	{
+		static short old_screen_w=0, old_screen_h=0;
+		/* variables declared static hold their value between function calls.*/
+		short current_screen_w, current_screen_h;
+		int window_resized = FALSE;
+		CONSOLE_SCREEN_BUFFER_INFO csbi;
+
+		hConOut = getConsoleOutputHandle();
+		if(!hConOut)
+			return FALSE;
+
+		if(!GetConsoleScreenBufferInfo( getConsoleOutputHandle(), &csbi ))
+		{
+			/*printf("check_console_window_resize_event(): GetConsoleScreenBufferInfo() FAILED!!  %s\n", __FILE__);*/
+			return FALSE;
+		}
+		current_screen_w  = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+		current_screen_h  = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+
+		if(!old_screen_w && !old_screen_h)
+		{
+			/* Execution comes here if this is first time this function is called.  
+			** Initialize the static variables and bail...*/
+			old_screen_w = current_screen_w;
+			old_screen_h = current_screen_h;
+			return FALSE;
+		}
+
+		/* At last the real work of this function can be realized...*/
+		if(current_screen_w != old_screen_w || current_screen_h != old_screen_h)
+		{
+			old_screen_w = current_screen_w;
+			old_screen_h = current_screen_h;
+			window_resized = TRUE;
+			info->X = current_screen_w;
+			info->Y = current_screen_h;
+			/*printf("check_console_window_resize_event(): new screenwidth:  %d new screenheight:  %d", current_screen_w, current_screen_h);*/
+		}
+		return window_resized;
+	}
+
+
+#endif
+
 void ncurses_init(void)
 {
-    initscr();
+	initscr();
     raw();
     noecho();
     curs_set(0);
     keypad(stdscr, 1);
     start_color();
+	
+	#ifdef _WIN32
+		nodelay(stdscr, 1);
+	#endif
 }
 
 int simple_select(int color_foreground, int color_background, int n_of_options, const char* const* options, char * selection_s, const char * pretext)
@@ -32,17 +141,24 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 	int i;
 	int selection=0;
 	int y_max;
-
 	ncurses_init();
 	init_pair(1, color_foreground, color_background);
 
+	y_max = getmaxy(stdscr);
 	while(ch != '\n')
 	{
-	    clear();
-	    y_max = getmaxy(stdscr);
+		#ifdef _WIN32
+			COORD winsize;
+			if(check_console_window_resize_event(&winsize))
+			{
+				y_max = winsize.Y;
+				resize_term(y_max, winsize.X);
+				clear();
+			}
+		#endif
 
 		attron(COLOR_PAIR(1));
-		mvprintw(0, 0, "%s", pretext);
+		mvprintw(0, 0, "%s %d", pretext, ch);
 		attroff(COLOR_PAIR(1));
 
 		for(i=0; i<n_of_options; i++)
@@ -67,6 +183,8 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 		switch(ch)
 		{
 		    case KEY_RESIZE:
+				y_max = getmaxy(stdscr);
+				clear();
 				break;
 
 			case KEY_ETX:
@@ -79,10 +197,14 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 
 			case KEY_UP:
 			case KEY_LEFT:
-				selection = (selection - 1 + n_of_options) % n_of_options; break;
+				selection = (selection - 1 + n_of_options) % n_of_options; 
+				clear();
+				break;
 			case KEY_DOWN:
 			case KEY_RIGHT:
-				selection = (selection + 1) % n_of_options; break;
+				selection = (selection + 1) % n_of_options; 
+				clear();
+				break;
 			case '\n':
 				endwin();
 				break;
@@ -135,10 +257,22 @@ void command_select(command_node *head, char *utype, char *username)
     init_color(10, 106*(1000/255), 90*(1000/255), 205*(1000/255));
     init_pair(2, COLOR_WHITE, 10);
     clear();
+
+	getmaxyx(stdscr, y_max, x_max);
     while(1)
     {
+		#ifdef _WIN32
+			COORD winsize;
+			if(check_console_window_resize_event(&winsize))
+			{
+				y_max = winsize.Y;
+				x_max = winsize.X;
+				resize_term(y_max, x_max);
+				clear();
+			}
+		#endif
+
 	   	refresh(); /* resumes ncurses mode  */
-        getmaxyx(stdscr, y_max, x_max);
 
         left_win = newwin(y_max, x_max/2, 0, 0);
         box(left_win, 0 ,0);
@@ -223,6 +357,7 @@ void command_select(command_node *head, char *utype, char *username)
                 break;
 
             case KEY_RESIZE:
+				getmaxyx(stdscr, y_max, x_max);
            		clear();
                 break;
 
@@ -282,7 +417,7 @@ void command_select(command_node *head, char *utype, char *username)
                 }else
                 {
                     call(cmd_list[selection], varray_username, 1, utype);
-
+					getmaxyx(stdscr, y_max, x_max);
                     /*
                      *
                      * Sets terminal to raw mode to immediately consume character, (default is cooked mode aka dont stop until EOL)
@@ -501,6 +636,17 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patien
         init_pair(2, COLOR_WHITE, 10);
         while(1)
         {
+			#ifdef _WIN32
+				COORD winsize;
+				if(check_console_window_resize_event(&winsize))
+				{
+					y_max = winsize.Y;
+					x_max = winsize.X;
+					resize_term(y_max, x_max);
+					clear();
+				}
+			#endif
+
        		refresh();
             getmaxyx(stdscr, y_max, x_max);
 
@@ -621,6 +767,17 @@ int config_editor(Config config, const char * path, const char * const * disallo
 	getmaxyx(stdscr, y_max, x_max);
 	while(1)
 	{
+		#ifdef _WIN32
+			COORD winsize;
+			if(check_console_window_resize_event(&winsize))
+			{
+				y_max = winsize.Y;
+				x_max = winsize.X;
+				resize_term(y_max, x_max);
+				clear();
+			}
+		#endif
+
 		refresh();
 
 		bkgd(COLOR_BLACK);
@@ -856,6 +1013,17 @@ int text_editor(const char * path, int readonly)
 	clear();
 	while(1)
 	{
+		#ifdef _WIN32
+			COORD winsize;
+			if(check_console_window_resize_event(&winsize))
+			{
+				y_max = winsize.Y;
+				x_max = winsize.X;
+				resize_term(y_max, x_max);
+				clear();
+			}
+		#endif
+
 		Node = Head;
 		refresh();
 		curs_set(1);
@@ -870,6 +1038,7 @@ int text_editor(const char * path, int readonly)
 				Node = Node->next;
 				y_offset--;
 			}
+			skip_to_current = 0;
 		}
 		else if(y_offset >= 0) /* if positive, just render n empty lines */
 		{
@@ -920,12 +1089,14 @@ int text_editor(const char * path, int readonly)
 			break;
 
 			case KEY_ETX:
+				curs_set(0);
 				endwin();
 				free_LineLL(Head);
 				printf("text_editor() SIGINT Received, discarded changes\n");
 			return -1;
 
 			case KEY_EOT:
+				curs_set(0);
 				endwin();
 				free_LineLL(Head);
 				printf("text_editor() EOF Received, discarded changes\n");
@@ -1132,7 +1303,7 @@ int text_editor(const char * path, int readonly)
 			default:
 				/* when str was parsed, it was allocated just enough for what it holds
 				 * so if the user wants to add anything, more memory needs to be allocated.
-				 * Also i really doubt that anyone will type so much that they run out of memory, so i'm not decreasing it on backspace
+				 * Also i really doubt that anyone will type so much that they run out of memory
 				 */
 				if((ch >= 32 && ch <= 126) && !readonly) /* printable ASCII */
 				{

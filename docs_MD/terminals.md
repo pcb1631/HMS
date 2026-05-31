@@ -44,11 +44,15 @@ The program already does `reset` first just in case (This stops the terminal on 
 	- Good
 -# Alacritty
 	- Best performance
+  - Available on Windows, Linux, and macOS
 
 -# Linux TTY
   - Absolutely not
 -# ratty
   - no
+
+\section windows Windows
+  Should have the same behaviour as Linux with WSL. 
 
 \section mac macOS
 	Behaviour between every terminal emulator is similar because they advertise themselves as `xterm-256color`

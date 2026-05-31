@@ -8,7 +8,7 @@
 #ifndef _WIN32
     #include <ncurses.h>
 #else
-    #include <ncursesw/curses.h>
+    #include <ncursesw/ncurses.h>
 #endif
 
 #define PW_FILE "./users/creds.txt"
