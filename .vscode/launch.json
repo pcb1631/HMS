@@ -1,6 +1,7 @@
 {
     "version": "0.2.0",
     "configurations": [
+        
         {
             "name": "Debug main (macOS, LLDB DAP)",
             "type": "lldb",
@@ -42,7 +43,7 @@
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
-            "preLaunchTask": "Build with Makefile",
+            "preLaunchTask": "Build on Windows",
             "windows": {
                 "program": "${workspaceFolder}/main.exe",
                 "MIMode": "gdb",
