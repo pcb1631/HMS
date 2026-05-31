@@ -7,29 +7,20 @@
 #include "utils/string_utils.h"
 #include "user_commands/bookings.h"
 #include "user_commands/commands.h"
-
-/* file handling */
-#include <sys/stat.h>
-#ifndef _WIN32
-#include <sys/file.h>
-#endif
-#include <fcntl.h>
-#ifdef _WIN32
-#include <io.h>
-#include <direct.h>
-#else
-#include <unistd.h>
-#endif
-
-
-/* TUI */
 #include "utils/tui.h"
-#ifndef _WIN32
-	#include <ncurses.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#ifdef _WIN32
+    #include <io.h>
+    #include <direct.h>
+    #include <ncursesw/ncurses.h>
+    #include <windows.h>
+    #include <wincrypt.h>
 #else
-	#include <ncursesw/curses.h>
-	#include <windows.h>
-	#include <wincrypt.h>
+    #include <sys/file.h>
+    #include <unistd.h>
+    #include <ncurses.h>
 #endif
 
 #define CREDENTIALS_PATH "./users/creds.txt"
