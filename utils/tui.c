@@ -334,7 +334,7 @@ void command_select(command_node *head, char *utype, char *username)
 
         wrefresh(right_win);
 
-        ch = wgetch(left_win);
+        ch = getch();
 
         switch(ch)
         {
@@ -419,13 +419,17 @@ void command_select(command_node *head, char *utype, char *username)
                     call(cmd_list[selection], varray_username, 1, utype);
 					getmaxyx(stdscr, y_max, x_max);
                     /*
-                     *
                      * Sets terminal to raw mode to immediately consume character, (default is cooked mode aka dont stop until EOL)
                      * This way the program can immediately continue after calling the function pointer, without showing the user funny characters, or having to go back to ncurses mode and the user misses the output from the function
-                     *
                      */
-                    raw();
-                    getch();
+					#ifndef _WIN32
+						raw();
+						getch();
+					#else 
+						/* well i dont care that much about ux on windows*/
+						printf("Press enter to continue\n");
+						getchar(); 
+					#endif
                 }
                 break;
 
@@ -1054,14 +1058,9 @@ int text_editor(const char * path, int readonly)
 		while(Node != NULL && i < y_max -1)
 		{
 			if(Node == CurrentLine)
-			{
 				cur_y = i;
-				mvprintw(i, line_number_offset + LINE_NUMS_PADDING, "%s", Node->str);
-			}
-			else
-			{
-				mvprintw(i, line_number_offset + LINE_NUMS_PADDING, "%s", Node->str);
-			}
+			
+			mvprintw(i, line_number_offset + LINE_NUMS_PADDING, "%s", Node->str);
 			mvprintw(i, 0, "%d", i-y_offset);
 
 			Node = Node->next;
@@ -1089,14 +1088,12 @@ int text_editor(const char * path, int readonly)
 			break;
 
 			case KEY_ETX:
-				curs_set(0);
 				endwin();
 				free_LineLL(Head);
 				printf("text_editor() SIGINT Received, discarded changes\n");
 			return -1;
 
 			case KEY_EOT:
-				curs_set(0);
 				endwin();
 				free_LineLL(Head);
 				printf("text_editor() EOF Received, discarded changes\n");
