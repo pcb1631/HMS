@@ -73,10 +73,11 @@ TODO: Add subpages in usage.md on how to use TUI. Command TUI, simple TUI, and t
 It is assumed that:
 
 -# You are using Windows or unix-like system, or older than OS X
+-# If you are running the project on a 32-bit system, it's before year 2106
 -# You have the programs used in \ref installation
 	- make (replaced with Make.bat for windows)
 	- MSYS2 for UCRT64, for ncurses
-	- gcc
+	- gcc or clang
 	- git 
 -# You have followed all the steps in \ref installation
 -# The program is compiled by yourself with the makefile
@@ -84,7 +85,6 @@ It is assumed that:
 -# You are using a terminal tested by us in \ref term. (At the very least, the linux tty)
 
 -# Users
-	- have eyes and hands
 	- know that CTRL+C and CTRL+D can cancel running commands or exit the program
 	- know that the password is actually hidden and the program is still running
 -# Admins / IT 
