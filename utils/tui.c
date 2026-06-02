@@ -1084,7 +1084,9 @@ int text_editor(const char * path, int readonly)
 								line_number_offset++;
 							}
 
-						realloc_string(&Prev->str, Prev->str_n + CurrentLine->str_n + 1);
+						realloc_string(&Prev->str, (
+							((Prev->str_n + CurrentLine->str_n + 1)/LINE_REALLOC_LIMIT) + 1) * LINE_REALLOC_LIMIT
+						);
 						strcat(Prev->str, CurrentLine->str);
 						Prev->str_n = Prev->str_n + CurrentLine->str_n;
 					}
@@ -1143,9 +1145,26 @@ int text_editor(const char * path, int readonly)
 
 					if(true_x<CurrentLine->str_n)
 					{
+						/* the size of the new line is the suffix */
 						size_t size =
-							(((CurrentLine->str_n-true_x)/LINE_REALLOC_LIMIT)+1) * LINE_REALLOC_LIMIT ; /* next multiple of limit */
+							/* But we alloacte the next multiple of limit. positive int div is floor div */
+
+							/* The next realloc wont happen until str_n is a multiple of LINE_REALLOC_LIMIT,
+							 * So, naively allocating str_n - true_x will cause a buffer overflow.
+							 * For example: (if the limit is 10)
+								* "Hello, world\0" 13 bytes
+								* 				^
+								* 
+								* User types extra three letters
+								* 
+								* "Helloooo, world\0" 16 bytes, but we did not trigger realloc
+								* 				^
+								*		Buffer overflow!!
+							 */
+							(((CurrentLine->str_n-true_x)/LINE_REALLOC_LIMIT)+1) * LINE_REALLOC_LIMIT * sizeof(char); 
+						
 						New->str = clean_malloc(size);
+	
 						/* since str is equivalent to &str[0], treat &str[true_x] like its the start of array */
 						strcpy(New->str, &CurrentLine->str[true_x]);
 						New->str_n = CurrentLine->str_n - true_x;
