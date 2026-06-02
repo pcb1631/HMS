@@ -27,7 +27,7 @@ void ncurses_init(void)
     noecho();
     keypad(stdscr, 1);
     start_color();
-	
+
 	#ifdef _WIN32
 		raw();
 		wtimeout(stdscr, 16);
@@ -735,7 +735,8 @@ int config_editor(Config config, const char * path, const char * const * disallo
 				mvwprintw(right_win, y_max/2, 0, "You are not allowed to change this");
 				wattroff(right_win, COLOR_PAIR(1));
 
-				allow = 1;
+				if(ch != -1) /* On windows, the render loop is polled, so  */
+					allow = 1;
 			}
 			wrefresh(right_win);
 		}
@@ -1004,6 +1005,14 @@ int text_editor(const char * path, int readonly)
 				printf("text_editor() EOF Received, discarded changes\n");
 			return -1;
 
+			case KEY_HOME:
+				cur_x = LINE_NUMS_PADDING + line_number_offset;
+			break;
+
+			case KEY_END:
+				cur_x = LINE_NUMS_PADDING + line_number_offset + CurrentLine->str_n;
+			break;
+			
 			case KEY_UP:
 				if(CurrentLine->prev != NULL)
 					CurrentLine = CurrentLine->prev;
