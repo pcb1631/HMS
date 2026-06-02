@@ -878,7 +878,7 @@ int text_editor(const char * path, int readonly)
 		else /*else, skip -n nodes*/
 		{
 			int n = y_offset;
-			while(Node != NULL && n++) /* i learned this from codeforces */
+			while(Node != NULL && n++)
 				Node = Node->next;
 		}
 
@@ -990,6 +990,18 @@ int text_editor(const char * path, int readonly)
 
 					if(Prev->str_n + CurrentLine->str_n > 0) /* realloc 0 gives you NULL pointer */
 					{
+						int temp = lines_n;
+						lines_n++;
+						line_number_offset = 0;
+						if(lines_n == 0)
+							line_number_offset = 1;
+						else
+							while(temp != 0)
+							{
+								temp /= 10;
+								line_number_offset++;
+							}
+
 						realloc_string(&Prev->str, Prev->str_n + CurrentLine->str_n + 1);
 						strcat(Prev->str, CurrentLine->str);
 						Prev->str_n = Prev->str_n + CurrentLine->str_n;
@@ -1004,21 +1016,6 @@ int text_editor(const char * path, int readonly)
 				if(cur_y == 0)
 					y_offset++;
 
-				lines_n++;
-				{
-					int temp = lines_n;
-					line_number_offset = 0;
-					if(lines_n == 0)
-						line_number_offset = 1;
-					else
-						while(temp != 0)
-						{
-							temp /= 10;
-							line_number_offset++;
-						}
-
-					cur_x = line_number_offset + LINE_NUMS_PADDING;
-				}
 
 				clear();
 			break;
