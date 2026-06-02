@@ -972,11 +972,11 @@ int text_editor(const char * path, int readonly)
 			Node = Node->next;
 			i++;
 		}
-		mvprintw(y_max-1, 0, "offset:%d cur_y:%d y_max:%d Press CTRL+W to save", y_offset, cur_y, y_max);
+		true_x = cur_x - line_number_offset - LINE_NUMS_PADDING;
+		mvprintw(y_max-1, 0, "Press CTRL+W to save, CTRL+C to cancel. char:%d, line:%d   ", true_x, cur_y-y_offset /* yes, minus */);
 
 		move(cur_y, cur_x);
 		ch = getch();
-		true_x = cur_x - line_number_offset - LINE_NUMS_PADDING;
 		switch(ch)
 		{
 			case KEY_CTRL_W:
