@@ -1064,7 +1064,7 @@ int text_editor(const char * path, int readonly)
 					if(Prev->str_n + CurrentLine->str_n > 0) /* realloc 0 gives you NULL pointer */
 					{
 						int temp = lines_n;
-						lines_n++;
+						lines_n--;
 						line_number_offset = 0;
 						if(lines_n == 0)
 							line_number_offset = 1;
