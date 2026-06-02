@@ -137,7 +137,11 @@ int main(int argc, char ** argv)
             fgets(password, MAX_PASSWORD_LEN, stdin);
             string_trim(password);
 
-            load_users_from_file(pw_file, &logins);
+            if(load_users_from_file(pw_file, &logins) == -1)
+            {
+                printf("Failed to load users from pw file");
+                return -1;
+            }
             user_ptr = lookup_user(current_username, &logins);
 
             if(user_ptr == NULL)
@@ -187,7 +191,11 @@ int main(int argc, char ** argv)
                 string_trim(password);
 
                 /* hash the password */
-                register_user_hashtable(current_username, password, pw_file);
+                if(register_user_hashtable(current_username, password, pw_file) == -1)
+                {
+                    sprintf(pretext, "Failed to register user to hashtable");
+                    goto main_menu;   
+                }
 				generate_file_structure("Patient", current_username);
 	            sprintf(pretext, "Registered %s as patient, please login again\n", current_username);
 	            goto main_menu;
