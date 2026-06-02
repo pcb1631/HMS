@@ -31,7 +31,6 @@ void ncurses_init(void)
 	#ifdef _WIN32
 		raw();
 		wtimeout(stdscr, 16);
-		show_console_cursor(0);
 		curs_set(0);
 		/*intrflush(stdscr, 0);*/
 	#else
@@ -97,9 +96,6 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 				strcpy(selection_s, "");
 				endwin();
 				printf("EOF/EOT received\n");
-				#ifdef _WIN32
-					show_console_cursor(1);
-				#endif
 				return -1;
 
 
@@ -115,9 +111,6 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 				break;
 			case '\n':
 				endwin();
-				#ifdef _WIN32
-					show_console_cursor(1);
-				#endif
 				break;
 
 			default:
@@ -1096,8 +1089,6 @@ int text_editor(const char * path, int readonly)
 							temp /= 10;
 							line_number_offset++;
 						}
-
-					cur_x = line_number_offset + LINE_NUMS_PADDING;
 				}
 
 				clear();
