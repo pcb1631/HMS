@@ -123,6 +123,9 @@ LineNode* file_to_LL_lines(const char * path, int * lines_out)
 	i=0;
 	while((ch = getc(file)) != EOF)
 	{
+		if(ch == '\r') /*fuck off */
+			continue;
+		
 		if((i % LENGTH_PARSE_LIMIT == 0) && i!=0)
 			realloc_string(&line, i+LENGTH_PARSE_LIMIT);
 
