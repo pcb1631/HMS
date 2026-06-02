@@ -1,5 +1,7 @@
 {
     "C_Cpp.default.compilerPath": "C:/msys64/ucrt64/bin/gcc.exe",
     "makefile.configureOnOpen": true,
-    "clangd.path": "/usr/bin/clangd"
+    "clangd.path": "clangd",
+    "debug.allowBreakpointsEverywhere": true,
+    
 }

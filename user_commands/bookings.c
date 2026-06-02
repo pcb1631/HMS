@@ -5,7 +5,7 @@
 #include "../utils/globals.h"
 
 #ifdef _WIN32
-    #include <ncurses/curses.h>
+    #include <ncursesw/ncurses.h>
 #else
     #include <ncurses.h>
 #endif
@@ -21,6 +21,8 @@ void parse_slots(const char * doctor, Slot * slots, int * slots_n)
     int i = 0;
     char filepath[256];
     FILE *sl;
+    unsigned long ustart, uend;
+    
     sprintf(filepath, "./users/%s/bookings.csv.txt", doctor);
     sl = fopen(filepath, "r");
 
@@ -29,10 +31,13 @@ void parse_slots(const char * doctor, Slot * slots, int * slots_n)
         printf("Error opening file for reading! %s\n", filepath);
     }
 
-    while (fscanf(sl, "%ld,%ld,%49[^,],%49s", &slots[i].start, &slots[i].end, slots[i].venue, slots[i].patient) == 4)
-    {
+
+    while (fscanf(sl, "%lu,%lu,%49[^,],%49s", &ustart, &uend, slots[i].venue, slots[i].patient) == 4) 
         i++;
-    }
+
+    slots[i].start = (time_t)ustart;
+    slots[i].end   = (time_t)uend;
+
     *slots_n = i;
     fclose(sl);
 }
@@ -60,7 +65,7 @@ void write_to_file_booking(const char * doctor, Slot * slots, int slots_n)
 
     for(i=0; i<slots_n; i++)
     {
-        fprintf(file, "%ld,%ld,%s,%s\n", slots[i].start, slots[i].end, slots[i].venue, slots[i].patient);
+        fprintf(file, "%lu,%lu,%s,%s\n", (unsigned long)slots[i].start, (unsigned long)slots[i].end, slots[i].venue, slots[i].patient);
     }
 
     fclose(file);
@@ -143,7 +148,7 @@ void add_slot(char * username)
     if ( strcmp(patient, "") == 0)
         strcpy(patient, "NULL");
 
-    fprintf(sl, "%ld,%ld,%s,%s\n", start, end, venue, patient);
+    fprintf(sl, "%lu,%lu,%s,%s\n", (unsigned long)start, (unsigned long)end, venue, patient);
 
     fclose(sl);
     printf("Slot added successfully!\n");
@@ -153,9 +158,9 @@ void view_slots(char * username)
 {
     char readable_start[80];
     char readable_end[80];
-    struct tm * start_tm;
-    struct tm * end_tm;
+    struct tm * start_tm, * end_tm;
     Slot slot;
+    unsigned long ustart, uend;
 
     char filepath[256];
     FILE *sl;
@@ -169,8 +174,11 @@ void view_slots(char * username)
     }
 
     printf("\n--- Current Slots ---\n\n");
-    while (fscanf(sl, "%ld,%ld,%49[^,],%49s", &slot.start, &slot.end, slot.venue, slot.patient) == 4)
+    while (fscanf(sl, "%lu,%lu,%49[^,],%49s", &ustart, &uend, slot.venue, slot.patient) == 4)
     {
+        slot.start = (time_t)ustart;
+        slot.end   = (time_t)uend;
+
         start_tm = localtime(&slot.start);
         end_tm =   localtime(&slot.end);
         strftime(readable_start, sizeof(readable_start),"%Y-%m-%d %H:%M:%S", start_tm);

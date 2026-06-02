@@ -19,6 +19,16 @@
                 "clean"
             ],
             "problemMatcher": []
+        },
+        {
+            "label": "Build on Windows",
+            "type": "shell",
+            "command": "./Make.bat",
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": []
         }
     ]
 }

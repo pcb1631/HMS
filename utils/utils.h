@@ -8,7 +8,7 @@
 #ifndef _WIN32
     #include <ncurses.h>
 #else
-    #include <ncursesw/curses.h>
+    #include <ncursesw/ncurses.h>
 #endif
 
 #define PW_FILE "./users/creds.txt"
@@ -170,7 +170,6 @@ int is_file(const char * path);
  * @brief Parses file_struct.yaml.txt and generates files/directories for a user
  */
 void generate_file_structure(const char *role, const char *username);
-void handle_sigint(int sig);
 
 const char * get_utype(const char * username);
 void wipe_stdin(void);

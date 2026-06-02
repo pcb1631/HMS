@@ -52,7 +52,9 @@ int load_users_from_file(const char *filename, user_login_t **logins)
     size_t len;
 
     fp = fopen(filename, "r");
-    if (fp == NULL) {
+    if (fp == NULL) 
+    {
+        perror("load_users_from_file()");
         return -1;
     }
 
@@ -163,7 +165,7 @@ int register_user_hashtable(const char *current_username, char *password, const 
     {
         free(hash);
         fprintf(stderr, "Failed to hash password\n");
-        return 1;
+        return -1;
     }
 
     logins = NULL;
@@ -172,10 +174,6 @@ int register_user_hashtable(const char *current_username, char *password, const 
     if (pw_fd != -1)
     {
         #ifdef _WIN32
-
-            HANDLE hFile = (HANDLE)_get_osfhandle(pw_fd);
-            LockFile(hFile, 0, 0, 0xFFFFFFFF, 0xFFFFFFFF);
-
         #else
 
             flock(pw_fd, LOCK_EX);
@@ -183,15 +181,17 @@ int register_user_hashtable(const char *current_username, char *password, const 
         #endif
     }
 
-    load_users_from_file(pw_file, &logins);
+    if(load_users_from_file(pw_file, &logins) == -1)    
+    {
+        printf("register_user_hashtable() failed to read pw file");
+        return -1;
+    }
     add_user(current_username, hash, &logins);
     save_users_to_file(pw_file, &logins);
 
     if (pw_fd != -1)
     {
         #ifdef _WIN32
-            HANDLE hFile = (HANDLE)_get_osfhandle(pw_fd);
-            UnlockFile(hFile, 0, 0, 0xFFFFFFFF, 0xFFFFFFFF);
         #else
             flock(pw_fd, LOCK_UN);
         #endif

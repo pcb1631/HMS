@@ -3,11 +3,11 @@
 #include "string_utils.h"
 #include "utils.h"
 #include <stdio.h>
+#include <stdlib.h>
 #ifndef _WIN32
 	#include <ncurses.h>
-	#include <stdlib.h>
 #else
-	#include <ncurses/curses.h>
+    #include <ncursesw/ncurses.h>
 #endif
 #include <string.h>
 #include <time.h>
@@ -16,14 +16,28 @@
 #define KEY_EOT 0x04 /* CTRL+D */
 #define KEY_CTRL_W 0x17
 
+#ifdef _WIN32
+	#include <windows.h>
+	#include "win_api.h"
+#endif
+
 void ncurses_init(void)
 {
-    initscr();
-    raw();
+	initscr();
     noecho();
-    curs_set(0);
     keypad(stdscr, 1);
     start_color();
+	
+	#ifdef _WIN32
+		raw();
+		wtimeout(stdscr, 16);
+		show_console_cursor(0);
+		curs_set(0);
+		/*intrflush(stdscr, 0);*/
+	#else
+		raw();
+		curs_set(0);
+	#endif
 }
 
 int simple_select(int color_foreground, int color_background, int n_of_options, const char* const* options, char * selection_s, const char * pretext)
@@ -32,14 +46,21 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 	int i;
 	int selection=0;
 	int y_max;
-
 	ncurses_init();
 	init_pair(1, color_foreground, color_background);
 
-	while(ch != '\n')
+	y_max = getmaxy(stdscr);
+	while(ch != '\n') 
 	{
-	    clear();
-	    y_max = getmaxy(stdscr);
+		#ifdef _WIN32
+			COORD winsize;
+			if(check_console_window_resize_event(&winsize))
+			{
+				y_max = winsize.Y;
+				resize_term(y_max, winsize.X);
+				clear();
+			}
+		#endif
 
 		attron(COLOR_PAIR(1));
 		mvprintw(0, 0, "%s", pretext);
@@ -67,6 +88,8 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 		switch(ch)
 		{
 		    case KEY_RESIZE:
+				y_max = getmaxy(stdscr);
+				clear();
 				break;
 
 			case KEY_ETX:
@@ -74,17 +97,27 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 				strcpy(selection_s, "");
 				endwin();
 				printf("EOF/EOT received\n");
+				#ifdef _WIN32
+					show_console_cursor(1);
+				#endif
 				return -1;
 
 
 			case KEY_UP:
 			case KEY_LEFT:
-				selection = (selection - 1 + n_of_options) % n_of_options; break;
+				selection = (selection - 1 + n_of_options) % n_of_options; 
+				clear();
+				break;
 			case KEY_DOWN:
 			case KEY_RIGHT:
-				selection = (selection + 1) % n_of_options; break;
+				selection = (selection + 1) % n_of_options; 
+				clear();
+				break;
 			case '\n':
 				endwin();
+				#ifdef _WIN32
+					show_console_cursor(1);
+				#endif
 				break;
 
 			default:
@@ -135,10 +168,22 @@ void command_select(command_node *head, char *utype, char *username)
     init_color(10, 106*(1000/255), 90*(1000/255), 205*(1000/255));
     init_pair(2, COLOR_WHITE, 10);
     clear();
+
+	getmaxyx(stdscr, y_max, x_max);
     while(1)
     {
+		#ifdef _WIN32
+			COORD winsize;
+			if(check_console_window_resize_event(&winsize))
+			{
+				y_max = winsize.Y;
+				x_max = winsize.X;
+				resize_term(y_max, x_max);
+				clear();
+			}
+		#endif
+
 	   	refresh(); /* resumes ncurses mode  */
-        getmaxyx(stdscr, y_max, x_max);
 
         left_win = newwin(y_max, x_max/2, 0, 0);
         box(left_win, 0 ,0);
@@ -200,7 +245,7 @@ void command_select(command_node *head, char *utype, char *username)
 
         wrefresh(right_win);
 
-        ch = wgetch(left_win);
+        ch = getch();
 
         switch(ch)
         {
@@ -223,6 +268,7 @@ void command_select(command_node *head, char *utype, char *username)
                 break;
 
             case KEY_RESIZE:
+				getmaxyx(stdscr, y_max, x_max);
            		clear();
                 break;
 
@@ -272,7 +318,7 @@ void command_select(command_node *head, char *utype, char *username)
                         }
                         printf("\n");
                     }
-
+					scanf("\n");
                     call(cmd_list[selection], args, cmd_list[selection].n_of_args, utype);
                     free(args);
 
@@ -282,15 +328,20 @@ void command_select(command_node *head, char *utype, char *username)
                 }else
                 {
                     call(cmd_list[selection], varray_username, 1, utype);
-
+					getmaxyx(stdscr, y_max, x_max);
                     /*
-                     *
                      * Sets terminal to raw mode to immediately consume character, (default is cooked mode aka dont stop until EOL)
                      * This way the program can immediately continue after calling the function pointer, without showing the user funny characters, or having to go back to ncurses mode and the user misses the output from the function
-                     *
                      */
-                    raw();
-                    getch();
+					#ifndef _WIN32
+						raw();
+						getch();
+					#else 
+						/* well i dont care that much about ux on windows*/
+						printf("Press enter to continue\n");
+						curs_set(1);
+						getchar(); 
+					#endif
                 }
                 break;
 
@@ -501,6 +552,17 @@ int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int patien
         init_pair(2, COLOR_WHITE, 10);
         while(1)
         {
+			#ifdef _WIN32
+				COORD winsize;
+				if(check_console_window_resize_event(&winsize))
+				{
+					y_max = winsize.Y;
+					x_max = winsize.X;
+					resize_term(y_max, x_max);
+					clear();
+				}
+			#endif
+
        		refresh();
             getmaxyx(stdscr, y_max, x_max);
 
@@ -621,6 +683,17 @@ int config_editor(Config config, const char * path, const char * const * disallo
 	getmaxyx(stdscr, y_max, x_max);
 	while(1)
 	{
+		#ifdef _WIN32
+			COORD winsize;
+			if(check_console_window_resize_event(&winsize))
+			{
+				y_max = winsize.Y;
+				x_max = winsize.X;
+				resize_term(y_max, x_max);
+				clear();
+			}
+		#endif
+
 		refresh();
 
 		bkgd(COLOR_BLACK);
@@ -856,6 +929,17 @@ int text_editor(const char * path, int readonly)
 	clear();
 	while(1)
 	{
+		#ifdef _WIN32
+			COORD winsize;
+			if(check_console_window_resize_event(&winsize))
+			{
+				y_max = winsize.Y;
+				x_max = winsize.X;
+				resize_term(y_max, x_max);
+				clear();
+			}
+		#endif
+
 		Node = Head;
 		refresh();
 		curs_set(1);
@@ -870,6 +954,7 @@ int text_editor(const char * path, int readonly)
 				Node = Node->next;
 				y_offset--;
 			}
+			skip_to_current = 0;
 		}
 		else if(y_offset >= 0) /* if positive, just render n empty lines */
 		{
@@ -885,14 +970,9 @@ int text_editor(const char * path, int readonly)
 		while(Node != NULL && i < y_max -1)
 		{
 			if(Node == CurrentLine)
-			{
 				cur_y = i;
-				mvprintw(i, line_number_offset + LINE_NUMS_PADDING, "%s", Node->str);
-			}
-			else
-			{
-				mvprintw(i, line_number_offset + LINE_NUMS_PADDING, "%s", Node->str);
-			}
+			
+			mvprintw(i, line_number_offset + LINE_NUMS_PADDING, "%s", Node->str);
 			mvprintw(i, 0, "%d", i-y_offset);
 
 			Node = Node->next;
@@ -1129,7 +1209,7 @@ int text_editor(const char * path, int readonly)
 			default:
 				/* when str was parsed, it was allocated just enough for what it holds
 				 * so if the user wants to add anything, more memory needs to be allocated.
-				 * Also i really doubt that anyone will type so much that they run out of memory, so i'm not decreasing it on backspace
+				 * Also i really doubt that anyone will type so much that they run out of memory
 				 */
 				if((ch >= 32 && ch <= 126) && !readonly) /* printable ASCII */
 				{

@@ -4,6 +4,11 @@
 #include "../utils/utils.h"
 #include <time.h>
 
+/**
+ * @brief appointment slot
+ * We will assume that time_t is always non-negative, so we cast it to and fro unsigned long when reading and printing \n
+ * This means if the project is compiled or ran on 32bit windows, it will overflow on year 2106. 
+ */
 typedef struct
 {
     time_t start;

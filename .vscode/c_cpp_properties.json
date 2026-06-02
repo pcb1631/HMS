@@ -26,7 +26,8 @@
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE",
-                "_WIN32"
+                "_WIN32",
+                "NCURSES_STATIC"
             ],
             "compilerPath": "C:\\msys64\\ucrt64\\bin\\gcc.exe",
             "cStandard": "c89",
