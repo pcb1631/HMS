@@ -43,4 +43,5 @@ LineNode* file_to_LL_lines(const char * path, int * lines_out);
 void delete_node_LineLL(LineNode * Node);
 void dump_LineLL_to_file(LineNode * Head, const char * path);
 
+int count_digits(int n);
 #endif

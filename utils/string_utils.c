@@ -227,3 +227,18 @@ void realloc_string(char ** s, int n)
 		*s = new;
 	}
 }
+
+int count_digits(int n)
+{
+	int cnt = 0;
+	if(n == 0)
+		n = 1;
+	else
+		while(n != 0)
+		{
+			n /= 10;
+			cnt++;
+		}
+
+	return cnt;
+}

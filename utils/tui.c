@@ -2,6 +2,7 @@
 #include "globals.h"
 #include "string_utils.h"
 #include "utils.h"
+#include <algorithm>
 #include <stdio.h>
 #include <stdlib.h>
 #ifndef _WIN32
@@ -903,19 +904,9 @@ int text_editor(const char * path, int readonly)
 
 	if (Head == NULL)
 		return -1;
-	/* count digits of n to get offset, so i can print the line number on left side */
-	{
-		int temp = lines_n;
-		if(lines_n == 0)
-			line_number_offset = 1;
-		else
-			while(temp != 0)
-			{
-				temp /= 10;
-				line_number_offset++;
-			}
-		cur_x = line_number_offset + LINE_NUMS_PADDING;
-	}
+
+	line_number_offset = count_digits(lines_n);
+	cur_x = line_number_offset + LINE_NUMS_PADDING;
 
 
 	ncurses_init();
@@ -1072,18 +1063,9 @@ int text_editor(const char * path, int readonly)
 
 					if(Prev->str_n + CurrentLine->str_n > 0) /* realloc 0 gives you NULL pointer */
 					{
-						int temp = lines_n;
 						lines_n--;
-						line_number_offset = 0;
-						if(lines_n == 0)
-							line_number_offset = 1;
-						else
-							while(temp != 0)
-							{
-								temp /= 10;
-								line_number_offset++;
-							}
-
+						line_number_offset = count_digits(lines_n);
+						
 						realloc_string(&Prev->str, (
 							((Prev->str_n + CurrentLine->str_n + 1)/LINE_REALLOC_LIMIT) + 1) * LINE_REALLOC_LIMIT
 						);
@@ -1194,20 +1176,8 @@ int text_editor(const char * path, int readonly)
 
 				/* count digits of n to get offset, so i can print the line number on left side */
 				lines_n++;
-				{
-					int temp = lines_n;
-					line_number_offset = 0;
-					if(lines_n == 0)
-						line_number_offset = 1;
-					else
-						while(temp != 0)
-						{
-							temp /= 10;
-							line_number_offset++;
-						}
-
-					cur_x = line_number_offset + LINE_NUMS_PADDING;
-				}
+				line_number_offset = count_digits(lines_n);
+				cur_x = line_number_offset + LINE_NUMS_PADDING;
 
 			break;
 
