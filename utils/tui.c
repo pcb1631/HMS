@@ -2,6 +2,7 @@
 #include "globals.h"
 #include "string_utils.h"
 #include "utils.h"
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #ifndef _WIN32
@@ -893,7 +894,10 @@ int text_editor(const char * path, int readonly)
 	int lines_n, i, ch;
 	int y_offset = 0, x_offset = 0, cur_x = 0, cur_y = 0;
 	int x_max, y_max;
+
 	int line_number_offset=0;
+	#define X_LINE_OFF (line_number_offset + LINE_NUMS_PADDING)
+	
 	int true_x=0; /* where the operation of the string should happen */
 	int skip_to_current=0;
 
@@ -905,7 +909,7 @@ int text_editor(const char * path, int readonly)
 		return -1;
 
 	line_number_offset = count_digits(lines_n);
-	cur_x = line_number_offset + LINE_NUMS_PADDING;
+	cur_x = X_LINE_OFF;
 
 
 	ncurses_init();
@@ -925,7 +929,6 @@ int text_editor(const char * path, int readonly)
 		#endif
 
 		Node = Head;
-		refresh();
 		curs_set(1);
 
 		i=0;
@@ -955,15 +958,42 @@ int text_editor(const char * path, int readonly)
 		{
 			if(Node == CurrentLine)
 				cur_y = i;
-			
-			mvprintw(i, line_number_offset + LINE_NUMS_PADDING, "%s", Node->str);
-			mvprintw(i, 0, "%d", i-y_offset);
 
+			if(Node->str_n + X_LINE_OFF - x_offset > x_max-1) /* if out of bounds, add indicator like a linux pager */
+			{
+				int ii;
+				for(ii = x_offset; ii<Node->str_n; ii++)
+					mvaddch(i, ii + X_LINE_OFF - x_offset, Node->str[ii]);
+
+				attron(A_REVERSE);
+				mvaddch(i, x_max-1, '>');
+				attroff(A_REVERSE);
+			}
+			else
+			{	
+				int ii;
+				for(ii = x_offset; ii<Node->str_n; ii++)
+					mvaddch(i, ii + X_LINE_OFF - x_offset, Node->str[ii]);
+			}
+	
+			mvprintw(i, 0, "%d", i-y_offset);
+			if(x_offset > 0 && Node->str_n > 0)
+			{
+				
+				attron(A_REVERSE);
+				mvaddch(i, X_LINE_OFF-1, '<');
+				attroff(A_REVERSE);
+			}
+	
 			Node = Node->next;
 			i++;
 		}
-		true_x = cur_x - line_number_offset - LINE_NUMS_PADDING;
-		mvprintw(y_max-1, 0, "Press CTRL+W to save, CTRL+C to cancel. char:%d, line:%d   ", true_x, cur_y-y_offset /* yes, minus */);
+
+		
+		refresh();
+		
+		true_x = cur_x - X_LINE_OFF + x_offset;
+		mvprintw(y_max-1, 0, "CTRL+W Save CTRL+C cancel  %d,%d %#X %dx%d", true_x, cur_y-y_offset/* yes, minus */, CurrentLine->str[true_x], x_max, y_max);
 
 		move(cur_y, cur_x);
 		ch = getch();
@@ -996,11 +1026,23 @@ int text_editor(const char * path, int readonly)
 			return -1;
 
 			case KEY_HOME:
-				cur_x = LINE_NUMS_PADDING + line_number_offset;
+				cur_x = X_LINE_OFF;
+				x_offset = 0;
+				clear();
 			break;
 
 			case KEY_END:
-				cur_x = LINE_NUMS_PADDING + line_number_offset + CurrentLine->str_n;
+				if(CurrentLine->str_n < x_max - 1)
+				{
+					x_offset = 0;
+					cur_x = X_LINE_OFF + CurrentLine->str_n;
+				}
+				else /* offset such that the line legnth would be right under x_max */
+				{
+					x_offset = CurrentLine->str_n - (x_max - 1) + X_LINE_OFF;
+					cur_x = x_max - 1;
+				}
+				clear();
 			break;
 			
 			case KEY_UP:
@@ -1008,12 +1050,21 @@ int text_editor(const char * path, int readonly)
 					CurrentLine = CurrentLine->prev;
 
 				if (true_x > CurrentLine->str_n)
-					cur_x = CurrentLine->str_n + LINE_NUMS_PADDING + line_number_offset;
-
+				{
+					if(CurrentLine->str_n < x_max - 1)
+					{
+						x_offset = 0;
+						cur_x = X_LINE_OFF + CurrentLine->str_n;
+					}
+					else /* offset such that line would be right under x_max */
+					{
+						x_offset = CurrentLine->str_n - (x_max - 1) + X_LINE_OFF;
+						cur_x = x_max - 1;
+					}
+				}
 
 				if(cur_y == 0)
 					y_offset++;
-
 
 				clear();
 			break;
@@ -1023,7 +1074,18 @@ int text_editor(const char * path, int readonly)
 					CurrentLine = CurrentLine->next;
 
 				if (true_x > CurrentLine->str_n)
-					cur_x = CurrentLine->str_n + LINE_NUMS_PADDING + line_number_offset;
+				{
+					if(CurrentLine->str_n < x_max - 1)
+					{
+						x_offset = 0;
+						cur_x = X_LINE_OFF + CurrentLine->str_n;
+					}
+					else /* offset such that the line legnth would be right under x_max */
+					{
+						x_offset = CurrentLine->str_n - (x_max - 1) + X_LINE_OFF;
+						cur_x = x_max - 1;
+					}
+				}
 
 				if(cur_y == y_max-2)
 					y_offset--;
@@ -1035,12 +1097,24 @@ int text_editor(const char * path, int readonly)
 			break;
 
 			case KEY_LEFT:
-				if(true_x>0)
+				if(cur_x == X_LINE_OFF && true_x>0)
+				{
+					x_offset--; /* change in x_offset will also change the position on the stirng */
+					clear();
+				}
+				else if(true_x>0)
 					cur_x--;
+
+				if(x_offset<0)
+					x_offset = 0;
 			break;
 
 			case KEY_RIGHT:
-				if( cur_x < x_max && true_x < CurrentLine->str_n)
+				if(cur_x >= x_max - 1 && true_x < CurrentLine->str_n)
+				{
+					x_offset++;
+					clear();
+				}else if( cur_x < x_max && true_x < CurrentLine->str_n)
 					cur_x++;
 			break;
 
@@ -1058,7 +1132,7 @@ int text_editor(const char * path, int readonly)
 				if(true_x == 0 && CurrentLine->prev != NULL)
 				{
 					LineNode * Prev = CurrentLine->prev;
-					cur_x = Prev->str_n + line_number_offset + LINE_NUMS_PADDING;
+					cur_x = Prev->str_n + X_LINE_OFF;
 
 					if(Prev->str_n + CurrentLine->str_n > 0) /* realloc 0 gives you NULL pointer */
 					{
@@ -1160,7 +1234,7 @@ int text_editor(const char * path, int readonly)
 					CurrentLine->str[true_x] = '\0';
 					CurrentLine->str_n = true_x;
 
-					cur_x = line_number_offset + LINE_NUMS_PADDING;
+					cur_x = X_LINE_OFF;
 					CurrentLine = New;
 
 					clear();
@@ -1176,8 +1250,7 @@ int text_editor(const char * path, int readonly)
 				/* count digits of n to get offset, so i can print the line number on left side */
 				lines_n++;
 				line_number_offset = count_digits(lines_n);
-				cur_x = line_number_offset + LINE_NUMS_PADDING;
-
+				cur_x = X_LINE_OFF;
 			break;
 
 			case '\t':
@@ -1207,7 +1280,13 @@ int text_editor(const char * path, int readonly)
 					if(CurrentLine->str_n % LINE_REALLOC_LIMIT == 0)
 						realloc_string(&CurrentLine->str, CurrentLine->str_n + LINE_REALLOC_LIMIT);
 					string_insert(CurrentLine->str, ch, true_x);
-					cur_x++;
+					if(cur_x >= x_max -1)
+					{
+						x_offset++;
+						clear();
+					}
+					else 
+						cur_x++;
 				}
 			break;
 
