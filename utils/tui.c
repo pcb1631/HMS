@@ -896,7 +896,7 @@ int text_editor(const char * path, int readonly)
 	int x_max, y_max;
 
 	int line_number_offset=0;
-	#define X_LINE_OFF (line_number_offset + LINE_NUMS_PADDING)
+	#define PRINT_START_POS (line_number_offset + LINE_NUMS_PADDING)
 	
 	int true_x=0; /* where the operation of the string should happen */
 	int skip_to_current=0;
@@ -909,7 +909,7 @@ int text_editor(const char * path, int readonly)
 		return -1;
 
 	line_number_offset = count_digits(lines_n);
-	cur_x = X_LINE_OFF;
+	cur_x = PRINT_START_POS;
 
 
 	ncurses_init();
@@ -959,11 +959,11 @@ int text_editor(const char * path, int readonly)
 			if(Node == CurrentLine)
 				cur_y = i;
 
-			if(Node->str_n + X_LINE_OFF - x_offset > x_max-1) /* if out of bounds, add indicator like a linux pager */
+			if(Node->str_n + PRINT_START_POS - x_offset > x_max-1) /* if out of bounds, add indicator like a linux pager */
 			{
 				int ii;
 				for(ii = x_offset; ii<Node->str_n; ii++)
-					mvaddch(i, ii + X_LINE_OFF - x_offset, Node->str[ii]);
+					mvaddch(i, ii + PRINT_START_POS - x_offset, Node->str[ii]);
 
 				attron(A_REVERSE);
 				mvaddch(i, x_max-1, '>');
@@ -973,7 +973,7 @@ int text_editor(const char * path, int readonly)
 			{	
 				int ii;
 				for(ii = x_offset; ii<Node->str_n; ii++)
-					mvaddch(i, ii + X_LINE_OFF - x_offset, Node->str[ii]);
+					mvaddch(i, ii + PRINT_START_POS - x_offset, Node->str[ii]);
 			}
 	
 			mvprintw(i, 0, "%d", i-y_offset);
@@ -981,7 +981,7 @@ int text_editor(const char * path, int readonly)
 			{
 				
 				attron(A_REVERSE);
-				mvaddch(i, X_LINE_OFF-1, '<');
+				mvaddch(i, PRINT_START_POS-1, '<');
 				attroff(A_REVERSE);
 			}
 	
@@ -992,7 +992,7 @@ int text_editor(const char * path, int readonly)
 		
 		refresh();
 		
-		true_x = cur_x - X_LINE_OFF + x_offset;
+		true_x = cur_x - PRINT_START_POS + x_offset;
 		mvprintw(y_max-1, 0, "CTRL+W Save CTRL+C cancel  %d,%d %#X %dx%d", true_x, cur_y-y_offset/* yes, minus */, CurrentLine->str[true_x], x_max, y_max);
 
 		move(cur_y, cur_x);
@@ -1026,7 +1026,7 @@ int text_editor(const char * path, int readonly)
 			return -1;
 
 			case KEY_HOME:
-				cur_x = X_LINE_OFF;
+				cur_x = PRINT_START_POS;
 				x_offset = 0;
 				clear();
 			break;
@@ -1035,11 +1035,11 @@ int text_editor(const char * path, int readonly)
 				if(CurrentLine->str_n < x_max - 1)
 				{
 					x_offset = 0;
-					cur_x = X_LINE_OFF + CurrentLine->str_n;
+					cur_x = PRINT_START_POS + CurrentLine->str_n;
 				}
 				else /* offset such that the line legnth would be right under x_max */
 				{
-					x_offset = CurrentLine->str_n - (x_max - 1) + X_LINE_OFF;
+					x_offset = CurrentLine->str_n - (x_max - 1) + PRINT_START_POS;
 					cur_x = x_max - 1;
 				}
 				clear();
@@ -1054,11 +1054,11 @@ int text_editor(const char * path, int readonly)
 					if(CurrentLine->str_n < x_max - 1)
 					{
 						x_offset = 0;
-						cur_x = X_LINE_OFF + CurrentLine->str_n;
+						cur_x = PRINT_START_POS + CurrentLine->str_n;
 					}
 					else /* offset such that line would be right under x_max */
 					{
-						x_offset = CurrentLine->str_n - (x_max - 1) + X_LINE_OFF;
+						x_offset = CurrentLine->str_n - (x_max - 1) + PRINT_START_POS;
 						cur_x = x_max - 1;
 					}
 				}
@@ -1078,11 +1078,11 @@ int text_editor(const char * path, int readonly)
 					if(CurrentLine->str_n < x_max - 1)
 					{
 						x_offset = 0;
-						cur_x = X_LINE_OFF + CurrentLine->str_n;
+						cur_x = PRINT_START_POS + CurrentLine->str_n;
 					}
 					else /* offset such that the line legnth would be right under x_max */
 					{
-						x_offset = CurrentLine->str_n - (x_max - 1) + X_LINE_OFF;
+						x_offset = CurrentLine->str_n - (x_max - 1) + PRINT_START_POS;
 						cur_x = x_max - 1;
 					}
 				}
@@ -1097,7 +1097,7 @@ int text_editor(const char * path, int readonly)
 			break;
 
 			case KEY_LEFT:
-				if(cur_x == X_LINE_OFF && true_x>0)
+				if(cur_x == PRINT_START_POS && true_x>0)
 				{
 					x_offset--; /* change in x_offset will also change the position on the stirng */
 					clear();
@@ -1132,7 +1132,7 @@ int text_editor(const char * path, int readonly)
 				if(true_x == 0 && CurrentLine->prev != NULL)
 				{
 					LineNode * Prev = CurrentLine->prev;
-					cur_x = Prev->str_n + X_LINE_OFF;
+					cur_x = Prev->str_n + PRINT_START_POS;
 
 					if(Prev->str_n + CurrentLine->str_n > 0) /* realloc 0 gives you NULL pointer */
 					{
@@ -1234,7 +1234,7 @@ int text_editor(const char * path, int readonly)
 					CurrentLine->str[true_x] = '\0';
 					CurrentLine->str_n = true_x;
 
-					cur_x = X_LINE_OFF;
+					cur_x = PRINT_START_POS;
 					CurrentLine = New;
 
 					clear();
@@ -1250,7 +1250,7 @@ int text_editor(const char * path, int readonly)
 				/* count digits of n to get offset, so i can print the line number on left side */
 				lines_n++;
 				line_number_offset = count_digits(lines_n);
-				cur_x = X_LINE_OFF;
+				cur_x = PRINT_START_POS;
 			break;
 
 			case '\t':
