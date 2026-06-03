@@ -2,7 +2,6 @@
 #include "globals.h"
 #include "string_utils.h"
 #include "utils.h"
-#include <algorithm>
 #include <stdio.h>
 #include <stdlib.h>
 #ifndef _WIN32
