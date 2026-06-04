@@ -4,6 +4,7 @@
 #include "../utils/tui.h"
 #include "../utils/globals.h"
 #include "../utils/string_utils.h"
+#include <time.h>
 
 #ifdef _WIN32
     #include <ncursesw/ncurses.h>
@@ -165,4 +166,49 @@ Value tedit_test(void)
 	sprintf(path, "temp1.txt");
 
 	return make_int(text_editor(path, 0));
+}
+
+#include <sys/stat.h>
+Value doctor_diagnosis(void)
+{
+	const char * allowed[] = {"Patient", };
+	char path[256];
+	char patient[MAX_USERNAME_LEN];
+	char doctor[MAX_USERNAME_LEN];
+	char readable_time[80];
+	FILE * file;
+
+	time_t now = time(NULL);
+	struct tm * ts = localtime(&now);
+	 
+	strcpy(doctor, current_username);
+	user_select_menu(allowed, 1, patient);
+	
+	strftime(readable_time, sizeof(readable_time),"%Y_%m_%d_%H:%M:%S", ts);
+	ts = localtime(&now);
+	
+
+	/* make a folder for every doctor in the diag report dir, so doctors are only allowed to view their own diags */
+	sprintf(path, "./users/%s/diag_report/%s", patient, doctor); 
+	#ifdef _WIN32
+		mkdir(path);
+	#else
+		mkdir(path, 0755);
+	#endif
+	
+	sprintf(path, "./users/%s/diag_report/%s/diag_%s.txt", patient, doctor, readable_time);
+
+	file = fopen(path, "w");
+	if(file == NULL)
+	{
+		perror("doctor_diagnosis()");
+		return make_int(-1);
+	}
+
+	fprintf(file, "Doctor: %s %s", doctor, readable_time);
+	fclose(file);
+
+	text_editor(path, 0);
+	
+	return make_int(0);
 }

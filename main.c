@@ -55,6 +55,8 @@ int main(int argc, char ** argv)
 	/* COMMAND(function name, alias, permission, argument types) */
 	const command cmd_list[] = {
         COMMAND_NOARGS(doctor_booking_frontend, "Doctor Booking", "Doctor", "Booking options for doctors"),
+        COMMAND_NOARGS(doctor_diagnosis, "Write diagnosis", "Doctor", "Create a diagnosis report for a patient"),
+        
         COMMAND_NOARGS(patient_booking_frontend, "Patient Booking", "Patient", "Booking options for patients"),
 
         COMMAND_NOARGS(admin_view_cfg, "View users profile", "Admin", ""),

@@ -21,6 +21,9 @@ Usertype2:
   - path: "users/%s/profile.txt"
 ...
 @endcode
+
+**this is only intended to aid development and won't actually change where the program looks**
+  
 ./users contain folders of usernames, where each stores their own data
 
 
