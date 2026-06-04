@@ -44,4 +44,6 @@ void delete_node_LineLL(LineNode * Node);
 void dump_LineLL_to_file(LineNode * Head, const char * path);
 
 int count_digits(int n);
+
+int levenshtein_distance(const char* s, const char* t, int size_of_s, int size_of_t);
 #endif
