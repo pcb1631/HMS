@@ -175,4 +175,6 @@ const char * get_utype(const char * username);
 void wipe_stdin(void);
 
 void * clean_malloc(size_t size);
+
+char ** list_files_indir(const char * dir, int * n);
 #endif

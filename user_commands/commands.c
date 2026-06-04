@@ -185,7 +185,6 @@ Value doctor_diagnosis(void)
 	user_select_menu(allowed, 1, patient);
 	
 	strftime(readable_time, sizeof(readable_time),"%Y_%m_%d_%H:%M:%S", ts);
-	ts = localtime(&now);
 	
 
 	/* make a folder for every doctor in the diag report dir, so doctors are only allowed to view their own diags */
@@ -209,6 +208,48 @@ Value doctor_diagnosis(void)
 	fclose(file);
 
 	text_editor(path, 0);
+	
+	return make_int(0);
+}
+
+Value view_diagnosis_self_doc(void)
+{
+	const char * allowed[] = {"Patient", };
+	const char ** files;
+	int files_n = 0;
+	char file[256];
+	char patient[MAX_USERNAME_LEN];
+	char doctor[MAX_USERNAME_LEN];
+	char path[4096];
+	int i;
+	
+	user_select_menu(allowed, 1, patient);
+	strcpy(doctor, current_username);
+	sprintf(path, "./users/%s/diag_report/%s/", patient, doctor);
+
+	files = (const char **)list_files_indir(path, &files_n);
+	if(files == NULL)
+	{
+		perror("view_diagnosis()");
+		return make_int(-1);
+	}
+
+	clear();
+	if(simple_select(COLOR_YELLOW, COLOR_BLACK, files_n, files, file, "Diagnosis reports:") == -1)
+	{
+		for(i=0; i<files_n; i++)
+			free((void*) files[i]);
+		free(files);
+		return make_int(-1);
+	}
+
+	for(i=0; i<files_n; i++)
+		free((void*) files[i]);
+	free(files);
+
+	strcat(path, file);
+	text_editor(path, 1); 
+	
 	
 	return make_int(0);
 }

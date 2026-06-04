@@ -1,5 +1,6 @@
 #include "string_utils.h"
 #include "utils.h"
+#include <sys/stat.h>
 #ifndef _WIN32
 	#include <ncurses.h>
 #else
@@ -112,13 +113,23 @@ LineNode* file_to_LL_lines(const char * path, int * lines_out)
 	LineNode * Head = NULL;
 	LineNode * Node = new_LineNode();
 	LineNode * Prev = NULL;
+
 	if(file == NULL)
 	{
 		free(Node);
-		perror("text_editor()");
+		perror("file_to_LL_lines()");
+		return NULL;
+	}
+	
+	if(!is_file(path))
+	{
+		free(Node);
+		printf("%s is not a file\n", path);
 		return NULL;
 	}
 
+
+	
 	line = clean_malloc(LENGTH_PARSE_LIMIT * sizeof(char));
 	i=0;
 	while((ch = getc(file)) != EOF)

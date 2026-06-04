@@ -276,6 +276,49 @@ int is_file(const char * path) {
     return S_ISREG(path_stat.st_mode);
 }
 
+#include <dirent.h>
+
+char ** list_files_indir(const char * dir, int * n)
+{
+	int i = 0;
+	struct dirent *entry;
+	struct stat st;
+	
+	DIR *dp = opendir(dir); 
+	char path[1024];
+	
+	char ** list = malloc(sizeof(char *));
+	
+	if (dp == NULL) 
+	{
+		perror("Unable to open directory");
+		return NULL;
+	}
+
+	i=0;
+	while ((entry = readdir(dp)) != NULL) 
+	{
+		sprintf(path, "%s/%s", dir, entry->d_name);
+		if(stat(path, &st) == -1)
+		{
+			perror("stat()");
+			return NULL;
+		}
+
+		if(S_ISREG(st.st_mode))
+		{
+			list = realloc(list, (i+1) * sizeof(char *));
+			list[i] = malloc(256 * sizeof(char));
+			strcpy(list[i], entry->d_name);
+			i++;
+		}
+	}
+	
+	closedir(dp);
+	*n = i;
+	return list;	
+}
+
 void generate_file_structure(const char *role, const char *username)
 {
     FILE *fp;

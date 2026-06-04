@@ -1,14 +1,7 @@
-#include <stdio.h>
-#include <time.h>
+#include "utils/tui.h"
 
-int main(void)
+int main(int argc, char ** argv)
 {
-	time_t now = time(NULL);
-	struct tm * ts = localtime(&now);
-	char readable_time[80];
-
-	strftime(readable_time, sizeof(readable_time), "%Y-%m-%d %H:%M:%S", ts);
-
-	printf("%s\n", readable_time);
+	text_editor(argv[1], 0);
 	return 0;
 }

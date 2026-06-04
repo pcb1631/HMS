@@ -56,6 +56,8 @@ int main(int argc, char ** argv)
 	const command cmd_list[] = {
         COMMAND_NOARGS(doctor_booking_frontend, "Doctor Booking", "Doctor", "Booking options for doctors"),
         COMMAND_NOARGS(doctor_diagnosis, "Write diagnosis", "Doctor", "Create a diagnosis report for a patient"),
+        COMMAND_NOARGS(view_diagnosis_self_doc, "View diagnosis", "Doctor", "View diagnosis reports for a patient you wrote yrself"),
+
         
         COMMAND_NOARGS(patient_booking_frontend, "Patient Booking", "Patient", "Booking options for patients"),
 
@@ -254,16 +256,6 @@ int main(int argc, char ** argv)
                 Node = Node->next;
             }
         }
-
-
-        Node = head;
-        printf("utype: %s\n", current_utype);
-        while(Node != NULL)
-        {
-            printf("%s\n", Node->f.alias);
-            Node = Node->next;
-        }
-
 
         command_select(head, current_utype, current_username);
 
