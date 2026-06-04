@@ -2,6 +2,8 @@
 We make use of the ncurses library to create TUIs, in contrast to our previous python project where we had to manually deal with ANSI escape keys.
 \n This doesn't mean ncurses will abstract everything, it still requires knowledge of the terminal and how ncurses works. e.g. clear() triggers a full rerender to the next refresh() call, and refresh() restores previous settings (raw mode, noecho, keypad, etc)
 
+The proper pattern is to use an init function (ncurses handles state externally, so using a function is fine), call refresh() every loop, and call clear() if doing anything that leaves characters in ncurses's buffer (i.e. backspacing in text editor)
+
 
 \section cfg_editor Config editor
 TODO: we can be vague about the left side because im going to write about others above

@@ -46,7 +46,10 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 	int i;
 	int selection=0;
 	int y_max;
+	char search_buf[256] = "\0";
+	int leven_min = 2147483647;
 	ncurses_init();
+	curs_set(1);
 	init_pair(1, color_foreground, color_background);
 
 	y_max = getmaxy(stdscr);
@@ -61,7 +64,9 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 				clear();
 			}
 		#endif
-
+		
+		leven_min = 2147483647;
+		
 		attron(COLOR_PAIR(1));
 		mvprintw(0, 0, "%s", pretext);
 		attroff(COLOR_PAIR(1));
@@ -81,6 +86,8 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 				attroff(A_REVERSE);
 			attroff(COLOR_PAIR(1));
 		}
+
+		mvprintw(y_max-1, 0, "search: %s", search_buf);
 
 		refresh();
 		ch = getch();
@@ -114,7 +121,43 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 				endwin();
 				break;
 
+			case KEY_BACKSPACE:
+				if(strlen(search_buf)>0)
+				{
+					string_pop(search_buf, strlen(search_buf)-1);
+
+					for(i=0; i<n_of_options; i++) /* the option with the smallest leven dist with the search buffer, is the closest string */
+					{
+						int leven_dist = levenshtein_distance(search_buf, options[i], strlen(search_buf), strlen(options[i]));
+						if(leven_dist < leven_min)
+						{
+							leven_min = leven_dist;
+				 			selection = i;
+						}
+					}
+
+					clear();
+				}
+			break;
+				
 			default:
+				if(ch >= 32 AND ch <= 126) /* printable ASCII */
+				{
+					string_insert(search_buf, ch, strlen(search_buf));
+					
+					for(i=0; i<n_of_options; i++) /* the option with the smallest leven dist with the search buffer, is the closest string */
+					{
+						int leven_dist = levenshtein_distance(search_buf, options[i], strlen(search_buf), strlen(options[i]));
+						if(leven_dist < leven_min)
+						{
+							leven_min = leven_dist;
+				 			selection = i;
+						}
+					}
+
+					clear();
+				}
+
 				break;
 		}
 	}
