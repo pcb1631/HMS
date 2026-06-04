@@ -182,6 +182,16 @@ LineNode* file_to_LL_lines(const char * path, int * lines_out)
 
 	fclose(file);
 	*lines_out = lines_n;
+
+	if (Head == NULL)
+	{
+		Head = new_LineNode();
+		Head->str = clean_malloc(LENGTH_PARSE_LIMIT * sizeof(char));
+		Head->str[0] = '\0';
+		Head->str[1] = '\0';
+		Head->str_n = 0;
+		*lines_out = 1;
+	}
 	return Head;
 }
 

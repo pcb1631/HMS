@@ -1036,7 +1036,7 @@ int text_editor(const char * path, int readonly)
 		refresh();
 		
 		true_x = cur_x - PRINT_START_POS + x_offset;
-		mvprintw(y_max-1, 0, "CTRL+W Save CTRL+C cancel  %d,%d %#X %dx%d", true_x, cur_y-y_offset/* yes, minus */, CurrentLine->str[true_x], x_max, y_max);
+		mvprintw(y_max-1, 0, "CTRL+W Save CTRL+C cancel  %d,%d %#X %dx%d  %s", true_x, cur_y-y_offset/* yes, minus */, CurrentLine->str[true_x], x_max, y_max, path);
 
 		move(cur_y, cur_x);
 		ch = getch();
