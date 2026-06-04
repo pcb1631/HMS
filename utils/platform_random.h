@@ -19,7 +19,7 @@
  * @param buf String to store random bytes
  * @param n How many bytes
  */
-static int get_random_bytes(char * buf, int n)
+int get_random_bytes(char * buf, int n)
 {
     #ifdef _WIN32
         HCRYPTPROV prov;
