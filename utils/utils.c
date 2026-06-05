@@ -29,32 +29,6 @@ Value make_string(char * s)
     return v;
 }
 
-
-Value add(Value* list)
-{
-    printf("Result: %d", list[0].data.as_int + list[1].data.as_int);
-    getchar();
-	return make_int(list[0].data.as_int + list[1].data.as_int);
-}
-
-
-void print_list(Value* list, int n)
-{
-	int i;
-	for(i=0; i<n; i++)
-	{
-		switch (list[i].type)
-		{
-			case TYPE_INT:    	printf("int: %d\n",   list[i].data.as_int);    break;
-	        case TYPE_FLOAT:  	printf("float: %f\n", list[i].data.as_float);  break;
-	        case TYPE_STRING: 	printf("str: %s\n",   list[i].data.as_string); break;
-			case TYPE_BOOL:		printf("bool: %d\n",  list[i].data.as_bool);   break;
-			case TYPE_VOID:		printf("void \n"); 							   break;
-    	}
-	}
-}
-
-
 Value call(command f, Value * args, int n_of_args, char * perm)
 {
 	int i;
