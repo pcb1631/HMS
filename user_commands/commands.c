@@ -76,7 +76,32 @@ Value admin_view_cfg(void)
         };
 
     char username[MAX_USERNAME_LEN];
-    char path[128];
+    char path[256];
+    user_select_menu(allowed, 2, username);
+
+    if(strcmp(username, "")==0)
+    	return make_string("EOF/EOT");
+
+    sprintf(path, "./users/%s/profile.txt", username);
+    parse_config_file(path, &user);
+
+    printf("\n%s:\n", username);
+    print_cfg(user);
+    return make_string("OK");
+}
+
+Value director_view_cfg(void)
+{
+    Config user;
+    const char * allowed[] =
+        {
+            "Doctor",
+            "Nurse",
+            "Admin",
+        };
+
+    char username[MAX_USERNAME_LEN];
+    char path[256];
     user_select_menu(allowed, 2, username);
 
     if(strcmp(username, "")==0)
