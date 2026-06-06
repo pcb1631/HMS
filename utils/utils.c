@@ -1,5 +1,6 @@
 #include "utils.h"
 #include "string_utils.h"
+#include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -293,111 +294,164 @@ char ** list_files_indir(const char * dir, int * n)
 	return list;	
 }
 
+#define INDENT_SPACES 2
+#define EXT_SUFFIX ".txt" /* this wouldve been a lot easier if i didnt have to do this.. */
 void generate_file_structure(const char *role, const char *username)
 {
-    FILE *fp;
-    char line[512];
-    int in_role = 0;
-    char full_path[512];
-    char role_header[128];
-    FILE *out_fp = NULL;
-    char *start;
-    char *end;
-    char *key;
-    int len;
+	FILE * file , *out_file = NULL;
+	char line[2048]; /* max length in a line of a file is 2048, by POSIX standard */
+	char match[MAX_CONFIG_KEY_LEN];
+	int role_found = 0;
+	char path[256] = "\0";
+	int in_path = 0, in_type = 0, in_cont = 0;
+	char * type;
 
-    sprintf(full_path, "./users/%s/", username);
-    sprintf(role_header, "%s:", role);
+	Config cfg;
+	
+	file = fopen("./file_struct.yaml.txt", "r");
+	if(file == NULL)
+	{
+		perror("generate_file_structure()");
+		return;
+	}
 
-    fp = fopen("file_struct.yaml.txt", "r");
-    if (!fp) return;
+	/*check if theres top level key for role */
+	while(fgets(line, sizeof(line), file) != NULL)
+	{
+		sprintf(match, "%s:", role);
+		if(strstr(line, match)!=NULL)
+		{
+			role_found = 1;
+			break;
+		}
+	}
 
-    while (fgets(line, sizeof(line), fp))
-    {
-        if (line[0] != ' ' && line[0] != '\n' && line[0] != '\r')
-        {
-            if (strncmp(line, role_header, strlen(role_header)) == 0)
-                in_role = 1;
-            else
-                in_role = 0;
+	if(!role_found)
+	{
+		printf("Role %s not found\n", role);
+		return;
+	}
 
-            if (out_fp)
-            {
-                fclose(out_fp);
-                out_fp = NULL;
-            }
-            continue;
-        }
+	while(fgets(line, sizeof(line), file) != NULL)
+	{
+		int i;
+		int blank=1;
+		char * start, * end;
+		if(!isspace(line[INDENT_SPACES]))
+		{
+			if(out_file)
+			{
+				fclose(out_file);
+				out_file = NULL;
+			}
+			in_cont = 0;
+			cfg.count = 0;
+		}
 
-        if (in_role)
-        {
-            if (strstr(line, "- path:"))
-            {
-                if (out_fp)
-                {
-                    fclose(out_fp);
-                    out_fp = NULL;
-                }
-                start = strchr(line, '"');
-                if (start)
-                {
-                    end = strchr(start + 1, '"');
-                    if (end)
-                    {
-                        *end = '\0';
-                        sprintf(full_path, start + 1, username);
-                        len = strlen(full_path);
+		for(i=0; line[i]!='\0'; i++)
+			if(!isspace(line[i]))
+				blank=0;
+		if(blank)
+			continue;
+		
 
-                        if (path_exists(full_path))
-                        {
-                            printf("%s exists\n", full_path);
-                            continue;
-                        }
+		if(out_file && in_cont)
+		{
+			string_trim(line);
+			fprintf(out_file, "%s\n", line);
+			continue;
+		}
 
-                        if (len > 0 && full_path[len-1] == '/')
-                        {
-                            #ifdef _WIN32
-                            mkdir(full_path);
+		
+		if(!in_path)
+		{
+			in_path = 1;
+			if(strstr(line, "- path:") == NULL)
+			{
+				printf("Parse error: missing - path:\n");
+				return;
+			}
+	
+			start = strchr(line, '"');
+			end = strchr(start + 1, '"');
+			if(start == NULL || end == NULL)
+			{
+				printf("Parse error: need to enclose path string with \"\n");
+				return;
+			}
+	
+			*end = '\0';
+			/* string at start + 1 is a format string*/
+			sprintf(path, start+1, username);
+			in_type = 0;
+			continue;
+		}
 
-                            #else
-                            mkdir(full_path, 0755);
+		if(!in_type)
+		{
+			in_type = 1;
+			start = strstr(line, "type: ");
+			if(start == NULL)
+			{
+				printf("Parse error: missing type\n");
+				return;
+			}
+			type = start + strlen("type: ");
 
-                            #endif
-                        }
-                        else
-                        {
-                            out_fp = fopen(full_path, "w");
-                        }
-                    }
-                }
-            }
-            else if (strstr(line, "type: directory"))
-            {
-                /* Handled by trailing slash */
-            }
-            else if (strstr(line, "type: file") || strstr(line, "content:"))
-            {
-                /* Skip */
-            }
-            else if (out_fp && strstr(line, ":"))
-            {
-                key = line;
-                while (*key == ' ') key++;
-                if (*key != '\n' && *key != '\r' && *key != '\0')
-                {
-                    fputs(key, out_fp);
-                }
-            }
-        }
-    }
+			string_trim(type);
+			if(strcmp(type, "file") == 0)
+			{
+				if(!path_exists(path))
+				{
+					out_file = fopen(path, "w");
+					if(out_file == NULL)
+					{
+						perror("generate_file_structure()");
+						printf("attempted %s\n", path);
+						return;
+					}
+					printf("%s created\n", path);
+				}
+				else 
+				{
+					printf("%s exists, ignoring\n", path);
+				}
+				
+				in_cont = 1;
 
-    if (out_fp)
-    {
-        fclose(out_fp);
-    }
-
-    fclose(fp);
-    printf("OK\n");
+				if(fgets(line, sizeof(line), file) != NULL)
+					if(strstr(line, "content:") == NULL)
+					{
+						printf("type file must be followed by \"content:\"\n");
+						return;
+					}
+				continue;
+			}
+			else if(strcmp(type, "directory") == 0)
+			{
+				if(path_exists(path))
+					printf("%s exists\n", path);
+				else 
+					#ifdef _WIN32
+					mkdir(path);
+					#else
+					if(mkdir(path, 0755) == -1)
+					{
+						perror("generate_file_structure() dir %s");
+						return;
+					}
+					#endif
+				in_path = 0;
+				continue;
+			}
+			else 
+			{
+				printf("unknown type \"%s\"\n", type);
+				return;
+			}
+		}
+	}
+	fclose(file);
 }
 
 command_node* new_command_node(command f)

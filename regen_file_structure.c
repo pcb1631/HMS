@@ -21,37 +21,37 @@ signed main(void)
 
     for(i=0; i<n; i++)
     {
+        char current_username[64];
+        char current_utype[64];
+        Config cfg;
+        const char *val;
+        
         printf("%s\n", users.entries[i].key);
 
+        strcpy(current_username, users.entries[i].key);
+        sprintf(path, "./users/%s/profile.txt", current_username);
+        if (parse_config_file(path, &cfg) == 0)
         {
-            char current_username[64];
-            char current_utype[64];
-            Config cfg;
-            const char *val;
-
-            strcpy(current_username, users.entries[i].key);
-            sprintf(path, "./users/%s/profile.txt", current_username);
-            if (parse_config_file(path, &cfg) == 0)
+            val = get_config_value(&cfg, "USERTYPE");
+            if (val != NULL)
             {
-                val = get_config_value(&cfg, "USERTYPE");
-                if (val != NULL)
-                {
-                    strncpy(current_utype, val, sizeof(current_utype) - 1);
-                    current_utype[sizeof(current_utype) - 1] = '\0';
+                strncpy(current_utype, val, sizeof(current_utype) - 1);
+                current_utype[sizeof(current_utype) - 1] = '\0';
 
-                    generate_file_structure(current_utype, current_username);
-                }else
-                {
-                    fprintf(stderr, "Usertype is empty: %s\n", current_username);
-                    return 1;
-                }
-            }
-            else
+                generate_file_structure(current_utype, current_username);
+            }else
             {
-           		fprintf(stderr, "Profile is empty / failed to open file (%s)\n", current_username);
-             	return 1;
+                fprintf(stderr, "Usertype is empty: %s\n", current_username);
+                return 1;
             }
         }
+        else
+        {
+      		fprintf(stderr, "Profile is empty / failed to open file (%s)\n", current_username);
+           	return 1;
+        }
+        printf("\n");
+        
     }
     return 0;
 }

@@ -4,7 +4,6 @@ Admin:
   - path: "users/%s/prefs.txt"
     type: file
     content:
-      TUI:
 
 Director:
   - path: "users/%s/"
@@ -12,13 +11,13 @@ Director:
   - path: "users/%s/prefs.txt"
     type: file
     content:
-      TUI:
 
 Doctor:
   - path: "users/%s/"
     type: directory
   - path: "users/%s/bookings.csv.txt"
     type: file
+    content: 
   - path: "users/%s/prefs.txt"
     type: file
     content:
@@ -37,6 +36,7 @@ Patient:
   - path: "users/%s/"
     type: directory
   - path: "users/%s/diag_report/"
+    type: directory
   - path: "users/%s/notes/"
     type: directory
   - path: "users/%s/prefs.txt"
@@ -54,6 +54,7 @@ Patient:
       height:
   - path: "users/%s/payments.csv.txt"
     type: file
+    content:
 
 
 

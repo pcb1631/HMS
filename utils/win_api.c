@@ -1,4 +1,5 @@
 #include "win_api.h"
+#ifdef _WIN32
 #include <consoleapi2.h>
 #include <minwindef.h>
 #include <processenv.h>
@@ -81,4 +82,4 @@ int check_console_window_resize_event(COORD *info)
 
 
 
-
+#endif

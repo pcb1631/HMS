@@ -239,7 +239,6 @@ void realloc_string(char ** s, int n)
 	char * new = realloc(*s, n * sizeof(char));
 	if(new == NULL)
 	{
-		endwin();
 		perror("realloc_string()");
 		exit(1);
 	}

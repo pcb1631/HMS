@@ -2,4 +2,10 @@
   "ensure_final_newline_on_save": false,
   "remove_trailing_whitespace_on_save": false,
   "hard_tabs": true,
+  "languages": {
+    "C": {
+      "file_types": ["c", "h"]
+    }
+  },
+   
 }
