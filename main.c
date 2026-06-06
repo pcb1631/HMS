@@ -65,8 +65,8 @@ int main(int argc, char ** argv)
         COMMAND(make_user, "Create account", "Admin", makeuser_args, "Create accounts for patients, doctors, etc\n\n First arg is username,\n second arg is usertype (cAsE sEnSiTiVe)"),
         COMMAND_NOARGS(edit_profile_self_admin, "Edit your profile", "Admin", ""),
         COMMAND_NOARGS(tedit_test, "Text edit test", "Admin", ""),
-
-
+        COMMAND_NOARGS(admin_delete_user, "Delete user", "Admin", "Delete a user from cred file and DB folder"),
+        	
         COMMAND_NOARGS(nurse_view_booking, "View doctor's appointments", "Nurse", ""),
 	};
 

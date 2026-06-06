@@ -174,6 +174,46 @@ Value edit_profile_self_admin(void)
 	return make_int(config_editor(profile, path, disallow, 1));
 }
 
+Value admin_delete_user(void)
+{
+	user_login_t * users;
+	char username[MAX_USERNAME_LEN];
+	char path[512];
+	const char * allowed_utypes[] = 
+		{
+			"Doctor",
+			"Patient",
+			"Nurse"
+		};
+	
+	user_select_menu(allowed_utypes, 3, username);
+
+	sprintf(path, "%s/%s", DATABASE_PATH, "creds.txt");
+	load_users_from_file(path, &users);
+	if(lookup_user(username, &users) == NULL)
+	{
+		printf("%s not found\n", username);
+		return make_int(-1);
+	}
+	else
+	{
+		delete_user(username, &users);
+	}
+	save_users_to_file(path, &users);
+	
+	sprintf(path, "%s/%s", DATABASE_PATH, username);
+	
+	#ifdef _WIN32
+		#include "utils/win_api.h"
+		rm_rf_windows(path);
+	#else
+		rm_rf(path);
+	#endif
+
+	printf("Removed %s\n", username);
+	
+	return make_int(0);
+}
 
 void print_cfg(Config cfg)
 {

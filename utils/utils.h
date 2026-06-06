@@ -133,8 +133,6 @@ typedef struct {
     char value[MAX_CONFIG_VAL_LEN];
 } ConfigEntry;
 
-/**
- */
 typedef struct {
     ConfigEntry entries[MAX_CONFIG_ENTRIES];
     int count;
@@ -155,7 +153,7 @@ int parse_config_file(const char *filepath, Config *config);
  * @return Pointer to the value string, or NULL if not found
  */
 const char *get_config_value(const Config *config, const char *key);
-
+int delete_key_config(const char *key_d, Config *config);
 int dump_config_to_file(const Config config, const char* path);
 
 /**
@@ -177,4 +175,6 @@ void wipe_stdin(void);
 void * clean_malloc(size_t size);
 
 char ** list_files_indir(const char * dir, int * n);
+
+int rm_rf(const char* path);
 #endif

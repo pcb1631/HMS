@@ -20,4 +20,5 @@ Value edit_profile_self_admin(void);
 Value tedit_test(void);
 Value doctor_diagnosis(void);
 Value view_diagnosis_self_doc(void);
+Value admin_delete_user(void); 
 #endif

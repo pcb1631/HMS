@@ -80,6 +80,21 @@ int check_console_window_resize_event(COORD *info)
     return window_resized;
 }
 
+int rm_rf_windows(const char* path) 
+{
+    SHFILEOPSTRUCTA file_op = {0};
+    
+    /* double null termination for the api, for some rteason */
+    char double_null_path[MAX_PATH + 2] = {0};
+    snprintf(double_null_path, sizeof(double_null_path), "%s", path);
 
+    file_op.wFunc = FO_DELETE;
+    file_op.pFrom = double_null_path;
+    /* FOF_NOCONFIRMATION: suppress "Are you sure?" dialogs */
+    /* FOF_NO_UI: suppress progress dialogs and error popups */
+    file_op.fFlags = FOF_NOCONFIRMATION | FOF_NO_UI | FOF_SILENT;
+
+    return SHFileOperationA(&file_op) == 0; /* 0 on success */
+}
 
 #endif

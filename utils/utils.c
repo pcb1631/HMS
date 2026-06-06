@@ -1,3 +1,4 @@
+#define _XOPEN_SOURCE 500
 #include "utils.h"
 #include "string_utils.h"
 #include <ctype.h>
@@ -5,6 +6,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/stat.h>
+
 
 
 
@@ -194,6 +196,22 @@ int parse_config_file(const char * filepath, Config * config)
     return 0;
 }
 
+int delete_key_config(const char *key_d, Config *config)
+{
+    int i;
+    for (i = 0; i < config->count; i++) 
+        if (strcmp(config->entries[i].key, key_d) == 0) 
+        {
+            /* Shift everything after i one slot to the left */
+            int remaining = config->count - i - 1;
+            if (remaining > 0)
+                memmove(&config->entries[i], &config->entries[i + 1], remaining * sizeof(ConfigEntry));
+            config->count--;
+            return 0; /* found and deleted */
+        }
+    return -1; /* key not found */
+}
+
 const char *get_config_value(const Config * config, const char * key)
 {
     int i;
@@ -306,8 +324,6 @@ void generate_file_structure(const char *role, const char *username)
 	int in_path = 0, in_type = 0, in_cont = 0;
 	char * type;
 
-	Config cfg;
-	
 	file = fopen("./file_struct.yaml.txt", "r");
 	if(file == NULL)
 	{
@@ -345,7 +361,6 @@ void generate_file_structure(const char *role, const char *username)
 				out_file = NULL;
 			}
 			in_cont = 0;
-			cfg.count = 0;
 		}
 
 		for(i=0; line[i]!='\0'; i++)
@@ -510,3 +525,21 @@ void * clean_malloc(size_t size)
 	}
 	return thing;
 }
+
+#include <string.h>
+#ifndef _WIN32
+#include <ftw.h>
+int unlink_cb(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf)
+{
+    if(typeflag != FTW_D) 
+    {
+        return remove(fpath);
+    }
+    return 0;
+}
+
+int rm_rf(const char *path)
+{
+    return nftw(path, unlink_cb, 64, FTW_DEPTH | FTW_PHYS);
+}
+#endif

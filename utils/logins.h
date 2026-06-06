@@ -50,7 +50,7 @@ void add_user(const char *username, const char *password, user_login_t **logins)
  * @param logins Pointer to the hash table
  * @return Pointer to user_login_t if found, NULL otherwise
  */
-user_login_t *user(const char *username, user_login_t **logins);
+user_login_t *lookup_user(const char *username, user_login_t **logins);
 
 /**
  * @brief Delete a login by username
