@@ -8,6 +8,7 @@
 
 #ifdef _WIN32
     #include <ncursesw/ncurses.h>
+	#include "../utils/win_api.h"
 #else
     #include <ncurses.h>
 #endif
@@ -204,7 +205,6 @@ Value admin_delete_user(void)
 	sprintf(path, "%s/%s", DATABASE_PATH, username);
 	
 	#ifdef _WIN32
-		#include "utils/win_api.h"
 		rm_rf_windows(path);
 	#else
 		rm_rf(path);
@@ -249,7 +249,7 @@ Value doctor_diagnosis(void)
 	strcpy(doctor, current_username);
 	user_select_menu(allowed, 1, patient);
 	
-	strftime(readable_time, sizeof(readable_time),"%Y_%m_%d_%H:%M:%S", ts);
+	strftime(readable_time, sizeof(readable_time),"%Y-%m-%d_%H_%M_%S", ts);
 	
 
 	/* make a folder for every doctor in the diag report dir, so doctors are only allowed to view their own diags */
