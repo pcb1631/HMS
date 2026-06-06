@@ -177,7 +177,7 @@ Value edit_profile_self_admin(void)
 
 Value admin_delete_user(void)
 {
-	user_login_t * users;
+	user_login_t * users = NULL;
 	char username[MAX_USERNAME_LEN];
 	char path[512];
 	const char * allowed_utypes[] = 
@@ -202,11 +202,17 @@ Value admin_delete_user(void)
 	}
 	save_users_to_file(path, &users);
 	
-	sprintf(path, "%s/%s", DATABASE_PATH, username);
 	
-	#ifdef _WIN32
-		rm_rf_windows(path);
+	#ifdef _WIN32		
+	sprintf(path, "%s/%s", DATABASE_PATH, username);
+	if(rm_rf_windows(path) != 0)
+	{
+		perror("admin_delete_user()");
+		return make_int(-1);
+	}
+	
 	#else
+		sprintf(path, "%s/%s", DATABASE_PATH, username);
 		rm_rf(path);
 	#endif
 
