@@ -60,6 +60,7 @@ int main(int argc, char ** argv)
 
         
         COMMAND_NOARGS(patient_booking_frontend, "Patient Booking", "Patient", "Booking options for patients"),
+        COMMAND_NOARGS(edit_profile_self_patient, "Edit your profile", "Patient", ""),
 
         COMMAND_NOARGS(admin_view_cfg, "View users profile", "Admin", ""),
         COMMAND(make_user, "Create account", "Admin", makeuser_args, "Create accounts for patients, doctors, etc\n\n First arg is username,\n second arg is usertype (cAsE sEnSiTiVe)"),

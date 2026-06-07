@@ -17,6 +17,7 @@ void user_select_menu(const char * const * allowed_utypes, int allowed_n, char *
 Value admin_view_cfg(void);
 void print_cfg(Config cfg);
 Value edit_profile_self_admin(void);
+Value edit_profile_self_patient(void);
 Value tedit_test(void);
 Value doctor_diagnosis(void);
 Value view_diagnosis_self_doc(void);

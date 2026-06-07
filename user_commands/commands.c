@@ -158,6 +158,21 @@ void user_select_menu(const char * const * allowed_utypes, int allowed_n, char *
     free(options);
 }
 
+Value edit_profile_self_patient(void)
+{
+	char path[256];
+	char username[MAX_USERNAME_LEN];
+	const char* disallow[] = {"USERTYPE", "blood_type", "height"};
+	Config profile;
+
+	strcpy(username, current_username);
+	sprintf(path, "./users/%s/profile.txt", username);
+
+	parse_config_file(path, &profile);
+
+	return make_int(config_editor(profile, path, disallow, sizeof(disallow)/sizeof(char *)));
+}
+
 Value edit_profile_self_admin(void)
 {
 	char path[256];
@@ -167,8 +182,6 @@ Value edit_profile_self_admin(void)
 
 	strcpy(username, current_username);
 	sprintf(path, "./users/%s/profile.txt", username);
-
-
 
 	parse_config_file(path, &profile);
 
