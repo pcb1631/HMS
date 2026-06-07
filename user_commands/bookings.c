@@ -219,9 +219,6 @@ Value nurse_view_booking(void)
     parse_slots(selected_doctor, slots, &slots_n);
     select_slot = booking_slot_view(slots, slots_n, selected_doctor, 0);
 
-    if(select_slot == -1)
-        return make_string("Booking slots empty");
-
     return make_string("OK");
 }
 

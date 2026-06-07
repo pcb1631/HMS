@@ -353,6 +353,9 @@ void generate_file_structure(const char *role, const char *username)
 		int i;
 		int blank=1;
 		char * start, * end;
+		if(!isspace(line[0]))
+			return; /* end at the next top level key */
+		
 		if(!isspace(line[INDENT_SPACES]))
 		{
 			if(out_file)
@@ -361,6 +364,7 @@ void generate_file_structure(const char *role, const char *username)
 				out_file = NULL;
 			}
 			in_cont = 0;
+			in_path = 0;
 		}
 
 		for(i=0; line[i]!='\0'; i++)
@@ -375,6 +379,10 @@ void generate_file_structure(const char *role, const char *username)
 			string_trim(line);
 			fprintf(out_file, "%s\n", line);
 			continue;
+		}
+		else if(!out_file && in_cont)
+		{
+			
 		}
 
 		

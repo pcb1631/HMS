@@ -55,6 +55,8 @@ Patient:
   - path: "users/%s/payments.csv.txt"
     type: file
     content:
+  - path: "users/%s/complaints/"
+    type: directory
 
 
 
