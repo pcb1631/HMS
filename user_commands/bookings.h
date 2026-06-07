@@ -18,7 +18,6 @@ typedef struct
 }Slot;
 
 
-void view_slots(char * username);
 Value doctor_booking_frontend(void);
 Value patient_booking_frontend(void);
 Value nurse_view_booking(void);

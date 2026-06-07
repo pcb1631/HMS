@@ -31,7 +31,6 @@ void parse_slots(const char * doctor, Slot * slots, int * slots_n)
         printf("Error opening file for reading! %s\n", filepath);
     }
 
-
     while (fscanf(sl, "%lu,%lu,%49[^,],%49s", &ustart, &uend, slots[i].venue, slots[i].patient) == 4) 
         i++;
 
@@ -40,6 +39,13 @@ void parse_slots(const char * doctor, Slot * slots, int * slots_n)
 
     *slots_n = i;
     fclose(sl);
+}
+
+void del_slot(Slot * slots, int pos, int n)
+{
+	int remaining = n - pos - 1;
+	if(remaining > 0)
+		memmove(&slots[pos], &slots[pos+1], remaining * sizeof(Slot));
 }
 
 void write_to_file_booking(const char * doctor, Slot * slots, int slots_n)
@@ -77,16 +83,27 @@ Value doctor_booking_frontend(void)
 {
     char username[64];
     int select_d;
+    int select_slot;
     char select_c[64];
+    Slot slots[MAX_SLOTS];
+    int slots_n;
+    time_t newtime;
+    
     const char * options[] =
     {
         "Add slot",
         "View slots",
         "Edit slots",
-        "Generate slots for this week"
+    };
+    const char * edit_options[] = 
+    {
+    	"delete",
+     	"edit time",
+      	"remove patient",
     };
     strcpy(username, current_username);
 
+    parse_slots(username, slots, &slots_n);
 
     clear();
     select_d = simple_select(COLOR_BLUE, COLOR_BLACK, sizeof(options)/sizeof(char *), options, select_c, "Doctor booking options");
@@ -97,16 +114,47 @@ Value doctor_booking_frontend(void)
     {
         case 0:
         add_slot(username);
-        break;
+        return make_int(0);
 
         case 1:
-        view_slots(username);
-        break;
+        booking_slot_view(slots, slots_n, username, 0);
+        return make_int(0);;
 
-        default:
+        case 2:
+        select_slot = booking_slot_view(slots, slots_n, username, 0);
         break;
+        
+        default:
+        return make_int(0);
     }
 
+    if(select_d == 2)
+    	select_d = simple_select(COLOR_YELLOW, COLOR_BLACK, 3, edit_options, select_c, "for this slot:");
+    
+    switch (select_d) 
+    {
+		case -1:
+    	return make_int(-1);
+
+     	case 0:
+  		del_slot(slots, select_slot, slots_n);
+	   	write_to_file_booking(username, slots, slots_n);
+	    printf("deleted slot from your appointments\n");
+     	break;
+      
+      	case 1:
+		slots[select_slot].start = time_picker("Start time", COLOR_YELLOW, COLOR_BLACK, slots[select_slot].start);
+		slots[select_slot].start = time_picker("End time", COLOR_YELLOW, COLOR_BLACK, slots[select_slot].start);
+		write_to_file_booking(username, slots, slots_n);
+		printf("changed time of slot %d\n", select_slot);
+		break;
+		
+       	case 2:
+        strcpy(slots[select_slot].patient, "NULL");
+        write_to_file_booking(username, slots, slots_n);
+        printf("removed patient from slot %d\n", select_slot);
+        break;
+    }
 
     return make_int(0);
 }
@@ -154,44 +202,6 @@ void add_slot(char * username)
     printf("Slot added successfully!\n");
 }
 
-void view_slots(char * username)
-{
-    char readable_start[80];
-    char readable_end[80];
-    struct tm * start_tm, * end_tm;
-    Slot slot;
-    unsigned long ustart, uend;
-
-    char filepath[256];
-    FILE *sl;
-    sprintf(filepath, "./users/%s/bookings.csv.txt", username);
-    sl = fopen(filepath, "r");
-
-    if (sl == NULL)
-    {
-        printf("Error opening file for reading!\n");
-        return;
-    }
-
-    printf("\n--- Current Slots ---\n\n");
-    while (fscanf(sl, "%lu,%lu,%49[^,],%49s", &ustart, &uend, slot.venue, slot.patient) == 4)
-    {
-        slot.start = (time_t)ustart;
-        slot.end   = (time_t)uend;
-
-        start_tm = localtime(&slot.start);
-        end_tm =   localtime(&slot.end);
-        strftime(readable_start, sizeof(readable_start),"%Y-%m-%d %H:%M:%S", start_tm);
-        strftime(readable_end, sizeof(readable_end),"%Y-%m-%d %H:%M:%S", end_tm);
-        printf("start: %s, end: %s, venue: %s, patient: %s\n\n", readable_start, readable_end, slot.venue, slot.patient);
-    }
-
-
-
-    fclose(sl);
-    printf("----------------------\n");
-}
-
 Value nurse_view_booking(void)
 {
     const char * allowed_utype[] =
@@ -199,7 +209,6 @@ Value nurse_view_booking(void)
         "Doctor"
     };
     char selected_doctor[64] = "";
-    int select_slot;
     Slot slots[128];
     int slots_n;
 
@@ -217,7 +226,7 @@ Value nurse_view_booking(void)
 
 
     parse_slots(selected_doctor, slots, &slots_n);
-    select_slot = booking_slot_view(slots, slots_n, selected_doctor, 0);
+    booking_slot_view(slots, slots_n, selected_doctor, 0);
 
     return make_string("OK");
 }
@@ -260,7 +269,7 @@ Value patient_booking_frontend(void)
     if(select_slot == -1)
         return make_string("Booking slots empty");
 
-    erase();
+    clear();
     if(strcmp(slots[select_slot].patient, username) == 0)
     {
         select_option = simple_select(COLOR_CYAN, COLOR_BLACK, 2, booked_options, select_s, "Slot booked by you");
