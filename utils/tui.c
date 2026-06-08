@@ -38,6 +38,7 @@ void ncurses_init(void)
 		raw();
 		curs_set(0);
 	#endif
+	clear();
 }
 
 int simple_select(int color_foreground, int color_background, int n_of_options, const char* const* options, char * selection_s, const char * pretext)

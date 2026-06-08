@@ -140,13 +140,14 @@ Value doctor_booking_frontend(void)
 
 		case 0:
 		del_slot(slots, select_slot, slots_n);
+		slots_n--;
 		write_to_file_booking(username, slots, slots_n);
 		printf("deleted slot from your appointments\n");
 		break;
 	  
 		case 1:
 		slots[select_slot].start = time_picker("Start time", COLOR_YELLOW, COLOR_BLACK, slots[select_slot].start);
-		slots[select_slot].start = time_picker("End time", COLOR_YELLOW, COLOR_BLACK, slots[select_slot].start);
+		slots[select_slot].end = time_picker("End time", COLOR_YELLOW, COLOR_BLACK, slots[select_slot].end);
 		write_to_file_booking(username, slots, slots_n);
 		printf("changed time of slot %d\n", select_slot);
 		break;
