@@ -25,8 +25,20 @@ void string_insert(char * str, char ins, int pos);
  *
  */
 char** file_to_strings(const char * path, int * lines_out);
+
+/**
+ * @brief removes whitespace at end of string
+ */
 void trim_trailing(char *str);
+
+/**
+ * @brief removes whitespace at start and end of string
+ */
 void string_trim(char * s);
+
+/**
+ * @brief Pass the pointer to the char pointer to realloc 
+ */
 void realloc_string(char ** s, int n);
 
 typedef struct LineNode LineNode;
@@ -37,9 +49,21 @@ struct LineNode
 	LineNode * prev;
 	LineNode * next;
 };
+
+/**
+ * @brief Allocs and initializes a LineNode
+ */
 LineNode* new_LineNode(void);
+
+/**
+ * @brief Frees an entire Line LL
+ */
 void free_LineLL(LineNode * Head);
 LineNode* file_to_LL_lines(const char * path, int * lines_out);
+
+/**
+ * @brief Frees node and stitches back prev and next 
+ */
 void delete_node_LineLL(LineNode * Node);
 void dump_LineLL_to_file(LineNode * Head, const char * path);
 

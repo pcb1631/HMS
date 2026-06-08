@@ -342,7 +342,7 @@ Value view_diagnosis_self_doc(void)
 	{
 		sprintf(path, "./users/%s/diag_report/%s/%s", patient, doctor, file);
 		clear();
-		text_editor(path, 0);
+		text_editor(path, 1);
 		clear();
 	}
 	

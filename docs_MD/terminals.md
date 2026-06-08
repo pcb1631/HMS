@@ -39,7 +39,8 @@ The program already does `reset` first just in case (This stops the terminal on 
 	- On some distros/macOS, xterm sends `^H` on backspace, but terminals nowadays use `^?` instead. Thus `^H` might show up during scanf 
 		```bash
 			stty erase '^H' # sets the erase char to ^H
-	```
+		```
+	tip: you can do `stty -a` to view current terminal settings. Doing CTRL+V before inputting a key (or key combo) will let you see what the terminal interprets it as
 -# xfce4-terminal
 	- Good
 -# Alacritty

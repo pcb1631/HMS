@@ -1120,7 +1120,7 @@ int text_editor(const char * path, int readonly)
 				clear();
 			break;
 
-			case KEY_DOWN: /* point to next pointer or scroll down*/
+			case KEY_DOWN: 
 				if(CurrentLine->next != NULL)
 					CurrentLine = CurrentLine->next;
 
@@ -1180,12 +1180,14 @@ int text_editor(const char * path, int readonly)
 					CurrentLine->str_n--;
 				}
 
-				if(true_x == 0 && CurrentLine->prev != NULL)
+				/* backspacing at start will combine current line with prev*/
+				if(true_x == 0 && CurrentLine->prev != NULL) 
 				{
 					LineNode * Prev = CurrentLine->prev;
 					cur_x = Prev->str_n + PRINT_START_POS;
 
-					if(Prev->str_n + CurrentLine->str_n > 0) /* realloc 0 gives you NULL pointer */
+					/* becuz realloc 0 gives you NULL pointer */
+					if((Prev->str_n + CurrentLine->str_n) > 0) 
 					{
 						lines_n--;
 						line_number_offset = count_digits(lines_n);
