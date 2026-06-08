@@ -31,11 +31,13 @@ void parse_slots(const char * doctor, Slot * slots, int * slots_n)
 		printf("Error opening file for reading! %s\n", filepath);
 	}
 
-	while (fscanf(sl, "%lu,%lu,%49[^,],%49s", &ustart, &uend, slots[i].venue, slots[i].patient) == 4) 
+	while (fscanf(sl, "%lu,%lu,%49[^,],%49s", &ustart, &uend, slots[i].venue, slots[i].patient) == 4)
+	{
+		slots[i].start = (time_t)ustart;
+		slots[i].end   = (time_t)uend;
 		i++;
+	}
 
-	slots[i].start = (time_t)ustart;
-	slots[i].end   = (time_t)uend;
 
 	*slots_n = i;
 	fclose(sl);
@@ -87,7 +89,6 @@ Value doctor_booking_frontend(void)
 	char select_c[64];
 	Slot slots[MAX_SLOTS];
 	int slots_n;
-	time_t newtime;
 	
 	const char * options[] =
 	{
@@ -128,6 +129,7 @@ Value doctor_booking_frontend(void)
 		return make_int(0);
 	}
 
+	clear();
 	if(select_d == 2)
 		select_d = simple_select(COLOR_YELLOW, COLOR_BLACK, 3, edit_options, select_c, "for this slot:");
 	
