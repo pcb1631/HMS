@@ -106,7 +106,6 @@ Value doctor_booking_frontend(void)
 
 	parse_slots(username, slots, &slots_n);
 
-	clear();
 	select_d = simple_select(COLOR_BLUE, COLOR_BLACK, sizeof(options)/sizeof(char *), options, select_c, "Doctor booking options");
 	if (select_d == -1)
 		return make_string("EOF/EOT");
@@ -129,7 +128,6 @@ Value doctor_booking_frontend(void)
 		return make_int(0);
 	}
 
-	clear();
 	if(select_d == 2)
 		select_d = simple_select(COLOR_YELLOW, COLOR_BLACK, 3, edit_options, select_c, "for this slot:");
 	
