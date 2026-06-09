@@ -1,8 +1,10 @@
 #ifndef COMPLAINTS_H
 #define COMPLAINTS_H
+#include "../utils/utils.h"
 
 void viewComplaints(void);
 void searchComplaint(const char *searchID);
+Value create_complaint(void);
 
 #define MAX_NAME 50
 #define MAX_ID 15

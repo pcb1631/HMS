@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "user_commands/complaints.h"
 #include "utils/globals.h"
 #include "utils/logins.h"
 #include "utils/utils.h"
@@ -61,6 +62,7 @@ int main(int argc, char ** argv)
         
         COMMAND_NOARGS(patient_booking_frontend, "Patient Booking", "Patient", "Booking options for patients"),
         COMMAND_NOARGS(edit_profile_self_patient, "Edit your profile", "Patient", ""),
+        COMMAND_NOARGS(create_complaint, "Create complaint", "Patient", "Spill the tea sis"),
 
         COMMAND_NOARGS(admin_view_cfg, "View users profile", "Admin", ""),
         COMMAND(make_user, "Create account", "Admin", makeuser_args, "Create accounts for patients, doctors, etc\n\n First arg is username,\n second arg is usertype (cAsE sEnSiTiVe)"),

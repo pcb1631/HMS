@@ -256,7 +256,6 @@ Value tedit_test(void)
 #include <sys/stat.h>
 Value doctor_diagnosis(void)
 {
-	int i;
 	const char * allowed[] = {"Patient", };
 	char filename[256];
 	char path[4096];
@@ -281,18 +280,15 @@ Value doctor_diagnosis(void)
 	#else
 		mkdir(path, 0755);
 	#endif
-	sprintf(path, "./users/%s/diag_report/%s/diag_%s.txt", patient, doctor, readable_time);
 
 	printf("Enter filename (or leave empty to just use current time)\n");
 	fgets(filename, 256, stdin);
 	string_trim(filename);
 
-	for(i=0; i<(int)strlen(filename); i++)
-		if(!isspace(filename[i]))
-		{
-			sprintf(path, "./users/%s/diag_report/%s/%s.txt", patient, doctor, filename);
-			break;
-		}
+	if(isempty(filename))
+		sprintf(path, "./users/%s/diag_report/%s/diag_%s.txt", patient, doctor, readable_time);
+	else
+		sprintf(path, "./users/%s/diag_report/%s/%s.txt", patient, doctor, filename);
 
 	if(!path_exists(path)) /* if the file exists, do not overwrit e */
 	{
