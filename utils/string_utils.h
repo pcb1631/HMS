@@ -36,6 +36,7 @@ void trim_trailing(char *str);
  */
 void string_trim(char * s);
 
+int isempty(char * s);
 /**
  * @brief Pass the pointer to the char pointer to realloc 
  */

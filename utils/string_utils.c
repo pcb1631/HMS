@@ -311,3 +311,16 @@ int levenshtein_distance(const char* s, const char* t, int m, int n)
     free(v0); free(v1);
     return result;
 }
+
+int isempty(char * s)
+{
+	int i=0;
+	while(s[i]!='\0')
+	{
+		if(!isspace(s[i]))
+			return 0;
+		i++;
+	}
+
+	return 1;
+}
