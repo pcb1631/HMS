@@ -70,7 +70,6 @@ Value make_user(Value * list)
 
 Value admin_view_cfg(void)
 {
-    Config user;
     const char * allowed[] =
         {
             "Doctor",
@@ -85,16 +84,12 @@ Value admin_view_cfg(void)
     	return make_string("EOF/EOT");
 
     sprintf(path, "./users/%s/profile.txt", username);
-    parse_config_file(path, &user);
-
-    printf("\n%s:\n", username);
-    print_cfg(user);
+    text_editor(path, 1);
     return make_string("OK");
 }
 
 Value director_view_cfg(void)
 {
-    Config user;
     const char * allowed[] =
         {
             "Doctor",
@@ -110,10 +105,7 @@ Value director_view_cfg(void)
     	return make_string("EOF/EOT");
 
     sprintf(path, "./users/%s/profile.txt", username);
-    parse_config_file(path, &user);
-
-    printf("\n%s:\n", username);
-    print_cfg(user);
+    text_editor(path, 1);
     return make_string("OK");
 }
 
