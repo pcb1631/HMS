@@ -2,14 +2,14 @@ Admin:
   - path: "users/%s/"
     type: directory
   - path: "users/%s/prefs.txt"
-    type: file
+    type: KV file
     content:
 
 Director:
   - path: "users/%s/"
     type: directory
   - path: "users/%s/prefs.txt"
-    type: file
+    type: KV file
     content:
 
 Doctor:
@@ -19,11 +19,11 @@ Doctor:
     type: file
     content: 
   - path: "users/%s/prefs.txt"
-    type: file
+    type: KV file
     content:
       TUI:
   - path: "users/%s/profile.txt"
-    type: file
+    type: KV file
     content:
       USERTYPE: Doctor
       first_name:
@@ -40,11 +40,11 @@ Patient:
   - path: "users/%s/notes/"
     type: directory
   - path: "users/%s/prefs.txt"
-    type: file
+    type: KV file
     content:
       TUI:
   - path: "users/%s/profile.txt"
-    type: file
+    type: KV file
     content:
       USERTYPE: Patient
       first_name:
@@ -64,11 +64,11 @@ Nurse:
   - path: "users/%s/"
     type: directory
   - path: "users/%s/prefs.txt"
-    type: file
+    type: KV file
     content:
       TUI:
   - path: "users/%s/profile.txt"
-    type: file
+    type: KV file
     content:
       USERTYPE: Nurse
       first_name:

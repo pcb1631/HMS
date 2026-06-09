@@ -212,14 +212,14 @@ int delete_key_config(const char *key_d, Config *config)
     return -1; /* key not found */
 }
 
-const char *get_config_value(const Config * config, const char * key)
+char *get_config_value(const Config * config, const char * key)
 {
     int i;
     if (config == NULL || key == NULL) return NULL;
 
     for (i = 0; i < config->count; i++) {
         if (strcmp(config->entries[i].key, key) == 0) {
-            return config->entries[i].value;
+            return (char *)config->entries[i].value;
         }
     }
     return NULL;
@@ -321,9 +321,11 @@ void generate_file_structure(const char *role, const char *username)
 	char match[MAX_CONFIG_KEY_LEN];
 	int role_found = 0;
 	char path[256] = "\0";
-	int in_path = 0, in_type = 0, in_cont = 0;
+	int in_path = 0, in_type = 0, in_cont = 0, in_cont_KV = 0;
 	char * type;
+	Config cfg_orig;
 
+	
 	file = fopen("./file_struct.yaml.txt", "r");
 	if(file == NULL)
 	{
@@ -350,8 +352,6 @@ void generate_file_structure(const char *role, const char *username)
 
 	while(fgets(line, sizeof(line), file) != NULL)
 	{
-		int i;
-		int blank=1;
 		char * start, * end;
 		if(!isspace(line[0]))
 			return; /* end at the next top level key */
@@ -364,15 +364,13 @@ void generate_file_structure(const char *role, const char *username)
 				out_file = NULL;
 			}
 			in_cont = 0;
+			in_cont_KV = 0;
 			in_path = 0;
 		}
 
-		for(i=0; line[i]!='\0'; i++)
-			if(!isspace(line[i]))
-				blank=0;
-		if(blank)
+
+		if(isempty(line))
 			continue;
-		
 
 		if(out_file && in_cont)
 		{
@@ -380,11 +378,33 @@ void generate_file_structure(const char *role, const char *username)
 			fprintf(out_file, "%s\n", line);
 			continue;
 		}
-		else if(!out_file && in_cont)
-		{
-			
-		}
 
+		if(out_file && in_cont_KV)
+		{
+			char *eq, *key, *val, *origval;
+			eq = strchr(line, '=');
+			if(eq == NULL)
+				eq = strchr(line, ':');
+			if(eq == NULL)
+			{
+				printf("invalid KV format");
+				return;
+			}
+			*eq = '\0';
+			key = line;
+			val = eq + 1;
+			string_trim(key);
+			string_trim(val);
+
+			/* preserve existing values*/
+			origval = get_config_value(&cfg_orig, key);
+			if(origval == NULL)
+				fprintf(out_file, "%s: %s\n", key, val);
+			else
+				fprintf(out_file, "%s: %s\n", key, origval);
+			/* but fields that arent in content will be removed */
+		}
+		
 		
 		if(!in_path)
 		{
@@ -441,6 +461,36 @@ void generate_file_structure(const char *role, const char *username)
 				}
 				
 				in_cont = 1;
+
+				if(fgets(line, sizeof(line), file) != NULL)
+					if(strstr(line, "content:") == NULL)
+					{
+						printf("type file must be followed by \"content:\"\n");
+						return;
+					}
+				continue;
+			}
+			else if(strcmp(type, "KV file") == 0)
+			{
+				if(path_exists(path))
+				{
+					printf("%s touching\n", path);
+					parse_config_file(path, &cfg_orig);
+					in_cont_KV = 1;
+				}
+				else
+				{
+					printf("creating %s\n", path);
+					in_cont = 1;
+				}
+				
+				out_file = fopen(path, "w");
+				if(out_file == NULL)
+				{
+					perror("generate_file_structure()");
+					printf("attempted %s\n", path);
+					return;
+				}
 
 				if(fgets(line, sizeof(line), file) != NULL)
 					if(strstr(line, "content:") == NULL)
