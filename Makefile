@@ -1,15 +1,8 @@
 CC = gcc
 
 SRCS =	main.c \
-		utils/utils.c \
-		utils/logins.c \
-		utils/tui.c \
-		user_commands/commands.c \
-		user_commands/bookings.c \
-		user_commands/complaints.c \
-		user_commands/inventory.c \
-		utils/globals.c \
-		utils/string_utils.c \
+		utils/*.c \
+		user_commands/*.c \
        	deps/crypt_blowfish/crypt_blowfish.c \
         deps/crypt_blowfish/crypt_gensalt.c \
         deps/crypt_blowfish/wrapper.c \
