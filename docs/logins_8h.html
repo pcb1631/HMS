@@ -149,8 +149,6 @@ Functions</h2></td></tr>
 <tr class="memdesc:afc3b11c72547af365dc8af84aa51d166"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns pointer to login data if found, else returns NULL.  <br /></td></tr>
 <tr class="memitem:a98ac0f66133c0efb0b89b503493ef84a" id="r_a98ac0f66133c0efb0b89b503493ef84a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a98ac0f66133c0efb0b89b503493ef84a">add_user</a> (const char *username, const char *password, <a class="el" href="structuser__login__t.html">user_login_t</a> **logins)</td></tr>
 <tr class="memdesc:a98ac0f66133c0efb0b89b503493ef84a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add or update user credential.  <br /></td></tr>
-<tr class="memitem:a89dfd37fe165e8184ec3c490e1e91270" id="r_a89dfd37fe165e8184ec3c490e1e91270"><td class="memItemLeft"><a class="el" href="structuser__login__t.html">user_login_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a89dfd37fe165e8184ec3c490e1e91270">user</a> (const char *username, <a class="el" href="structuser__login__t.html">user_login_t</a> **logins)</td></tr>
-<tr class="memdesc:a89dfd37fe165e8184ec3c490e1e91270"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lookup a user.  <br /></td></tr>
 <tr class="memitem:a9294ee4fb7f761e87c06b1623f15b6dc" id="r_a9294ee4fb7f761e87c06b1623f15b6dc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9294ee4fb7f761e87c06b1623f15b6dc">delete_user</a> (const char *username, <a class="el" href="structuser__login__t.html">user_login_t</a> **logins)</td></tr>
 <tr class="memdesc:a9294ee4fb7f761e87c06b1623f15b6dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a login by username.  <br /></td></tr>
 <tr class="memitem:a3da8e7414374ec378d5363775860cc05" id="r_a3da8e7414374ec378d5363775860cc05"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a3da8e7414374ec378d5363775860cc05">load_users_from_file</a> (const char *filename, <a class="el" href="structuser__login__t.html">user_login_t</a> **logins)</td></tr>
@@ -298,7 +296,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="logins_8c_source.html#l00103">103</a> of file <a class="el" href="logins_8c_source.html">logins.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="logins_8c_source.html#l00105">105</a> of file <a class="el" href="logins_8c_source.html">logins.c</a>.</p>
 
 </div>
 </div>
@@ -331,7 +329,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>0 on success, -1 on failure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="logins_8c_source.html#l00117">117</a> of file <a class="el" href="logins_8c_source.html">logins.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="logins_8c_source.html#l00119">119</a> of file <a class="el" href="logins_8c_source.html">logins.c</a>.</p>
 
 </div>
 </div>
@@ -388,6 +386,16 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns pointer to login data if found, else returns NULL. </p>
+<p>Lookup a user.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">username</td><td>Username to lookup </td></tr>
+    <tr><td class="paramname">logins</td><td>Pointer to the hash table </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to <a class="el" href="structuser__login__t.html">user_login_t</a> if found, NULL otherwise</dd></dl>
+<p>Returns pointer to login data if found, else returns NULL.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">username</td><td>Username to lookup </td></tr>
@@ -425,7 +433,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="logins_8c_source.html#l00153">153</a> of file <a class="el" href="logins_8c_source.html">logins.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="logins_8c_source.html#l00155">155</a> of file <a class="el" href="logins_8c_source.html">logins.c</a>.</p>
 
 </div>
 </div>
@@ -458,38 +466,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 on success, -1 on failure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="logins_8c_source.html#l00085">85</a> of file <a class="el" href="logins_8c_source.html">logins.c</a>.</p>
-
-</div>
-</div>
-<a id="a89dfd37fe165e8184ec3c490e1e91270" name="a89dfd37fe165e8184ec3c490e1e91270"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89dfd37fe165e8184ec3c490e1e91270">&#9670;&#160;</a></span>user()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structuser__login__t.html">user_login_t</a> * user </td>
-          <td>(</td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>username</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structuser__login__t.html">user_login_t</a> **</td>          <td class="paramname"><span class="paramname"><em>logins</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Lookup a user. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">username</td><td>Username to lookup </td></tr>
-    <tr><td class="paramname">logins</td><td>Pointer to the hash table </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Pointer to <a class="el" href="structuser__login__t.html">user_login_t</a> if found, NULL otherwise </dd></dl>
+<p class="definition">Definition at line <a class="el" href="logins_8c_source.html#l00087">87</a> of file <a class="el" href="logins_8c_source.html">logins.c</a>.</p>
 
 </div>
 </div>
@@ -522,7 +499,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 if match, 0 if no match, -1 on error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="logins_8c_source.html#l00133">133</a> of file <a class="el" href="logins_8c_source.html">logins.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="logins_8c_source.html#l00135">135</a> of file <a class="el" href="logins_8c_source.html">logins.c</a>.</p>
 
 </div>
 </div>

@@ -94,7 +94,37 @@ $(function(){initNavTree('tui.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>We make use of the ncurses library to create TUIs, in contrast to our previous python project where we had to manually deal with ANSI escape keys. <br  />
- This doesn't mean ncurses will abstract everything, it still requires knowledge of the terminal and how ncurses works. e.g. clear() triggers a full rerender to the next refresh() call, and refresh() restores previous settings (raw mode, noecho, keypad, etc)</p>
+ This doesn't mean ncurses will abstract everything, it still requires knowledge of the terminal and how ncurses works.</p>
+<p>The proper pattern is to use an init function (ncurses handles state externally, so we don't worry about scope), call <span class="tt">refresh()</span> every loop, and call <span class="tt">clear()</span> if doing anything that leaves characters in the terminal buffer (i.e. backspacing in text editor, the characters were never explicitly cleared)</p>
+<h1 class="doxsection"><a class="anchor" id="windows_tui_design_caveats"></a>
+Setting the terminal to raw mode, and Windows quirks</h1>
+<p><b>ncurses on Windows will not see CTRL+Key until you press another key, unless the render loop is non-blocking and has a timeout.</b> <br  />
+ non-blocking meaning will keep looping even though the user hasn't pressed a key. <br  />
+ in other words, <span class="tt">nodelay(1)</span> and <span class="tt">wtimeout(16)</span> makes <span class="tt">getch()</span> return <span class="tt">-1</span> when there is nothing in stdin</p>
+<p>We wanted to have custom behaviour with CTRL+C such that it wouldnt outright quit the program, and instead cancel the current operation. <br  />
+ This means we call <span class="tt">raw()</span> in <a class="el" href="tui_8c.html#a2426a1120a129e26b07f900a1374128f" title="ncurses_init()">ncurses_init()</a> so we get to handle CTRL+Key events ourselves.</p>
+<p>Setting a terminal to raw mode/cbreak means that every single character is immediately sent to stdin, raw mode makes the terminal let characters through wihtout sending signals (e.g. SIGINT from CTRL+C) <br  />
+ In contrast to the default cooked mode, it only sends characters to stdin once you send newline (enter)</p>
+<p>so the windows API equivalent to raw mode and noecho would be:</p>
+<div class="fragment"><div class="line">DWORD mode;</div>
+<div class="line">GetConsoleMode(hin, &amp;mode);</div>
+<div class="line">mode &amp;= ~(ENABLE_LINE_INPUT | ENABLE_PROCESSED_INPUT | ENABLE_ECHO_INPUT);</div>
+<div class="line">SetConsoleMode(hin, mode);</div>
+</div><!-- fragment --><p>On Linux, when you press <span class="tt">CTRL+Q</span>, the PTY translates it to a single byte <span class="tt">0x11</span> and stuffs it in stdin. It's already there when ncurses calls read() on stdin <br  />
+ On Windows, input goes through the event queue of <span class="tt">ReadConsoleInput</span>(<a href="https://learn.microsoft.com/en-us/windows/console/readconsoleinput">https://learn.microsoft.com/en-us/windows/console/readconsoleinput</a>), which deal with <span class="tt">INPUT_RECORD</span> structs. keyboard events with flags for modifier keys (CTRL, SHIFT, ALT). ncurses on Windows has to:</p>
+<ol type="1">
+<li>Call ReadConsoleInput to consume the event queue</li>
+<li>Check CTRL is held via the modifier flags</li>
+<li>Manually compute the control character value (<span class="tt">key &amp; 0x1F</span>)</li>
+<li>Put the byte into its own internal buffer for getch() to return <br  />
+ ... which all take non-zero time to complete.</li>
+</ol>
+<p>When the render loop is blocking or the timeout is 0, <span class="tt">getch()</span> will check its internal buffer and find nothing, because it doesn't have time at all to process the CTRL+key so the <span class="tt">INPUT_RECORD</span> is still sitting in Window's event queue, and <span class="tt">getch()</span> will still return <span class="tt">-1</span>. That is until you press another key and it suddenly comes through.</p>
+<p>Also cmd and Powershell doesn't send <span class="tt">KEY_RESIZE</span> to the program, so we have to use the windows API and poll for the terminal size ourselves. <br  />
+ check_console_window_resize_event()</p>
+<h1 class="doxsection"><a class="anchor" id="simple_tui_design"></a>
+Simple TUI</h1>
+<p><a class="el" href="tui_8c.html#ae7eae98c1d28139bd16ec2a71459b2f8" title="simple_select()">simple_select()</a> This section will explain things that will be skimmed through / abstracted in later sections.</p>
 <h1 class="doxsection"><a class="anchor" id="cfg_editor"></a>
 Config editor</h1>
 <p><a class="el" href="tui_8c.html#af87cdb83bc1ad50c80a452b5e80c2550" title="config_editor">config_editor</a> is a function that provides a TUI for editing <span class="tt">key: value</span> or <span class="tt">key=value</span> files. <br  />
@@ -117,9 +147,25 @@ EDIT mode, with blinking cursor</div></div>
 </div>
  <p>KEY_RESIZE is not handled after the first switch case, so it effectively restarts the loop and refreshes the menu</p>
 <p>Flowchart for <a class="el" href="tui_8c.html#af87cdb83bc1ad50c80a452b5e80c2550" title="config_editor">config_editor</a> </p><div class="dotgraph">
-<img src="dot_inline_dotgraph_c5001bab7af2e7201ec4568aa6238b69.png" alt="dot_inline_dotgraph_c5001bab7af2e7201ec4568aa6238b69.png" border="0" usemap="#dot_inline_dotgraph_c5001bab7af2e7201ec4568aa6238b69.map"/>
 </div>
- </div></div><!-- contents -->
+<h1 class="doxsection"><a class="anchor" id="text_edit_design"></a>
+Text editor</h1>
+<p>We decided to write our own text editor to reduce the amount of dependencies HMS uses. (We could just use <span class="tt">nano</span> or <span class="tt">vim</span>, but those don't exist for Windows.)</p>
+<p>It serves as a basic terminal pager (although it loads the entire file) and is a very primitive text editor.</p>
+<p>Like <span class="tt">nano</span>, the functions loads the file by parsing each line as a node in a doubly linked list, which made insertions much faster (O(1)) and more practical to write.</p>
+<p>see:<br  />
+</p><ul>
+<li><a class="el" href="string__utils_8c.html#a0bb35bb14c783e9089972c51cf54f583" title="file_to_LL_lines()">file_to_LL_lines()</a></li>
+<li><a class="el" href="tui_8c.html#adb0554598c7a497f8382352c6d6958a7" title="text_editor()">text_editor()</a></li>
+</ul>
+<p>Features:</p><ul>
+<li>readonly</li>
+<li>vertical and horizontal scrolling</li>
+<li>line numbers</li>
+<li>dynamic memory allocation</li>
+<li>splitting newlines </li>
+</ul>
+</div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

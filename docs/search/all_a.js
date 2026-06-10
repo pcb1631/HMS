@@ -1,12 +1,8 @@
 var searchData=
 [
-  ['levenshtein_5fdistance_0',['levenshtein_distance',['../utils_8c.html#ab71bd580b321d22381dbc01ac46ea4f3',1,'utils.c']]],
-  ['libraries_20of_20hms_1',['Dependencies, third-party libraries of HMS',['../deps.html',1,'index']]],
-  ['linux_20macos_2',['Linux/MacOS',['../index.html#autotoc_md0',1,'']]],
-  ['load_5fusers_5ffrom_5ffile_3',['load_users_from_file',['../logins_8c.html#a3da8e7414374ec378d5363775860cc05',1,'load_users_from_file(const char *filename, user_login_t **logins):&#160;logins.c'],['../logins_8h.html#a3da8e7414374ec378d5363775860cc05',1,'load_users_from_file(const char *filename, user_login_t **logins):&#160;logins.c']]],
-  ['log2_5fnum_5fbuckets_4',['log2_num_buckets',['../structUT__hash__table.html#a1e4983525460bc9180bbb5e7b404cdbb',1,'UT_hash_table']]],
-  ['login_20register_5',['Login/Register',['../usage.html#login',1,'']]],
-  ['logins_2ec_6',['logins.c',['../logins_8c.html',1,'']]],
-  ['logins_2eh_7',['logins.h',['../logins_8h.html',1,'']]],
-  ['lookup_5fuser_8',['lookup_user',['../logins_8c.html#afc3b11c72547af365dc8af84aa51d166',1,'lookup_user(const char *username, user_login_t **logins):&#160;logins.c'],['../logins_8h.html#afc3b11c72547af365dc8af84aa51d166',1,'lookup_user(const char *username, user_login_t **logins):&#160;logins.c']]]
+  ['key_0',['key',['../structUT__hash__handle.html#a9eb073a4e7f31790de2c4f6b2ea74081',1,'UT_hash_handle::key'],['../structConfigEntry.html#a9ee27e69714d841b708522598ad983a9',1,'ConfigEntry::key']]],
+  ['key_5fctrl_5fw_1',['KEY_CTRL_W',['../tui_8c.html#a721e4b1ab5f88489e40fe2f7c541b2b8',1,'tui.c']]],
+  ['key_5feot_2',['KEY_EOT',['../tui_8c.html#a956032c368753239e3513499d0474bf2',1,'tui.c']]],
+  ['key_5fetx_3',['KEY_ETX',['../tui_8c.html#a3f4ec241d99ec4297896a8a21e2aa7e2',1,'tui.c']]],
+  ['keylen_4',['keylen',['../structUT__hash__handle.html#a4563ea2b1ae1597aa9fd62e005d447b4',1,'UT_hash_handle']]]
 ];

@@ -124,8 +124,8 @@ $(function(){initNavTree('platform__random_8h.html','',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a9bede435de70157ec3fcb91684672172" id="r_a9bede435de70157ec3fcb91684672172"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a9bede435de70157ec3fcb91684672172">get_random_bytes</a> (char *buf, int n)</td></tr>
-<tr class="memdesc:a9bede435de70157ec3fcb91684672172"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets random bytes with length n, different implementations depending on OS \nThis is used for salting. If passwords are hashed without salting, that means people with the same password end up with the same hash. \nSalting means same passwords will end up with a different hash.  <br /></td></tr>
+<tr class="memitem:a3328cca7c6be6702c63a0ecbbcceb51b" id="r_a3328cca7c6be6702c63a0ecbbcceb51b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a3328cca7c6be6702c63a0ecbbcceb51b">get_random_bytes</a> (char *buf, int n)</td></tr>
+<tr class="memdesc:a3328cca7c6be6702c63a0ecbbcceb51b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets random bytes with length n, different implementations depending on OS \nThis is used for salting. If passwords are hashed without salting, that means people with the same password end up with the same hash. \nSalting means same passwords will end up with a different hash.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Provides get_random_bytes. </p>
@@ -133,14 +133,11 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="platform__random_8h_source.html">platform_random.h</a>.</p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a9bede435de70157ec3fcb91684672172" name="a9bede435de70157ec3fcb91684672172"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9bede435de70157ec3fcb91684672172">&#9670;&#160;</a></span>get_random_bytes()</h2>
+<a id="a3328cca7c6be6702c63a0ecbbcceb51b" name="a3328cca7c6be6702c63a0ecbbcceb51b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3328cca7c6be6702c63a0ecbbcceb51b">&#9670;&#160;</a></span>get_random_bytes()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">int get_random_bytes </td>
@@ -153,11 +150,6 @@ Functions</h2></td></tr>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>n</em></span>&#160;)</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Gets random bytes with length n, different implementations depending on OS \nThis is used for salting. If passwords are hashed without salting, that means people with the same password end up with the same hash. \nSalting means same passwords will end up with a different hash. </p>

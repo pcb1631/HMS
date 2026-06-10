@@ -1,8 +1,26 @@
 var searchData=
 [
-  ['we_20tested_0',['Terminals we tested',['../term.html#terms',1,'']]],
-  ['windows_1',['Windows',['../index.html#autotoc_md1',1,'']]],
-  ['wipe_5fstdin_2',['wipe_stdin',['../utils_8c.html#a25768450bdaa57e9b76f04797cf78a99',1,'wipe_stdin(void):&#160;utils.c'],['../utils_8h.html#a25768450bdaa57e9b76f04797cf78a99',1,'wipe_stdin(void):&#160;utils.c']]],
-  ['with_20hms_3',['Compatible terminals with HMS',['../term.html',1,'index']]],
-  ['write_5fto_5ffile_5fbooking_4',['write_to_file_booking',['../bookings_8c.html#a8e56b4b3c78e44b2d8487a20e4f7a0e1',1,'bookings.c']]]
+  ['unlink_5fcb_0',['unlink_cb',['../utils_8c.html#ab08d76004de1e54c0d18e143bfd50947',1,'utils.c']]],
+  ['usage_2emd_1',['usage.md',['../usage_8md.html',1,'']]],
+  ['use_20hms_2',['How to use HMS',['../usage.html',1,'index']]],
+  ['user_20database_3',['The user database',['../db.html',1,'design']]],
+  ['user_20interfaces_4',['Text User Interfaces',['../tui.html',1,'design']]],
+  ['user_5flogin_5ft_5',['user_login_t',['../structuser__login__t.html',1,'']]],
+  ['user_5fselect_5fmenu_6',['user_select_menu',['../commands_8c.html#a02dcb9744ee34605c770e1c7444765fc',1,'user_select_menu(const char *const *allowed_utypes, int allowed_n, char *selected_username):&#160;commands.c'],['../commands_8h.html#a02dcb9744ee34605c770e1c7444765fc',1,'user_select_menu(const char *const *allowed_utypes, int allowed_n, char *selected_username):&#160;commands.c']]],
+  ['username_7',['username',['../structuser__login__t.html#a15680461400c9bc9ab70b75936d14d31',1,'user_login_t']]],
+  ['ut_5fhash_5fbucket_8',['UT_hash_bucket',['../structUT__hash__bucket.html',1,'UT_hash_bucket'],['../uthash_8h.html#a3775136bedd7fc8db3ad7c1ad6a7218e',1,'UT_hash_bucket:&#160;uthash.h']]],
+  ['ut_5fhash_5fhandle_9',['UT_hash_handle',['../structUT__hash__handle.html',1,'UT_hash_handle'],['../uthash_8h.html#a817624f072ea116d638b237d518d6f6a',1,'UT_hash_handle:&#160;uthash.h']]],
+  ['ut_5fhash_5ftable_10',['UT_hash_table',['../structUT__hash__table.html',1,'UT_hash_table'],['../uthash_8h.html#ade349c45717e328f0337b6fe5a0658bf',1,'UT_hash_table:&#160;uthash.h']]],
+  ['uthash_20h_11',['uthash.h',['../deps.html#uthash_h',1,'']]],
+  ['uthash_2eh_12',['uthash.h',['../uthash_8h.html',1,'']]],
+  ['uthash_5fbzero_13',['uthash_bzero',['../uthash_8h.html#af6a40785784ca2d51cb59370eb64d7de',1,'uthash.h']]],
+  ['uthash_5fexpand_5ffyi_14',['uthash_expand_fyi',['../uthash_8h.html#a86ea78714da520989a6f7a764b4d71b4',1,'uthash.h']]],
+  ['uthash_5ffatal_15',['uthash_fatal',['../uthash_8h.html#a03b52301b0ed976b6981ef33613320c1',1,'uthash.h']]],
+  ['uthash_5ffree_16',['uthash_free',['../uthash_8h.html#a56cdf8c254fc700332c8e6a7263b4657',1,'uthash.h']]],
+  ['uthash_5fmalloc_17',['uthash_malloc',['../uthash_8h.html#a861013aff36c0448f1888a2b0b5836d8',1,'uthash.h']]],
+  ['uthash_5fnoexpand_5ffyi_18',['uthash_noexpand_fyi',['../uthash_8h.html#a7cc237d8f87de3836b5390856cfc5c86',1,'uthash.h']]],
+  ['uthash_5fstrlen_19',['uthash_strlen',['../uthash_8h.html#aa14634cb1f894d48256362bae7239be6',1,'uthash.h']]],
+  ['uthash_5fversion_20',['UTHASH_VERSION',['../uthash_8h.html#aa56cef9cb86dc1f4b5d27ee3a691077e',1,'uthash.h']]],
+  ['utils_2ec_21',['utils.c',['../utils_8c.html',1,'']]],
+  ['utils_2eh_22',['utils.h',['../utils_8h.html',1,'']]]
 ];

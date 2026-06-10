@@ -5,5 +5,6 @@ var tui_8h =
     [ "config_editor", "tui_8h.html#af87cdb83bc1ad50c80a452b5e80c2550", null ],
     [ "ncurses_init", "tui_8h.html#a2426a1120a129e26b07f900a1374128f", null ],
     [ "simple_select", "tui_8h.html#ae7eae98c1d28139bd16ec2a71459b2f8", null ],
+    [ "text_editor", "tui_8h.html#adb0554598c7a497f8382352c6d6958a7", null ],
     [ "time_picker", "tui_8h.html#aa9e50b98de6ede2ecc13846a8b44462c", null ]
 ];

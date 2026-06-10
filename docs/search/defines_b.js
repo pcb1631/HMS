@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['salt_5fbuf_0',['SALT_BUF',['../logins_8c.html#a3993541c6312d4df0f1326f11a061fde',1,'logins.c']]]
+  ['or_0',['OR',['../utils_8h.html#a3363ca4d6d3cc0230b2804280591c991',1,'utils.h']]]
 ];

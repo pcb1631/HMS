@@ -46,6 +46,7 @@ var NAVTREE =
     ] ],
     [ "Compatible terminals with HMS", "term.html", [
       [ "Terminals we tested", "term.html#terms", null ],
+      [ "Windows", "term.html#windows", null ],
       [ "macOS", "term.html#mac", null ]
     ] ],
     [ "Developing the codebase", "dev.html", [
@@ -79,7 +80,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"tui_8c.html"
+"structUT__hash__table.html#ab8166e712e5eff3106991bec13d9ab20"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

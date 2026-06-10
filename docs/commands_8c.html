@@ -99,57 +99,65 @@ $(function(){initNavTree('commands_8c.html','',''); });
 <code>#include &quot;<a class="el" href="tui_8h_source.html">../utils/tui.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="globals_8h_source.html">../utils/globals.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="string__utils_8h_source.html">../utils/string_utils.h</a>&quot;</code><br />
+<code>#include &lt;time.h&gt;</code><br />
+<code>#include &lt;ctype.h&gt;</code><br />
 <code>#include &lt;ncurses.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;sys/stat.h&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for commands.c:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="commands_8c__incl.png" border="0" usemap="#auser__commands_2commands_8c" loading="lazy" alt=""/></div>
 <map name="auser__commands_2commands_8c" id="auser__commands_2commands_8c">
-<area shape="rect" title=" " alt="" coords="527,5,743,33"/>
-<area shape="rect" href="commands_8h.html" title=" " alt="" coords="102,157,208,184"/>
-<area shape="poly" title=" " alt="" coords="570,35,486,57,389,84,288,119,201,153,199,148,286,114,388,78,484,52,575,33"/>
+<area shape="rect" title=" " alt="" coords="619,5,835,33"/>
+<area shape="rect" href="commands_8h.html" title=" " alt="" coords="45,157,150,184"/>
+<area shape="poly" title=" " alt="" coords="617,24,501,30,371,41,252,58,206,69,171,83,153,96,137,111,113,145,109,142,133,108,150,92,168,79,204,64,251,53,370,35,500,25,622,22"/>
 <area shape="rect" href="utils_8h.html" title="Utility functions, value types, and command parsing." alt="" coords="161,232,266,260"/>
-<area shape="poly" title=" " alt="" coords="524,32,405,51,274,76,213,93,160,112,118,134,92,158,87,169,87,178,98,196,122,211,153,226,148,228,119,216,95,200,82,179,82,167,88,155,115,129,158,107,211,88,272,71,404,45,529,30"/>
+<area shape="poly" title=" " alt="" coords="616,32,504,52,442,66,382,84,300,108,269,126,237,158,223,187,217,218,212,215,218,185,233,155,266,122,298,104,381,78,441,61,503,47,621,30"/>
 <area shape="rect" title=" " alt="" coords="5,308,89,336"/>
-<area shape="poly" title=" " alt="" coords="525,28,323,49,228,64,161,83,133,98,113,112,97,131,80,158,65,192,56,229,50,293,44,292,51,228,60,191,75,155,92,128,109,108,130,93,159,79,227,59,322,43,529,25"/>
-<area shape="rect" title=" " alt="" coords="535,308,604,336"/>
-<area shape="poly" title=" " alt="" coords="631,31,615,82,590,198,575,294,571,291,584,197,610,80,628,35"/>
-<area shape="rect" href="logins_8h.html" title="User login management and hashing." alt="" coords="625,81,741,109"/>
-<area shape="poly" title=" " alt="" coords="644,31,669,69,664,67,643,36"/>
-<area shape="rect" title=" " alt="" coords="849,232,920,260"/>
-<area shape="poly" title=" " alt="" coords="670,31,713,51,755,79,791,113,824,151,871,220,866,218,820,154,788,117,752,83,710,56,669,36"/>
-<area shape="rect" href="tui_8h.html" title="Text User Interface functions." alt="" coords="400,81,494,109"/>
-<area shape="poly" title=" " alt="" coords="599,35,495,78,493,73,604,32"/>
-<area shape="rect" href="globals_8h.html" title=" " alt="" coords="817,81,941,109"/>
-<area shape="poly" title=" " alt="" coords="679,31,824,76,819,77,679,36"/>
-<area shape="rect" href="string__utils_8h.html" title=" " alt="" coords="966,81,1115,109"/>
-<area shape="poly" title=" " alt="" coords="708,31,955,77,950,78,708,36"/>
-<area shape="rect" title=" " alt="" coords="1140,81,1205,109"/>
-<area shape="poly" title=" " alt="" coords="743,27,918,46,1127,81,1122,81,918,51,743,32"/>
-<area shape="poly" title=" " alt="" coords="166,182,196,220,191,220,165,187"/>
+<area shape="poly" title=" " alt="" coords="616,25,493,34,352,45,223,61,171,72,132,84,98,97,73,110,53,129,35,158,25,192,24,229,30,264,39,294,34,294,25,265,19,229,19,192,30,156,49,125,70,106,96,92,130,78,170,66,222,56,352,40,492,29,621,23"/>
+<area shape="rect" title=" " alt="" coords="580,308,650,336"/>
+<area shape="poly" title=" " alt="" coords="707,32,681,56,659,82,636,137,623,195,617,250,616,294,612,291,612,249,618,195,631,136,654,80,677,52,703,35"/>
+<area shape="rect" href="logins_8h.html" title="User login management and hashing." alt="" coords="669,81,785,109"/>
+<area shape="poly" title=" " alt="" coords="729,31,729,67,725,64,725,36"/>
+<area shape="rect" title=" " alt="" coords="894,232,965,260"/>
+<area shape="poly" title=" " alt="" coords="745,31,800,79,864,153,914,221,909,219,860,157,796,83,743,36"/>
+<area shape="rect" href="tui_8h.html" title="Text User Interface functions." alt="" coords="393,81,488,109"/>
+<area shape="poly" title=" " alt="" coords="673,35,503,80,502,75,678,32"/>
+<area shape="rect" title=" " alt="" coords="498,232,561,260"/>
+<area shape="poly" title=" " alt="" coords="692,32,651,55,614,83,588,116,567,152,540,219,536,216,562,150,584,113,610,79,648,51,687,35"/>
+<area shape="rect" href="globals_8h.html" title=" " alt="" coords="861,81,985,109"/>
+<area shape="poly" title=" " alt="" coords="762,31,877,75,871,75,762,36"/>
+<area shape="rect" href="string__utils_8h.html" title=" " alt="" coords="1010,81,1159,109"/>
+<area shape="poly" title=" " alt="" coords="791,31,1008,77,1002,78,791,36"/>
+<area shape="rect" title=" " alt="" coords="1183,81,1252,109"/>
+<area shape="poly" title=" " alt="" coords="835,29,989,48,1171,80,1165,81,988,53,835,34"/>
+<area shape="rect" title=" " alt="" coords="1277,81,1342,109"/>
+<area shape="poly" title=" " alt="" coords="835,25,1030,44,1145,59,1264,81,1259,81,1144,64,1030,49,835,30"/>
+<area shape="rect" title=" " alt="" coords="1366,81,1450,109"/>
+<area shape="poly" title=" " alt="" coords="835,24,1069,42,1209,58,1354,80,1349,81,1208,63,1068,48,835,29"/>
+<area shape="poly" title=" " alt="" coords="119,182,183,223,178,225,118,188"/>
 <area shape="poly" title=" " alt="" coords="185,263,92,304,90,299,182,258"/>
-<area shape="poly" title=" " alt="" coords="267,256,521,309,517,312,267,261"/>
+<area shape="poly" title=" " alt="" coords="267,255,567,309,563,313,267,260"/>
 <area shape="rect" title=" " alt="" coords="178,308,250,336"/>
 <area shape="poly" title=" " alt="" coords="215,259,216,294,211,291,212,262"/>
-<area shape="rect" href="uthash_8h.html" title=" " alt="" coords="652,157,741,184"/>
-<area shape="poly" title=" " alt="" coords="687,107,694,143,689,140,684,111"/>
-<area shape="poly" title=" " alt="" coords="700,182,703,221,699,242,691,261,676,278,659,291,620,310,619,305,656,287,673,274,686,259,694,240,698,220,697,187"/>
-<area shape="poly" title=" " alt="" coords="730,182,840,227,834,226,730,188"/>
-<area shape="rect" title=" " alt="" coords="752,232,825,260"/>
-<area shape="poly" title=" " alt="" coords="714,182,763,223,758,222,712,187"/>
-<area shape="rect" title=" " alt="" coords="606,232,677,260"/>
-<area shape="poly" title=" " alt="" coords="689,184,662,222,659,217,684,186"/>
-<area shape="poly" title=" " alt="" coords="397,105,336,125,303,139,273,159,246,188,227,220,223,217,242,185,269,155,300,135,334,120,402,103"/>
-<area shape="rect" href="bookings_8h.html" title=" " alt="" coords="283,157,499,184"/>
-<area shape="poly" title=" " alt="" coords="439,108,412,146,408,142,435,111"/>
-<area shape="rect" title=" " alt="" coords="405,232,468,260"/>
-<area shape="poly" title=" " alt="" coords="468,107,489,122,506,140,516,162,513,185,497,208,476,226,474,221,493,205,509,183,511,163,501,143,485,126,468,112"/>
-<area shape="poly" title=" " alt="" coords="357,186,260,229,258,224,362,184"/>
-<area shape="poly" title=" " alt="" coords="400,182,423,220,418,218,398,187"/>
+<area shape="rect" href="uthash_8h.html" title=" " alt="" coords="696,157,785,184"/>
+<area shape="poly" title=" " alt="" coords="731,107,738,143,733,140,728,111"/>
+<area shape="poly" title=" " alt="" coords="745,182,748,221,745,242,736,261,721,278,704,292,665,311,663,305,701,287,718,274,731,259,739,240,743,220,741,186"/>
+<area shape="poly" title=" " alt="" coords="775,182,885,227,879,226,774,188"/>
+<area shape="rect" title=" " alt="" coords="797,232,870,260"/>
+<area shape="poly" title=" " alt="" coords="758,182,808,223,803,222,756,187"/>
+<area shape="rect" title=" " alt="" coords="652,232,722,260"/>
+<area shape="poly" title=" " alt="" coords="733,184,707,222,704,217,728,186"/>
+<area shape="poly" title=" " alt="" coords="390,104,329,124,296,139,266,159,242,188,225,220,221,216,237,185,263,155,293,134,327,119,395,102"/>
+<area shape="rect" href="bookings_8h.html" title=" " alt="" coords="277,157,492,184"/>
+<area shape="poly" title=" " alt="" coords="432,108,405,146,402,142,428,111"/>
+<area shape="poly" title=" " alt="" coords="459,106,484,128,507,155,520,186,528,218,523,216,515,188,502,158,481,132,458,112"/>
+<area shape="poly" title=" " alt="" coords="351,186,259,228,257,223,356,184"/>
+<area shape="poly" title=" " alt="" coords="411,182,493,225,488,225,410,188"/>
 </map>
 </div>
 </div>
@@ -160,12 +168,37 @@ Functions</h2></td></tr>
 <tr class="memitem:a708a4c1a4d0c4acc4c447310dd4db27f" id="r_a708a4c1a4d0c4acc4c447310dd4db27f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a708a4c1a4d0c4acc4c447310dd4db27f">test</a> (void)</td></tr>
 <tr class="memitem:a793783b5d9356c65130074c09b88985f" id="r_a793783b5d9356c65130074c09b88985f"><td class="memItemLeft"><a class="el" href="structValue.html">Value</a>&#160;</td><td class="memItemRight"><a class="el" href="#a793783b5d9356c65130074c09b88985f">make_user</a> (<a class="el" href="structValue.html">Value</a> *list)</td></tr>
 <tr class="memitem:af3d79917f472952f77de2e36f341f68c" id="r_af3d79917f472952f77de2e36f341f68c"><td class="memItemLeft"><a class="el" href="structValue.html">Value</a>&#160;</td><td class="memItemRight"><a class="el" href="#af3d79917f472952f77de2e36f341f68c">admin_view_cfg</a> (void)</td></tr>
+<tr class="memitem:ae485c4e1343b16ff267883494feeda0b" id="r_ae485c4e1343b16ff267883494feeda0b"><td class="memItemLeft"><a class="el" href="structValue.html">Value</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae485c4e1343b16ff267883494feeda0b">director_view_cfg</a> (void)</td></tr>
 <tr class="memitem:a02dcb9744ee34605c770e1c7444765fc" id="r_a02dcb9744ee34605c770e1c7444765fc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a02dcb9744ee34605c770e1c7444765fc">user_select_menu</a> (const char *const *allowed_utypes, int allowed_n, char *selected_username)</td></tr>
 <tr class="memdesc:a02dcb9744ee34605c770e1c7444765fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">ncurses menu to select a user  <br /></td></tr>
+<tr class="memitem:a33024769bc1bd606169ea5e248ab92b4" id="r_a33024769bc1bd606169ea5e248ab92b4"><td class="memItemLeft"><a class="el" href="structValue.html">Value</a>&#160;</td><td class="memItemRight"><a class="el" href="#a33024769bc1bd606169ea5e248ab92b4">edit_profile_self_patient</a> (void)</td></tr>
 <tr class="memitem:a7386e842c6fcd14b7c80e6f9563cc1c4" id="r_a7386e842c6fcd14b7c80e6f9563cc1c4"><td class="memItemLeft"><a class="el" href="structValue.html">Value</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7386e842c6fcd14b7c80e6f9563cc1c4">edit_profile_self_admin</a> (void)</td></tr>
+<tr class="memitem:a7702102073743108a5d5d3bb020398d4" id="r_a7702102073743108a5d5d3bb020398d4"><td class="memItemLeft"><a class="el" href="structValue.html">Value</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7702102073743108a5d5d3bb020398d4">admin_delete_user</a> (void)</td></tr>
 <tr class="memitem:ab5575d6e0fea56b9b4f056fc4fa5b1fe" id="r_ab5575d6e0fea56b9b4f056fc4fa5b1fe"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab5575d6e0fea56b9b4f056fc4fa5b1fe">print_cfg</a> (<a class="el" href="structConfig.html">Config</a> cfg)</td></tr>
+<tr class="memitem:a98518bcf964c4c6b4dbfe1fdad145020" id="r_a98518bcf964c4c6b4dbfe1fdad145020"><td class="memItemLeft"><a class="el" href="structValue.html">Value</a>&#160;</td><td class="memItemRight"><a class="el" href="#a98518bcf964c4c6b4dbfe1fdad145020">tedit_test</a> (void)</td></tr>
+<tr class="memitem:a3f522256888c6433ff379d6cc9eac919" id="r_a3f522256888c6433ff379d6cc9eac919"><td class="memItemLeft"><a class="el" href="structValue.html">Value</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3f522256888c6433ff379d6cc9eac919">doctor_diagnosis</a> (void)</td></tr>
+<tr class="memitem:a58502d2cafae8756729849bc1efa6495" id="r_a58502d2cafae8756729849bc1efa6495"><td class="memItemLeft"><a class="el" href="structValue.html">Value</a>&#160;</td><td class="memItemRight"><a class="el" href="#a58502d2cafae8756729849bc1efa6495">view_diagnosis_self_doc</a> (void)</td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a7702102073743108a5d5d3bb020398d4" name="a7702102073743108a5d5d3bb020398d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7702102073743108a5d5d3bb020398d4">&#9670;&#160;</a></span>admin_delete_user()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structValue.html">Value</a> admin_delete_user </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00192">192</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+
+</div>
+</div>
 <a id="af3d79917f472952f77de2e36f341f68c" name="af3d79917f472952f77de2e36f341f68c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af3d79917f472952f77de2e36f341f68c">&#9670;&#160;</a></span>admin_view_cfg()</h2>
 
@@ -181,7 +214,45 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00068">68</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00071">71</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+
+</div>
+</div>
+<a id="ae485c4e1343b16ff267883494feeda0b" name="ae485c4e1343b16ff267883494feeda0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae485c4e1343b16ff267883494feeda0b">&#9670;&#160;</a></span>director_view_cfg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structValue.html">Value</a> director_view_cfg </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00095">95</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+
+</div>
+</div>
+<a id="a3f522256888c6433ff379d6cc9eac919" name="a3f522256888c6433ff379d6cc9eac919"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f522256888c6433ff379d6cc9eac919">&#9670;&#160;</a></span>doctor_diagnosis()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structValue.html">Value</a> doctor_diagnosis </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00257">257</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
 
 </div>
 </div>
@@ -200,7 +271,26 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00134">134</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00177">177</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+
+</div>
+</div>
+<a id="a33024769bc1bd606169ea5e248ab92b4" name="a33024769bc1bd606169ea5e248ab92b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33024769bc1bd606169ea5e248ab92b4">&#9670;&#160;</a></span>edit_profile_self_patient()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structValue.html">Value</a> edit_profile_self_patient </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00162">162</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
 
 </div>
 </div>
@@ -219,7 +309,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00023">23</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00026">26</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
 
 </div>
 </div>
@@ -238,7 +328,26 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00152">152</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00238">238</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+
+</div>
+</div>
+<a id="a98518bcf964c4c6b4dbfe1fdad145020" name="a98518bcf964c4c6b4dbfe1fdad145020"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98518bcf964c4c6b4dbfe1fdad145020">&#9670;&#160;</a></span>tedit_test()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structValue.html">Value</a> tedit_test </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00246">246</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
 
 </div>
 </div>
@@ -257,7 +366,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00018">18</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00021">21</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
 
 </div>
 </div>
@@ -295,7 +404,26 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00092">92</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00120">120</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+
+</div>
+</div>
+<a id="a58502d2cafae8756729849bc1efa6495" name="a58502d2cafae8756729849bc1efa6495"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58502d2cafae8756729849bc1efa6495">&#9670;&#160;</a></span>view_diagnosis_self_doc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structValue.html">Value</a> view_diagnosis_self_doc </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00315">315</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
 
 </div>
 </div>

@@ -93,31 +93,18 @@ $(function(){initNavTree('test_8c_source.html','',''); });
   <div class="headertitle"><div class="title">test.c</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="test_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#ifdef _WIN32</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">    #include &lt;ncurses/curses.h&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">    #include &lt;ncurses.h&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="test_8c.html#aec95ee3aec6673f51ed3c6a833a2dc71">    8</a></span><span class="preprocessor">#define OPTIONS 64</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="test_8c.html#a840291bc02cba5474a4cb46a9b9566fe">   10</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="test_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordtype">char</span> <span class="keywordtype">string</span>[] = <span class="stringliteral">&quot;abcdefg\0\b\0&quot;</span>;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordtype">int</span> i = 3;</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    printf(<span class="stringliteral">&quot;%s\n&quot;</span>, <span class="keywordtype">string</span>);</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">while</span>(<span class="keywordtype">string</span>[i] != <span class="charliteral">&#39;\0&#39;</span>)</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keywordtype">string</span>[i] = <span class="keywordtype">string</span>[i+1];</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        i++;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    }</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    printf(<span class="stringliteral">&quot;%s\n&quot;</span>, <span class="keywordtype">string</span>);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
+<a href="test_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="tui_8h.html">utils/tui.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="foldopen" id="foldopen00003" data-start="{" data-end="}">
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="test_8c.html#a3c04138a5bfe5d72780bb7e82a18e627">    3</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="regen__file__structure_8c.html#acf0ba67194dd8f699009977bb264217e">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> ** argv)</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>    <a class="code hl_function" href="tui_8c.html#adb0554598c7a497f8382352c6d6958a7">text_editor</a>(argv[1], 0);</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>}</div>
 </div>
-<div class="ttc" id="atest_8c_html_a840291bc02cba5474a4cb46a9b9566fe"><div class="ttname"><a href="test_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a></div><div class="ttdeci">int main(void)</div><div class="ttdef"><b>Definition</b> <a href="#l00010">test.c:10</a></div></div>
+<div class="ttc" id="aregen__file__structure_8c_html_acf0ba67194dd8f699009977bb264217e"><div class="ttname"><a href="regen__file__structure_8c.html#acf0ba67194dd8f699009977bb264217e">main</a></div><div class="ttdeci">signed main(void)</div><div class="ttdef"><b>Definition</b> <a href="regen__file__structure_8c_source.html#l00011">regen_file_structure.c:11</a></div></div>
+<div class="ttc" id="atui_8c_html_adb0554598c7a497f8382352c6d6958a7"><div class="ttname"><a href="tui_8c.html#adb0554598c7a497f8382352c6d6958a7">text_editor</a></div><div class="ttdeci">int text_editor(const char *path, int readonly)</div><div class="ttdef"><b>Definition</b> <a href="tui_8c_source.html#l00936">tui.c:936</a></div></div>
+<div class="ttc" id="atui_8h_html"><div class="ttname"><a href="tui_8h.html">tui.h</a></div><div class="ttdoc">Text User Interface functions.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

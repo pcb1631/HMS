@@ -95,29 +95,38 @@ $(function(){initNavTree('utils_8c.html','',''); });
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="utils_8h_source.html">utils.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="string__utils_8h_source.html">string_utils.h</a>&quot;</code><br />
+<code>#include &lt;ctype.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;sys/stat.h&gt;</code><br />
+<code>#include &lt;dirent.h&gt;</code><br />
+<code>#include &lt;ftw.h&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for utils.c:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="utils_8c__incl.png" border="0" usemap="#autils_2utils_8c" loading="lazy" alt=""/></div>
 <map name="autils_2utils_8c" id="autils_2utils_8c">
-<area shape="rect" title=" " alt="" coords="336,5,428,33"/>
+<area shape="rect" title=" " alt="" coords="485,5,577,33"/>
 <area shape="rect" href="utils_8h.html" title="Utility functions, value types, and command parsing." alt="" coords="131,81,192,109"/>
-<area shape="poly" title=" " alt="" coords="340,35,208,81,206,76,345,32"/>
+<area shape="poly" title=" " alt="" coords="483,32,218,84,208,86,206,81,217,78,485,27"/>
 <area shape="rect" title=" " alt="" coords="208,157,278,184"/>
-<area shape="poly" title=" " alt="" coords="338,32,298,54,280,67,265,83,251,111,245,143,241,139,246,110,261,79,277,63,295,50,333,35"/>
+<area shape="poly" title=" " alt="" coords="482,26,360,47,302,63,280,72,265,83,256,96,250,110,244,143,240,140,244,109,251,93,261,79,277,68,300,58,359,42,487,24"/>
 <area shape="rect" href="string__utils_8h.html" title=" " alt="" coords="274,81,380,109"/>
-<area shape="poly" title=" " alt="" coords="374,32,348,70,344,66,370,35"/>
-<area shape="rect" title=" " alt="" coords="404,81,469,109"/>
-<area shape="poly" title=" " alt="" coords="392,31,420,69,415,68,390,36"/>
-<area shape="rect" title=" " alt="" coords="493,81,564,109"/>
-<area shape="poly" title=" " alt="" coords="408,31,492,74,486,74,407,36"/>
-<area shape="rect" title=" " alt="" coords="588,81,672,109"/>
-<area shape="poly" title=" " alt="" coords="426,31,575,76,570,77,426,36"/>
+<area shape="poly" title=" " alt="" coords="497,33,379,78,377,73,492,34"/>
+<area shape="rect" title=" " alt="" coords="404,81,474,109"/>
+<area shape="poly" title=" " alt="" coords="517,32,468,74,466,69,512,35"/>
+<area shape="rect" title=" " alt="" coords="498,81,564,109"/>
+<area shape="poly" title=" " alt="" coords="533,32,533,67,529,64,529,36"/>
+<area shape="rect" title=" " alt="" coords="588,81,658,109"/>
+<area shape="poly" title=" " alt="" coords="548,31,598,72,592,71,547,36"/>
+<area shape="rect" title=" " alt="" coords="682,81,766,109"/>
+<area shape="poly" title=" " alt="" coords="566,31,679,75,673,75,565,36"/>
+<area shape="rect" title=" " alt="" coords="790,81,861,109"/>
+<area shape="poly" title=" " alt="" coords="578,29,778,80,772,80,577,34"/>
+<area shape="rect" title=" " alt="" coords="885,81,937,109"/>
+<area shape="poly" title=" " alt="" coords="577,24,706,44,872,80,867,80,705,49,577,29"/>
 <area shape="rect" title=" " alt="" coords="5,157,89,184"/>
 <area shape="poly" title=" " alt="" coords="144,109,81,150,79,146,139,110"/>
 <area shape="poly" title=" " alt="" coords="177,107,220,146,215,146,175,112"/>
@@ -130,82 +139,88 @@ $(function(){initNavTree('utils_8c.html','',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ac6afabdc09a49a433ee19d8a9486056d" id="r_ac6afabdc09a49a433ee19d8a9486056d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ac6afabdc09a49a433ee19d8a9486056d">min</a>(a,  b)</td></tr>
+<tr class="memitem:a78c99ffd76a7bb3c8c74db76207e9ab4" id="r_a78c99ffd76a7bb3c8c74db76207e9ab4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a78c99ffd76a7bb3c8c74db76207e9ab4">_XOPEN_SOURCE</a>&#160;&#160;&#160;500</td></tr>
+<tr class="memitem:ad3b6821be9e4586b39163dad279459c4" id="r_ad3b6821be9e4586b39163dad279459c4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ad3b6821be9e4586b39163dad279459c4">INDENT_SPACES</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memitem:a560905a1db6ed9589c465f87ac37ef77" id="r_a560905a1db6ed9589c465f87ac37ef77"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a560905a1db6ed9589c465f87ac37ef77">EXT_SUFFIX</a>&#160;&#160;&#160;&quot;.txt&quot; /* this wouldve been a lot easier if i didnt have to do this.. */</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aa551d58e7e496ca51e2d3c66f4626a52" id="r_aa551d58e7e496ca51e2d3c66f4626a52"><td class="memItemLeft"><a class="el" href="structValue.html">Value</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa551d58e7e496ca51e2d3c66f4626a52">make_int</a> (int x)</td></tr>
 <tr class="memitem:ad58d96226ac55e98c24ce17377c05c3b" id="r_ad58d96226ac55e98c24ce17377c05c3b"><td class="memItemLeft"><a class="el" href="structValue.html">Value</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad58d96226ac55e98c24ce17377c05c3b">make_float</a> (float x)</td></tr>
 <tr class="memitem:a2e61a78446780329baac3a81adc319b5" id="r_a2e61a78446780329baac3a81adc319b5"><td class="memItemLeft"><a class="el" href="structValue.html">Value</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2e61a78446780329baac3a81adc319b5">make_string</a> (char *s)</td></tr>
-<tr class="memitem:ab9e3ef0b6795065d2f14dc8069cbb914" id="r_ab9e3ef0b6795065d2f14dc8069cbb914"><td class="memItemLeft"><a class="el" href="structValue.html">Value</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab9e3ef0b6795065d2f14dc8069cbb914">add</a> (<a class="el" href="structValue.html">Value</a> *list)</td></tr>
-<tr class="memdesc:ab9e3ef0b6795065d2f14dc8069cbb914"><td class="mdescLeft">&#160;</td><td class="mdescRight">Example usage of "Value" array (1).  <br /></td></tr>
-<tr class="memitem:a1f308bbc9b99d2072520b8f10e838ebb" id="r_a1f308bbc9b99d2072520b8f10e838ebb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1f308bbc9b99d2072520b8f10e838ebb">print_list</a> (<a class="el" href="structValue.html">Value</a> *list, int n)</td></tr>
-<tr class="memdesc:a1f308bbc9b99d2072520b8f10e838ebb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Example usage of "Value" array (2).  <br /></td></tr>
 <tr class="memitem:a017662a7845649afccb7d3a653d794f3" id="r_a017662a7845649afccb7d3a653d794f3"><td class="memItemLeft"><a class="el" href="structValue.html">Value</a>&#160;</td><td class="memItemRight"><a class="el" href="#a017662a7845649afccb7d3a653d794f3">call</a> (<a class="el" href="structcommand.html">command</a> f, <a class="el" href="structValue.html">Value</a> *args, int n_of_args, char *perm)</td></tr>
 <tr class="memdesc:a017662a7845649afccb7d3a653d794f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call arbitrary function.  <br /></td></tr>
 <tr class="memitem:a2506e31cde0df563892eabd8cc4a2ea8" id="r_a2506e31cde0df563892eabd8cc4a2ea8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2506e31cde0df563892eabd8cc4a2ea8">cmd_parse</a> (char *str)</td></tr>
 <tr class="memitem:a89448941e042941353b8e90d5f8666e7" id="r_a89448941e042941353b8e90d5f8666e7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a89448941e042941353b8e90d5f8666e7">parse_config_file</a> (const char *filepath, <a class="el" href="structConfig.html">Config</a> *config)</td></tr>
 <tr class="memdesc:a89448941e042941353b8e90d5f8666e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a configuration file into a <a class="el" href="structConfig.html">Config</a> struct.  <br /></td></tr>
+<tr class="memitem:a5eb50ca23ebddd7d257e6d8cf5a3398b" id="r_a5eb50ca23ebddd7d257e6d8cf5a3398b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a5eb50ca23ebddd7d257e6d8cf5a3398b">delete_key_config</a> (const char *key_d, <a class="el" href="structConfig.html">Config</a> *config)</td></tr>
 <tr class="memitem:a1de21a1f7c04a8c1aff780d3113b54c1" id="r_a1de21a1f7c04a8c1aff780d3113b54c1"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#a1de21a1f7c04a8c1aff780d3113b54c1">get_config_value</a> (const <a class="el" href="structConfig.html">Config</a> *config, const char *key)</td></tr>
 <tr class="memdesc:a1de21a1f7c04a8c1aff780d3113b54c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a value from a <a class="el" href="structConfig.html">Config</a> struct by key.  <br /></td></tr>
 <tr class="memitem:a24e8f17e5041db810df1a2dbd02e2cb5" id="r_a24e8f17e5041db810df1a2dbd02e2cb5"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a24e8f17e5041db810df1a2dbd02e2cb5">dump_config_to_file</a> (const <a class="el" href="structConfig.html">Config</a> config, const char *path)</td></tr>
 <tr class="memitem:af48c526de8ae85a65c501beed33f7eda" id="r_af48c526de8ae85a65c501beed33f7eda"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#af48c526de8ae85a65c501beed33f7eda">path_exists</a> (const char *path)</td></tr>
 <tr class="memdesc:af48c526de8ae85a65c501beed33f7eda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a file or directory exists.  <br /></td></tr>
+<tr class="memitem:ade74c674de705ba000d89b8b814a1f81" id="r_ade74c674de705ba000d89b8b814a1f81"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ade74c674de705ba000d89b8b814a1f81">is_file</a> (const char *path)</td></tr>
+<tr class="memitem:ab0a28dae58ee805f2f815796957a35a2" id="r_ab0a28dae58ee805f2f815796957a35a2"><td class="memItemLeft">char **&#160;</td><td class="memItemRight"><a class="el" href="#ab0a28dae58ee805f2f815796957a35a2">list_files_indir</a> (const char *dir, int *n)</td></tr>
 <tr class="memitem:affe7dcccfeb7d953365474cf8d02c802" id="r_affe7dcccfeb7d953365474cf8d02c802"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#affe7dcccfeb7d953365474cf8d02c802">generate_file_structure</a> (const char *role, const char *username)</td></tr>
 <tr class="memdesc:affe7dcccfeb7d953365474cf8d02c802"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses file_struct.yaml.txt and generates files/directories for a user.  <br /></td></tr>
 <tr class="memitem:a15c4e22b029e77407c9bb8dc8868acf1" id="r_a15c4e22b029e77407c9bb8dc8868acf1"><td class="memItemLeft"><a class="el" href="structcommand__node.html">command_node</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a15c4e22b029e77407c9bb8dc8868acf1">new_command_node</a> (<a class="el" href="structcommand.html">command</a> f)</td></tr>
 <tr class="memitem:ae586ef16c78ede02401e329f79e84f26" id="r_ae586ef16c78ede02401e329f79e84f26"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae586ef16c78ede02401e329f79e84f26">free_cmd_list</a> (<a class="el" href="structcommand__node.html">command_node</a> *head)</td></tr>
 <tr class="memitem:af03618cc5b936551089350a1b632c4c1" id="r_af03618cc5b936551089350a1b632c4c1"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#af03618cc5b936551089350a1b632c4c1">get_utype</a> (const char *username)</td></tr>
-<tr class="memitem:ab71bd580b321d22381dbc01ac46ea4f3" id="r_ab71bd580b321d22381dbc01ac46ea4f3"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ab71bd580b321d22381dbc01ac46ea4f3">levenshtein_distance</a> (const char *s, const char *t, int m, int n)</td></tr>
 <tr class="memitem:a25768450bdaa57e9b76f04797cf78a99" id="r_a25768450bdaa57e9b76f04797cf78a99"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a25768450bdaa57e9b76f04797cf78a99">wipe_stdin</a> (void)</td></tr>
+<tr class="memitem:a90c49dd886a0b89d5f21a2f8448917dc" id="r_a90c49dd886a0b89d5f21a2f8448917dc"><td class="memItemLeft">void *&#160;</td><td class="memItemRight"><a class="el" href="#a90c49dd886a0b89d5f21a2f8448917dc">clean_malloc</a> (size_t size)</td></tr>
+<tr class="memitem:ab08d76004de1e54c0d18e143bfd50947" id="r_ab08d76004de1e54c0d18e143bfd50947"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ab08d76004de1e54c0d18e143bfd50947">unlink_cb</a> (const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf)</td></tr>
+<tr class="memitem:a8b0a03fe24c6eefca3693487562018d2" id="r_a8b0a03fe24c6eefca3693487562018d2"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a8b0a03fe24c6eefca3693487562018d2">rm_rf</a> (const char *path)</td></tr>
 </table>
 <a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="ac6afabdc09a49a433ee19d8a9486056d" name="ac6afabdc09a49a433ee19d8a9486056d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6afabdc09a49a433ee19d8a9486056d">&#9670;&#160;</a></span>min</h2>
+<a id="a78c99ffd76a7bb3c8c74db76207e9ab4" name="a78c99ffd76a7bb3c8c74db76207e9ab4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78c99ffd76a7bb3c8c74db76207e9ab4">&#9670;&#160;</a></span>_XOPEN_SOURCE</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define min</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+          <td class="memname">#define _XOPEN_SOURCE&#160;&#160;&#160;500</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">((a) &lt; (b) ? (a) : (b))</div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00416">416</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00001">1</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+
+</div>
+</div>
+<a id="a560905a1db6ed9589c465f87ac37ef77" name="a560905a1db6ed9589c465f87ac37ef77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a560905a1db6ed9589c465f87ac37ef77">&#9670;&#160;</a></span>EXT_SUFFIX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EXT_SUFFIX&#160;&#160;&#160;&quot;.txt&quot; /* this wouldve been a lot easier if i didnt have to do this.. */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00316">316</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+
+</div>
+</div>
+<a id="ad3b6821be9e4586b39163dad279459c4" name="ad3b6821be9e4586b39163dad279459c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3b6821be9e4586b39163dad279459c4">&#9670;&#160;</a></span>INDENT_SPACES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INDENT_SPACES&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00315">315</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
 
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="ab9e3ef0b6795065d2f14dc8069cbb914" name="ab9e3ef0b6795065d2f14dc8069cbb914"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9e3ef0b6795065d2f14dc8069cbb914">&#9670;&#160;</a></span>add()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structValue.html">Value</a> add </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structValue.html">Value</a> *</td>          <td class="paramname"><span class="paramname"><em>list</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Example usage of "Value" array (1). </p>
-
-<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00033">33</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
-
-</div>
-</div>
 <a id="a017662a7845649afccb7d3a653d794f3" name="a017662a7845649afccb7d3a653d794f3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a017662a7845649afccb7d3a653d794f3">&#9670;&#160;</a></span>call()</h2>
 
@@ -247,7 +262,26 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns a <a class="el" href="structValue.html" title="Something like a python variable.">Value</a> variable. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00058">58</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00035">35</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+
+</div>
+</div>
+<a id="a90c49dd886a0b89d5f21a2f8448917dc" name="a90c49dd886a0b89d5f21a2f8448917dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90c49dd886a0b89d5f21a2f8448917dc">&#9670;&#160;</a></span>clean_malloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * clean_malloc </td>
+          <td>(</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00526">526</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
 
 </div>
 </div>
@@ -266,7 +300,30 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00093">93</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00070">70</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+
+</div>
+</div>
+<a id="a5eb50ca23ebddd7d257e6d8cf5a3398b" name="a5eb50ca23ebddd7d257e6d8cf5a3398b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5eb50ca23ebddd7d257e6d8cf5a3398b">&#9670;&#160;</a></span>delete_key_config()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int delete_key_config </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>key_d</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structConfig.html">Config</a> *</td>          <td class="paramname"><span class="paramname"><em>config</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00199">199</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
 
 </div>
 </div>
@@ -289,7 +346,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00235">235</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00228">228</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
 
 </div>
 </div>
@@ -308,7 +365,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00390">390</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00494">494</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
 
 </div>
 </div>
@@ -333,7 +390,7 @@ Functions</h2></td></tr>
 
 <p>Parses file_struct.yaml.txt and generates files/directories for a user. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00269">269</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00317">317</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
 
 </div>
 </div>
@@ -366,7 +423,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to the value string, or NULL if not found </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00222">222</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00215">215</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
 
 </div>
 </div>
@@ -385,40 +442,49 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00401">401</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00505">505</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
 
 </div>
 </div>
-<a id="ab71bd580b321d22381dbc01ac46ea4f3" name="ab71bd580b321d22381dbc01ac46ea4f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab71bd580b321d22381dbc01ac46ea4f3">&#9670;&#160;</a></span>levenshtein_distance()</h2>
+<a id="ade74c674de705ba000d89b8b814a1f81" name="ade74c674de705ba000d89b8b814a1f81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade74c674de705ba000d89b8b814a1f81">&#9670;&#160;</a></span>is_file()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int levenshtein_distance </td>
+          <td class="memname">int is_file </td>
           <td>(</td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>s</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>t</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>m</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>n</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00419">419</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00262">262</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+
+</div>
+</div>
+<a id="ab0a28dae58ee805f2f815796957a35a2" name="ab0a28dae58ee805f2f815796957a35a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0a28dae58ee805f2f815796957a35a2">&#9670;&#160;</a></span>list_files_indir()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char ** list_files_indir </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>dir</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *</td>          <td class="paramname"><span class="paramname"><em>n</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00274">274</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
 
 </div>
 </div>
@@ -437,7 +503,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00017">17</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00020">20</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
 
 </div>
 </div>
@@ -456,7 +522,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00010">10</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00013">13</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
 
 </div>
 </div>
@@ -475,7 +541,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00024">24</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00027">27</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
 
 </div>
 </div>
@@ -494,7 +560,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00376">376</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00480">480</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
 
 </div>
 </div>
@@ -527,7 +593,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>0 on success, -1 if failed to open file, or empty config </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00164">164</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00141">141</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
 
 </div>
 </div>
@@ -555,32 +621,59 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 if exists, 0 if does not exist </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00259">259</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00252">252</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
 
 </div>
 </div>
-<a id="a1f308bbc9b99d2072520b8f10e838ebb" name="a1f308bbc9b99d2072520b8f10e838ebb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f308bbc9b99d2072520b8f10e838ebb">&#9670;&#160;</a></span>print_list()</h2>
+<a id="a8b0a03fe24c6eefca3693487562018d2" name="a8b0a03fe24c6eefca3693487562018d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b0a03fe24c6eefca3693487562018d2">&#9670;&#160;</a></span>rm_rf()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void print_list </td>
+          <td class="memname">int rm_rf </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structValue.html">Value</a> *</td>          <td class="paramname"><span class="paramname"><em>list</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>n</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Example usage of "Value" array (2). </p>
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00549">549</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00041">41</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+</div>
+</div>
+<a id="ab08d76004de1e54c0d18e143bfd50947" name="ab08d76004de1e54c0d18e143bfd50947"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab08d76004de1e54c0d18e143bfd50947">&#9670;&#160;</a></span>unlink_cb()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int unlink_cb </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>fpath</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const struct stat *</td>          <td class="paramname"><span class="paramname"><em>sb</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>typeflag</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct FTW *</td>          <td class="paramname"><span class="paramname"><em>ftwbuf</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00540">540</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
 
 </div>
 </div>
@@ -599,7 +692,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00465">465</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8c_source.html#l00520">520</a> of file <a class="el" href="utils_8c_source.html">utils.c</a>.</p>
 
 </div>
 </div>

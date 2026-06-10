@@ -102,147 +102,147 @@ $(function(){initNavTree('main_8c_source.html','',''); });
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="string__utils_8h.html">utils/string_utils.h</a>&quot;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="bookings_8h.html">user_commands/bookings.h</a>&quot;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="commands_8h.html">user_commands/commands.h</a>&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">/* file handling */</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;sys/stat.h&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#ifndef _WIN32</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;sys/file.h&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;fcntl.h&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#ifdef _WIN32</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;io.h&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;direct.h&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="tui_8h.html">utils/tui.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;sys/stat.h&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;fcntl.h&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#ifdef _WIN32</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">    #include &lt;io.h&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">    #include &lt;direct.h&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">    #include &lt;ncursesw/ncurses.h&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">    #include &lt;windows.h&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">    #include &lt;wincrypt.h&gt;</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">/* TUI */</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &quot;<a class="code" href="tui_8h.html">utils/tui.h</a>&quot;</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#ifndef _WIN32</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">    #include &lt;ncurses.h&gt;</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">    #include &lt;ncursesw/curses.h&gt;</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">    #include &lt;windows.h&gt;</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">    #include &lt;wincrypt.h&gt;</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="main_8c.html#a5f7ba8e1ca94628be5af73eb0efa891b">   35</a></span><span class="preprocessor">#define CREDENTIALS_PATH &quot;./users/creds.txt&quot;</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="foldopen" id="foldopen00037" data-start="{" data-end="}">
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627">   37</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="regen__file__structure_8c.html#acf0ba67194dd8f699009977bb264217e">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> ** argv)</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>{</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordtype">char</span> current_utype[10];</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">char</span> * pw_file = <a class="code hl_define" href="main_8c.html#a5f7ba8e1ca94628be5af73eb0efa891b">CREDENTIALS_PATH</a>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">char</span> path[256];</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">const</span> <span class="keywordtype">char</span> * options[3] = {</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="stringliteral">&quot;Login\0&quot;</span>,</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="stringliteral">&quot;Register\0&quot;</span>,</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="stringliteral">&quot;Exit\0&quot;</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    };</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordtype">char</span> pretext[128] = <span class="stringliteral">&quot;Please select an option&quot;</span>;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordtype">char</span> selection[20] = <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="comment">/*Pass to logins.h functions as a pointer to hash pointer, as per uthash doc</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment"></span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">    Defined in main because global variables aren&#39;t allowed */</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_struct" href="structuser__login__t.html">user_login_t</a> * logins = NULL;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <a class="code hl_struct" href="structuser__login__t.html">user_login_t</a> * user_ptr = NULL;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="comment">/* i have 0 clue why const doesnt work</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">     * if i don&#39;t define with static, clangd will scream something about aggregate not being a compile time constant</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">     */</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">static</span> <a class="code hl_enumeration" href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1">ValueType</a> makeuser_args[] = {<a class="code hl_enumvalue" href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1addb4be6b1cc25112defabef75f73427a">TYPE_STRING</a>, <a class="code hl_enumvalue" href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1addb4be6b1cc25112defabef75f73427a">TYPE_STRING</a>};</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="comment">/* COMMAND(function name, alias, permission, argument types) */</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structcommand.html">command</a> cmd_list[] = {</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <a class="code hl_define" href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a>(<a class="code hl_function" href="bookings_8c.html#aaae1e0d010ef58c6f1ab63de1e78bafb">doctor_booking_frontend</a>, <span class="stringliteral">&quot;Doctor Booking&quot;</span>, <span class="stringliteral">&quot;Doctor&quot;</span>, <span class="stringliteral">&quot;Booking options for doctors&quot;</span>),</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <a class="code hl_define" href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a>(<a class="code hl_function" href="bookings_8c.html#a8cfa5a3e93b7e46813a1d72f322deda8">patient_booking_frontend</a>, <span class="stringliteral">&quot;Patient Booking&quot;</span>, <span class="stringliteral">&quot;Patient&quot;</span>, <span class="stringliteral">&quot;Booking options for patients&quot;</span>),</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <a class="code hl_define" href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a>(<a class="code hl_function" href="commands_8c.html#af3d79917f472952f77de2e36f341f68c">admin_view_cfg</a>, <span class="stringliteral">&quot;View users profile&quot;</span>, <span class="stringliteral">&quot;Admin&quot;</span>, <span class="stringliteral">&quot;&quot;</span>),</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <a class="code hl_define" href="utils_8h.html#aa31cd606b2d124583c5c1c8fcd58e9f3">COMMAND</a>(<a class="code hl_function" href="commands_8c.html#a793783b5d9356c65130074c09b88985f">make_user</a>, <span class="stringliteral">&quot;Create account&quot;</span>, <span class="stringliteral">&quot;Admin&quot;</span>, makeuser_args, <span class="stringliteral">&quot;Create accounts for patients, doctors, etc\n\n First arg is username,\n second arg is usertype (cAsE sEnSiTiVe)&quot;</span>),</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <a class="code hl_define" href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a>(<a class="code hl_function" href="commands_8c.html#a7386e842c6fcd14b7c80e6f9563cc1c4">edit_profile_self_admin</a>, <span class="stringliteral">&quot;Edit your profile&quot;</span>, <span class="stringliteral">&quot;Admin&quot;</span>, <span class="stringliteral">&quot;&quot;</span>),</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">    #include &lt;sys/file.h&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">    #include &lt;unistd.h&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">    #include &lt;ncurses.h&gt;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="main_8c.html#a5f7ba8e1ca94628be5af73eb0efa891b">   26</a></span><span class="preprocessor">#define CREDENTIALS_PATH &quot;./users/creds.txt&quot;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="foldopen" id="foldopen00028" data-start="{" data-end="}">
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627">   28</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="regen__file__structure_8c.html#acf0ba67194dd8f699009977bb264217e">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> ** argv)</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>{</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordtype">char</span> current_utype[10];</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">char</span> * pw_file = <a class="code hl_define" href="main_8c.html#a5f7ba8e1ca94628be5af73eb0efa891b">CREDENTIALS_PATH</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordtype">char</span> path[256];</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">const</span> <span class="keywordtype">char</span> * options[3] = {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="stringliteral">&quot;Login\0&quot;</span>,</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="stringliteral">&quot;Register\0&quot;</span>,</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="stringliteral">&quot;Exit\0&quot;</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    };</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">char</span> pretext[128] = <span class="stringliteral">&quot;Please select an option&quot;</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordtype">char</span> selection[20] = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="comment">/*Pass to logins.h functions as a pointer to hash pointer, as per uthash doc</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment"></span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">    Defined in main because global variables aren&#39;t allowed */</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_struct" href="structuser__login__t.html">user_login_t</a> * logins = NULL;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_struct" href="structuser__login__t.html">user_login_t</a> * user_ptr = NULL;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="comment">/* i have 0 clue why const doesnt work</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">     * if i don&#39;t define with static, clangd will scream something about aggregate not being a compile time constant</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">static</span> <a class="code hl_enumeration" href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1">ValueType</a> makeuser_args[] = {<a class="code hl_enumvalue" href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1addb4be6b1cc25112defabef75f73427a">TYPE_STRING</a>, <a class="code hl_enumvalue" href="utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1addb4be6b1cc25112defabef75f73427a">TYPE_STRING</a>};</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="comment">/* COMMAND(function name, alias, permission, argument types) */</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structcommand.html">command</a> cmd_list[] = {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <a class="code hl_define" href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a>(<a class="code hl_function" href="bookings_8c.html#aaae1e0d010ef58c6f1ab63de1e78bafb">doctor_booking_frontend</a>, <span class="stringliteral">&quot;Doctor Booking&quot;</span>, <span class="stringliteral">&quot;Doctor&quot;</span>, <span class="stringliteral">&quot;Booking options for doctors&quot;</span>),</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <a class="code hl_define" href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a>(<a class="code hl_function" href="commands_8c.html#a3f522256888c6433ff379d6cc9eac919">doctor_diagnosis</a>, <span class="stringliteral">&quot;Write diagnosis&quot;</span>, <span class="stringliteral">&quot;Doctor&quot;</span>, <span class="stringliteral">&quot;Create a diagnosis report for a patient&quot;</span>),</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <a class="code hl_define" href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a>(<a class="code hl_function" href="commands_8c.html#a58502d2cafae8756729849bc1efa6495">view_diagnosis_self_doc</a>, <span class="stringliteral">&quot;View diagnosis&quot;</span>, <span class="stringliteral">&quot;Doctor&quot;</span>, <span class="stringliteral">&quot;View diagnosis reports for a patient you wrote yrself&quot;</span>),</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <a class="code hl_define" href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a>(<a class="code hl_function" href="bookings_8c.html#a8cfa5a3e93b7e46813a1d72f322deda8">patient_booking_frontend</a>, <span class="stringliteral">&quot;Patient Booking&quot;</span>, <span class="stringliteral">&quot;Patient&quot;</span>, <span class="stringliteral">&quot;Booking options for patients&quot;</span>),</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <a class="code hl_define" href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a>(<a class="code hl_function" href="commands_8c.html#a33024769bc1bd606169ea5e248ab92b4">edit_profile_self_patient</a>, <span class="stringliteral">&quot;Edit your profile&quot;</span>, <span class="stringliteral">&quot;Patient&quot;</span>, <span class="stringliteral">&quot;&quot;</span>),</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <a class="code hl_define" href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a>(<a class="code hl_function" href="commands_8c.html#af3d79917f472952f77de2e36f341f68c">admin_view_cfg</a>, <span class="stringliteral">&quot;View users profile&quot;</span>, <span class="stringliteral">&quot;Admin&quot;</span>, <span class="stringliteral">&quot;&quot;</span>),</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <a class="code hl_define" href="utils_8h.html#aa31cd606b2d124583c5c1c8fcd58e9f3">COMMAND</a>(<a class="code hl_function" href="commands_8c.html#a793783b5d9356c65130074c09b88985f">make_user</a>, <span class="stringliteral">&quot;Create account&quot;</span>, <span class="stringliteral">&quot;Admin&quot;</span>, makeuser_args, <span class="stringliteral">&quot;Create accounts for patients, doctors, etc\n\n First arg is username,\n second arg is usertype (cAsE sEnSiTiVe)&quot;</span>),</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <a class="code hl_define" href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a>(<a class="code hl_function" href="commands_8c.html#a7386e842c6fcd14b7c80e6f9563cc1c4">edit_profile_self_admin</a>, <span class="stringliteral">&quot;Edit your profile&quot;</span>, <span class="stringliteral">&quot;Admin&quot;</span>, <span class="stringliteral">&quot;&quot;</span>),</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <a class="code hl_define" href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a>(<a class="code hl_function" href="commands_8c.html#a98518bcf964c4c6b4dbfe1fdad145020">tedit_test</a>, <span class="stringliteral">&quot;Text edit test&quot;</span>, <span class="stringliteral">&quot;Admin&quot;</span>, <span class="stringliteral">&quot;&quot;</span>),</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <a class="code hl_define" href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a>(<a class="code hl_function" href="commands_8c.html#a7702102073743108a5d5d3bb020398d4">admin_delete_user</a>, <span class="stringliteral">&quot;Delete user&quot;</span>, <span class="stringliteral">&quot;Admin&quot;</span>, <span class="stringliteral">&quot;Delete a user from cred file and DB folder&quot;</span>),</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <a class="code hl_define" href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a>(<a class="code hl_function" href="bookings_8c.html#a5f74192d6407d20c3285a092abdffddd">nurse_view_booking</a>, <span class="stringliteral">&quot;View doctor&#39;s appointments&quot;</span>, <span class="stringliteral">&quot;Nurse&quot;</span>, <span class="stringliteral">&quot;&quot;</span>),</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    };</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <a class="code hl_define" href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a>(<a class="code hl_function" href="bookings_8c.html#a5f74192d6407d20c3285a092abdffddd">nurse_view_booking</a>, <span class="stringliteral">&quot;View doctor&#39;s appointments&quot;</span>, <span class="stringliteral">&quot;Nurse&quot;</span>, <span class="stringliteral">&quot;&quot;</span>),</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    };</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordtype">int</span> cmd_list_n = <span class="keyword">sizeof</span>(cmd_list)/<span class="keyword">sizeof</span>(<a class="code hl_struct" href="structcommand.html">command</a>);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="comment">/* in case anyone is stupid enough to run the program by typing the full path instead of cding in</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment">     * the first argv is always the path used to run main.out;</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment">        * On windows, it&#39;s always the full path</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment">        * For example on linux, if you run it by doing ./main.out, it will be exactly that. if you run it by /home/username/github/main.out, it will also be that.</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment">     */</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordtype">char</span> argv_path[256];</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordtype">char</span> * last_slash;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordtype">int</span> cmd_list_n = <span class="keyword">sizeof</span>(cmd_list)/<span class="keyword">sizeof</span>(<a class="code hl_struct" href="structcommand.html">command</a>);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="comment">/* in case anyone is stupid enough to run the program by typing the full path instead of cding in</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment">     * the first argv is always the path used to run main.out;</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment">        * On windows, it&#39;s always the full path</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment">        * For example on linux, if you run it by doing ./main.out, it will be exactly that. if you run it by /home/username/github/main.out, it will also be that.</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordtype">char</span> argv_path[256];</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordtype">char</span> * last_slash;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    strcpy(argv_path, argv[0]);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    last_slash = strrchr(argv_path, <span class="charliteral">&#39;/&#39;</span>);</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    strcpy(argv_path, argv[0]);</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    last_slash = strrchr(argv_path, <span class="charliteral">&#39;/&#39;</span>);</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordflow">if</span> (last_slash != NULL)</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    {</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        *last_slash = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    }</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="preprocessor">    #ifdef _WIN32</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        _chdir(argv_path);</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="preprocessor">    #else</span></div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        chdir(argv_path);</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordflow">if</span>(isatty(STDOUT_FILENO))</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            system(<span class="stringliteral">&quot;reset&quot;</span>); <span class="comment">/* in case the program crashes and messes up the terminal */</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordflow">if</span>(argc &gt; 1)</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    {</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordflow">if</span> ( strcmp(argv[1], <span class="stringliteral">&quot;login&quot;</span>) == 0 )</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            <span class="keywordflow">if</span>(argc &gt; 2)</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            {</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                strcpy(<a class="code hl_variable" href="globals_8c.html#a7906a5902d4aaf42dac295701be2697e">current_username</a>, argv[2]);</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                <span class="keywordflow">goto</span> login_get_password;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            }</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">if</span> (last_slash != NULL)</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    {</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        *last_slash = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="preprocessor">    #ifdef _WIN32</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        _chdir(argv_path);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">    #else</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        chdir(argv_path);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="keywordflow">if</span>(isatty(STDOUT_FILENO))</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            system(<span class="stringliteral">&quot;reset&quot;</span>); <span class="comment">/* in case the program crashes and messes up the terminal */</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordflow">if</span>(argc &gt; 1)</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keywordflow">if</span> ( strcmp(argv[1], <span class="stringliteral">&quot;login&quot;</span>) == 0 )</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            <span class="keywordflow">if</span>(argc &gt; 2)</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                strcpy(<a class="code hl_variable" href="globals_8c.html#a7906a5902d4aaf42dac295701be2697e">current_username</a>, argv[2]);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                <span class="keywordflow">goto</span> login_get_password;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            }</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                <span class="keywordflow">goto</span> login_get_username;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                <span class="keywordflow">goto</span> login_get_username;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( strcmp(argv[1], <span class="stringliteral">&quot;register&quot;</span>) == 0 )</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            <span class="keywordflow">goto</span> reg_get_username;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    }</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( strcmp(argv[1], <span class="stringliteral">&quot;register&quot;</span>) == 0 )</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            <span class="keywordflow">goto</span> reg_get_username;</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    }</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    main_menu:</div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    main_menu:</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keywordflow">switch</span> (<a class="code hl_function" href="tui_8c.html#ae7eae98c1d28139bd16ec2a71459b2f8">simple_select</a>(COLOR_BLUE, COLOR_BLACK, 3, options, selection, pretext))</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    {</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="keywordflow">case</span> -1: <span class="comment">/* EOT or EOF */</span></div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="comment">/* login */</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="keywordflow">case</span> 0:</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        login_get_username:</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        printf(<span class="stringliteral">&quot;enter your username\n&quot;</span>);</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        fgets(<a class="code hl_variable" href="globals_8c.html#a7906a5902d4aaf42dac295701be2697e">current_username</a>, <span class="keyword">sizeof</span>(<a class="code hl_variable" href="globals_8c.html#a7906a5902d4aaf42dac295701be2697e">current_username</a>)/<span class="keyword">sizeof</span>(<span class="keywordtype">char</span>), stdin);</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <a class="code hl_function" href="string__utils_8c.html#a2af10d6c8dd2998483933b798babbc9a">string_trim</a>(<a class="code hl_variable" href="globals_8c.html#a7906a5902d4aaf42dac295701be2697e">current_username</a>);</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        login_get_password:</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        {</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>            <span class="keywordtype">char</span> password[<a class="code hl_define" href="logins_8h.html#ae9169c3fda2dfecbb7a13e394a69e5be">MAX_PASSWORD_LEN</a>];</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>            printf(<span class="stringliteral">&quot;enter your password\n&quot;</span>);</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            fgets(password, <a class="code hl_define" href="logins_8h.html#ae9169c3fda2dfecbb7a13e394a69e5be">MAX_PASSWORD_LEN</a>, stdin);</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            <a class="code hl_function" href="string__utils_8c.html#a2af10d6c8dd2998483933b798babbc9a">string_trim</a>(password);</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>            <a class="code hl_function" href="logins_8c.html#a3da8e7414374ec378d5363775860cc05">load_users_from_file</a>(pw_file, &amp;logins);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keywordflow">switch</span> (<a class="code hl_function" href="tui_8c.html#ae7eae98c1d28139bd16ec2a71459b2f8">simple_select</a>(COLOR_BLUE, COLOR_BLACK, 3, options, selection, pretext))</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    {</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keywordflow">case</span> -1: <span class="comment">/* EOT or EOF */</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="comment">/* login */</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keywordflow">case</span> 0:</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        login_get_username:</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        printf(<span class="stringliteral">&quot;enter your username\n&quot;</span>);</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        fgets(<a class="code hl_variable" href="globals_8c.html#a7906a5902d4aaf42dac295701be2697e">current_username</a>, <span class="keyword">sizeof</span>(<a class="code hl_variable" href="globals_8c.html#a7906a5902d4aaf42dac295701be2697e">current_username</a>)/<span class="keyword">sizeof</span>(<span class="keywordtype">char</span>), stdin);</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <a class="code hl_function" href="string__utils_8c.html#a2af10d6c8dd2998483933b798babbc9a">string_trim</a>(<a class="code hl_variable" href="globals_8c.html#a7906a5902d4aaf42dac295701be2697e">current_username</a>);</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        login_get_password:</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        {</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>            <span class="keywordtype">char</span> password[<a class="code hl_define" href="logins_8h.html#ae9169c3fda2dfecbb7a13e394a69e5be">MAX_PASSWORD_LEN</a>];</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            printf(<span class="stringliteral">&quot;enter your password\n&quot;</span>);</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>            fgets(password, <a class="code hl_define" href="logins_8h.html#ae9169c3fda2dfecbb7a13e394a69e5be">MAX_PASSWORD_LEN</a>, stdin);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>            <a class="code hl_function" href="string__utils_8c.html#a2af10d6c8dd2998483933b798babbc9a">string_trim</a>(password);</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            <span class="keywordflow">if</span>(<a class="code hl_function" href="logins_8c.html#a3da8e7414374ec378d5363775860cc05">load_users_from_file</a>(pw_file, &amp;logins) == -1)</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            {</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                printf(<span class="stringliteral">&quot;Failed to load users from pw file&quot;</span>);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>                <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>            }</div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            user_ptr = <a class="code hl_function" href="logins_8c.html#afc3b11c72547af365dc8af84aa51d166">lookup_user</a>(<a class="code hl_variable" href="globals_8c.html#a7906a5902d4aaf42dac295701be2697e">current_username</a>, &amp;logins);</div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            <span class="keywordflow">if</span>(user_ptr == NULL)</div>
@@ -292,127 +292,124 @@ $(function(){initNavTree('main_8c_source.html','',''); });
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>                <a class="code hl_function" href="string__utils_8c.html#a2af10d6c8dd2998483933b798babbc9a">string_trim</a>(password);</div>
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>                <span class="comment">/* hash the password */</span></div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>                <a class="code hl_function" href="logins_8c.html#aea42d8113c094649ea49d42e8c2a50a5">register_user_hashtable</a>(<a class="code hl_variable" href="globals_8c.html#a7906a5902d4aaf42dac295701be2697e">current_username</a>, password, pw_file);</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>                <a class="code hl_function" href="utils_8c.html#affe7dcccfeb7d953365474cf8d02c802">generate_file_structure</a>(<span class="stringliteral">&quot;Patient&quot;</span>, <a class="code hl_variable" href="globals_8c.html#a7906a5902d4aaf42dac295701be2697e">current_username</a>);</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>                sprintf(pretext, <span class="stringliteral">&quot;Registered %s as patient, please login again\n&quot;</span>, <a class="code hl_variable" href="globals_8c.html#a7906a5902d4aaf42dac295701be2697e">current_username</a>);</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>                <span class="keywordflow">goto</span> main_menu;</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>            }</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>            <span class="keywordflow">else</span> <span class="comment">/* if dir exists */</span></div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>            {</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>                fprintf(stderr, <span class="stringliteral">&quot;This username has been taken (dir exists)\n&quot;</span>);</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>                <span class="keywordflow">goto</span> reg_get_username;</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            }</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        <span class="comment">/* exit */</span></div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        <span class="keywordflow">case</span> 2:</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>            <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    }</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    {</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        <a class="code hl_struct" href="structConfig.html">Config</a> cfg;</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        <span class="keyword">const</span> <span class="keywordtype">char</span> *val;</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        sprintf(path, <span class="stringliteral">&quot;./users/%s/profile.txt&quot;</span>, <a class="code hl_variable" href="globals_8c.html#a7906a5902d4aaf42dac295701be2697e">current_username</a>);</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="utils_8c.html#a89448941e042941353b8e90d5f8666e7">parse_config_file</a>(path, &amp;cfg) == 0)</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        {</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>            val = <a class="code hl_function" href="utils_8c.html#a1de21a1f7c04a8c1aff780d3113b54c1">get_config_value</a>(&amp;cfg, <span class="stringliteral">&quot;USERTYPE&quot;</span>);</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>            <span class="keywordflow">if</span> (val != NULL)</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>            {</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>                strncpy(current_utype, val, <span class="keyword">sizeof</span>(current_utype) - 1);</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>                current_utype[<span class="keyword">sizeof</span>(current_utype) - 1] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>            }<span class="keywordflow">else</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>                <span class="keywordflow">if</span>(<a class="code hl_function" href="logins_8c.html#aea42d8113c094649ea49d42e8c2a50a5">register_user_hashtable</a>(<a class="code hl_variable" href="globals_8c.html#a7906a5902d4aaf42dac295701be2697e">current_username</a>, password, pw_file) == -1)</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>                {</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>                    sprintf(pretext, <span class="stringliteral">&quot;Failed to register user to hashtable&quot;</span>);</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>                    <span class="keywordflow">goto</span> main_menu;   </div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>                }</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>                <a class="code hl_function" href="utils_8c.html#affe7dcccfeb7d953365474cf8d02c802">generate_file_structure</a>(<span class="stringliteral">&quot;Patient&quot;</span>, <a class="code hl_variable" href="globals_8c.html#a7906a5902d4aaf42dac295701be2697e">current_username</a>);</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>                sprintf(pretext, <span class="stringliteral">&quot;Registered %s as patient, please login again\n&quot;</span>, <a class="code hl_variable" href="globals_8c.html#a7906a5902d4aaf42dac295701be2697e">current_username</a>);</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>                <span class="keywordflow">goto</span> main_menu;</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>            }</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            <span class="keywordflow">else</span> <span class="comment">/* if dir exists */</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>            {</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>                fprintf(stderr, <span class="stringliteral">&quot;This username has been taken (dir exists)\n&quot;</span>);</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>                <span class="keywordflow">goto</span> reg_get_username;</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>            }</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        <span class="comment">/* exit */</span></div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        <span class="keywordflow">case</span> 2:</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>            <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    }</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    {</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        <a class="code hl_struct" href="structConfig.html">Config</a> cfg;</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        <span class="keyword">const</span> <span class="keywordtype">char</span> *val;</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        sprintf(path, <span class="stringliteral">&quot;./users/%s/profile.txt&quot;</span>, <a class="code hl_variable" href="globals_8c.html#a7906a5902d4aaf42dac295701be2697e">current_username</a>);</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="utils_8c.html#a89448941e042941353b8e90d5f8666e7">parse_config_file</a>(path, &amp;cfg) == 0)</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        {</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>            val = <a class="code hl_function" href="utils_8c.html#a1de21a1f7c04a8c1aff780d3113b54c1">get_config_value</a>(&amp;cfg, <span class="stringliteral">&quot;USERTYPE&quot;</span>);</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>            <span class="keywordflow">if</span> (val != NULL)</div>
 <div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>            {</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>                fprintf(stderr, <span class="stringliteral">&quot;Usertype is empty\n&quot;</span>);</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>                <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>            }</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>        }</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    }</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    {</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        <span class="keywordtype">int</span> i;</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        <span class="keywordtype">int</span> first = 1;</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        <a class="code hl_struct" href="structcommand__node.html">command_node</a>* head;</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        <a class="code hl_struct" href="structcommand__node.html">command_node</a>* Node;</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        <span class="keywordflow">for</span>(i=0; i&lt;cmd_list_n; i++)</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        {</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>            <span class="keywordflow">if</span>( strcmp(cmd_list[i].permission, current_utype) == 0 )</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>            {</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>                <span class="keywordflow">if</span>(first)</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>                {</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>                    head = <a class="code hl_function" href="utils_8c.html#a15c4e22b029e77407c9bb8dc8868acf1">new_command_node</a>(cmd_list[i]);</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>                    Node = head;</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>                    first = 0;</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>                    <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>                }</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>                Node-&gt;<a class="code hl_variable" href="structcommand__node.html#a25f16b82d55b8291aeda853582e0a4a6">next</a> = <a class="code hl_function" href="utils_8c.html#a15c4e22b029e77407c9bb8dc8868acf1">new_command_node</a>(cmd_list[i]);</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>                Node = Node-&gt;<a class="code hl_variable" href="structcommand__node.html#a25f16b82d55b8291aeda853582e0a4a6">next</a>;</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>            }</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>        }</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        Node = head;</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        printf(<span class="stringliteral">&quot;utype: %s\n&quot;</span>, current_utype);</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>        <span class="keywordflow">while</span>(Node != NULL)</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        {</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>            printf(<span class="stringliteral">&quot;%s\n&quot;</span>, Node-&gt;<a class="code hl_variable" href="structcommand__node.html#a81c9cabd690b43373fd151a7134f929b">f</a>.<a class="code hl_variable" href="structcommand.html#a9027b352db4085a0122952932d065705">alias</a>);</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>            Node = Node-&gt;<a class="code hl_variable" href="structcommand__node.html#a25f16b82d55b8291aeda853582e0a4a6">next</a>;</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        }</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>                strncpy(current_utype, val, <span class="keyword">sizeof</span>(current_utype) - 1);</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>                current_utype[<span class="keyword">sizeof</span>(current_utype) - 1] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>            }<span class="keywordflow">else</span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>            {</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>                fprintf(stderr, <span class="stringliteral">&quot;Usertype is empty\n&quot;</span>);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>                <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>            }</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        }</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    }</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    {</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        <span class="keywordtype">int</span> i;</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        <span class="keywordtype">int</span> first = 1;</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        <a class="code hl_struct" href="structcommand__node.html">command_node</a>* head;</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        <a class="code hl_struct" href="structcommand__node.html">command_node</a>* Node;</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        <span class="keywordflow">for</span>(i=0; i&lt;cmd_list_n; i++)</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        {</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>            <span class="keywordflow">if</span>( strcmp(cmd_list[i].permission, current_utype) == 0 )</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>            {</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>                <span class="keywordflow">if</span>(first)</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>                {</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>                    head = <a class="code hl_function" href="utils_8c.html#a15c4e22b029e77407c9bb8dc8868acf1">new_command_node</a>(cmd_list[i]);</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>                    Node = head;</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>                    first = 0;</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>                    <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>                }</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>                Node-&gt;<a class="code hl_variable" href="structcommand__node.html#a25f16b82d55b8291aeda853582e0a4a6">next</a> = <a class="code hl_function" href="utils_8c.html#a15c4e22b029e77407c9bb8dc8868acf1">new_command_node</a>(cmd_list[i]);</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>                Node = Node-&gt;<a class="code hl_variable" href="structcommand__node.html#a25f16b82d55b8291aeda853582e0a4a6">next</a>;</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>            }</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        }</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        <a class="code hl_function" href="tui_8c.html#a18eb2555dda32a03520091ece15a8ae9">command_select</a>(head, current_utype, <a class="code hl_variable" href="globals_8c.html#a7906a5902d4aaf42dac295701be2697e">current_username</a>);</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span> </div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        <a class="code hl_function" href="utils_8c.html#ae586ef16c78ede02401e329f79e84f26">free_cmd_list</a>(head);</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    }</div>
 <div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
 <div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span> </div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>        <a class="code hl_function" href="tui_8c.html#a18eb2555dda32a03520091ece15a8ae9">command_select</a>(head, current_utype, <a class="code hl_variable" href="globals_8c.html#a7906a5902d4aaf42dac295701be2697e">current_username</a>);</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
 <div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        <a class="code hl_function" href="utils_8c.html#ae586ef16c78ede02401e329f79e84f26">free_cmd_list</a>(head);</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    }</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
 <div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span> </div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span> </div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    endwin();</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>}</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    endwin();</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>}</div>
 </div>
-<div class="ttc" id="abookings_8c_html_a5f74192d6407d20c3285a092abdffddd"><div class="ttname"><a href="bookings_8c.html#a5f74192d6407d20c3285a092abdffddd">nurse_view_booking</a></div><div class="ttdeci">Value nurse_view_booking(void)</div><div class="ttdef"><b>Definition</b> <a href="bookings_8c_source.html#l00187">bookings.c:187</a></div></div>
-<div class="ttc" id="abookings_8c_html_a8cfa5a3e93b7e46813a1d72f322deda8"><div class="ttname"><a href="bookings_8c.html#a8cfa5a3e93b7e46813a1d72f322deda8">patient_booking_frontend</a></div><div class="ttdeci">Value patient_booking_frontend(void)</div><div class="ttdef"><b>Definition</b> <a href="bookings_8c_source.html#l00220">bookings.c:220</a></div></div>
-<div class="ttc" id="abookings_8c_html_aaae1e0d010ef58c6f1ab63de1e78bafb"><div class="ttname"><a href="bookings_8c.html#aaae1e0d010ef58c6f1ab63de1e78bafb">doctor_booking_frontend</a></div><div class="ttdeci">Value doctor_booking_frontend(void)</div><div class="ttdef"><b>Definition</b> <a href="bookings_8c_source.html#l00071">bookings.c:71</a></div></div>
+<div class="ttc" id="abookings_8c_html_a5f74192d6407d20c3285a092abdffddd"><div class="ttname"><a href="bookings_8c.html#a5f74192d6407d20c3285a092abdffddd">nurse_view_booking</a></div><div class="ttdeci">Value nurse_view_booking(void)</div><div class="ttdef"><b>Definition</b> <a href="bookings_8c_source.html#l00206">bookings.c:206</a></div></div>
+<div class="ttc" id="abookings_8c_html_a8cfa5a3e93b7e46813a1d72f322deda8"><div class="ttname"><a href="bookings_8c.html#a8cfa5a3e93b7e46813a1d72f322deda8">patient_booking_frontend</a></div><div class="ttdeci">Value patient_booking_frontend(void)</div><div class="ttdef"><b>Definition</b> <a href="bookings_8c_source.html#l00235">bookings.c:235</a></div></div>
+<div class="ttc" id="abookings_8c_html_aaae1e0d010ef58c6f1ab63de1e78bafb"><div class="ttname"><a href="bookings_8c.html#aaae1e0d010ef58c6f1ab63de1e78bafb">doctor_booking_frontend</a></div><div class="ttdeci">Value doctor_booking_frontend(void)</div><div class="ttdef"><b>Definition</b> <a href="bookings_8c_source.html#l00084">bookings.c:84</a></div></div>
 <div class="ttc" id="abookings_8h_html"><div class="ttname"><a href="bookings_8h.html">bookings.h</a></div></div>
-<div class="ttc" id="acommands_8c_html_a7386e842c6fcd14b7c80e6f9563cc1c4"><div class="ttname"><a href="commands_8c.html#a7386e842c6fcd14b7c80e6f9563cc1c4">edit_profile_self_admin</a></div><div class="ttdeci">Value edit_profile_self_admin(void)</div><div class="ttdef"><b>Definition</b> <a href="commands_8c_source.html#l00134">commands.c:134</a></div></div>
-<div class="ttc" id="acommands_8c_html_a793783b5d9356c65130074c09b88985f"><div class="ttname"><a href="commands_8c.html#a793783b5d9356c65130074c09b88985f">make_user</a></div><div class="ttdeci">Value make_user(Value *list)</div><div class="ttdef"><b>Definition</b> <a href="commands_8c_source.html#l00023">commands.c:23</a></div></div>
-<div class="ttc" id="acommands_8c_html_af3d79917f472952f77de2e36f341f68c"><div class="ttname"><a href="commands_8c.html#af3d79917f472952f77de2e36f341f68c">admin_view_cfg</a></div><div class="ttdeci">Value admin_view_cfg(void)</div><div class="ttdef"><b>Definition</b> <a href="commands_8c_source.html#l00068">commands.c:68</a></div></div>
+<div class="ttc" id="acommands_8c_html_a33024769bc1bd606169ea5e248ab92b4"><div class="ttname"><a href="commands_8c.html#a33024769bc1bd606169ea5e248ab92b4">edit_profile_self_patient</a></div><div class="ttdeci">Value edit_profile_self_patient(void)</div><div class="ttdef"><b>Definition</b> <a href="commands_8c_source.html#l00162">commands.c:162</a></div></div>
+<div class="ttc" id="acommands_8c_html_a3f522256888c6433ff379d6cc9eac919"><div class="ttname"><a href="commands_8c.html#a3f522256888c6433ff379d6cc9eac919">doctor_diagnosis</a></div><div class="ttdeci">Value doctor_diagnosis(void)</div><div class="ttdef"><b>Definition</b> <a href="commands_8c_source.html#l00257">commands.c:257</a></div></div>
+<div class="ttc" id="acommands_8c_html_a58502d2cafae8756729849bc1efa6495"><div class="ttname"><a href="commands_8c.html#a58502d2cafae8756729849bc1efa6495">view_diagnosis_self_doc</a></div><div class="ttdeci">Value view_diagnosis_self_doc(void)</div><div class="ttdef"><b>Definition</b> <a href="commands_8c_source.html#l00315">commands.c:315</a></div></div>
+<div class="ttc" id="acommands_8c_html_a7386e842c6fcd14b7c80e6f9563cc1c4"><div class="ttname"><a href="commands_8c.html#a7386e842c6fcd14b7c80e6f9563cc1c4">edit_profile_self_admin</a></div><div class="ttdeci">Value edit_profile_self_admin(void)</div><div class="ttdef"><b>Definition</b> <a href="commands_8c_source.html#l00177">commands.c:177</a></div></div>
+<div class="ttc" id="acommands_8c_html_a7702102073743108a5d5d3bb020398d4"><div class="ttname"><a href="commands_8c.html#a7702102073743108a5d5d3bb020398d4">admin_delete_user</a></div><div class="ttdeci">Value admin_delete_user(void)</div><div class="ttdef"><b>Definition</b> <a href="commands_8c_source.html#l00192">commands.c:192</a></div></div>
+<div class="ttc" id="acommands_8c_html_a793783b5d9356c65130074c09b88985f"><div class="ttname"><a href="commands_8c.html#a793783b5d9356c65130074c09b88985f">make_user</a></div><div class="ttdeci">Value make_user(Value *list)</div><div class="ttdef"><b>Definition</b> <a href="commands_8c_source.html#l00026">commands.c:26</a></div></div>
+<div class="ttc" id="acommands_8c_html_a98518bcf964c4c6b4dbfe1fdad145020"><div class="ttname"><a href="commands_8c.html#a98518bcf964c4c6b4dbfe1fdad145020">tedit_test</a></div><div class="ttdeci">Value tedit_test(void)</div><div class="ttdef"><b>Definition</b> <a href="commands_8c_source.html#l00246">commands.c:246</a></div></div>
+<div class="ttc" id="acommands_8c_html_af3d79917f472952f77de2e36f341f68c"><div class="ttname"><a href="commands_8c.html#af3d79917f472952f77de2e36f341f68c">admin_view_cfg</a></div><div class="ttdeci">Value admin_view_cfg(void)</div><div class="ttdef"><b>Definition</b> <a href="commands_8c_source.html#l00071">commands.c:71</a></div></div>
 <div class="ttc" id="acommands_8h_html"><div class="ttname"><a href="commands_8h.html">commands.h</a></div></div>
 <div class="ttc" id="aglobals_8c_html_a7906a5902d4aaf42dac295701be2697e"><div class="ttname"><a href="globals_8c.html#a7906a5902d4aaf42dac295701be2697e">current_username</a></div><div class="ttdeci">char current_username[64]</div><div class="ttdef"><b>Definition</b> <a href="globals_8c_source.html#l00006">globals.c:6</a></div></div>
 <div class="ttc" id="aglobals_8h_html"><div class="ttname"><a href="globals_8h.html">globals.h</a></div></div>
 <div class="ttc" id="aglobals_8h_html_a2e2e697ff7ae93026c6f59fa1e02aa57"><div class="ttname"><a href="globals_8h.html#a2e2e697ff7ae93026c6f59fa1e02aa57">DATABASE_PATH</a></div><div class="ttdeci">#define DATABASE_PATH</div><div class="ttdef"><b>Definition</b> <a href="globals_8h_source.html#l00003">globals.h:3</a></div></div>
 <div class="ttc" id="alogins_8c_html_a3da8e7414374ec378d5363775860cc05"><div class="ttname"><a href="logins_8c.html#a3da8e7414374ec378d5363775860cc05">load_users_from_file</a></div><div class="ttdeci">int load_users_from_file(const char *filename, user_login_t **logins)</div><div class="ttdoc">Read the hash table from a file (format: username=password).</div><div class="ttdef"><b>Definition</b> <a href="logins_8c_source.html#l00045">logins.c:45</a></div></div>
-<div class="ttc" id="alogins_8c_html_a54f32098ab9b90a6b5487e0038d4860e"><div class="ttname"><a href="logins_8c.html#a54f32098ab9b90a6b5487e0038d4860e">verify_password</a></div><div class="ttdeci">int verify_password(const char *password, const char *stored_hash)</div><div class="ttdoc">Verify a password against a stored hash.</div><div class="ttdef"><b>Definition</b> <a href="logins_8c_source.html#l00133">logins.c:133</a></div></div>
-<div class="ttc" id="alogins_8c_html_aea42d8113c094649ea49d42e8c2a50a5"><div class="ttname"><a href="logins_8c.html#aea42d8113c094649ea49d42e8c2a50a5">register_user_hashtable</a></div><div class="ttdeci">int register_user_hashtable(const char *current_username, char *password, const char *pw_file)</div><div class="ttdef"><b>Definition</b> <a href="logins_8c_source.html#l00153">logins.c:153</a></div></div>
-<div class="ttc" id="alogins_8c_html_afc3b11c72547af365dc8af84aa51d166"><div class="ttname"><a href="logins_8c.html#afc3b11c72547af365dc8af84aa51d166">lookup_user</a></div><div class="ttdeci">user_login_t * lookup_user(const char *username, user_login_t **logins)</div><div class="ttdoc">Returns pointer to login data if found, else returns NULL.</div><div class="ttdef"><b>Definition</b> <a href="logins_8c_source.html#l00029">logins.c:29</a></div></div>
+<div class="ttc" id="alogins_8c_html_a54f32098ab9b90a6b5487e0038d4860e"><div class="ttname"><a href="logins_8c.html#a54f32098ab9b90a6b5487e0038d4860e">verify_password</a></div><div class="ttdeci">int verify_password(const char *password, const char *stored_hash)</div><div class="ttdoc">Verify a password against a stored hash.</div><div class="ttdef"><b>Definition</b> <a href="logins_8c_source.html#l00135">logins.c:135</a></div></div>
+<div class="ttc" id="alogins_8c_html_aea42d8113c094649ea49d42e8c2a50a5"><div class="ttname"><a href="logins_8c.html#aea42d8113c094649ea49d42e8c2a50a5">register_user_hashtable</a></div><div class="ttdeci">int register_user_hashtable(const char *current_username, char *password, const char *pw_file)</div><div class="ttdef"><b>Definition</b> <a href="logins_8c_source.html#l00155">logins.c:155</a></div></div>
+<div class="ttc" id="alogins_8c_html_afc3b11c72547af365dc8af84aa51d166"><div class="ttname"><a href="logins_8c.html#afc3b11c72547af365dc8af84aa51d166">lookup_user</a></div><div class="ttdeci">user_login_t * lookup_user(const char *username, user_login_t **logins)</div><div class="ttdoc">Lookup a user.</div><div class="ttdef"><b>Definition</b> <a href="logins_8c_source.html#l00029">logins.c:29</a></div></div>
 <div class="ttc" id="alogins_8h_html"><div class="ttname"><a href="logins_8h.html">logins.h</a></div><div class="ttdoc">User login management and hashing.</div></div>
 <div class="ttc" id="alogins_8h_html_ae9169c3fda2dfecbb7a13e394a69e5be"><div class="ttname"><a href="logins_8h.html#ae9169c3fda2dfecbb7a13e394a69e5be">MAX_PASSWORD_LEN</a></div><div class="ttdeci">#define MAX_PASSWORD_LEN</div><div class="ttdef"><b>Definition</b> <a href="logins_8h_source.html#l00017">logins.h:17</a></div></div>
-<div class="ttc" id="amain_8c_html_a5f7ba8e1ca94628be5af73eb0efa891b"><div class="ttname"><a href="main_8c.html#a5f7ba8e1ca94628be5af73eb0efa891b">CREDENTIALS_PATH</a></div><div class="ttdeci">#define CREDENTIALS_PATH</div><div class="ttdef"><b>Definition</b> <a href="#l00035">main.c:35</a></div></div>
+<div class="ttc" id="amain_8c_html_a5f7ba8e1ca94628be5af73eb0efa891b"><div class="ttname"><a href="main_8c.html#a5f7ba8e1ca94628be5af73eb0efa891b">CREDENTIALS_PATH</a></div><div class="ttdeci">#define CREDENTIALS_PATH</div><div class="ttdef"><b>Definition</b> <a href="#l00026">main.c:26</a></div></div>
 <div class="ttc" id="aregen__file__structure_8c_html_acf0ba67194dd8f699009977bb264217e"><div class="ttname"><a href="regen__file__structure_8c.html#acf0ba67194dd8f699009977bb264217e">main</a></div><div class="ttdeci">signed main(void)</div><div class="ttdef"><b>Definition</b> <a href="regen__file__structure_8c_source.html#l00011">regen_file_structure.c:11</a></div></div>
-<div class="ttc" id="astring__utils_8c_html_a2af10d6c8dd2998483933b798babbc9a"><div class="ttname"><a href="string__utils_8c.html#a2af10d6c8dd2998483933b798babbc9a">string_trim</a></div><div class="ttdeci">void string_trim(char *s)</div><div class="ttdef"><b>Definition</b> <a href="string__utils_8c_source.html#l00032">string_utils.c:32</a></div></div>
+<div class="ttc" id="astring__utils_8c_html_a2af10d6c8dd2998483933b798babbc9a"><div class="ttname"><a href="string__utils_8c.html#a2af10d6c8dd2998483933b798babbc9a">string_trim</a></div><div class="ttdeci">void string_trim(char *s)</div><div class="ttdoc">removes whitespace at start and end of string</div><div class="ttdef"><b>Definition</b> <a href="string__utils_8c_source.html#l00040">string_utils.c:40</a></div></div>
 <div class="ttc" id="astring__utils_8h_html"><div class="ttname"><a href="string__utils_8h.html">string_utils.h</a></div></div>
-<div class="ttc" id="astructConfig_html"><div class="ttname"><a href="structConfig.html">Config</a></div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00138">utils.h:138</a></div></div>
+<div class="ttc" id="astructConfig_html"><div class="ttname"><a href="structConfig.html">Config</a></div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00136">utils.h:136</a></div></div>
 <div class="ttc" id="astructcommand__node_html"><div class="ttname"><a href="structcommand__node.html">command_node</a></div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00082">utils.h:83</a></div></div>
 <div class="ttc" id="astructcommand__node_html_a25f16b82d55b8291aeda853582e0a4a6"><div class="ttname"><a href="structcommand__node.html#a25f16b82d55b8291aeda853582e0a4a6">command_node::next</a></div><div class="ttdeci">command_node * next</div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00085">utils.h:85</a></div></div>
-<div class="ttc" id="astructcommand__node_html_a81c9cabd690b43373fd151a7134f929b"><div class="ttname"><a href="structcommand__node.html#a81c9cabd690b43373fd151a7134f929b">command_node::f</a></div><div class="ttdeci">command f</div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00084">utils.h:84</a></div></div>
 <div class="ttc" id="astructcommand_html"><div class="ttname"><a href="structcommand.html">command</a></div><div class="ttdoc">This struct contains information of a function, as we use manual vtable dispatch for menu.</div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00063">utils.h:64</a></div></div>
-<div class="ttc" id="astructcommand_html_a9027b352db4085a0122952932d065705"><div class="ttname"><a href="structcommand.html#a9027b352db4085a0122952932d065705">command::alias</a></div><div class="ttdeci">char * alias</div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00068">utils.h:68</a></div></div>
 <div class="ttc" id="astructuser__login__t_html"><div class="ttname"><a href="structuser__login__t.html">user_login_t</a></div><div class="ttdef"><b>Definition</b> <a href="logins_8h_source.html#l00019">logins.h:19</a></div></div>
 <div class="ttc" id="astructuser__login__t_html_afac5a19e43f8073ff5d62b8c69014df0"><div class="ttname"><a href="structuser__login__t.html#afac5a19e43f8073ff5d62b8c69014df0">user_login_t::password</a></div><div class="ttdeci">char password[MAX_PASSWORD_LEN]</div><div class="ttdef"><b>Definition</b> <a href="logins_8h_source.html#l00024">logins.h:24</a></div></div>
-<div class="ttc" id="atui_8c_html_a18eb2555dda32a03520091ece15a8ae9"><div class="ttname"><a href="tui_8c.html#a18eb2555dda32a03520091ece15a8ae9">command_select</a></div><div class="ttdeci">void command_select(command_node *head, char *utype, char *username)</div><div class="ttdoc">The command select menu that is shown after login.</div><div class="ttdef"><b>Definition</b> <a href="tui_8c_source.html#l00101">tui.c:101</a></div></div>
-<div class="ttc" id="atui_8c_html_ae7eae98c1d28139bd16ec2a71459b2f8"><div class="ttname"><a href="tui_8c.html#ae7eae98c1d28139bd16ec2a71459b2f8">simple_select</a></div><div class="ttdeci">int simple_select(int color_foreground, int color_background, int n_of_options, const char *const *options, char *selection_s, const char *pretext)</div><div class="ttdoc">Simple select TUI made with ncurses.</div><div class="ttdef"><b>Definition</b> <a href="tui_8c_source.html#l00029">tui.c:29</a></div></div>
+<div class="ttc" id="atui_8c_html_a18eb2555dda32a03520091ece15a8ae9"><div class="ttname"><a href="tui_8c.html#a18eb2555dda32a03520091ece15a8ae9">command_select</a></div><div class="ttdeci">void command_select(command_node *head, char *utype, char *username)</div><div class="ttdoc">The command select menu that is shown after login.</div><div class="ttdef"><b>Definition</b> <a href="tui_8c_source.html#l00172">tui.c:172</a></div></div>
+<div class="ttc" id="atui_8c_html_ae7eae98c1d28139bd16ec2a71459b2f8"><div class="ttname"><a href="tui_8c.html#ae7eae98c1d28139bd16ec2a71459b2f8">simple_select</a></div><div class="ttdeci">int simple_select(int color_foreground, int color_background, int n_of_options, const char *const *options, char *selection_s, const char *pretext)</div><div class="ttdoc">Simple select TUI made with ncurses.</div><div class="ttdef"><b>Definition</b> <a href="tui_8c_source.html#l00044">tui.c:44</a></div></div>
 <div class="ttc" id="atui_8h_html"><div class="ttname"><a href="tui_8h.html">tui.h</a></div><div class="ttdoc">Text User Interface functions.</div></div>
-<div class="ttc" id="autils_8c_html_a15c4e22b029e77407c9bb8dc8868acf1"><div class="ttname"><a href="utils_8c.html#a15c4e22b029e77407c9bb8dc8868acf1">new_command_node</a></div><div class="ttdeci">command_node * new_command_node(command f)</div><div class="ttdef"><b>Definition</b> <a href="utils_8c_source.html#l00376">utils.c:376</a></div></div>
-<div class="ttc" id="autils_8c_html_a1de21a1f7c04a8c1aff780d3113b54c1"><div class="ttname"><a href="utils_8c.html#a1de21a1f7c04a8c1aff780d3113b54c1">get_config_value</a></div><div class="ttdeci">const char * get_config_value(const Config *config, const char *key)</div><div class="ttdoc">Gets a value from a Config struct by key.</div><div class="ttdef"><b>Definition</b> <a href="utils_8c_source.html#l00222">utils.c:222</a></div></div>
-<div class="ttc" id="autils_8c_html_a89448941e042941353b8e90d5f8666e7"><div class="ttname"><a href="utils_8c.html#a89448941e042941353b8e90d5f8666e7">parse_config_file</a></div><div class="ttdeci">int parse_config_file(const char *filepath, Config *config)</div><div class="ttdoc">Parses a configuration file into a Config struct.</div><div class="ttdef"><b>Definition</b> <a href="utils_8c_source.html#l00164">utils.c:164</a></div></div>
-<div class="ttc" id="autils_8c_html_ae586ef16c78ede02401e329f79e84f26"><div class="ttname"><a href="utils_8c.html#ae586ef16c78ede02401e329f79e84f26">free_cmd_list</a></div><div class="ttdeci">void free_cmd_list(command_node *head)</div><div class="ttdef"><b>Definition</b> <a href="utils_8c_source.html#l00390">utils.c:390</a></div></div>
-<div class="ttc" id="autils_8c_html_af48c526de8ae85a65c501beed33f7eda"><div class="ttname"><a href="utils_8c.html#af48c526de8ae85a65c501beed33f7eda">path_exists</a></div><div class="ttdeci">int path_exists(const char *path)</div><div class="ttdoc">Checks if a file or directory exists.</div><div class="ttdef"><b>Definition</b> <a href="utils_8c_source.html#l00259">utils.c:259</a></div></div>
-<div class="ttc" id="autils_8c_html_affe7dcccfeb7d953365474cf8d02c802"><div class="ttname"><a href="utils_8c.html#affe7dcccfeb7d953365474cf8d02c802">generate_file_structure</a></div><div class="ttdeci">void generate_file_structure(const char *role, const char *username)</div><div class="ttdoc">Parses file_struct.yaml.txt and generates files/directories for a user.</div><div class="ttdef"><b>Definition</b> <a href="utils_8c_source.html#l00269">utils.c:269</a></div></div>
+<div class="ttc" id="autils_8c_html_a15c4e22b029e77407c9bb8dc8868acf1"><div class="ttname"><a href="utils_8c.html#a15c4e22b029e77407c9bb8dc8868acf1">new_command_node</a></div><div class="ttdeci">command_node * new_command_node(command f)</div><div class="ttdef"><b>Definition</b> <a href="utils_8c_source.html#l00480">utils.c:480</a></div></div>
+<div class="ttc" id="autils_8c_html_a1de21a1f7c04a8c1aff780d3113b54c1"><div class="ttname"><a href="utils_8c.html#a1de21a1f7c04a8c1aff780d3113b54c1">get_config_value</a></div><div class="ttdeci">const char * get_config_value(const Config *config, const char *key)</div><div class="ttdoc">Gets a value from a Config struct by key.</div><div class="ttdef"><b>Definition</b> <a href="utils_8c_source.html#l00215">utils.c:215</a></div></div>
+<div class="ttc" id="autils_8c_html_a89448941e042941353b8e90d5f8666e7"><div class="ttname"><a href="utils_8c.html#a89448941e042941353b8e90d5f8666e7">parse_config_file</a></div><div class="ttdeci">int parse_config_file(const char *filepath, Config *config)</div><div class="ttdoc">Parses a configuration file into a Config struct.</div><div class="ttdef"><b>Definition</b> <a href="utils_8c_source.html#l00141">utils.c:141</a></div></div>
+<div class="ttc" id="autils_8c_html_ae586ef16c78ede02401e329f79e84f26"><div class="ttname"><a href="utils_8c.html#ae586ef16c78ede02401e329f79e84f26">free_cmd_list</a></div><div class="ttdeci">void free_cmd_list(command_node *head)</div><div class="ttdef"><b>Definition</b> <a href="utils_8c_source.html#l00494">utils.c:494</a></div></div>
+<div class="ttc" id="autils_8c_html_af48c526de8ae85a65c501beed33f7eda"><div class="ttname"><a href="utils_8c.html#af48c526de8ae85a65c501beed33f7eda">path_exists</a></div><div class="ttdeci">int path_exists(const char *path)</div><div class="ttdoc">Checks if a file or directory exists.</div><div class="ttdef"><b>Definition</b> <a href="utils_8c_source.html#l00252">utils.c:252</a></div></div>
+<div class="ttc" id="autils_8c_html_affe7dcccfeb7d953365474cf8d02c802"><div class="ttname"><a href="utils_8c.html#affe7dcccfeb7d953365474cf8d02c802">generate_file_structure</a></div><div class="ttdeci">void generate_file_structure(const char *role, const char *username)</div><div class="ttdoc">Parses file_struct.yaml.txt and generates files/directories for a user.</div><div class="ttdef"><b>Definition</b> <a href="utils_8c_source.html#l00317">utils.c:317</a></div></div>
 <div class="ttc" id="autils_8h_html"><div class="ttname"><a href="utils_8h.html">utils.h</a></div><div class="ttdoc">Utility functions, value types, and command parsing.</div></div>
 <div class="ttc" id="autils_8h_html_a3088c180357ddb4840adf337762901a6"><div class="ttname"><a href="utils_8h.html#a3088c180357ddb4840adf337762901a6">COMMAND_NOARGS</a></div><div class="ttdeci">#define COMMAND_NOARGS(fn, alias, perm, desc)</div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00097">utils.h:97</a></div></div>
 <div class="ttc" id="autils_8h_html_aa31cd606b2d124583c5c1c8fcd58e9f3"><div class="ttname"><a href="utils_8h.html#aa31cd606b2d124583c5c1c8fcd58e9f3">COMMAND</a></div><div class="ttdeci">#define COMMAND(fn, alias, perm, arg_types, desc)</div><div class="ttdoc">Macro to define a command with arguments.</div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00094">utils.h:94</a></div></div>

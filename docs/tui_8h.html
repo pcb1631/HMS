@@ -128,15 +128,17 @@ $(function(){initNavTree('tui_8h.html','',''); });
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="tui_8h__dep__incl.png" border="0" usemap="#autils_2tui_8hdep" loading="lazy" alt=""/></div>
 <map name="autils_2tui_8hdep" id="autils_2tui_8hdep">
-<area shape="rect" title="Text User Interface functions." alt="" coords="270,5,352,33"/>
+<area shape="rect" title="Text User Interface functions." alt="" coords="236,5,318,33"/>
 <area shape="rect" href="main_8c.html" title=" " alt="" coords="5,81,71,109"/>
-<area shape="poly" title=" " alt="" coords="256,38,83,84,72,87,70,81,81,78,255,32"/>
-<area shape="rect" href="bookings_8c.html" title=" " alt="" coords="94,81,296,109"/>
-<area shape="poly" title=" " alt="" coords="280,41,217,83,215,78,275,42"/>
-<area shape="rect" href="commands_8c.html" title=" " alt="" coords="321,81,536,109"/>
-<area shape="poly" title=" " alt="" coords="346,39,411,81,405,80,344,44"/>
-<area shape="rect" href="tui_8c.html" title=" " alt="" coords="560,81,641,109"/>
-<area shape="poly" title=" " alt="" coords="368,32,562,83,557,84,367,37"/>
+<area shape="poly" title=" " alt="" coords="221,40,72,86,70,81,220,35"/>
+<area shape="rect" href="test_8c.html" title=" " alt="" coords="95,81,152,109"/>
+<area shape="poly" title=" " alt="" coords="238,40,152,83,149,78,233,40"/>
+<area shape="rect" href="bookings_8c.html" title=" " alt="" coords="176,81,378,109"/>
+<area shape="poly" title=" " alt="" coords="279,47,279,82,275,79,275,51"/>
+<area shape="rect" href="commands_8c.html" title=" " alt="" coords="402,81,618,109"/>
+<area shape="poly" title=" " alt="" coords="333,35,471,80,466,81,332,41"/>
+<area shape="rect" href="tui_8c.html" title=" " alt="" coords="641,81,723,109"/>
+<area shape="poly" title=" " alt="" coords="333,26,469,48,631,78,644,84,639,83,629,84,468,54,333,32"/>
 </map>
 </div>
 </div>
@@ -153,6 +155,7 @@ Functions</h2></td></tr>
 <tr class="memitem:aba3ef837d15d38af94c9aef7e148b5f1" id="r_aba3ef837d15d38af94c9aef7e148b5f1"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aba3ef837d15d38af94c9aef7e148b5f1">booking_slot_view</a> (<a class="el" href="structSlot.html">Slot</a> *slots, int slots_n, const char *doctor, int is_patient)</td></tr>
 <tr class="memdesc:aba3ef837d15d38af94c9aef7e148b5f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">TUI Viewer/selection menu for appointment/booking slots.  <br /></td></tr>
 <tr class="memitem:af87cdb83bc1ad50c80a452b5e80c2550" id="r_af87cdb83bc1ad50c80a452b5e80c2550"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#af87cdb83bc1ad50c80a452b5e80c2550">config_editor</a> (<a class="el" href="structConfig.html">Config</a> config, const char *path, const char *const *disallow, int disallow_n)</td></tr>
+<tr class="memitem:adb0554598c7a497f8382352c6d6958a7" id="r_adb0554598c7a497f8382352c6d6958a7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#adb0554598c7a497f8382352c6d6958a7">text_editor</a> (const char *path, int readonly)</td></tr>
 <tr class="memitem:a2426a1120a129e26b07f900a1374128f" id="r_a2426a1120a129e26b07f900a1374128f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2426a1120a129e26b07f900a1374128f">ncurses_init</a> (void)</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
@@ -192,16 +195,16 @@ Functions</h2></td></tr>
 <p>TUI Viewer/selection menu for appointment/booking slots. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">slots</td><td><a class="el" href="structSlot.html">Slot</a> array </td></tr>
-    <tr><td class="paramname">slots_n</td><td>Size of <a class="el" href="structSlot.html">Slot</a> array </td></tr>
+    <tr><td class="paramname">slots</td><td><a class="el" href="structSlot.html" title="appointment slot We will assume that time_t is always non-negative, so we cast it to and fro unsigned...">Slot</a> array </td></tr>
+    <tr><td class="paramname">slots_n</td><td>Size of <a class="el" href="structSlot.html" title="appointment slot We will assume that time_t is always non-negative, so we cast it to and fro unsigned...">Slot</a> array </td></tr>
     <tr><td class="paramname">doctor</td><td>username of Doctor </td></tr>
     <tr><td class="paramname">is_patient</td><td>If true, details of slots that are occupied by other patients are not shown for privacy. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Index of selection of <a class="el" href="structSlot.html">Slot</a> array. return -1 if no slots. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Index of selection of <a class="el" href="structSlot.html" title="appointment slot We will assume that time_t is always non-negative, so we cast it to and fro unsigned...">Slot</a> array. return -1 if no slots. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00457">457</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00546">546</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
 
 </div>
 </div>
@@ -232,7 +235,7 @@ Functions</h2></td></tr>
 <p>The command select menu that is shown after login. </p>
 <p>To only show the commands that the user is allowed to use, this function takes in a singly null terminated LL of Command variables. </p>
 
-<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00101">101</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00172">172</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
 
 </div>
 </div>
@@ -265,7 +268,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00605">605</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00705">705</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
 
 </div>
 </div>
@@ -284,7 +287,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00019">19</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00025">25</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
 
 </div>
 </div>
@@ -341,7 +344,30 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Index of the selected option </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00029">29</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00044">44</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+
+</div>
+</div>
+<a id="adb0554598c7a497f8382352c6d6958a7" name="adb0554598c7a497f8382352c6d6958a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb0554598c7a497f8382352c6d6958a7">&#9670;&#160;</a></span>text_editor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int text_editor </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>path</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>readonly</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00936">936</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
 
 </div>
 </div>
@@ -384,7 +410,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>UNIX timestamp (seconds) of what user chose </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00305">305</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tui_8c_source.html#l00394">394</a> of file <a class="el" href="tui_8c_source.html">tui.c</a>.</p>
 
 </div>
 </div>

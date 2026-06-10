@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['register_0',['Login/Register',['../usage.html#login',1,'']]],
-  ['requirements_1',['Project requirements',['../requirements.html',1,'']]]
+  ['quirks_0',['Setting the terminal to raw mode, and Windows quirks',['../tui.html#windows_tui_design_caveats',1,'']]]
 ];

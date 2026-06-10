@@ -6,6 +6,5 @@ var files_dup =
     [ "main.c", "main_8c.html", "main_8c" ],
     [ "regen_file_structure.c", "regen__file__structure_8c.html", "regen__file__structure_8c" ],
     [ "test.c", "test_8c.html", "test_8c" ],
-    [ "uthash.h", "uthash_8h.html", "uthash_8h" ],
-    [ "value_array_example.c", "value__array__example_8c.html", "value__array__example_8c" ]
+    [ "uthash.h", "uthash_8h.html", "uthash_8h" ]
 ];

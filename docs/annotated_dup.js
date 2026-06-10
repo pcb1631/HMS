@@ -5,6 +5,7 @@ var annotated_dup =
     [ "Complaint", "structComplaint.html", "structComplaint" ],
     [ "Config", "structConfig.html", "structConfig" ],
     [ "ConfigEntry", "structConfigEntry.html", "structConfigEntry" ],
+    [ "LineNode", "structLineNode.html", "structLineNode" ],
     [ "Payment", "structPayment.html", "structPayment" ],
     [ "Slot", "structSlot.html", "structSlot" ],
     [ "user_login_t", "structuser__login__t.html", "structuser__login__t" ],

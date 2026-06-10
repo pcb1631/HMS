@@ -1,15 +1,17 @@
 <map id="user_commands/bookings.h" name="user_commands/bookings.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="54,5,257,33"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="94,5,297,33"/>
 <area shape="rect" id="Node000002" href="$main_8c.html" title=" " alt="" coords="5,157,71,184"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,46,50,158,46,154,134,43"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,45,54,158,50,154,169,42"/>
 <area shape="rect" id="Node000003" href="$bookings_8c.html" title=" " alt="" coords="94,157,296,184"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="165,46,194,156,189,156,161,50"/>
-<area shape="rect" id="Node000004" href="$tui_8h.html" title="Text User Interface functions." alt="" coords="193,81,275,109"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="181,41,223,80,217,81,180,46"/>
-<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="186,117,72,159,70,154,184,112"/>
-<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="222,121,204,158,200,154,218,124"/>
-<area shape="rect" id="Node000005" href="$commands_8c.html" title=" " alt="" coords="321,157,536,184"/>
-<area shape="poly" id="edge6_Node000004_Node000005" title=" " alt="" coords="283,112,397,156,392,157,282,117"/>
-<area shape="rect" id="Node000006" href="$tui_8c.html" title=" " alt="" coords="560,157,641,184"/>
-<area shape="poly" id="edge7_Node000004_Node000006" title=" " alt="" coords="291,104,549,154,562,159,557,159,548,159,290,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="198,47,198,157,193,155,193,50"/>
+<area shape="rect" id="Node000004" href="$tui_8h.html" title="Text User Interface functions." alt="" coords="270,81,352,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="230,39,293,80,288,81,229,44"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="256,113,83,159,72,162,70,157,81,154,255,108"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="280,117,217,159,215,154,275,118"/>
+<area shape="rect" id="Node000005" href="$test_8c.html" title=" " alt="" coords="320,157,377,184"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="326,120,345,157,340,155,323,125"/>
+<area shape="rect" id="Node000006" href="$commands_8c.html" title=" " alt="" coords="401,157,616,184"/>
+<area shape="poly" id="edge7_Node000004_Node000006" title=" " alt="" coords="361,112,476,156,471,156,360,117"/>
+<area shape="rect" id="Node000007" href="$tui_8c.html" title=" " alt="" coords="640,157,721,184"/>
+<area shape="poly" id="edge8_Node000004_Node000007" title=" " alt="" coords="368,103,629,154,642,159,637,159,628,159,368,109"/>
 </map>

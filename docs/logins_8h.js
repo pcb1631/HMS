@@ -11,6 +11,5 @@ var logins_8h =
     [ "lookup_user", "logins_8h.html#afc3b11c72547af365dc8af84aa51d166", null ],
     [ "register_user_hashtable", "logins_8h.html#aea42d8113c094649ea49d42e8c2a50a5", null ],
     [ "save_users_to_file", "logins_8h.html#aba0cef3f3693da75b1e52eb3322eb80d", null ],
-    [ "user", "logins_8h.html#a89dfd37fe165e8184ec3c490e1e91270", null ],
     [ "verify_password", "logins_8h.html#a54f32098ab9b90a6b5487e0038d4860e", null ]
 ];

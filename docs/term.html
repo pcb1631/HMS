@@ -133,7 +133,7 @@ Terminals we tested</h1>
 </div><!-- fragment --> <br  />
 </li>
 <li>On some distros/macOS, xterm sends <span class="tt">^H</span> on backspace, but terminals nowadays use <span class="tt">^?</span> instead. Thus <span class="tt">^H</span> might show up during scanf <div class="fragment"><div class="line">stty erase &#39;^H&#39; # sets the erase char to ^H</div>
-</div><!-- fragment --></li>
+</div><!-- fragment --> tip: you can do <span class="tt">stty -a</span> to view current terminal settings. Doing CTRL+V before inputting a key (or key combo) will let you see what the terminal interprets it as</li>
 </ul>
 </li>
 </ul>
@@ -143,9 +143,12 @@ Terminals we tested</h1>
 </ul>
 </li>
 <li>Alacritty<ul>
-<li>Good</li>
+<li>Best performance</li>
 </ul>
 </li>
+</ol>
+<p>Available on Windows, Linux, and macOS</p>
+<ol type="1">
 <li>Linux TTY<ul>
 <li>Absolutely not</li>
 </ul>
@@ -155,6 +158,9 @@ Terminals we tested</h1>
 </ul>
 </li>
 </ol>
+<h1 class="doxsection"><a class="anchor" id="windows"></a>
+Windows</h1>
+<p>Should have the same behaviour as Linux with WSL.</p>
 <h1 class="doxsection"><a class="anchor" id="mac"></a>
 macOS</h1>
 <p>Behaviour between every terminal emulator is similar because they advertise themselves as <span class="tt">xterm-256color</span></p>
