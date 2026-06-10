@@ -23,7 +23,7 @@ void performPayment(const char *patientID) {
 }
 
 void viewPaymentHistory(const char *patientID) {
-    FILE *fp = fopen("payments.txt, "r");
+    FILE *fp = fopen("payments.txt", "r");
     Payment temp;
     int found = 0;
 

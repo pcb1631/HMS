@@ -177,4 +177,5 @@ void * clean_malloc(size_t size);
 char ** list_files_indir(const char * dir, int * n);
 
 int rm_rf(const char* path);
+int append_f2f(const char *start_path, const char *end_path);
 #endif

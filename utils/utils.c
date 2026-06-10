@@ -601,3 +601,23 @@ int rm_rf(const char *path)
     return nftw(path, unlink_cb, 64, FTW_DEPTH | FTW_PHYS);
 }
 #endif
+
+int append_f2f(const char *start_path, const char *end_path)
+{
+	int ch;
+	FILE * start = fopen(start_path, "a");
+	FILE * end = fopen(end_path, "r");
+
+	if(start == NULL || end == NULL)
+	{
+		perror("append_f2f");
+		return -1;
+	}
+
+	while((ch = getc(end)) != EOF)
+		fputc(ch, start);
+
+	fclose(start);
+	fclose(end);
+	return 0;
+}

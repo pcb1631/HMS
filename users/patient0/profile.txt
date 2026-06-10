@@ -4,3 +4,6 @@ middle_name: Hot damn..
 last_name: Cooper
 blood_type: 
 height: 
+sex: 
+DOB: 
+Phone: 

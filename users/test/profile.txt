@@ -4,3 +4,6 @@ middle_name:
 last_name: 
 blood_type: 
 height: 
+sex: 
+DOB: 
+Phone: 

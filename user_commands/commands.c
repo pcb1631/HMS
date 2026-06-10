@@ -5,7 +5,6 @@
 #include "../utils/globals.h"
 #include "../utils/string_utils.h"
 #include <time.h>
-#include <ctype.h>
 
 #ifdef _WIN32
     #include <ncursesw/ncurses.h>
@@ -340,4 +339,18 @@ Value view_diagnosis_self_doc(void)
 	free(files);
 
 	return make_int(0);
+}
+
+Value doctor_patient_report(void)
+{
+	char patient[MAX_USERNAME_LEN];
+	char path[4096];
+	const char * allowed[] = {"Patient", };
+	user_select_menu(allowed, 1, patient);
+	sprintf(path, "./users/%s/desc.txt", patient);
+
+	text_editor(path, 0);
+
+	return make_int(0);
+	
 }

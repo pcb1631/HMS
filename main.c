@@ -8,6 +8,7 @@
 #include "utils/string_utils.h"
 #include "user_commands/bookings.h"
 #include "user_commands/commands.h"
+#include "user_commands/inventory.h"
 #include "utils/tui.h"
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -71,6 +72,7 @@ int main(int argc, char ** argv)
         COMMAND_NOARGS(admin_delete_user, "Delete user", "Admin", "Delete a user from cred file and DB folder"),
         	
         COMMAND_NOARGS(nurse_view_booking, "View doctor's appointments", "Nurse", ""),
+        COMMAND_NOARGS(inventory_edit, "View and edit inventory", "Nurse", "View and edit fields for medical supplies and inventories"),
 	};
 
 	int cmd_list_n = sizeof(cmd_list)/sizeof(command);

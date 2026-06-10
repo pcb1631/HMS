@@ -7,6 +7,7 @@ SRCS =	main.c \
 		user_commands/commands.c \
 		user_commands/bookings.c \
 		user_commands/complaints.c \
+		user_commands/inventory.c \
 		utils/globals.c \
 		utils/string_utils.c \
        	deps/crypt_blowfish/crypt_blowfish.c \

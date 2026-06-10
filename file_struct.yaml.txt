@@ -52,12 +52,17 @@ Patient:
       last_name:
       blood_type:
       height:
+      sex:
+      DOB:
+      Phone: 
   - path: "users/%s/payments.csv.txt"
     type: file
     content:
   - path: "users/%s/complaints/"
     type: directory
-
+  - path: "users/%s/desc.txt"
+    type: file
+    content: 
 
 
 Nurse:
