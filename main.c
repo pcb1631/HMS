@@ -73,6 +73,7 @@ int main(int argc, char ** argv)
         	
         COMMAND_NOARGS(nurse_view_booking, "View doctor's appointments", "Nurse", ""),
         COMMAND_NOARGS(inventory_edit, "View and edit inventory", "Nurse", "View and edit fields for medical supplies and inventories"),
+        COMMAND_NOARGS(inventory_edit_txteditor, "Edit inventory with text editor", "Nurse", ""),
 	};
 
 	int cmd_list_n = sizeof(cmd_list)/sizeof(command);
