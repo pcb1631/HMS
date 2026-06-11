@@ -164,17 +164,20 @@ TODO: explain insert mode during edit mode
 ```
 
 \section text_edit_design Text editor
-We decided to write our own text editor to reduce the amount of dependencies HMS uses. (We could just use `nano` or `vim`, but those don't exist for Windows.)
+We decided to write our own text editor to reduce the amount of dependencies HMS uses. 
 
-It serves as a basic terminal pager (although it loads the entire file) and is a very primitive text editor. 
+We *could* just use nano, vim, or notepad, but those are extra dependencies and might break the "No GUI" requirement. 
 
-Like `nano`, the functions loads the file by parsing each line as a node in a doubly linked list, which made insertions much faster (O(1)) and more practical to write.
+It serves as a terminal pager (although it loads the entire file) and is a very primitive text editor. 
 
+Like nano, the functions loads the file by parsing each line as a node in a doubly linked list, which made insertions much faster (O(1)) and more practical to write. If we stored the lines in a `char **` (array of string pointers), insertions and removals are O(n).
 
 see:\n 
 - \ref file_to_LL_lines()
-- \ref text_editor()
+- Further explanation of memory allocation in 
+<!--TODO: fileparsing.md -->
 
+- \ref text_editor()
 
 Features: 
 - readonly
@@ -182,3 +185,25 @@ Features:
 - line numbers
 - dynamic memory allocation
 - splitting newlines
+
+TODO: explanations of vertical and horizontal scrolling, and line number
+
+<!--! Insert business logic flowchart of text editor here, node insert/delete should be shown as a single block -->
+
+When you press enter in a text editor, it creates a new line. Naively you'd just insert a `\n` in the string. 
+
+In our case, we need to do node insertion, and manually allocate memory when splitting a line. When a line is split between the cursor, the memory size of the previous line is the length the prefix, while the next line is the length of the suffix.
+
+<!--! -->
+<!--! Insert node insertion flowchart here -->
+<!--! Explicit memory realloc logic here -->
+
+Inversely, removing a line would just be removing a `\n`
+
+When backspacing at the start of the line, The current line is concatenated to the previous line, then the current line is deleted. 
+\n We need to do node deletion, and calculate the new size.
+
+<!--! -->
+<!--! Node deletion logic with memory free -->
+<!--! Calculation of the new size, explicitly. -->
+

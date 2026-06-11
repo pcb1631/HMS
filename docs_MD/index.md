@@ -16,9 +16,6 @@
  The Hospital Management System (HMS for short) is an interactive program to facilitate hospital documentation, appointment booking, among other services.
  HMS is designed to run in every major OS, as it is written purely in ANSI C
 
-
-
- 
 \section installation Installation / Compiling
 HMS was primarily developed on unix-like systems, so it is reccomended to use WSL if you're on Windows.
 
