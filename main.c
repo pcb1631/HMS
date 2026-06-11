@@ -59,7 +59,8 @@ int main(int argc, char ** argv)
 		COMMAND_NOARGS(doctor_booking_frontend, "Doctor Booking", "Doctor", "Booking options for doctors"),
 		COMMAND_NOARGS(doctor_diagnosis, "Write diagnosis", "Doctor", "Create a diagnosis report for a patient"),
 		COMMAND_NOARGS(view_diagnosis_self_doc, "View diagnosis", "Doctor", "View diagnosis reports for a patient you wrote yrself"),
-
+		COMMAND_NOARGS(doctor_view_patients_profile, "View patient's profile", "Doctor", ""),
+		COMMAND_NOARGS(edit_patient_desc, "Edit patient's report", "Doctor", ""),
 		
 		COMMAND_NOARGS(patient_booking_frontend, "Patient Booking", "Patient", "Booking options for patients"),
 		COMMAND_NOARGS(edit_profile_self_patient, "Edit your profile", "Patient", ""),

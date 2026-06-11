@@ -47,6 +47,14 @@ time_t time_picker(char * pretext, int color_fg, int color_bg, time_t pre_time);
  * @return Index of selection of Slot array. return -1 if no slots.
  */
 int booking_slot_view(Slot * slots, int slots_n, const char * doctor, int is_patient);
+
+/**
+ * @brief TUI for editing KV format files 
+ * @param config
+ * @param path to save file
+ * @param array of strings of which keys to prevent user from changing
+ * @return 0 on saved successfully, -1 on eof
+ */
 int config_editor(Config config, const char * path, const char * const * disallow, int disallow_n);
 int text_editor(const char * path, int readonly);
 void ncurses_init(void);

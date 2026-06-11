@@ -354,3 +354,46 @@ Value doctor_patient_report(void)
 	return make_int(0);
 	
 }
+
+Value doctor_view_patients_profile(void)
+{
+	Config profile;
+	char path[4096];
+	char patient[MAX_USERNAME_LEN];
+	const char * allowed[] = 
+		{
+		"Patient"
+		};
+	const char * disallow[] = 
+		{
+			"USERTYPE",
+		};
+	
+	user_select_menu(allowed, 1, patient);
+	if(strcmp(patient, "") == 0)
+		return make_string("EOF");
+	
+	sprintf(path, "%s/%s/profile.txt", DATABASE_PATH, patient);
+	
+	if(parse_config_file(path, &profile) == -1)
+		return make_int(-1);
+	
+	config_editor(profile, path, disallow, 0);
+	return make_int(0);
+}
+
+Value edit_patient_desc(void)
+{
+	char path[4096];
+	char patient[MAX_USERNAME_LEN];
+	const char * allowed[] = 
+		{
+			"Patient"
+		};
+	user_select_menu(allowed, 1, patient);
+	if(strcmp(patient, "") == 0)
+		return make_int(-1);
+	sprintf(path, "%s/%s/desc.txt", DATABASE_PATH, patient);
+	text_editor(path, 0);
+	return make_int(0);
+}
