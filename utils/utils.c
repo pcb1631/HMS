@@ -12,24 +12,24 @@
 
 Value make_int(int x)
 {
-    Value v;
-    v.type = TYPE_INT;
-    v.data.as_int = x;
-    return v;
+	Value v;
+	v.type = TYPE_INT;
+	v.data.as_int = x;
+	return v;
 }
 Value make_float(float x)
 {
-    Value v;
-    v.type = TYPE_FLOAT;
-    v.data.as_float = x;
-    return v;
+	Value v;
+	v.type = TYPE_FLOAT;
+	v.data.as_float = x;
+	return v;
 }
 Value make_string(char * s)
 {
-    Value v;
-    v.type = TYPE_STRING;
-    strcpy(v.data.as_string, s);
-    return v;
+	Value v;
+	v.type = TYPE_STRING;
+	strcpy(v.data.as_string, s);
+	return v;
 }
 
 void print_Value(Value x)
@@ -72,7 +72,7 @@ Value call(command f, Value * args, int n_of_args, char * perm)
 	}
 
 	if(f.n_of_args == 0)
-	    return ((Value (*)(void))f.ptr)();
+		return ((Value (*)(void))f.ptr)();
 
 	if(n_of_args != f.n_of_args && n_of_args != -1)
 	{
@@ -83,7 +83,7 @@ Value call(command f, Value * args, int n_of_args, char * perm)
 	/* Check types */
 	for(i=0; i<n_of_args; i++)
 	{
-	    if(f.arg_type[i] == TYPE_VOID)
+		if(f.arg_type[i] == TYPE_VOID)
 			break;
 		if(f.arg_type[i] != args[i].type)
 		{
@@ -168,89 +168,89 @@ void cmd_parse(char *str)
 
 int parse_config_file(const char * filepath, Config * config)
 {
-    FILE *fp;
-    char line[512];
-    char *eq;
-    char *key_str;
-    char *val_str;
+	FILE *fp;
+	char line[512];
+	char *eq;
+	char *key_str;
+	char *val_str;
 
-    if (config == NULL)
-    {
-        return -1;
-    }
+	if (config == NULL)
+	{
+		return -1;
+	}
 
-    config->count = 0;
+	config->count = 0;
 
-    fp = fopen(filepath, "r");
-    if (fp == NULL)
-    {
-        return -1;
-    }
+	fp = fopen(filepath, "r");
+	if (fp == NULL)
+	{
+		return -1;
+	}
 
-    while (fgets(line, sizeof(line), fp))
-    {
-        eq = strchr(line, '=');
-        if (eq == NULL)
-        {
-            eq = strchr(line, ':'); /* Fallback to colon if used as delimiter */
-        }
+	while (fgets(line, sizeof(line), fp))
+	{
+		eq = strchr(line, '=');
+		if (eq == NULL)
+		{
+			eq = strchr(line, ':'); /* Fallback to colon if used as delimiter */
+		}
 
-        /* scanf is not used here to facilitate multiple delim chars */
+		/* scanf is not used here to facilitate multiple delim chars */
 
-        if (eq != NULL)
-        {
-            *eq = '\0'; /* to mark the end of key */
-            key_str = line;
-            val_str = eq + 1; /* eq is the location of =, therefore the value string is at eq+1 */
+		if (eq != NULL)
+		{
+			*eq = '\0'; /* to mark the end of key */
+			key_str = line;
+			val_str = eq + 1; /* eq is the location of =, therefore the value string is at eq+1 */
 
-            string_trim(key_str);
-            string_trim(val_str);
+			string_trim(key_str);
+			string_trim(val_str);
 
-            strncpy(config->entries[config->count].key, key_str, MAX_CONFIG_KEY_LEN - 1);
-            config->entries[config->count].key[MAX_CONFIG_KEY_LEN - 1] = '\0';
+			strncpy(config->entries[config->count].key, key_str, MAX_CONFIG_KEY_LEN - 1);
+			config->entries[config->count].key[MAX_CONFIG_KEY_LEN - 1] = '\0';
 
-            strncpy(config->entries[config->count].value, val_str, MAX_CONFIG_VAL_LEN - 1);
-            config->entries[config->count].value[MAX_CONFIG_VAL_LEN - 1] = '\0';
+			strncpy(config->entries[config->count].value, val_str, MAX_CONFIG_VAL_LEN - 1);
+			config->entries[config->count].value[MAX_CONFIG_VAL_LEN - 1] = '\0';
 
-            config->count++;
-            if (config->count >= MAX_CONFIG_ENTRIES)
-            {
-                break;
-            }
-        }
-    }
+			config->count++;
+			if (config->count >= MAX_CONFIG_ENTRIES)
+			{
+				break;
+			}
+		}
+	}
 
-    fclose(fp);
-    return 0;
+	fclose(fp);
+	return 0;
 }
 
 int delete_key_config(const char *key_d, Config *config)
 {
-    int i;
-    for (i = 0; i < config->count; i++) 
-        if (strcmp(config->entries[i].key, key_d) == 0) 
-        {
-            /* Shift everything after i one slot to the left */
-            int remaining = config->count - i - 1;
-            if (remaining > 0)
-                memmove(&config->entries[i], &config->entries[i + 1], remaining * sizeof(ConfigEntry));
-            config->count--;
-            return 0; /* found and deleted */
-        }
-    return -1; /* key not found */
+	int i;
+	for (i = 0; i < config->count; i++) 
+		if (strcmp(config->entries[i].key, key_d) == 0) 
+		{
+			/* Shift everything after i one slot to the left */
+			int remaining = config->count - i - 1;
+			if (remaining > 0)
+				memmove(&config->entries[i], &config->entries[i + 1], remaining * sizeof(ConfigEntry));
+			config->count--;
+			return 0; /* found and deleted */
+		}
+	return -1; /* key not found */
 }
 
 char *get_config_value(const Config * config, const char * key)
 {
-    int i;
-    if (config == NULL || key == NULL) return NULL;
+	int i;
+	if (config == NULL || key == NULL) return NULL;
 
-    for (i = 0; i < config->count; i++) {
-        if (strcmp(config->entries[i].key, key) == 0) {
-            return (char *)config->entries[i].value;
-        }
-    }
-    return NULL;
+	for (i = 0; i < config->count; i++) {
+		if (strcmp(config->entries[i].key, key) == 0) {
+			return (char *)config->entries[i].value;
+		}
+	}
+	return NULL;
 }
 
 int dump_config_to_file(const Config config, const char * path)
@@ -279,22 +279,22 @@ int dump_config_to_file(const Config config, const char * path)
 
 int path_exists(const char * path)
 {
-    struct stat buffer;
+	struct stat buffer;
 
-    if (path == NULL)
-        return 0;
+	if (path == NULL)
+		return 0;
 
-    return (stat(path, &buffer) == 0);
+	return (stat(path, &buffer) == 0);
 }
 
 int is_file(const char * path) {
-    struct stat path_stat;
+	struct stat path_stat;
 
-    if (stat(path, &path_stat) != 0) {
-        return 0;
-    }
+	if (stat(path, &path_stat) != 0) {
+		return 0;
+	}
 
-    return S_ISREG(path_stat.st_mode);
+	return S_ISREG(path_stat.st_mode);
 }
 
 #include <dirent.h>
@@ -557,48 +557,48 @@ void generate_file_structure(const char *role, const char *username)
 
 command_node* new_command_node(command f)
 {
-    command_node* node = (command_node*)malloc(sizeof(command_node));
-    if (node == NULL)
-    {
-        fprintf(stderr, "Failed to allocate command node\n");
-        exit(1);
-    }
+	command_node* node = (command_node*)malloc(sizeof(command_node));
+	if (node == NULL)
+	{
+		fprintf(stderr, "Failed to allocate command node\n");
+		exit(1);
+	}
 
-    node->f=f;
-    node->next=NULL;
-    return node;
+	node->f=f;
+	node->next=NULL;
+	return node;
 }
 
 void free_cmd_list(command_node* head)
 {
-    command_node* temp;
-    while(head != NULL)
-    {
-        temp = head;
-        head = temp->next;
-        free(temp);
-    }
+	command_node* temp;
+	while(head != NULL)
+	{
+		temp = head;
+		head = temp->next;
+		free(temp);
+	}
 }
 
 const char * get_utype(const char * username)
 {
-    Config user;
-    char path[64] = "";
-    sprintf(path, "./users/%s/profile.txt", username);
+	Config user;
+	char path[64] = "";
+	sprintf(path, "./users/%s/profile.txt", username);
 
-    if(parse_config_file(path, &user) == -1)
-    {
-        fprintf(stderr, "Config file is empty or doesn't exist: %s\n", username);
-        return "";
-    }
+	if(parse_config_file(path, &user) == -1)
+	{
+		fprintf(stderr, "Config file is empty or doesn't exist: %s\n", username);
+		return "";
+	}
 
-    return get_config_value(&user, "USERTYPE");
+	return get_config_value(&user, "USERTYPE");
 }
 
 void wipe_stdin(void)
 {
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF);
+	int c;
+	while ((c = getchar()) != '\n' && c != EOF);
 }
 
 void * clean_malloc(size_t size)
@@ -617,16 +617,16 @@ void * clean_malloc(size_t size)
 #include <ftw.h>
 int unlink_cb(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf)
 {
-    if(typeflag != FTW_D) 
-    {
-        return remove(fpath);
-    }
-    return 0;
+	if(typeflag != FTW_D) 
+	{
+		return remove(fpath);
+	}
+	return 0;
 }
 
 int rm_rf(const char *path)
 {
-    return nftw(path, unlink_cb, 64, FTW_DEPTH | FTW_PHYS);
+	return nftw(path, unlink_cb, 64, FTW_DEPTH | FTW_PHYS);
 }
 #endif
 

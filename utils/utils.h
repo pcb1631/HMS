@@ -34,16 +34,16 @@ typedef enum
  */
 typedef struct
 {
-    /** To label the datatype*/
-    ValueType type;
+	/** To label the datatype*/
+	ValueType type;
 
-    /** Actual data */
-    union {
-        unsigned int	as_bool : 1;
-        float			as_float;
-        char			as_string[128];
-        int         	as_int;
-    } data;
+	/** Actual data */
+	union {
+		unsigned int	as_bool : 1;
+		float			as_float;
+		char			as_string[128];
+		int         	as_int;
+	} data;
 
 } Value;
 
@@ -63,27 +63,27 @@ typedef void (*generic_fn)(void);
  */
 typedef struct
 {
-    /** The type-erased function pointer. */
-    generic_fn 	ptr;
+	/** The type-erased function pointer. */
+	generic_fn 	ptr;
 
-    char * 		alias;
-    char * 		permission;
+	char * 		alias;
+	char * 		permission;
 
-    /** -1 means any amount */
-    int			n_of_args;
+	/** -1 means any amount */
+	int			n_of_args;
 
-    /** enum array */
-    ValueType * arg_type;
+	/** enum array */
+	ValueType * arg_type;
 
-    /** Description to be displayed in command selector */
-    char *      desc;
+	/** Description to be displayed in command selector */
+	char *      desc;
 } command;
 
 typedef struct command_node command_node;
 struct command_node
 {
-    command f;
-    command_node* next;
+	command f;
+	command_node* next;
 };
 command_node* new_command_node(command f);
 void free_cmd_list(command_node* head);
@@ -93,10 +93,10 @@ void free_cmd_list(command_node* head);
  * @brief Macro to define a command with arguments
  */
 #define COMMAND(fn, alias, perm, arg_types, desc) \
-    { (generic_fn)(fn), (alias), (perm), sizeof(arg_types)/sizeof(arg_types[0]), (arg_types), desc}
+	{ (generic_fn)(fn), (alias), (perm), sizeof(arg_types)/sizeof(arg_types[0]), (arg_types), desc}
 
 #define COMMAND_NOARGS(fn, alias, perm, desc) \
-    { (generic_fn)(fn), (alias), (perm), 0, NULL, desc}
+	{ (generic_fn)(fn), (alias), (perm), 0, NULL, desc}
 
 void cmd_parse(char* str);
 
@@ -130,13 +130,13 @@ Value call(command f, Value * args, int n_of_args, char * perm);
  * @brief Key-value pair for configuration entries
  */
 typedef struct {
-    char key[MAX_CONFIG_KEY_LEN];
-    char value[MAX_CONFIG_VAL_LEN];
+	char key[MAX_CONFIG_KEY_LEN];
+	char value[MAX_CONFIG_VAL_LEN];
 } ConfigEntry;
 
 typedef struct {
-    ConfigEntry entries[MAX_CONFIG_ENTRIES];
-    int count;
+	ConfigEntry entries[MAX_CONFIG_ENTRIES];
+	int count;
 } Config;
 
 /**

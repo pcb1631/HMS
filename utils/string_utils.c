@@ -4,7 +4,7 @@
 #ifndef _WIN32
 	#include <ncurses.h>
 #else
-    #include <ncursesw/ncurses.h>
+	#include <ncursesw/ncurses.h>
 #endif
 #include <stdio.h>
 #include <string.h>
@@ -48,16 +48,16 @@ void string_trim(char * s)
 
 void trim_trailing(char *str)
 {
-    int len;
+	int len;
 
-    if (str == NULL)
-        return;
+	if (str == NULL)
+		return;
 
-    len = strlen(str);
-    while (len > 0 && isspace(str[len - 1]))
-        len--;
+	len = strlen(str);
+	while (len > 0 && isspace(str[len - 1]))
+		len--;
 
-    str[len] = '\0';
+	str[len] = '\0';
 }
 
 LineNode* new_LineNode(void)
@@ -268,48 +268,48 @@ int count_digits(int n)
 /* took this directly from wikipedia hehe*/
 int levenshtein_distance(const char* s, const char* t, int m, int n)
 {
-    int * v0 = malloc((n + 1) * sizeof(int));
-    int * v1 = malloc((n + 1) * sizeof(int));
-    int * swap;
-    int i;
-    int ii;
-    int result;
+	int * v0 = malloc((n + 1) * sizeof(int));
+	int * v1 = malloc((n + 1) * sizeof(int));
+	int * swap;
+	int i;
+	int ii;
+	int result;
 
-    if(v0 == NULL OR v1 == NULL)
-    {
-        fprintf(stderr, "malloc fail levenshtein_distance()\n");
-        exit(1);
-    }
+	if(v0 == NULL OR v1 == NULL)
+	{
+		fprintf(stderr, "malloc fail levenshtein_distance()\n");
+		exit(1);
+	}
 
-    for(i = 0; i<n+1; i++)
-        v0[i] = i;
+	for(i = 0; i<n+1; i++)
+		v0[i] = i;
 
-    for(i=0; i<m; i++)
-    {
-        v1[0] = i+1;
+	for(i=0; i<m; i++)
+	{
+		v1[0] = i+1;
 
-        for(ii=0; ii<n; ii++)
-        {
-            int del_cost = v0[ii+1]+1;
-            int insert_cost = v1[ii] + 1;
-            int sub_cost;
+		for(ii=0; ii<n; ii++)
+		{
+			int del_cost = v0[ii+1]+1;
+			int insert_cost = v1[ii] + 1;
+			int sub_cost;
 
-            if (s[i]==t[ii])
-                sub_cost = v0[ii];
-            else
-                sub_cost = v0[ii]+1;
+			if (s[i]==t[ii])
+				sub_cost = v0[ii];
+			else
+				sub_cost = v0[ii]+1;
 
-            v1[ii + 1] = min(min(del_cost, sub_cost), insert_cost);
-        }
+			v1[ii + 1] = min(min(del_cost, sub_cost), insert_cost);
+		}
 
-        swap = v0;
-        v0 = v1;
-        v1 = swap;
-    }
+		swap = v0;
+		v0 = v1;
+		v1 = swap;
+	}
 
-    result = v0[n];
-    free(v0); free(v1);
-    return result;
+	result = v0[n];
+	free(v0); free(v1);
+	return result;
 }
 
 int isempty(char * s)

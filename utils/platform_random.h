@@ -6,10 +6,10 @@
  */
 
 #ifdef _WIN32
-    #include <windows.h>
-    #include <wincrypt.h>
+	#include <windows.h>
+	#include <wincrypt.h>
 #else
-    #include <stdio.h>
+	#include <stdio.h>
 #endif
 
 /**
@@ -21,21 +21,21 @@
  */
 int get_random_bytes(char * buf, int n)
 {
-    #ifdef _WIN32
-        HCRYPTPROV prov;
-        if (!CryptAcquireContext(&prov, NULL, NULL, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT))
-            return -1;
-        if (!CryptGenRandom(prov, (DWORD)n, (BYTE *)buf))
-            return -1;
-        CryptReleaseContext(prov, 0);
-        return 0;
-    #else
-        FILE *f = fopen("/dev/urandom", "rb");
-        if (!f) return -1;
-        if ((int)fread(buf, 1, n, f) != n) { fclose(f); return -1; }
-        fclose(f);
-        return 0;
-    #endif
+	#ifdef _WIN32
+		HCRYPTPROV prov;
+		if (!CryptAcquireContext(&prov, NULL, NULL, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT))
+			return -1;
+		if (!CryptGenRandom(prov, (DWORD)n, (BYTE *)buf))
+			return -1;
+		CryptReleaseContext(prov, 0);
+		return 0;
+	#else
+		FILE *f = fopen("/dev/urandom", "rb");
+		if (!f) return -1;
+		if ((int)fread(buf, 1, n, f) != n) { fclose(f); return -1; }
+		fclose(f);
+		return 0;
+	#endif
 
-    return 0;
+	return 0;
 }
