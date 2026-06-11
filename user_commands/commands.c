@@ -397,3 +397,20 @@ Value edit_patient_desc(void)
 	text_editor(path, 0);
 	return make_int(0);
 }
+
+Value edit_profile_self_doctor(void)
+{
+	char path[4096];
+	char username[MAX_USERNAME_LEN];
+	const char * disallow[] = 
+		{
+			"USERTYPE",
+		};
+	Config profile;
+
+	strcpy(username, current_username);
+	sprintf(path, "%s/%s/profile.txt", DATABASE_PATH, username);
+	parse_config_file(path, &profile);
+	return make_int(	config_editor(profile, path, disallow, 1)	);
+	
+}
