@@ -50,6 +50,7 @@ typedef struct
 Value make_int(int x);
 Value make_float(float x);
 Value make_string(char*s);
+void print_Value(Value);
 
 /** Type-erased function pointer. void (*)(void), used like generic_fn x; */
 typedef void (*generic_fn)(void);

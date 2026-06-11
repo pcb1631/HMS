@@ -182,6 +182,7 @@ void command_select(command_node *head, char *utype, char *username)
     command_node* Node;
 
     Value varray_username[1];
+    Value retval; 
     varray_username[0] = make_string(username);
 
     i = 0;
@@ -357,16 +358,24 @@ void command_select(command_node *head, char *utype, char *username)
                         printf("\n");
                     }
 					scanf("\n");
-                    call(cmd_list[selection], args, cmd_list[selection].n_of_args, utype);
+                    retval = call(cmd_list[selection], args, cmd_list[selection].n_of_args, utype);
+                    printf("Function returned: "); print_Value(retval); printf("\n");
                     free(args);
 
-                    raw();
-                    getch();
-
+                    #ifndef _WIN32
+						raw();
+						getch();
+					#else 
+						/* well i dont care that much about ux on windows*/
+						printf("Press enter to continue\n");
+						curs_set(1);
+						getchar(); 
+					#endif
+					getmaxyx(stdscr, y_max, x_max);
                 }else
                 {
-                    call(cmd_list[selection], varray_username, 1, utype);
-					getmaxyx(stdscr, y_max, x_max);
+                    retval = call(cmd_list[selection], varray_username, 1, utype);
+                    printf("Function returned: "); print_Value(retval); printf("\n");
                     /*
                      * Sets terminal to raw mode to immediately consume character, (default is cooked mode aka dont stop until EOL)
                      * This way the program can immediately continue after calling the function pointer, without showing the user funny characters, or having to go back to ncurses mode and the user misses the output from the function
@@ -380,6 +389,7 @@ void command_select(command_node *head, char *utype, char *username)
 						curs_set(1);
 						getchar(); 
 					#endif
+					getmaxyx(stdscr, y_max, x_max);
                 }
                 break;
 

@@ -32,6 +32,34 @@ Value make_string(char * s)
     return v;
 }
 
+void print_Value(Value x)
+{
+	switch (x.type)
+	{
+		case TYPE_INT:
+		printf("%d", x.data.as_int);
+		break;
+		
+		case TYPE_BOOL:
+		printf("%d", x.data.as_int);
+		break;
+		
+		case TYPE_STRING:
+		printf("%s", x.data.as_string);
+		break;
+
+		case TYPE_FLOAT:
+		printf("%f", x.data.as_float);
+		break;
+		
+		case TYPE_VOID:
+		break;
+
+		default:
+		return;
+	}
+}
+
 Value call(command f, Value * args, int n_of_args, char * perm)
 {
 	int i;
