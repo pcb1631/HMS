@@ -122,7 +122,7 @@ void user_select_menu(const char * const * allowed_utypes, int allowed_n, char *
     options = (char **) malloc(sizeof(char *) * users.count);
     for(i=0; i<users.count; i++)
     {
-        options[i] = (char *) malloc(sizeof(char) * 64);
+        options[i] = (char *) malloc(sizeof(char) * MAX_USERNAME_LEN);
     }
 
 

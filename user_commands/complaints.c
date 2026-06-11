@@ -1,4 +1,12 @@
+#ifdef _WIN32
+	#include <ncursesw/ncurses.h>
+#else
+	#include <ncurses.h>
+#endif
+
+
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include "complaints.h"
@@ -6,6 +14,7 @@
 #include "../utils/string_utils.h"
 #include "../utils/globals.h"
 #include "../utils/tui.h"
+#include "commands.h"
 
 Value create_complaint(void)
 {
@@ -48,48 +57,79 @@ Value create_complaint(void)
 		text_editor(path, 0);
 	}
 	
-	
-	
 	return make_int(0);
 }
 
+Value view_complaints(void) 
+{
+	Config users;
+	Config profile;
+	char patient[MAX_USERNAME_LEN];
+	int i, ii, complaints_n;
+	char ** files;
+	char filename[256];
+	char path[4096];
+	
+	
+	const char * allowed[] = 
+		{
+			"Patient",
+		};
+	
+	parse_config_file(PW_FILE, &users);
 
-/*
-void viewComplaints(void) {
-    FILE *fp = fopen("complaints.txt", "r");
-    Complaint temp;
+	printf("\n");
+	for(i=0; i<users.count; i++)
+	{
+		sprintf(path, "%s/%s/profile.txt", DATABASE_PATH, users.entries[i].key);
+		parse_config_file(path, &profile);
+		if(strcmp(get_config_value(&profile, "USERTYPE"), "Patient") == 0)
+		{
+			sprintf(path, "%s/%s/complaints", DATABASE_PATH, users.entries[i].key);
+			files = list_files_indir(path, &complaints_n);
+			printf("%s has %d complaints\n", users.entries[i].key, complaints_n);
 
-    if (fp == NULL) {
-        printf("Error on opening file.\n");
-        return;
-    }
+			for(ii=0; ii<complaints_n; ii++)
+			{
+				printf("%s\n", files[ii]);
+				free(files[ii]);
+			}
+			free(files);
+			printf("\n");
+		}
+	}
 
-    printf("\nPATIENT COMPLAINT REPORT\n");
-    while (fscanf(fp, "%s %s %s %[^\n]", temp.patientID, temp,patientName, 
-                  temp.complaintDate, temp.description) == 4) {
-        printf("ID: %s | Name: %s | Date: %s\n", temp.patientID, temp,patientName, temp.complaintDate);
-        printf("Complaint: %s\n", temp.description);
+	printf("\nPress enter to continue");
+	getchar();
 
-    }
-    fclose(fp);
+	user_select_menu(allowed, 1, patient);
+	if(strcmp(patient, "") == 0)
+		return make_string("EOF");
+
+	sprintf(path, "%s/%s/complaints/", DATABASE_PATH, patient);
+	files = list_files_indir(path, &complaints_n);
+
+	if
+	( simple_select(COLOR_YELLOW, COLOR_BLACK, complaints_n, (const char **)files, filename, "Choose a complaint")
+		== -1 )
+	{
+		for(i=0; i<complaints_n; i++)
+			free(files[i]);
+		free(files);
+		return make_string("EOF");	
+	}
+	for(i=0; i<complaints_n; i++)
+		free(files[i]);
+	free(files);
+
+	sprintf(path, "%s/%s/complaints/%s", DATABASE_PATH, patient, filename);
+	text_editor(path, 1);
+	printf("Delete file %s? [y/n]: ", path);
+	if(getchar() == 'y')
+	{
+		remove(path);
+		printf("Deleted %s\n", path);
+	}
+	
+	return make_int(0);
 }
-
-void searchComplaint(const char *searchID) {
-    FILE *fp = fopen("complaints.txt", "r");
-    Complaint temp;
-    int found = 0;
-
-    if (fp == NULL) return;
-
-    while (fscanf(fp, "%s %s %s %[^\n]", temp.patientID, temp,patientName, 
-                  temp.complaintDate, temp.description) == 4) {
-        if(strcmp(temp.patientID, searchID) == 0) {
-            printf("\nMatch Found:\nID: %s\nDate: %s\nIssue: %s\n",
-                    temp.patientID, temp.complaintDate, temp.description);
-            found = 1;
-        }
-    }
-    if (!found) printf("No complaints found for ID: %s\n", searchID);
-    fclose(fp);
-}
- */

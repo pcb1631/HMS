@@ -17,7 +17,7 @@
  * @param options Array of option strings
  * @param selection_s String to modify for selection. Must be char[n]
  * @param pretext Text to display before options
- * @return Index of the selected option
+ * @return Index of the selected option, -1 on EOF
  */
 int simple_select(int color_foreground, int color_background, int n_of_options, const char * const * options, char * selection_s, const char * pretext);
 

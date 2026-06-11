@@ -71,7 +71,8 @@ int main(int argc, char ** argv)
 		COMMAND_NOARGS(edit_profile_self_admin, "Edit your profile", "Admin", ""),
 		COMMAND_NOARGS(tedit_test, "Text edit test", "Admin", ""),
 		COMMAND_NOARGS(admin_delete_user, "Delete user", "Admin", "Delete a user from cred file and DB folder"),
-			
+		COMMAND_NOARGS(view_complaints, "View complaints", "Admin", "View number of complaints from patients, and view them"),
+		
 		COMMAND_NOARGS(nurse_view_booking, "View doctor's appointments", "Nurse", ""),
 		COMMAND_NOARGS(inventory_edit, "View and edit inventory", "Nurse", "View and edit fields for medical supplies and inventories"),
 		COMMAND_NOARGS(inventory_edit_txteditor, "Edit inventory with text editor", "Nurse", ""),
