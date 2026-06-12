@@ -81,22 +81,25 @@ Value view_complaints(void)
 	printf("\n");
 	for(i=0; i<users.count; i++)
 	{
-		char * usertype;
-		sprintf(path, "%s/%s/profile.txt", DATABASE_PATH, users.entries[i].key);
+		char * usertype, * username;
+		username = users.entries[i].key;
+		sprintf(path, "%s/%s/profile.txt", DATABASE_PATH, username);
 		parse_config_file(path, &profile);
 
 		usertype = get_config_value(&profile, "USERTYPE");
 		if(usertype == NULL)
 		{
-			printf("error: %s doesn't have USERTYPE\n", users.entries[i].key);
+			printf("error: %s doesn't have USERTYPE\n", username);
 			continue;
 		}
 		
 		if(strcmp(usertype, "Patient") == 0)
 		{
-			sprintf(path, "%s/%s/complaints", DATABASE_PATH, users.entries[i].key);
+			sprintf(path, "%s/%s/complaints", DATABASE_PATH, username);
 			files = list_files_indir(path, &complaints_n);
-			printf("%s has %d complaints\n", users.entries[i].key, complaints_n);
+
+			if(complaints_n != 0)
+				printf("%s has %d complaints\n", username, complaints_n);
 
 			for(ii=0; ii<complaints_n; ii++)
 			{
@@ -104,7 +107,9 @@ Value view_complaints(void)
 				free(files[ii]);
 			}
 			free(files);
-			printf("\n");
+
+			if(complaints_n !=0)
+				printf("\n");
 		}
 	}
 
