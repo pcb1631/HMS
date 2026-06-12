@@ -33,15 +33,16 @@ Value make_user(Value * list)
     char * pw_file = "./users/creds.txt";
     char pw[MAX_PASSWORD_LEN];
 
-    char * allowed_utypes[4] =
+    char * allowed_utypes[5] =
     {
         "Admin",
         "Patient",
         "Nurse",
         "Doctor",
+        "Director"
     };
 
-    for(i=0; i<4; i++)
+    for(i=0; i<(int)(sizeof(allowed_utypes)/sizeof(char *)); i++)
         if(strcmp(allowed_utypes[i], utype) == 0)
             flag=1;
     if(!flag)
@@ -55,9 +56,6 @@ Value make_user(Value * list)
     printf("\n");
 
     string_trim(pw);
-
-
-
 
     load_users_from_file(pw_file, &logins);
     register_user_hashtable(username, pw, pw_file);
@@ -116,7 +114,7 @@ void user_select_menu(const char * const * allowed_utypes, int allowed_n, char *
     int options_n = 0;
     int i;
     int ii;
-    char utype[20];
+    char utype[MAX_CONFIG_VAL_LEN];
     parse_config_file(PW_FILE, &users);
 
     options = (char **) malloc(sizeof(char *) * users.count);
@@ -130,7 +128,9 @@ void user_select_menu(const char * const * allowed_utypes, int allowed_n, char *
     for(i=0; i<users.count; i++)
     {
         char * username = users.entries[i].key;
-        strcpy(utype, get_utype(users.entries[i].key));
+        if(get_utype(username) == NULL)
+       		continue;
+        strcpy(utype, get_utype(username));
 
         for(ii=0; ii<allowed_n; ii++)
             if(strcmp(utype, allowed_utypes[ii]) == 0)

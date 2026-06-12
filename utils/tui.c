@@ -54,6 +54,15 @@ int simple_select(int color_foreground, int color_background, int n_of_options, 
 	init_pair(1, color_foreground, color_background);
 
 	y_max = getmaxy(stdscr);
+
+	if(n_of_options < 1)
+	{
+		clear();
+		endwin();
+		printf("no options for this\n");
+		getchar();
+		return -1;
+	}
 	while(ch != '\n') 
 	{
 		#ifdef _WIN32
@@ -357,7 +366,7 @@ void command_select(command_node *head, char *utype, char *username)
 						}
 						printf("\n");
 					}
-					scanf("\n");
+					wipe_stdin();
 					retval = call(cmd_list[selection], args, cmd_list[selection].n_of_args, utype);
 					printf("Function returned: "); print_Value(retval); printf("\n");
 					free(args);

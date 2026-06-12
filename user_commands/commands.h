@@ -1,6 +1,6 @@
 /**
  * @file commands.h
- * @brief User commands related to profile and reports
+ * @brief User commands related to users, profiles, and reports.
  *	
  *	When adding a command to the command array back in main.c, It needs to be either:
  * 	A function that returns Value with no args
@@ -36,4 +36,5 @@ Value view_diagnosis_self_doc(void);
 Value admin_delete_user(void); 
 Value edit_patient_desc(void);
 Value doctor_view_patients_profile(void);
+Value director_view_cfg(void);
 #endif

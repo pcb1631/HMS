@@ -81,9 +81,18 @@ Value view_complaints(void)
 	printf("\n");
 	for(i=0; i<users.count; i++)
 	{
+		char * usertype;
 		sprintf(path, "%s/%s/profile.txt", DATABASE_PATH, users.entries[i].key);
 		parse_config_file(path, &profile);
-		if(strcmp(get_config_value(&profile, "USERTYPE"), "Patient") == 0)
+
+		usertype = get_config_value(&profile, "USERTYPE");
+		if(usertype == NULL)
+		{
+			printf("error: %s doesn't have USERTYPE\n", users.entries[i].key);
+			continue;
+		}
+		
+		if(strcmp(usertype, "Patient") == 0)
 		{
 			sprintf(path, "%s/%s/complaints", DATABASE_PATH, users.entries[i].key);
 			files = list_files_indir(path, &complaints_n);
@@ -91,7 +100,7 @@ Value view_complaints(void)
 
 			for(ii=0; ii<complaints_n; ii++)
 			{
-				printf("%s\n", files[ii]);
+				printf("> %s\n", files[ii]);
 				free(files[ii]);
 			}
 			free(files);
@@ -99,7 +108,7 @@ Value view_complaints(void)
 		}
 	}
 
-	printf("\nPress enter to continue");
+	printf("\nPress enter to continue\n");
 	getchar();
 
 	user_select_menu(allowed, 1, patient);
@@ -125,6 +134,7 @@ Value view_complaints(void)
 	sprintf(path, "%s/%s/complaints/%s", DATABASE_PATH, patient, filename);
 	text_editor(path, 1);
 	printf("Delete file %s? [y/n]: ", path);
+	wipe_stdin();
 	if(getchar() == 'y')
 	{
 		remove(path);
