@@ -5,3 +5,6 @@ drhouse=$2b$12$meZNf/0GWzFAWGC3dx96t./YppGpcU/Chq.EDXE3tpJblzkjZAndm
 patient0=$2b$12$JT.j1tz.ID9AAbR.Vyjis.9clHotinq6iMikQyK2LCYXQRb32ECQi
 nurse0=$2b$12$Jb9.iiyTanKHfrGCYn8D0esSK1J9F0is70oKqnN2J9HK/JuhhU2PW
 nurse1=$2b$12$N2Q7zKtaLP2v0gm8aRrrVOzUEYxBCGssXBxTXMDDH.Myif8A9igry
+boss=$2b$12$dHOjbD.PpcUBdYYyQmO0ZOiaDp5ID0zowdBxpj8FTFADjYXf0Aoz6
+sickguy=$2b$12$O/zp/Zrcz47i2U.gzaH9Zuxd6x87IncDJbzNJUKZe105bnKNPZl32
+guy=$2b$12$HVlrb8N1FYl7lejumO4UoOCPyovPx6DR8DOIwVnKt77nSvB0JYvmy
