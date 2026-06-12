@@ -56,6 +56,7 @@ int main(int argc, char ** argv)
 
 	/* COMMAND(function name, alias, permission, argument types) */
 	const command cmd_list[] = {
+
 		COMMAND_NOARGS(doctor_booking_frontend, "Doctor Booking", "Doctor", "Booking options for doctors"),
 		COMMAND_NOARGS(doctor_diagnosis, "Write diagnosis", "Doctor", "Create a diagnosis report for a patient"),
 		COMMAND_NOARGS(view_diagnosis_self_doc, "View diagnosis", "Doctor", "View diagnosis reports for a patient you wrote yrself"),
@@ -73,6 +74,10 @@ int main(int argc, char ** argv)
 		COMMAND_NOARGS(admin_delete_user, "Delete user", "Admin", "Delete a user from cred file and DB folder"),
 		COMMAND_NOARGS(view_complaints, "View complaints", "Admin", "View number of complaints from patients, and view them"),
 		
+		COMMAND(make_user, "Create account", "Director", makeuser_args, "Create accounts for patients, doctors, etc\n\n First arg is username,\n second arg is usertype (cAsE sEnSiTiVe)"),
+		COMMAND_NOARGS(director_view_cfg, "View profiles", "Director", "View profiles of users"),
+		COMMAND_NOARGS(admin_delete_user, "Delete user", "Director", "Delete a user from cred file and DB folder"),
+	
 		COMMAND_NOARGS(nurse_view_booking, "View doctor's appointments", "Nurse", ""),
 		COMMAND_NOARGS(inventory_edit, "View and edit inventory", "Nurse", "View and edit fields for medical supplies and inventories"),
 		COMMAND_NOARGS(inventory_edit_txteditor, "Edit inventory with text editor", "Nurse", ""),

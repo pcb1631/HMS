@@ -1,9 +1,10 @@
 Admin:
   - path: "users/%s/"
     type: directory
-  - path: "users/%s/prefs.txt"
+  - path: "users/%s/profile.txt"
     type: KV file
     content:
+      USERTYPE: Admin
 
 Director:
   - path: "users/%s/"
@@ -11,6 +12,13 @@ Director:
   - path: "users/%s/prefs.txt"
     type: KV file
     content:
+  - path: "users/%s/profile.txt"
+    type: KV file
+    content: 
+      USERTYPE: Director
+      first_name: 
+      last_name: 
+      
 
 Doctor:
   - path: "users/%s/"
