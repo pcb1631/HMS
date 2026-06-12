@@ -313,7 +313,8 @@ char ** list_files_indir(const char * dir, int * n)
 	
 	if (dp == NULL) 
 	{
-		perror("Unable to open directory");
+		perror("list_files_indir()");
+		printf("path: %s\n", dir);
 		return NULL;
 	}
 
