@@ -375,7 +375,7 @@ digraph NodeDeletion {
         label="Step 1: Initial State";
         color=grey;
         P1 [label="PrevNode"];
-        C1 [label="CurrentLine", color=red, fontcolor=red];
+        C1 [label="node", color=red, fontcolor=red];
         N1 [label="NextNode"];
         
         P1 -> C1 [label="next"];
@@ -389,7 +389,7 @@ digraph NodeDeletion {
         label="Step 2: node.prev.next = node.next";
         color=grey;
         P2 [label="PrevNode"];
-        C2 [label="CurrentLine", color=red, fontcolor=red];
+        C2 [label="node", color=red, fontcolor=red];
         N2 [label="NextNode"];
         
         P2 -> C2 [label="next", style=dashed, color=grey];
@@ -404,7 +404,7 @@ digraph NodeDeletion {
         label="Step 3: node.next.prev = node.prev";
         color=grey;
         P3 [label="PrevNode"];
-        C3 [label="CurrentLine", color=red, fontcolor=red];
+        C3 [label="node", color=red, fontcolor=red];
         N3 [label="NextNode"];
         
         P3 -> N3 [label="next"];
@@ -416,7 +416,7 @@ digraph NodeDeletion {
     }
 
     subgraph cluster_step4 {
-        label="Step 4: Free CurrentLine";
+        label="Step 4: Free node";
         color=grey;
         P4 [label="PrevNode"];
         N4 [label="NextNode"];

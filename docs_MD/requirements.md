@@ -1,5 +1,8 @@
 \page requirements Project requirements
 
+Fuzzy search with levenshtein distance is built into \ref simple_select()
+\n and \ref user_select_menu() calls \ref simple_select()
+
 Director
 - Manage admin (add, search, view)
 - Staff report

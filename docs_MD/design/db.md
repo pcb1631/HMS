@@ -9,7 +9,7 @@ Usertype:
     type: directory
   
   - path: "users/%s/prefs.txt"
-    type: file
+    type: KV file
     content:
       key: value
       blabla: blablabla
@@ -18,18 +18,19 @@ Usertype2:
   - path: "users/%s/"
   - type: directory
 
-  - path: "users/%s/profile.txt"
+  - path: "users/%s/temp.txt"
+  	type: file
+  	content:
+  
 ...
 @endcode
 
 **this is only intended to aid development and won't actually change where the program looks**
+\n But you can freely change the content of KV files, and generate_file_structure() will preserve existing values, while removing fields that aren't in content: .
   
 ./users contain folders of usernames, where each stores their own data
 
 
-
-This file is parsed in regen_file_structure.c (which is meant to generate one exe).
-\n it regenerates the file structure while ignoring existing files and lines to prevent data loss.
 
 \dot
 digraph RegenFileStructure {
