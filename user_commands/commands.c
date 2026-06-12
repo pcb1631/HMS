@@ -378,7 +378,7 @@ Value doctor_view_patients_profile(void)
 	if(parse_config_file(path, &profile) == -1)
 		return make_int(-1);
 	
-	config_editor(profile, path, disallow, 0);
+	config_editor(profile, path, disallow, 1);
 	return make_int(0);
 }
 
