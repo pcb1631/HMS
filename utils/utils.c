@@ -244,6 +244,7 @@ char *get_config_value(const Config * config, const char * key)
 {
 	int i;
 	if (config == NULL || key == NULL) return NULL;
+	if (config->count == 0) return NULL;
 
 	for (i = 0; i < config->count; i++) {
 		if (strcmp(config->entries[i].key, key) == 0) {
@@ -381,8 +382,14 @@ void generate_file_structure(const char *role, const char *username)
 	while(fgets(line, sizeof(line), file) != NULL)
 	{
 		char * start, * end;
+	
+		/* end at the next top level key */
 		if(!isspace(line[0]))
-			return; /* end at the next top level key */
+		{
+			if(out_file)
+				fclose(out_file);
+			return; 
+		}
 		
 		if(!isspace(line[INDENT_SPACES]))
 		{
