@@ -1,6 +1,6 @@
 \page usage How to use HMS
 
-TIP: Do CTRL+C (sigint) to exit the program or cancel an operation
+TIP: Do CTRL+C (sigint) to exit the program or cancel an operation while using a TUI 
 
 The binary only requires the DB folder and credentials file, and you can name the binary whatever you want
 
@@ -26,8 +26,9 @@ The binary only requires the DB folder and credentials file, and you can name th
 ./main.out login [username]
 ```
 
-
 \section simple_tui Simple menu
+
+
 
 \section command_tui  Command menu
 

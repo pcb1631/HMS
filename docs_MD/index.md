@@ -33,6 +33,7 @@ git submodule update --init --recursive
 
 ## Linux/MacOS
 ncurses is shipped with most linux distros, while ncurses 6.x is shipped with MacOS Sonoma and later
+\n quick way to check is doing `tic -V`  
 
 1. make
   - make should come with xcode if you're using MacOS. If not, install make with homebrew
@@ -64,8 +65,6 @@ Then, use the Makefile to compile:
 ./make
 ```
 
-TODO: Add subpages in usage.md on how to use TUI. Command TUI, simple TUI, and time tui
-
 \section assumptions Assumptions
 It is assumed that:
 
@@ -90,3 +89,26 @@ It is assumed that:
 	-	read the documentation and understood how to
 		-	change the configuration of the program
 		- use the framework to add commands
+
+\subsection warning Caveats and warnings
+**git does not push empty folders, because its designed to only track files and their paths.** So HMS will most likely crash or run into issues when it tries to use folders that don't exist
+
+When pulling commits with new users in the database, you need to can either:
+-# Push the empty folder with a placeholder file
+
+-# Regenerate the folders with regen_file_structure.c
+```bash 
+		gcc -o regen_file.out regen_file_structure.c utils/utils.c utils/string_utils.c -g -ansi
+		./regen_file.out
+```
+	-	 \ref regen_file_structure.c checks for each username in the credentials file and their usertype in their profile
+
+\n \n
+
+**git will also struggle with case-insensitive filesystems** (such as Windows)
+
+in powershell with admin priviliges:
+
+```bash
+fsutil.exe file setCaseSensitiveInfo C:\Your\Folder\Path enable
+```

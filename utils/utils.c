@@ -7,9 +7,6 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 
-
-
-
 Value make_int(int x)
 {
 	Value v;
