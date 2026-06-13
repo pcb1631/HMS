@@ -312,6 +312,7 @@ char ** list_files_indir(const char * dir, int * n)
 	{
 		perror("list_files_indir()");
 		printf("path: %s\n", dir);
+		*n = 0;
 		return NULL;
 	}
 

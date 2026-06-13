@@ -100,6 +100,16 @@ Value view_complaints(void)
 
 			if(complaints_n != 0)
 				printf("%s has %d complaints\n", username, complaints_n);
+			else
+			{
+				for(ii=0; ii<complaints_n; ii++)
+				{
+					printf("> %s\n", files[ii]);
+					free(files[ii]);
+				}
+				free(files);
+				continue;
+			}
 
 			for(ii=0; ii<complaints_n; ii++)
 			{
