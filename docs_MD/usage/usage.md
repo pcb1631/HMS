@@ -27,7 +27,9 @@ The binary only requires the DB folder and credentials file, and you can name th
 ```
 
 \section simple_tui Simple menu
+Press arrow keys to change selection, and enter to confirm selection. CTRL+C to cancel
 
+Type and backspace to search for options. It does fuzzy search on your query and every option, then finds the closest option for your query.
 
 
 \section command_tui  Command menu
@@ -35,6 +37,6 @@ The binary only requires the DB folder and credentials file, and you can name th
 \section booking_tui Booking menu
 
 \section time_tui Time selection
-
+Left and right arrow keys to change the time range, then up and down arrow keys to modify the time with that range. Press enter to confirm.
 
 \section login Login/Register

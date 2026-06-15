@@ -9,6 +9,7 @@
 #include "user_commands/bookings.h"
 #include "user_commands/commands.h"
 #include "user_commands/inventory.h"
+#include "user_commands/notes.h"
 #include "utils/tui.h"
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -81,6 +82,8 @@ int main(int argc, char ** argv)
 		COMMAND_NOARGS(nurse_view_booking, "View doctor's appointments", "Nurse", ""),
 		COMMAND_NOARGS(inventory_edit, "View and edit inventory", "Nurse", "View and edit fields for medical supplies and inventories"),
 		COMMAND_NOARGS(inventory_edit_txteditor, "Edit inventory with text editor", "Nurse", ""),
+		COMMAND_NOARGS(create_note, "Write a note", "Nurse", "Create a note for a patient"),
+		COMMAND_NOARGS(view_notes, "View notes", "Nurse", "Choose a patient and view notes other nurses left"),
 	};
 
 	int cmd_list_n = sizeof(cmd_list)/sizeof(command);
