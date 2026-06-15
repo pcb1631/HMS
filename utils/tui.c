@@ -386,6 +386,7 @@ void command_select(command_node *head, char *utype, char *username)
 						getchar(); 
 					#endif
 					getmaxyx(stdscr, y_max, x_max);
+					clear();
 				}else
 				{
 					retval = call(cmd_list[selection], varray_username, 1, utype);

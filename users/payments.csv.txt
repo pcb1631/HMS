@@ -1,3 +1,4 @@
-2026/06/15_22:40:59,patient0,67.67,leg got stuck in meatgrinder
-2026/06/15_22:41:30,patient0,1000.00,Holy hell
-2026/06/15_22:41:30,guy,1000.00,testicular torsion
+1781547036,patient0,67.67,Holy Hell
+1781547052,patient0,90.01,AHHHHHH AAHHHHHH AHHHHH
+1781547523,guy,0.54,arm got twisted off by a god damn alliga'or
+1781547067,patient0,123.12,son

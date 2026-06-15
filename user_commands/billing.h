@@ -3,9 +3,10 @@
 
 #include "../utils/globals.h"
 #include "../utils/utils.h"
+#include <time.h>
 
 typedef struct {
-    char date[80];
+	time_t t;
     char patient[MAX_USERNAME_LEN];
     float amount;
     char desc[256];
