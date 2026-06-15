@@ -1,0 +1,3 @@
+2026/06/15_22:40:59,patient0,67.67,leg got stuck in meatgrinder
+2026/06/15_22:41:30,patient0,1000.00,Holy hell
+2026/06/15_22:41:30,guy,1000.00,testicular torsion

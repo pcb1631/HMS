@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "user_commands/billing.h"
 #include "user_commands/complaints.h"
 #include "utils/globals.h"
 #include "utils/logins.h"
@@ -53,6 +54,7 @@ int main(int argc, char ** argv)
 	 * if i don't define with static, clangd will scream something about aggregate not being a compile time constant
 	 */
 	static ValueType makeuser_args[] = {TYPE_STRING, TYPE_STRING};
+	static ValueType patient_payment_args[] = {TYPE_FLOAT, TYPE_STRING};
 
 
 	/* COMMAND(function name, alias, permission, argument types) */
@@ -66,8 +68,10 @@ int main(int argc, char ** argv)
 		
 		COMMAND_NOARGS(patient_booking_frontend, "Patient Booking", "Patient", "Booking options for patients"),
 		COMMAND_NOARGS(edit_profile_self_patient, "Edit your profile", "Patient", ""),
-		COMMAND_NOARGS(create_complaint, "Create complaint", "Patient", "Spill the tea sis"),
-
+		COMMAND_NOARGS(create_complaint, "Create complaint", "Patient", "spill the tea sis"),
+		COMMAND(perform_payment, "Pay", "Patient", patient_payment_args, "Pay your bills.\nFirst arg is amount of money, second is description"),
+		COMMAND_NOARGS(view_payment_history_patient, "View your payment history", "Patient", ""),
+		
 		COMMAND_NOARGS(admin_view_cfg, "View users profile", "Admin", ""),
 		COMMAND(make_user, "Create account", "Admin", makeuser_args, "Create accounts for patients, doctors, etc\n\n First arg is username,\n second arg is usertype (cAsE sEnSiTiVe)"),
 		COMMAND_NOARGS(edit_profile_self_admin, "Edit your profile", "Admin", ""),

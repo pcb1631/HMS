@@ -353,10 +353,15 @@ void command_select(command_node *head, char *utype, char *username)
 
 							case TYPE_STRING:
 								printf("Enter a string\n");
-								scanf("\n%128s", args[i].data.as_string); break;
+
+								/* god damn strings.. */
+								wipe_stdin();
+								fgets(args[i].data.as_string, 256, stdin);
+								string_trim(args[i].data.as_string);
+							 	break;
 
 							case TYPE_FLOAT:
-								printf("Enter a decimal");
+								printf("Enter a decimal\n");
 								scanf("\n%f", &args[i].data.as_float); break;
 
 							case TYPE_VOID:

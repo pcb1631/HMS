@@ -1,18 +1,15 @@
 #ifndef BILLING_H
 #define BILLING_H
 
-#define MAX_NAME 50
-#define MAX_ID 15
-#define MAX_DATE 12
-#define MAX_TEXT 200
-#define MAX_TYPE 20
+#include "../utils/globals.h"
+#include "../utils/utils.h"
+
 typedef struct {
-    char patientID[MAX_ID];
-    char paymentID[MAX_ID];
-    char date[MAX_DATE];
+    char date[80];
+    char patient[MAX_USERNAME_LEN];
     float amount;
-    char status[MAX_TYPE];
+    char desc[256];
 } Payment;
-void performPayment(const char *patientID);
-void viewPaymentHistory(const char *patientID);
+Value perform_payment(Value * list);
+Value view_payment_history_patient(void);
 #endif
