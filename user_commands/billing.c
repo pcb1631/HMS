@@ -15,6 +15,7 @@ int parse_payments(Payment ** payments, int * n)
 	char path[4096];
 	char buf[4096];
 	int i=0;
+	unsigned long time_ul;
 	sprintf(path, "%s/%s", DATABASE_PATH, "payments.csv.txt");
 	file = fopen(path, "r");
 	if(file == NULL)
@@ -46,11 +47,12 @@ int parse_payments(Payment ** payments, int * n)
 		}
 
 		if(sscanf(buf, "%lu,%64[^,],%f,%255[^\n]", 
-			&(*payments)[i].t, 
+			&time_ul,
 			(*payments)[i].patient, 
 			&(*payments)[i].amount, 
 			(*payments)[i].desc) == 4)
 		{
+			(*payments)[i].t = (time_t)time_ul;
 			i++;
 		}
 	}
@@ -124,13 +126,71 @@ Value view_payment_history_patient(void)
 	return make_int(0);
 }
 
+
+Value view_payment_history_director(void)
+{
+	Payment * billz = NULL;
+	int n, i;
+	char buf[4096];
+
+	char readable_time[80];
+	struct tm * ts;
+	
+	char ** options;
+	parse_payments(&billz, &n);
+
+	options = malloc(sizeof(char *) * n);
+	for(i=0; i<n; i++)
+	{
+		options[i] = malloc(sizeof(char) * 4096);
+		ts = localtime(&billz[i].t);
+		strftime(readable_time, sizeof(readable_time), "%d/%m/%Y %H:%M:%S", ts);
+		sprintf(options[i], "%s RM%.2f %s", readable_time, billz[i].amount, billz[i].desc);
+	}
+
+
+	simple_select(COLOR_YELLOW, COLOR_BLACK, n, (const char **)options, buf, "yo billz");
+
+	
+	free(billz);
+	for(i=0; i<n; i++)
+		free(options[i]);
+	free(options);
+
+	
+	return make_int(0);
+}
+
 Value calc_sales_t_range(void)
 {
 	time_t start, end;
+	char readable_start[80], readable_end[80]; 
+	struct tm * ts;
+
+
 	Payment * payments;
-	int n;
+	int i, n;
+	float total=0;
 	parse_payments(&payments, &n);
 	start = time_picker("Start time of sales", COLOR_YELLOW, COLOR_BLACK, time(NULL));
 	end = time_picker("End time of sales", COLOR_YELLOW, COLOR_BLACK, time(NULL));
+
+	if(start == -1 || end == -1)
+		return make_string("cancelled");
+
+	ts = localtime(&start);
+	strftime(readable_start, sizeof(readable_start), "%d/%m/%Y %H:%M:%S", ts);
+	ts = localtime(&end);
+	strftime(readable_end, sizeof(readable_end), "%d/%m/%Y %H:%M:%S", ts);
+
+
 	
+	for(i=0; i<n; i++)
+	{
+		if(payments[i].t>=start && payments[i].t <=end)
+			total += payments[i].amount;
+	}
+
+	printf("The total earnings between *%s* and *%s* is RM%.2f\n", readable_start, readable_end, total);
+	return make_string("ok");
 }

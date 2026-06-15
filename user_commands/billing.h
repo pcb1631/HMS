@@ -13,4 +13,6 @@ typedef struct {
 } Payment;
 Value perform_payment(Value * list);
 Value view_payment_history_patient(void);
+Value calc_sales_t_range(void);
+Value view_payment_history_director(void);
 #endif

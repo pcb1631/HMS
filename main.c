@@ -82,7 +82,9 @@ int main(int argc, char ** argv)
 		COMMAND(make_user, "Create account", "Director", makeuser_args, "Create accounts for patients, doctors, etc\n\n First arg is username,\n second arg is usertype (cAsE sEnSiTiVe)"),
 		COMMAND_NOARGS(director_view_cfg, "View profiles", "Director", "View profiles of users"),
 		COMMAND_NOARGS(admin_delete_user, "Delete user", "Director", "Delete a user from cred file and DB folder"),
-	
+		COMMAND_NOARGS(calc_sales_t_range, "Sales report", "Director", "Calculate total sales between time rang"),
+		COMMAND_NOARGS(view_payment_history_director, "View payment history", "Director", ""),
+		
 		COMMAND_NOARGS(nurse_view_booking, "View doctor's appointments", "Nurse", ""),
 		COMMAND_NOARGS(inventory_edit, "View and edit inventory", "Nurse", "View and edit fields for medical supplies and inventories"),
 		COMMAND_NOARGS(inventory_edit_txteditor, "Edit inventory with text editor", "Nurse", ""),
