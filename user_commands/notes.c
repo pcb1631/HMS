@@ -149,6 +149,6 @@ Value view_notes(void)
 	free(files);
 
 	sprintf(path, "%s/%s/notes/%s", DATABASE_PATH, patient, filename);
-	text_editor(path, 1);
+	text_editor(path, 0);
 	return make_int(0);
 }
