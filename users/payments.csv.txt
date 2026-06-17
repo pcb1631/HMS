@@ -2,3 +2,10 @@
 1781547052,patient0,90.01,AHHHHHH AAHHHHHH AHHHHH
 1781547523,guy,0.54,arm got twisted off by a god damn alliga'or
 1781547067,patient0,123.12,son
+1781690811,patient0,2000.00,admission deposit
+1781690843,patient0,300.00,consultation fee
+1781690935,patient0,8000.00,total room charge
+1781690959,patient0,1000.00,diagnostics
+1781691468,Fatimah,680.00,pharmacy and medication charges
+1781691686,Fatimah,100.00,consulation fee
+1781691937,guy,30000.00,surgical charge
