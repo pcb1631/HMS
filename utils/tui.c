@@ -355,8 +355,7 @@ void command_select(command_node *head, char *utype, char *username)
 								printf("Enter a string\n");
 
 								/* god damn strings.. */
-								wipe_stdin();
-								fgets(args[i].data.as_string, 256, stdin);
+								scanf("%s", args[i].data.as_string);
 								string_trim(args[i].data.as_string);
 							 	break;
 
