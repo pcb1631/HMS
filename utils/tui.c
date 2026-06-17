@@ -487,7 +487,7 @@ time_t time_picker(char * pretext, int color_fg, int color_bg, time_t pre_time)
 			attroff(A_REVERSE);
 		attroff(COLOR_PAIR(2));
 
-		mvprintw(3, 0, "%lu", time);
+		mvprintw(3, 0, "%lu", (unsigned long)time);
 
 
 		refresh();
