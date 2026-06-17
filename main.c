@@ -71,11 +71,11 @@ int main(int argc, char ** argv)
 		COMMAND_NOARGS(create_complaint, "Create complaint", "Patient", "spill the tea sis"),
 		COMMAND(perform_payment, "Pay", "Patient", patient_payment_args, "Pay your bills.\nFirst arg is amount of money, second is description"),
 		COMMAND_NOARGS(view_payment_history_patient, "View your payment history", "Patient", ""),
+		COMMAND_NOARGS(view_complaints_self, "Search and edit your complaints", "Patient", ""),
 		
 		COMMAND_NOARGS(admin_view_cfg, "View users profile", "Admin", ""),
 		COMMAND(make_user, "Create account", "Admin", makeuser_args, "Create accounts for patients, doctors, etc\n\n First arg is username,\n second arg is usertype (cAsE sEnSiTiVe)"),
 		COMMAND_NOARGS(edit_profile_self_admin, "Edit your profile", "Admin", ""),
-		COMMAND_NOARGS(tedit_test, "Text edit test", "Admin", ""),
 		COMMAND_NOARGS(admin_delete_user, "Delete user", "Admin", "Delete a user from cred file and DB folder"),
 		COMMAND_NOARGS(view_complaints, "View complaints", "Admin", "View number of complaints from patients, and view them"),
 		

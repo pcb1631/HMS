@@ -60,6 +60,38 @@ Value create_complaint(void)
 	return make_int(0);
 }
 
+Value view_complaints_self(void)
+{
+	char patient[MAX_USERNAME_LEN];
+	int i, complaints_n;
+	char ** files;
+	char filename[256];
+	char path[4096];
+
+	strcpy(patient, current_username);
+	if(strcmp(patient, "") == 0)
+		return make_string("EOF");
+
+	sprintf(path, "%s/%s/complaints/", DATABASE_PATH, patient);
+	files = list_files_indir(path, &complaints_n);
+
+	if( simple_select(COLOR_YELLOW, COLOR_BLACK, complaints_n, (const char **)files, filename, "Choose a complaint")
+		== -1 )
+	{
+		for(i=0; i<complaints_n; i++)
+			free(files[i]);
+		free(files);
+		return make_string("EOF");	
+	}
+	for(i=0; i<complaints_n; i++)
+		free(files[i]);
+	free(files);
+
+	sprintf(path, "%s/%s/complaints/%s", DATABASE_PATH, patient, filename);
+	text_editor(path, 0);
+	return make_string("OK");
+}
+
 Value view_complaints(void) 
 {
 	Config users;

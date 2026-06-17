@@ -16,6 +16,7 @@
 #define MAX_USERNAME_LEN 64
 #define MAX_PASSWORD_LEN 64
 
+/*  */
 typedef struct {
 	/** key */
 	char username[MAX_USERNAME_LEN];
@@ -96,5 +97,8 @@ int hash_password(const char * password, char * hashout);
  */
 int verify_password(const char * password, const char * stored_hash);
 
+/**
+ * @brief add and save user credentials to file
+ */
 int register_user_hashtable(const char *current_username, char *password, const char *pw_file);
 #endif /* LOGINS_H */

@@ -1,3 +1,8 @@
+/**
+ * @file billing.h
+ * @brief User commands for payment
+ */
+
 #ifndef BILLING_H
 #define BILLING_H
 

@@ -1,3 +1,8 @@
+/** 
+ * @file bookings.h
+ * @brief User commands for appointment management
+ */
+
 #ifndef BOOKINGS_H
 #define BOOKINGS_H
 

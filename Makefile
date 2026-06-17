@@ -14,9 +14,11 @@ CWARNINGS = -Wall -Wextra
 
 TARGET = main.out
 
+.PHONY: all clean
+
 all: $(TARGET)
 
-$(TARGET): main.c
+$(TARGET): $(SRCS)
 	$(CC) $(SRCS)  $(CFLAGS) -o $(TARGET) $(CWARNINGS)
 
 # Rule to clean up generated files
