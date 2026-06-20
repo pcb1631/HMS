@@ -8,6 +8,7 @@ Director
 - Staff report
 	- **This is implemented as profile and description**
 - Sales report
+	- **The director can get a report between a time range, not just the past year**
 
 Admin
 - Add patients, doctors, nurse
@@ -30,4 +31,5 @@ Doctor
 Nurse
 - View appointments only
 - Meds and Supply inventory stock view
+	- **One config file for stock in DB root, edited with text_editor() or config_editor()**
 - Notes

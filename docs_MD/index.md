@@ -7,17 +7,19 @@
 - \subpage term
 - \subpage dev
 - \subpage design
+- \subpage requirements
 
 
 
 \section intro_sec Introduction
+ The Hospital Management System (HMS for short) is an interactive program to facilitate hospital documentation, appointment booking, among other services. 
 
-
- The Hospital Management System (HMS for short) is an interactive program to facilitate hospital documentation, appointment booking, among other services.
- HMS is designed to run in every major OS, as it is written purely in ANSI C
+HMS is designed to run in every major OS, as it is written purely in ANSI C
+\n We verified that HMS is functional on freeBSD 15, macOS, Arch Linux, and Windows 11.
 
 \section installation Installation / Compiling
 HMS was primarily developed on unix-like systems, so it is reccomended to use WSL if you're on Windows.
+
 
 (Don't use git if you are using the zip file)
 
@@ -52,15 +54,16 @@ When making changes in files other than main.c, delete the binary and run make a
 make clean; make
 ```
 
-
-  
-
 ## Windows
 Install `ncurses` from the UCRT64 environment (MSYS2):
 ```bash
 pacman -S mingw-w64-ucrt-x86_64-ncurses
 ```
-Then, use the Makefile to compile:
+Then, use the batch script to compile:
+```bash
+./Make.bat
+```
+or
 ```bash
 ./make
 ```
@@ -91,7 +94,7 @@ It is assumed that:
 		- use the framework to add commands
 
 \subsection warning Caveats and warnings
-**git does not push empty folders, because its designed to only track files and their paths.** So HMS will most likely crash or run into issues when it tries to use folders that don't exist
+**git does not push empty folders, because its designed to only track files and their paths.** So HMS will most likely emit error or run into issues when it tries to use folders that don't exist
 
 When pulling commits with new users in the database, you need to can either:
 -# Push the empty folder with a placeholder file
@@ -105,7 +108,9 @@ When pulling commits with new users in the database, you need to can either:
 
 \n \n
 
-**git will also struggle with case-insensitive filesystems** (such as Windows)
+**git will also struggle with case-insensitive filesystems** (such as default Windows folders)
+
+before cloning the repo, you need to make a folder with case sensitivity
 
 in powershell with admin priviliges:
 

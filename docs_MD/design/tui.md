@@ -46,10 +46,6 @@ Also cmd and Powershell doesn't send `KEY_RESIZE` to the program, so we have to 
 This section will explain things that will be skimmed through / abstracted in later sections.
 
 
-
-
-
-
 \section cfg_editor Config editor
 \ref config_editor is a function that provides a TUI for editing `key: value` or `key=value` files.
 \n It shows and scrolls the keys on the left side, while showing the value on the right side. 

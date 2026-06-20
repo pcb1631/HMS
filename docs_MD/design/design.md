@@ -1,4 +1,4 @@
-\page design Design of codebase
+\page design Design and explanation
 
 In these sections, we will explain functions or systems that are not trivial, with diagrams and design choices
 

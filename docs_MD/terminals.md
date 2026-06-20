@@ -53,7 +53,7 @@ The program already does `reset` first just in case (This stops the terminal on 
   - no
 
 \section windows Windows
-  Should have the same behaviour as Linux with WSL. 
+	You will run into issues with the tui, but the behaviour should be identical to linux if you use WSL.
 
 \section mac macOS
 	Behaviour between every terminal emulator is similar because they advertise themselves as `xterm-256color`
