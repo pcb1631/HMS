@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['variables_0',['CSS-Variables',['../md_doxygen-awesome-css_2docs_2customization.html#autotoc_md3',1,'']]],
-  ['variables_1',['Available variables',['../md_doxygen-awesome-css_2docs_2customization.html#autotoc_md5',1,'']]]
+  ['value_20struct_0',['The Value struct',['../cmd_dispatch.html#cmd_value',1,'']]]
 ];

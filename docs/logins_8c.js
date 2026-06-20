@@ -1,5 +1,6 @@
 var logins_8c =
 [
+    [ "__SKIP_GNU", "logins_8c.html#a574b72943bf283898862293adcf716c5", null ],
     [ "COST", "logins_8c.html#a0ceddfac75a893f86f1bea20cca94575", null ],
     [ "HASH_BUF", "logins_8c.html#a473a1174b3f9e9c531aefffdd49f8d2a", null ],
     [ "SALT_BUF", "logins_8c.html#a3993541c6312d4df0f1326f11a061fde", null ],

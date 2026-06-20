@@ -1,9 +1,37 @@
 <map id="user_commands/complaints.c" name="user_commands/complaints.c">
-<area shape="rect" id="Node000001" title=" " alt="" coords="22,5,238,33"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,81,71,109"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,33,68,73,64,69,111,34"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="95,81,165,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="132,32,132,66,128,64,128,36"/>
-<area shape="rect" id="Node000004" href="$complaints_8h.html" title=" " alt="" coords="189,81,295,109"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="151,31,212,72,207,73,149,36"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="584,5,799,33"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="31,308,115,336"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="581,26,461,34,325,46,201,62,151,72,113,84,79,97,54,110,34,129,15,158,10,175,8,194,17,231,34,266,54,295,49,297,29,268,11,233,3,194,4,174,11,156,29,125,51,106,77,92,111,78,149,67,200,57,325,40,461,29,586,24"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="780,81,846,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="714,31,781,73,776,73,713,36"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="513,308,582,336"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="697,31,709,74,716,134,716,167,712,200,703,232,687,262,669,281,647,296,598,315,597,309,644,291,666,277,683,258,698,230,707,199,711,167,711,134,703,75,694,36"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="870,81,940,109"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="730,31,858,76,852,77,730,36"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="609,232,673,260"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="691,32,649,219,645,216,687,35"/>
+<area shape="rect" id="Node000007" href="$complaints_8h.html" title="User commands for complaint management." alt="" coords="207,157,312,184"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="643,35,494,84,308,153,305,148,492,78,648,32"/>
+<area shape="rect" id="Node000008" href="$utils_8h.html" title="Utility functions, value types, and command parsing." alt="" coords="207,232,312,260"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="586,35,478,55,360,81,306,97,259,116,222,136,198,158,193,174,198,190,211,206,229,223,223,223,207,210,194,193,188,174,193,155,219,132,257,111,304,92,359,76,477,49,591,33"/>
+<area shape="rect" id="Node000010" href="$string__utils_8h.html" title=" " alt="" coords="964,81,1113,109"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="754,31,964,77,958,78,754,36"/>
+<area shape="rect" id="Node000011" href="$globals_8h.html" title=" " alt="" coords="1138,81,1262,109"/>
+<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="791,31,1125,80,1120,81,791,36"/>
+<area shape="rect" id="Node000012" href="$tui_8h.html" title="Text User Interface functions." alt="" coords="505,81,599,109"/>
+<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="669,32,591,76,589,71,664,35"/>
+<area shape="rect" id="Node000014" href="$commands_8h.html" title="User commands related to users, profiles, and reports." alt="" coords="26,157,131,184"/>
+<area shape="poly" id="edge20_Node000001_Node000014" title=" " alt="" coords="581,24,469,31,343,42,230,59,185,70,152,83,134,96,118,112,94,145,90,142,114,108,130,92,149,79,183,65,229,53,343,36,468,26,586,22"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="261,183,262,218,257,215,258,187"/>
+<area shape="poly" id="edge8_Node000008_Node000002" title=" " alt="" coords="229,261,121,305,119,300,224,260"/>
+<area shape="poly" id="edge9_Node000008_Node000004" title=" " alt="" coords="312,258,500,307,495,309,311,263"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="224,308,296,336"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="262,259,262,294,257,291,258,262"/>
+<area shape="poly" id="edge19_Node000012_Node000006" title=" " alt="" coords="571,106,596,128,618,155,632,186,639,219,635,216,627,188,613,158,592,132,569,112"/>
+<area shape="poly" id="edge15_Node000012_Node000008" title=" " alt="" coords="502,109,443,130,377,159,328,191,286,224,283,220,324,187,374,154,441,125,507,107"/>
+<area shape="rect" id="Node000013" href="$bookings_8h.html" title="User commands for appointment management." alt="" coords="388,157,603,184"/>
+<area shape="poly" id="edge16_Node000012_Node000013" title=" " alt="" coords="544,108,516,146,513,142,540,111"/>
+<area shape="poly" id="edge18_Node000013_Node000006" title=" " alt="" coords="522,182,604,225,599,225,521,188"/>
+<area shape="poly" id="edge17_Node000013_Node000008" title=" " alt="" coords="451,186,317,230,315,225,456,184"/>
+<area shape="poly" id="edge21_Node000014_Node000008" title=" " alt="" coords="111,182,216,225,211,228,111,188"/>
 </map>

@@ -1,9 +1,13 @@
 <map id="user_commands/commands.h" name="user_commands/commands.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="87,5,304,33"/>
+<area shape="rect" id="Node000001" title="User commands related to users, profiles, and reports." alt="" coords="320,5,537,33"/>
 <area shape="rect" id="Node000002" href="$main_8c.html" title=" " alt="" coords="5,81,71,109"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="155,42,67,83,65,78,152,37"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="321,37,208,58,83,84,72,86,70,81,81,78,207,53,326,35"/>
 <area shape="rect" id="Node000003" href="$bookings_8c.html" title=" " alt="" coords="94,81,296,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="197,47,198,82,193,79,193,51"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="376,38,238,83,236,78,370,38"/>
 <area shape="rect" id="Node000004" href="$commands_8c.html" title=" " alt="" coords="321,81,536,109"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="252,35,390,80,384,81,251,41"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="431,47,431,82,427,79,427,51"/>
+<area shape="rect" id="Node000005" href="$complaints_8c.html" title=" " alt="" coords="561,81,776,109"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="486,35,628,80,623,80,486,41"/>
+<area shape="rect" id="Node000006" href="$notes_8c.html" title=" " alt="" coords="800,81,980,109"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="527,33,810,80,804,81,527,39"/>
 </map>

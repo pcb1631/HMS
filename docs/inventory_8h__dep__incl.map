@@ -1,0 +1,7 @@
+<map id="user_commands/inventory.h" name="user_commands/inventory.h">
+<area shape="rect" id="Node000001" title="Nurse commands for managing supply stocks." alt="" coords="14,5,219,33"/>
+<area shape="rect" id="Node000002" href="$main_8c.html" title=" " alt="" coords="5,81,71,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,44,54,83,50,79,89,44"/>
+<area shape="rect" id="Node000003" href="$inventory_8c.html" title=" " alt="" coords="95,81,298,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="143,41,185,80,180,81,141,46"/>
+</map>

@@ -1,5 +1,5 @@
 <map id="user_commands/bookings.h" name="user_commands/bookings.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="99,5,302,33"/>
+<area shape="rect" id="Node000001" title="User commands for appointment management." alt="" coords="99,5,302,33"/>
 <area shape="rect" id="Node000002" href="$utils_8h.html" title="Utility functions, value types, and command parsing." alt="" coords="94,81,200,109"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,32,167,70,163,67,189,35"/>
 <area shape="rect" id="Node000006" title=" " alt="" coords="223,81,287,109"/>

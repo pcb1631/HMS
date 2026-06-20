@@ -23,6 +23,7 @@ var utils_8h =
       [ "TYPE_VOID", "utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1a84de340fe64164ed0dcf473aad846961", null ]
     ] ],
     [ "add", "utils_8h.html#ab9e3ef0b6795065d2f14dc8069cbb914", null ],
+    [ "append_f2f", "utils_8h.html#a807daf4d5382fcfab3056266cdb04ba6", null ],
     [ "call", "utils_8h.html#a017662a7845649afccb7d3a653d794f3", null ],
     [ "cat", "utils_8h.html#a7d5e324fe28233b8bf1b1afcec7c7da1", null ],
     [ "clean_malloc", "utils_8h.html#a90c49dd886a0b89d5f21a2f8448917dc", null ],
@@ -31,7 +32,7 @@ var utils_8h =
     [ "dump_config_to_file", "utils_8h.html#a24e8f17e5041db810df1a2dbd02e2cb5", null ],
     [ "free_cmd_list", "utils_8h.html#ae586ef16c78ede02401e329f79e84f26", null ],
     [ "generate_file_structure", "utils_8h.html#affe7dcccfeb7d953365474cf8d02c802", null ],
-    [ "get_config_value", "utils_8h.html#a1de21a1f7c04a8c1aff780d3113b54c1", null ],
+    [ "get_config_value", "utils_8h.html#ac19202a3c59c02e9822137739939b765", null ],
     [ "get_utype", "utils_8h.html#af03618cc5b936551089350a1b632c4c1", null ],
     [ "is_file", "utils_8h.html#ade74c674de705ba000d89b8b814a1f81", null ],
     [ "list_files_indir", "utils_8h.html#ab0a28dae58ee805f2f815796957a35a2", null ],
@@ -43,6 +44,7 @@ var utils_8h =
     [ "parse_config_file", "utils_8h.html#a89448941e042941353b8e90d5f8666e7", null ],
     [ "path_exists", "utils_8h.html#af48c526de8ae85a65c501beed33f7eda", null ],
     [ "print_list", "utils_8h.html#a1f308bbc9b99d2072520b8f10e838ebb", null ],
+    [ "print_Value", "utils_8h.html#a830f17070a0b6b518fdd1db755868ec7", null ],
     [ "rm_rf", "utils_8h.html#a8b0a03fe24c6eefca3693487562018d2", null ],
     [ "wipe_stdin", "utils_8h.html#a25768450bdaa57e9b76f04797cf78a99", null ]
 ];

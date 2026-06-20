@@ -57,6 +57,7 @@ If your command has arguments, you will be prompted to enter the arguments, othe
 You will be dropped back to normal terminal for scanf. 
 
 \image html command_menu_done.png "The execution of the 'create account' command"
+\image latex command_menu_done.png "The execution of the 'create account' command"
 
 After the command execution is done, you will be given an opportunity to view the command's output, then press any key to go back to command menu (or enter, if you're on windows.)
 
@@ -71,3 +72,4 @@ This one is a little different for patient, doctor, and nurse.
 Left and right arrow keys to change the time quantity, then up and down arrow keys to modify the time with that quantity. Press enter to confirm.
 
 \image html time_select.png "Director's sales report command, which prompts the user to select a time range."
+\image latex time_select.png "Director's sales report command, which prompts the user to select a time range."

@@ -1,0 +1,35 @@
+<map id="user_commands/notes.c" name="user_commands/notes.c">
+<area shape="rect" id="Node000001" title=" " alt="" coords="342,5,522,33"/>
+<area shape="rect" id="Node000002" href="$notes_8h.html" title=" " alt="" coords="5,157,75,184"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="340,30,201,50,137,65,95,83,80,96,68,111,52,144,47,142,64,108,77,92,92,79,136,60,200,45,344,26"/>
+<area shape="rect" id="Node000003" href="$utils_8h.html" title="Utility functions, value types, and command parsing." alt="" coords="150,232,255,260"/>
+<area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="339,34,274,53,240,67,208,83,175,104,149,126,141,138,136,151,136,166,141,183,154,204,172,223,167,223,150,207,136,185,131,167,131,150,136,136,145,123,172,100,205,79,238,62,272,48,344,31"/>
+<area shape="rect" id="Node000007" href="$tui_8h.html" title="Text User Interface functions." alt="" coords="240,81,334,109"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="404,35,327,76,325,71,408,32"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="552,232,616,260"/>
+<area shape="poly" id="edge19_Node000001_Node000009" title=" " alt="" coords="522,29,611,49,647,62,670,79,680,98,682,118,678,138,669,157,642,194,613,224,610,220,638,191,664,155,673,136,676,117,675,99,666,83,645,67,610,54,522,35"/>
+<area shape="rect" id="Node000010" href="$string__utils_8h.html" title=" " alt="" coords="357,81,507,109"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="433,31,434,66,430,64,431,36"/>
+<area shape="rect" id="Node000011" href="$globals_8h.html" title=" " alt="" coords="531,81,656,109"/>
+<area shape="poly" id="edge14_Node000001_Node000011" title=" " alt="" coords="461,31,554,74,549,75,461,36"/>
+<area shape="rect" id="Node000012" href="$commands_8h.html" title="User commands related to users, profiles, and reports." alt="" coords="150,157,255,184"/>
+<area shape="poly" id="edge15_Node000001_Node000012" title=" " alt="" coords="340,29,282,48,254,63,230,83,220,96,213,111,206,143,201,140,208,109,216,93,226,79,251,59,280,44,344,26"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="731,81,797,109"/>
+<area shape="poly" id="edge17_Node000001_Node000013" title=" " alt="" coords="495,31,713,78,719,82,713,82,711,84,495,36"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="821,81,891,109"/>
+<area shape="poly" id="edge18_Node000001_Node000014" title=" " alt="" coords="522,30,653,49,808,80,803,81,652,55,522,35"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="69,182,162,224,158,227,69,188"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="61,308,144,336"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="187,260,134,301,131,296,182,261"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="168,308,237,336"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="204,259,205,294,200,291,201,262"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="261,308,334,336"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="220,258,271,298,266,298,219,263"/>
+<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="288,107,285,145,270,186,255,207,236,225,233,220,251,203,266,183,279,144,285,111"/>
+<area shape="rect" id="Node000008" href="$bookings_8h.html" title="User commands for appointment management." alt="" coords="331,157,546,184"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="314,107,401,149,396,150,314,112"/>
+<area shape="poly" id="edge12_Node000007_Node000009" title=" " alt="" coords="334,104,560,154,571,168,579,184,585,218,581,215,574,186,567,171,557,159,334,109"/>
+<area shape="poly" id="edge10_Node000008_Node000003" title=" " alt="" coords="394,186,260,230,258,225,399,184"/>
+<area shape="poly" id="edge11_Node000008_Node000009" title=" " alt="" coords="465,182,547,225,542,225,464,188"/>
+<area shape="poly" id="edge16_Node000012_Node000003" title=" " alt="" coords="204,183,205,218,200,216,201,187"/>
+</map>

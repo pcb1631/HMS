@@ -99,11 +99,14 @@ $(function(){initNavTree('index.html','',''); });
 <li><a class="el" href="usage.html" title="How to use HMS">How to use HMS</a></li>
 <li><a class="el" href="term.html" title="Compatible terminals with HMS">Compatible terminals with HMS</a></li>
 <li><a class="el" href="dev.html" title="Developing the codebase">Developing the codebase</a></li>
-<li><a class="el" href="design.html" title="Design of codebase">Design of codebase</a></li>
+<li><a class="el" href="design.html" title="Design and explanation">Design and explanation</a></li>
+<li><a class="el" href="requirements.html" title="Project requirements">Project requirements</a></li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="intro_sec"></a>
 Introduction</h1>
-<p>The Hospital Management System (HMS for short) is an interactive program to facilitate hospital documentation, appointment booking, among other services. HMS is designed to run in every major OS, as it is written purely in ANSI C</p>
+<p>The Hospital Management System (HMS for short) is an interactive program to facilitate hospital documentation, appointment booking, among other services.</p>
+<p>HMS is designed to run in every major OS, as it is written purely in ANSI C <br  />
+ We verified that HMS is functional on freeBSD 15, macOS, Arch Linux, and Windows 11.</p>
 <h1 class="doxsection"><a class="anchor" id="installation"></a>
 Installation / Compiling</h1>
 <p>HMS was primarily developed on unix-like systems, so it is reccomended to use WSL if you're on Windows.</p>
@@ -112,7 +115,9 @@ Installation / Compiling</h1>
 </div><!-- fragment --><p>Add git submodules: </p><div class="fragment"><div class="line">git submodule update --init --recursive</div>
 </div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md0"></a>
 Linux/MacOS</h2>
-<p>ncurses is shipped with most linux distros, while ncurses 6.x is shipped with MacOS Sonoma and later</p>
+<p>ncurses is shipped with most linux distros, while ncurses 6.x is shipped with MacOS Sonoma and later <br  />
+ quick way to check is doing <span class="tt">tic -V</span> <br  />
+</p>
 <ol type="1">
 <li>make<ul>
 <li>make should come with xcode if you're using MacOS. If not, install make with homebrew <div class="fragment"><div class="line">brew install make</div>
@@ -125,9 +130,9 @@ Linux/MacOS</h2>
 </div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
 Windows</h2>
 <p>Install <span class="tt">ncurses</span> from the UCRT64 environment (MSYS2): </p><div class="fragment"><div class="line">pacman -S mingw-w64-ucrt-x86_64-ncurses</div>
-</div><!-- fragment --><p> Then, use the Makefile to compile: </p><div class="fragment"><div class="line">./make</div>
-</div><!-- fragment --><p>TODO: Add subpages in <a class="el" href="usage_8md.html">usage.md</a> on how to use TUI. Command TUI, simple TUI, and time tui</p>
-<h1 class="doxsection"><a class="anchor" id="assumptions"></a>
+</div><!-- fragment --><p> Then, use the batch script to compile: </p><div class="fragment"><div class="line">./Make.bat</div>
+</div><!-- fragment --><p> or </p><div class="fragment"><div class="line">./make</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="assumptions"></a>
 Assumptions</h1>
 <p>It is assumed that:</p>
 <ol type="1">
@@ -154,13 +159,31 @@ Assumptions</h1>
 <li>absolutely know how the plaintext files are formatted</li>
 <li>read the documentation and understood how to<ul>
 <li>change the configuration of the program</li>
-<li>use the framework to add commands </li>
+<li>use the framework to add commands</li>
 </ul>
 </li>
 </ul>
 </li>
 </ol>
-</div></div><!-- PageDoc -->
+<h2 class="doxsection"><a class="anchor" id="warning"></a>
+Caveats and warnings</h2>
+<p><b>git does not push empty folders, because its designed to only track files and their paths.</b> So HMS will most likely emit error or run into issues when it tries to use folders that don't exist</p>
+<p>When pulling commits with new users in the database, you need to can either:</p><ol type="1">
+<li>Push the empty folder with a placeholder file</li>
+<li>Regenerate the folders with <a class="el" href="regen__file__structure_8c.html">regen_file_structure.c</a> <div class="fragment"><div class="line">gcc -o regen_file.out regen_file_structure.c utils/utils.c utils/string_utils.c -g -ansi</div>
+<div class="line">./regen_file.out</div>
+</div><!-- fragment --><ul>
+<li><a class="el" href="regen__file__structure_8c.html" title="regen_file_structure.c">regen_file_structure.c</a> checks for each username in the credentials file and their usertype in their profile</li>
+</ul>
+</li>
+</ol>
+<p><br  />
+ <br  />
+ <b>git will also struggle with case-insensitive filesystems</b> (such as default Windows folders)</p>
+<p>before cloning the repo, you need to make a folder with case sensitivity</p>
+<p>in powershell with admin priviliges:</p>
+<div class="fragment"><div class="line">fsutil.exe file setCaseSensitiveInfo C:\Your\Folder\Path enable</div>
+</div><!-- fragment --> </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->
 </div><!-- doc-content -->

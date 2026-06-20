@@ -8,6 +8,7 @@ var string__utils_8h =
     [ "file_to_LL_lines", "string__utils_8h.html#a0bb35bb14c783e9089972c51cf54f583", null ],
     [ "file_to_strings", "string__utils_8h.html#a6756dae83e7bdac79d85ef7d41ffa28f", null ],
     [ "free_LineLL", "string__utils_8h.html#ad053c35b5b445b68f649b8b0d69f032a", null ],
+    [ "isempty", "string__utils_8h.html#a8abca402bb7b9d7e69b27aa239136e03", null ],
     [ "levenshtein_distance", "string__utils_8h.html#a99bd13172b28f63a09c1c11e63bc134a", null ],
     [ "new_LineNode", "string__utils_8h.html#a99b17138c5bfa447bb8a44e7a4a72c4f", null ],
     [ "realloc_string", "string__utils_8h.html#ad70e9a68bf8d42ec6c43d70e79bc5b0e", null ],

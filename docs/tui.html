@@ -125,6 +125,7 @@ Setting the terminal to raw mode, and Windows quirks</h1>
 <h1 class="doxsection"><a class="anchor" id="simple_tui_design"></a>
 Simple TUI</h1>
 <p><a class="el" href="tui_8c.html#ae7eae98c1d28139bd16ec2a71459b2f8" title="simple_select()">simple_select()</a> This section will explain things that will be skimmed through / abstracted in later sections.</p>
+<p><a href="https://en.wikipedia.org/wiki/Levenshtein_distance">https://en.wikipedia.org/wiki/Levenshtein_distance</a></p>
 <h1 class="doxsection"><a class="anchor" id="cfg_editor"></a>
 Config editor</h1>
 <p><a class="el" href="tui_8c.html#af87cdb83bc1ad50c80a452b5e80c2550" title="config_editor">config_editor</a> is a function that provides a TUI for editing <span class="tt">key: value</span> or <span class="tt">key=value</span> files. <br  />
@@ -148,11 +149,14 @@ EDIT mode, with blinking cursor</div></div>
  <p>KEY_RESIZE is not handled after the first switch case, so it effectively restarts the loop and refreshes the menu</p>
 <p>Flowchart for <a class="el" href="tui_8c.html#af87cdb83bc1ad50c80a452b5e80c2550" title="config_editor">config_editor</a> </p><div class="dotgraph">
 </div>
+<h1 class="doxsection"><a class="anchor" id="command_select_design"></a>
+Command selector</h1>
 <h1 class="doxsection"><a class="anchor" id="text_edit_design"></a>
 Text editor</h1>
-<p>We decided to write our own text editor to reduce the amount of dependencies HMS uses. (We could just use <span class="tt">nano</span> or <span class="tt">vim</span>, but those don't exist for Windows.)</p>
-<p>It serves as a basic terminal pager (although it loads the entire file) and is a very primitive text editor.</p>
-<p>Like <span class="tt">nano</span>, the functions loads the file by parsing each line as a node in a doubly linked list, which made insertions much faster (O(1)) and more practical to write.</p>
+<p>We decided to write our own text editor to reduce the amount of dependencies HMS uses.</p>
+<p>We <em>could</em> just use nano, vim, or notepad, but those are extra dependencies and might break the "No GUI" requirement.</p>
+<p>It serves as a terminal pager (although it loads the entire file) and is a very primitive text editor.</p>
+<p>Like nano, the functions loads the file by parsing each line as a node in a doubly linked list, which made insertions much faster (O(1)) and more practical to write. If we stored the lines in a <span class="tt">char **</span> (array of string pointers), insertions and removals are O(n) and are more annoying to manage.</p>
 <p>see:<br  />
 </p><ul>
 <li><a class="el" href="string__utils_8c.html#a0bb35bb14c783e9089972c51cf54f583" title="file_to_LL_lines()">file_to_LL_lines()</a></li>
@@ -163,8 +167,30 @@ Text editor</h1>
 <li>vertical and horizontal scrolling</li>
 <li>line numbers</li>
 <li>dynamic memory allocation</li>
-<li>splitting newlines </li>
+<li>splitting newlines</li>
 </ul>
+<p>TODO: explanations of vertical and horizontal scrolling, and line number</p>
+<div class="dotgraph">
+<img src="dot_inline_dotgraph_ed167839c4615db81ea97422dc78db10.png" alt="dot_inline_dotgraph_ed167839c4615db81ea97422dc78db10.png" border="0" usemap="#dot_inline_dotgraph_ed167839c4615db81ea97422dc78db10.map"/>
+</div>
+<p>When you press enter in a text editor, it creates a new line. Naively you'd just insert a <span class="tt">\n</span> in the string.</p>
+<p>In our case, we need to do node insertion, and manually allocate memory when splitting a line. When a line is split between the cursor, the memory size of the previous line is the length the prefix, while the next line is the length of the suffix.</p>
+<div class="dotgraph">
+<img src="dot_inline_dotgraph_885e01e3cea5145b33a95706a3a24775.png" alt="dot_inline_dotgraph_885e01e3cea5145b33a95706a3a24775.png" border="0" usemap="#dot_inline_dotgraph_885e01e3cea5145b33a95706a3a24775.map"/>
+</div>
+<div class="dotgraph">
+<img src="dot_inline_dotgraph_3883d23815c1683a0817518e1e2ea9f3.png" alt="dot_inline_dotgraph_3883d23815c1683a0817518e1e2ea9f3.png" border="0" usemap="#dot_inline_dotgraph_3883d23815c1683a0817518e1e2ea9f3.map"/>
+</div>
+<p>Inversely, removing a line would just be removing a <span class="tt">\n</span></p>
+<p>When backspacing at the start of the line, The current line is concatenated to the previous line, then the current line is deleted. <br  />
+ We need to do node deletion, and calculate the new size.</p>
+<div class="dotgraph">
+<img src="dot_inline_dotgraph_3d092e764e34f50774d19ba4915a702b.png" alt="dot_inline_dotgraph_3d092e764e34f50774d19ba4915a702b.png" border="0" usemap="#dot_inline_dotgraph_3d092e764e34f50774d19ba4915a702b.map"/>
+</div>
+<div class="dotgraph">
+<img src="dot_inline_dotgraph_e106e509af01f56b1ad0955bd60a53c7.png" alt="dot_inline_dotgraph_e106e509af01f56b1ad0955bd60a53c7.png" border="0" usemap="#dot_inline_dotgraph_e106e509af01f56b1ad0955bd60a53c7.map"/>
+</div>
+<p>TODO: explain why the new size is the next multiple of threshold </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -179,7 +205,7 @@ Text editor</h1>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="index.html">Hospital Management System</a></li><li class="navelem"><a href="design.html">Design of codebase</a></li>
+    <li class="navelem"><a href="index.html">Hospital Management System</a></li><li class="navelem"><a href="design.html">Design and explanation</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

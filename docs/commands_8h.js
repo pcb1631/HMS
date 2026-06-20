@@ -2,7 +2,10 @@ var commands_8h =
 [
     [ "admin_delete_user", "commands_8h.html#a7702102073743108a5d5d3bb020398d4", null ],
     [ "admin_view_cfg", "commands_8h.html#af3d79917f472952f77de2e36f341f68c", null ],
+    [ "director_view_cfg", "commands_8h.html#ae485c4e1343b16ff267883494feeda0b", null ],
     [ "doctor_diagnosis", "commands_8h.html#a3f522256888c6433ff379d6cc9eac919", null ],
+    [ "doctor_view_patients_profile", "commands_8h.html#ae26d33ff1090fa65d9087af2cbd037e3", null ],
+    [ "edit_patient_desc", "commands_8h.html#ab4960e1ca7069c5a15f4e2ab87793480", null ],
     [ "edit_profile_self_admin", "commands_8h.html#a7386e842c6fcd14b7c80e6f9563cc1c4", null ],
     [ "edit_profile_self_patient", "commands_8h.html#a33024769bc1bd606169ea5e248ab92b4", null ],
     [ "make_user", "commands_8h.html#a793783b5d9356c65130074c09b88985f", null ],

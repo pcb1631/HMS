@@ -8,5 +8,10 @@ var searchData=
   ['installation_20compiling_5',['Installation / Compiling',['../index.html#installation',1,'']]],
   ['interfaces_6',['Text User Interfaces',['../tui.html',1,'design']]],
   ['introduction_7',['Introduction',['../index.html#intro_sec',1,'']]],
-  ['is_5ffile_8',['is_file',['../utils_8c.html#ade74c674de705ba000d89b8b814a1f81',1,'is_file(const char *path):&#160;utils.c'],['../utils_8h.html#ade74c674de705ba000d89b8b814a1f81',1,'is_file(const char *path):&#160;utils.c']]]
+  ['inventory_2ec_8',['inventory.c',['../inventory_8c.html',1,'']]],
+  ['inventory_2eh_9',['inventory.h',['../inventory_8h.html',1,'']]],
+  ['inventory_5fedit_10',['inventory_edit',['../inventory_8c.html#adfecba8136e6dd024ba6d5a95eedd9c0',1,'inventory_edit(void):&#160;inventory.c'],['../inventory_8h.html#adfecba8136e6dd024ba6d5a95eedd9c0',1,'inventory_edit(void):&#160;inventory.c']]],
+  ['inventory_5fedit_5ftxteditor_11',['inventory_edit_txteditor',['../inventory_8c.html#acf871d60f0f3f82caa3d27810168a41a',1,'inventory_edit_txteditor(void):&#160;inventory.c'],['../inventory_8h.html#acf871d60f0f3f82caa3d27810168a41a',1,'inventory_edit_txteditor(void):&#160;inventory.c']]],
+  ['is_5ffile_12',['is_file',['../utils_8c.html#ade74c674de705ba000d89b8b814a1f81',1,'is_file(const char *path):&#160;utils.c'],['../utils_8h.html#ade74c674de705ba000d89b8b814a1f81',1,'is_file(const char *path):&#160;utils.c']]],
+  ['isempty_13',['isempty',['../string__utils_8c.html#a8abca402bb7b9d7e69b27aa239136e03',1,'isempty(char *s):&#160;string_utils.c'],['../string__utils_8h.html#a8abca402bb7b9d7e69b27aa239136e03',1,'isempty(char *s):&#160;string_utils.c']]]
 ];

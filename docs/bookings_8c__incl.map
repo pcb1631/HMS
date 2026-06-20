@@ -1,12 +1,12 @@
 <map id="user_commands/bookings.c" name="user_commands/bookings.c">
 <area shape="rect" id="Node000001" title=" " alt="" coords="284,5,487,33"/>
-<area shape="rect" id="Node000002" href="$commands_8h.html" title=" " alt="" coords="30,157,136,184"/>
+<area shape="rect" id="Node000002" href="$commands_8h.html" title="User commands related to users, profiles, and reports." alt="" coords="30,157,136,184"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="335,35,278,56,214,83,159,116,113,149,109,145,156,112,211,79,276,51,340,32"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="7,308,90,336"/>
 <area shape="poly" id="edge15_Node000001_Node000004" title=" " alt="" coords="282,27,213,40,139,64,104,81,72,102,43,127,20,158,13,174,9,192,11,228,22,263,36,294,30,295,17,265,6,229,4,191,8,173,15,155,39,124,68,97,101,76,137,59,212,35,286,24"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="311,308,380,336"/>
 <area shape="poly" id="edge16_Node000001_Node000005" title=" " alt="" coords="387,31,381,129,364,260,356,295,352,291,359,260,376,128,383,36"/>
-<area shape="rect" id="Node000007" href="$bookings_8h.html" title=" " alt="" coords="159,157,252,184"/>
+<area shape="rect" id="Node000007" href="$bookings_8h.html" title="User commands for appointment management." alt="" coords="159,157,252,184"/>
 <area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="318,35,276,54,255,67,237,83,220,111,211,142,206,140,215,109,233,79,252,63,274,49,322,32"/>
 <area shape="rect" id="Node000009" href="$tui_8h.html" title="Text User Interface functions." alt="" coords="246,81,341,109"/>
 <area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="367,35,323,73,320,69,371,32"/>

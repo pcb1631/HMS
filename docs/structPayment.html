@@ -98,15 +98,14 @@ $(function(){initNavTree('structPayment.html','',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a0441d1377eaa049edd6122534ba53be1" id="r_a0441d1377eaa049edd6122534ba53be1"><td class="memItemLeft">char&#160;</td><td class="memItemRight"><a class="el" href="#a0441d1377eaa049edd6122534ba53be1">patientID</a> [<a class="el" href="billing_8h.html#a1cdef4472847c938fc165b7d2737c4e4">MAX_ID</a>]</td></tr>
-<tr class="memitem:a6f3bc86d644ada960e258560ee54b02d" id="r_a6f3bc86d644ada960e258560ee54b02d"><td class="memItemLeft">char&#160;</td><td class="memItemRight"><a class="el" href="#a6f3bc86d644ada960e258560ee54b02d">paymentID</a> [<a class="el" href="billing_8h.html#a1cdef4472847c938fc165b7d2737c4e4">MAX_ID</a>]</td></tr>
-<tr class="memitem:a264d037708f3b925b250b4db3700efdb" id="r_a264d037708f3b925b250b4db3700efdb"><td class="memItemLeft">char&#160;</td><td class="memItemRight"><a class="el" href="#a264d037708f3b925b250b4db3700efdb">date</a> [<a class="el" href="billing_8h.html#ab2854f198e119d1843f14002a2621aa7">MAX_DATE</a>]</td></tr>
+<tr class="memitem:a8c916e772de92782455c9352cf1fe180" id="r_a8c916e772de92782455c9352cf1fe180"><td class="memItemLeft">time_t&#160;</td><td class="memItemRight"><a class="el" href="#a8c916e772de92782455c9352cf1fe180">t</a></td></tr>
+<tr class="memitem:a634ad006781db42d5ce4b9321448678d" id="r_a634ad006781db42d5ce4b9321448678d"><td class="memItemLeft">char&#160;</td><td class="memItemRight"><a class="el" href="#a634ad006781db42d5ce4b9321448678d">patient</a> [<a class="el" href="globals_8h.html#a6c4647395896246d6710ba980c31666c">MAX_USERNAME_LEN</a>]</td></tr>
 <tr class="memitem:a8937702ad328ce8656cb75a43d42cc4a" id="r_a8937702ad328ce8656cb75a43d42cc4a"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a8937702ad328ce8656cb75a43d42cc4a">amount</a></td></tr>
-<tr class="memitem:a08c850db3260c816617cadfa545e9f42" id="r_a08c850db3260c816617cadfa545e9f42"><td class="memItemLeft">char&#160;</td><td class="memItemRight"><a class="el" href="#a08c850db3260c816617cadfa545e9f42">status</a> [<a class="el" href="billing_8h.html#a5acd8ca9bc6199921957a2363589304e">MAX_TYPE</a>]</td></tr>
+<tr class="memitem:a341e6ef9f127c3c5a91347469fdc5acd" id="r_a341e6ef9f127c3c5a91347469fdc5acd"><td class="memItemLeft">char&#160;</td><td class="memItemRight"><a class="el" href="#a341e6ef9f127c3c5a91347469fdc5acd">desc</a> [256]</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="billing_8h_source.html#l00009">9</a> of file <a class="el" href="billing_8h_source.html">billing.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="billing_8h_source.html#l00013">13</a> of file <a class="el" href="billing_8h_source.html">billing.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
 <a id="a8937702ad328ce8656cb75a43d42cc4a" name="a8937702ad328ce8656cb75a43d42cc4a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8937702ad328ce8656cb75a43d42cc4a">&#9670;&#160;</a></span>amount</h2>
@@ -120,66 +119,50 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="billing_8h_source.html#l00013">13</a> of file <a class="el" href="billing_8h_source.html">billing.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="billing_8h_source.html#l00016">16</a> of file <a class="el" href="billing_8h_source.html">billing.h</a>.</p>
 
 </div>
 </div>
-<a id="a264d037708f3b925b250b4db3700efdb" name="a264d037708f3b925b250b4db3700efdb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a264d037708f3b925b250b4db3700efdb">&#9670;&#160;</a></span>date</h2>
+<a id="a341e6ef9f127c3c5a91347469fdc5acd" name="a341e6ef9f127c3c5a91347469fdc5acd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a341e6ef9f127c3c5a91347469fdc5acd">&#9670;&#160;</a></span>desc</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char date[<a class="el" href="billing_8h.html#ab2854f198e119d1843f14002a2621aa7">MAX_DATE</a>]</td>
+          <td class="memname">char desc[256]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="billing_8h_source.html#l00012">12</a> of file <a class="el" href="billing_8h_source.html">billing.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="billing_8h_source.html#l00017">17</a> of file <a class="el" href="billing_8h_source.html">billing.h</a>.</p>
 
 </div>
 </div>
-<a id="a0441d1377eaa049edd6122534ba53be1" name="a0441d1377eaa049edd6122534ba53be1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0441d1377eaa049edd6122534ba53be1">&#9670;&#160;</a></span>patientID</h2>
+<a id="a634ad006781db42d5ce4b9321448678d" name="a634ad006781db42d5ce4b9321448678d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a634ad006781db42d5ce4b9321448678d">&#9670;&#160;</a></span>patient</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char patientID[<a class="el" href="billing_8h.html#a1cdef4472847c938fc165b7d2737c4e4">MAX_ID</a>]</td>
+          <td class="memname">char patient[<a class="el" href="globals_8h.html#a6c4647395896246d6710ba980c31666c">MAX_USERNAME_LEN</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="billing_8h_source.html#l00010">10</a> of file <a class="el" href="billing_8h_source.html">billing.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="billing_8h_source.html#l00015">15</a> of file <a class="el" href="billing_8h_source.html">billing.h</a>.</p>
 
 </div>
 </div>
-<a id="a6f3bc86d644ada960e258560ee54b02d" name="a6f3bc86d644ada960e258560ee54b02d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f3bc86d644ada960e258560ee54b02d">&#9670;&#160;</a></span>paymentID</h2>
+<a id="a8c916e772de92782455c9352cf1fe180" name="a8c916e772de92782455c9352cf1fe180"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c916e772de92782455c9352cf1fe180">&#9670;&#160;</a></span>t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char paymentID[<a class="el" href="billing_8h.html#a1cdef4472847c938fc165b7d2737c4e4">MAX_ID</a>]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="billing_8h_source.html#l00011">11</a> of file <a class="el" href="billing_8h_source.html">billing.h</a>.</p>
-
-</div>
-</div>
-<a id="a08c850db3260c816617cadfa545e9f42" name="a08c850db3260c816617cadfa545e9f42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08c850db3260c816617cadfa545e9f42">&#9670;&#160;</a></span>status</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">char status[<a class="el" href="billing_8h.html#a5acd8ca9bc6199921957a2363589304e">MAX_TYPE</a>]</td>
+          <td class="memname">time_t t</td>
         </tr>
       </table>
 </div><div class="memdoc">

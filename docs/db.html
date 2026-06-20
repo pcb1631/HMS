@@ -94,36 +94,64 @@ $(function(){initNavTree('db.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>We make use of files and folders to create our "database" (<b>the users/ folder</b>, if you haven't renamed it), which can be described in file_struct.yaml.txt:</p>
+<p><b>this is only intended to aid development and won't actually change where the program looks</b> <br  />
+ But you can freely change the content of <a class="el" href="#config" title="Config files / KV files">KV files</a>, and <a class="el" href="utils_8c.html#affe7dcccfeb7d953365474cf8d02c802" title="Parses file_struct.yaml.txt and generates files/directories for a user.">generate_file_structure()</a> will preserve existing values, while removing fields that aren't in content: .</p>
+<p>./users contain folders of usernames, where each stores their own data</p>
 <p>YAML format: </p><div class="fragment"><div class="line">Usertype:</div>
 <div class="line">  - path: &quot;users/%s/&quot; # This is a format string, %s is for the username</div>
 <div class="line">    type: directory</div>
 <div class="line">  </div>
 <div class="line">  - path: &quot;users/%s/prefs.txt&quot;</div>
-<div class="line">    type: file</div>
+<div class="line">    type: KV file</div>
 <div class="line">    content:</div>
 <div class="line">      key: value</div>
 <div class="line">      blabla: blablabla</div>
 <div class="line"> </div>
 <div class="line">Usertype2:</div>
 <div class="line">  - path: &quot;users/%s/&quot;</div>
-<div class="line">  - type: directory</div>
+<div class="line">    type: directory</div>
 <div class="line"> </div>
-<div class="line">  - path: &quot;users/%s/profile.txt&quot;</div>
+<div class="line">  - path: &quot;users/%s/temp.txt&quot;</div>
+<div class="line">    type: file</div>
+<div class="line">    content:</div>
+<div class="line">  </div>
 <div class="line">...</div>
-</div><!-- fragment --><p><b>this is only intended to aid development and won't actually change where the program looks</b></p>
-<p>./users contain folders of usernames, where each stores their own data</p>
-<p>This file is parsed in <a class="el" href="regen__file__structure_8c.html">regen_file_structure.c</a> (which is meant to generate one exe). <br  />
- it regenerates the file structure while ignoring existing files and lines to prevent data loss.</p>
+</div><!-- fragment --><p>In JSON, objects are enclosed with curly braces, but for YAML its indentation.</p>
+<p>The top level key, usertype, stores an object that is an array of objects, where each element is denoted as -</p>
+<p>The objects in the array must start with path, followed by type, then the content.</p>
+<p>So the parsing loop in <a class="el" href="utils_8c.html#affe7dcccfeb7d953365474cf8d02c802" title="generate_file_structure()">generate_file_structure()</a> will need to:</p><ol type="1">
+<li>Skip everything until we reach the top level key of the correct user type</li>
+<li>Store the path, and remember that it will parse the type next</li>
+<li>If the type is a directory, mkdir. Else create a FILE pointer.</li>
+<li>If we have a FILE pointer, start parsing the content object:<ul>
+<li>if its just a file, dump everything in the content object</li>
+<li>if its a KV file<ol type="a">
+<li>parse everthing in the content object as a KV file</li>
+<li>compare with the existing KV file<ul>
+<li>if a value exists for a key in the original file, preserve that</li>
+<li>field is removed if the key doesnt exist in the content object,</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>Stop parsing content object when reach the next "- path"</li>
+<li>End loop at the next top level key</li>
+</ol>
+<div class="dotgraph">
+<img src="dot_inline_dotgraph_0d447143ca5e52de14d52dd61da41fab.png" alt="dot_inline_dotgraph_0d447143ca5e52de14d52dd61da41fab.png" border="0" usemap="#dot_inline_dotgraph_0d447143ca5e52de14d52dd61da41fab.map"/>
+</div>
+<p><a class="el" href="regen__file__structure_8c.html" title="regen_file_structure.c">regen_file_structure.c</a> :</p>
 <div class="dotgraph">
 <img src="dot_inline_dotgraph_b2362dd9c886963b67eccbda94b2d836.png" alt="dot_inline_dotgraph_b2362dd9c886963b67eccbda94b2d836.png" border="0" usemap="#dot_inline_dotgraph_b2362dd9c886963b67eccbda94b2d836.map"/>
 </div>
-<p>TODO: Make flowchart for <a class="el" href="utils_8c.html#affe7dcccfeb7d953365474cf8d02c802" title="Parses file_struct.yaml.txt and generates files/directories for a user.">generate_file_structure()</a></p>
 <h1 class="doxsection"><a class="anchor" id="config"></a>
-Config files</h1>
+Config files / KV files</h1>
 <p>One major structure we use is the <span class="tt">key=value</span>/<span class="tt">key: value</span> format, which we store in the <b><a class="el" href="structConfig.html">Config</a></b> data structure. <br  />
  (or <a class="el" href="structuser__login__t.html">user_login_t</a> if you need hashtable. We use <a class="el" href="structConfig.html">Config</a> here because its gonna be o(n) anyway)</p>
-<p><br  />
- The util functions for <b><a class="el" href="structConfig.html">Config</a></b> are: </p>
+<p>//explain parsing config here</p>
+<p><a class="el" href="tui.html#cfg_editor" title="Config editor">Config editor</a> is used for editing profiles, and managing supplies for Nurses. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -138,7 +166,7 @@ Config files</h1>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="index.html">Hospital Management System</a></li><li class="navelem"><a href="design.html">Design of codebase</a></li>
+    <li class="navelem"><a href="index.html">Hospital Management System</a></li><li class="navelem"><a href="design.html">Design and explanation</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

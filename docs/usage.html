@@ -93,7 +93,7 @@ $(function(){initNavTree('usage.html','',''); });
   <div class="headertitle"><div class="title">How to use HMS </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>TIP: Do CTRL+C (sigint) to exit the program or cancel an operation</p>
+<div class="textblock"><p>TIP: Do CTRL+C (sigint) to exit the program or cancel an operation while using a TUI</p>
 <p>The binary only requires the DB folder and credentials file, and you can name the binary whatever you want</p>
 <p><b>It's very important that the binary is in the same dir as your DB file!</b></p>
 <p><br  />
@@ -105,15 +105,46 @@ $(function(){initNavTree('usage.html','',''); });
  To login into an account </p><div class="fragment"><div class="line">./main.out login [username]</div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="simple_tui"></a>
 Simple menu</h1>
-<h1 class="doxsection"><a class="anchor" id="command_tui"></a>
+<p>Press arrow keys to change selection, and enter to confirm selection. CTRL+C to cancel</p>
+<p>Your selection will be centered and highlighted</p>
+<p>Type and backspace to search for options. It does fuzzy search on your query and every option, then finds the closest option for your query.</p>
+<p>Partial matching won't always work, but it is guaranteed that it will find exact matches</p>
+<div class="image">
+<img src="simpleselect.png" alt=""/>
+<div class="caption">
+Simple select being used for search and view in director's 'View payment history' command</div></div>
+ <p><br  />
+ </p><div class="image">
+<img src="simpleselect_query.png" alt=""/>
+<div class="caption">
+Simple select's fuzzy search at work, moving selection to partial match</div></div>
+ <h1 class="doxsection"><a class="anchor" id="command_tui"></a>
 Command menu</h1>
+<p>The left panel will show commands available to your user type, the right panel will show the command's arguments and description.</p>
+<p>Press arrow keys to change selection, and enter to confirm selection.</p>
+<div class="image">
+<img src="command_menu.png" alt=""/>
+<div class="caption">
+Admins' 'create account' command</div></div>
+ <p>If your command has arguments, you will be prompted to enter the arguments, otherwise the command will run immediately.</p>
+<p>You will be dropped back to normal terminal for scanf.</p>
+<div class="image">
+<img src="command_menu_done.png" alt=""/>
+<div class="caption">
+The execution of the 'create account' command</div></div>
+ <p>After the command execution is done, you will be given an opportunity to view the command's output, then press any key to go back to command menu (or enter, if you're on windows.)</p>
+<p>The command menu doesn't clear the terminal every time, so you may see output from previous commands or other things, like "Password hash matched" when you log in</p>
 <h1 class="doxsection"><a class="anchor" id="booking_tui"></a>
 Booking menu</h1>
+<p>This one is a little different for patient, doctor, and nurse.</p>
 <h1 class="doxsection"><a class="anchor" id="time_tui"></a>
 Time selection</h1>
-<h1 class="doxsection"><a class="anchor" id="login"></a>
-Login/Register</h1>
-</div></div><!-- contents -->
+<p>Left and right arrow keys to change the time quantity, then up and down arrow keys to modify the time with that quantity. Press enter to confirm.</p>
+<div class="image">
+<img src="time_select.png" alt=""/>
+<div class="caption">
+Director's sales report command, which prompts the user to select a time range.</div></div>
+  </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

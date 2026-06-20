@@ -93,18 +93,31 @@ $(function(){initNavTree('test_8c_source.html','',''); });
   <div class="headertitle"><div class="title">test.c</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="test_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="tui_8h.html">utils/tui.h</a>&quot;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="foldopen" id="foldopen00003" data-start="{" data-end="}">
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="test_8c.html#a3c04138a5bfe5d72780bb7e82a18e627">    3</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="regen__file__structure_8c.html#acf0ba67194dd8f699009977bb264217e">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> ** argv)</div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>    <a class="code hl_function" href="tui_8c.html#adb0554598c7a497f8382352c6d6958a7">text_editor</a>(argv[1], 0);</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>}</div>
+<a href="test_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="utils_8h.html">utils/utils.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;ncurses.h&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="foldopen" id="foldopen00005" data-start="{" data-end="}">
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="test_8c.html#a3c04138a5bfe5d72780bb7e82a18e627">    5</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="regen__file__structure_8c.html#acf0ba67194dd8f699009977bb264217e">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> ** argv)</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <a class="code hl_struct" href="structConfig.html">Config</a> cfg;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keywordtype">int</span> i=0;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <a class="code hl_function" href="utils_8c.html#a89448941e042941353b8e90d5f8666e7">parse_config_file</a>(<span class="stringliteral">&quot;temp1.txt&quot;</span>, &amp;cfg);</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keywordflow">for</span>(i=0; i&lt;cfg.<a class="code hl_variable" href="structConfig.html#ad43c3812e6d13e0518d9f8b8f463ffcf">count</a>; i++)</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        printf(<span class="stringliteral">&quot;%s, %s\n&quot;</span>, cfg.<a class="code hl_variable" href="structConfig.html#a5b5d3fe04bf2756127ea0926a74f77e3">entries</a>[i].<a class="code hl_variable" href="structConfigEntry.html#a9ee27e69714d841b708522598ad983a9">key</a>, cfg.<a class="code hl_variable" href="structConfig.html#a5b5d3fe04bf2756127ea0926a74f77e3">entries</a>[i].<a class="code hl_variable" href="structConfigEntry.html#af9bd2e6ea1824527da278d84ee331a12">value</a>);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    }</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>}</div>
 </div>
 <div class="ttc" id="aregen__file__structure_8c_html_acf0ba67194dd8f699009977bb264217e"><div class="ttname"><a href="regen__file__structure_8c.html#acf0ba67194dd8f699009977bb264217e">main</a></div><div class="ttdeci">signed main(void)</div><div class="ttdef"><b>Definition</b> <a href="regen__file__structure_8c_source.html#l00011">regen_file_structure.c:11</a></div></div>
-<div class="ttc" id="atui_8c_html_adb0554598c7a497f8382352c6d6958a7"><div class="ttname"><a href="tui_8c.html#adb0554598c7a497f8382352c6d6958a7">text_editor</a></div><div class="ttdeci">int text_editor(const char *path, int readonly)</div><div class="ttdef"><b>Definition</b> <a href="tui_8c_source.html#l00936">tui.c:936</a></div></div>
-<div class="ttc" id="atui_8h_html"><div class="ttname"><a href="tui_8h.html">tui.h</a></div><div class="ttdoc">Text User Interface functions.</div></div>
+<div class="ttc" id="astructConfigEntry_html_a9ee27e69714d841b708522598ad983a9"><div class="ttname"><a href="structConfigEntry.html#a9ee27e69714d841b708522598ad983a9">ConfigEntry::key</a></div><div class="ttdeci">char key[MAX_CONFIG_KEY_LEN]</div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00133">utils.h:133</a></div></div>
+<div class="ttc" id="astructConfigEntry_html_af9bd2e6ea1824527da278d84ee331a12"><div class="ttname"><a href="structConfigEntry.html#af9bd2e6ea1824527da278d84ee331a12">ConfigEntry::value</a></div><div class="ttdeci">char value[MAX_CONFIG_VAL_LEN]</div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00134">utils.h:134</a></div></div>
+<div class="ttc" id="astructConfig_html"><div class="ttname"><a href="structConfig.html">Config</a></div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00137">utils.h:137</a></div></div>
+<div class="ttc" id="astructConfig_html_a5b5d3fe04bf2756127ea0926a74f77e3"><div class="ttname"><a href="structConfig.html#a5b5d3fe04bf2756127ea0926a74f77e3">Config::entries</a></div><div class="ttdeci">ConfigEntry entries[MAX_CONFIG_ENTRIES]</div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00138">utils.h:138</a></div></div>
+<div class="ttc" id="astructConfig_html_ad43c3812e6d13e0518d9f8b8f463ffcf"><div class="ttname"><a href="structConfig.html#ad43c3812e6d13e0518d9f8b8f463ffcf">Config::count</a></div><div class="ttdeci">int count</div><div class="ttdef"><b>Definition</b> <a href="utils_8h_source.html#l00139">utils.h:139</a></div></div>
+<div class="ttc" id="autils_8c_html_a89448941e042941353b8e90d5f8666e7"><div class="ttname"><a href="utils_8c.html#a89448941e042941353b8e90d5f8666e7">parse_config_file</a></div><div class="ttdeci">int parse_config_file(const char *filepath, Config *config)</div><div class="ttdoc">Parses a configuration file into a Config struct.</div><div class="ttdef"><b>Definition</b> <a href="utils_8c_source.html#l00166">utils.c:166</a></div></div>
+<div class="ttc" id="autils_8h_html"><div class="ttname"><a href="utils_8h.html">utils.h</a></div><div class="ttdoc">Utility functions, value types, and command parsing.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

@@ -93,6 +93,9 @@ $(function(){initNavTree('commands_8h.html','',''); });
   <div class="headertitle"><div class="title">commands.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>User commands related to users, profiles, and reports.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="utils_8h_source.html">../utils/utils.h</a>&quot;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for commands.h:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -100,7 +103,7 @@ $(function(){initNavTree('commands_8h.html','',''); });
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="commands_8h__incl.png" border="0" usemap="#auser__commands_2commands_8h" loading="lazy" alt=""/></div>
 <map name="auser__commands_2commands_8h" id="auser__commands_2commands_8h">
-<area shape="rect" title=" " alt="" coords="39,5,255,33"/>
+<area shape="rect" title="User commands related to users, profiles, and reports." alt="" coords="39,5,255,33"/>
 <area shape="rect" href="utils_8h.html" title="Utility functions, value types, and command parsing." alt="" coords="94,81,200,109"/>
 <area shape="poly" title=" " alt="" coords="148,31,150,66,144,64,146,36"/>
 <area shape="rect" title=" " alt="" coords="5,157,89,184"/>
@@ -117,13 +120,17 @@ $(function(){initNavTree('commands_8h.html','',''); });
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="commands_8h__dep__incl.png" border="0" usemap="#auser__commands_2commands_8hdep" loading="lazy" alt=""/></div>
 <map name="auser__commands_2commands_8hdep" id="auser__commands_2commands_8hdep">
-<area shape="rect" title=" " alt="" coords="87,5,304,33"/>
+<area shape="rect" title="User commands related to users, profiles, and reports." alt="" coords="320,5,537,33"/>
 <area shape="rect" href="main_8c.html" title=" " alt="" coords="5,81,71,109"/>
-<area shape="poly" title=" " alt="" coords="155,42,67,83,65,78,152,37"/>
+<area shape="poly" title=" " alt="" coords="321,37,208,58,83,84,72,86,70,81,81,78,207,53,326,35"/>
 <area shape="rect" href="bookings_8c.html" title=" " alt="" coords="94,81,296,109"/>
-<area shape="poly" title=" " alt="" coords="197,47,198,82,193,79,193,51"/>
+<area shape="poly" title=" " alt="" coords="376,38,238,83,236,78,370,38"/>
 <area shape="rect" href="commands_8c.html" title=" " alt="" coords="321,81,536,109"/>
-<area shape="poly" title=" " alt="" coords="252,35,390,80,384,81,251,41"/>
+<area shape="poly" title=" " alt="" coords="431,47,431,82,427,79,427,51"/>
+<area shape="rect" href="complaints_8c.html" title=" " alt="" coords="561,81,776,109"/>
+<area shape="poly" title=" " alt="" coords="486,35,628,80,623,80,486,41"/>
+<area shape="rect" href="notes_8c.html" title=" " alt="" coords="800,81,980,109"/>
+<area shape="poly" title=" " alt="" coords="527,33,810,80,804,81,527,39"/>
 </map>
 </div>
 </div>
@@ -143,8 +150,17 @@ Functions</h2></td></tr>
 <tr class="memitem:a3f522256888c6433ff379d6cc9eac919" id="r_a3f522256888c6433ff379d6cc9eac919"><td class="memItemLeft"><a class="el" href="structValue.html">Value</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3f522256888c6433ff379d6cc9eac919">doctor_diagnosis</a> (void)</td></tr>
 <tr class="memitem:a58502d2cafae8756729849bc1efa6495" id="r_a58502d2cafae8756729849bc1efa6495"><td class="memItemLeft"><a class="el" href="structValue.html">Value</a>&#160;</td><td class="memItemRight"><a class="el" href="#a58502d2cafae8756729849bc1efa6495">view_diagnosis_self_doc</a> (void)</td></tr>
 <tr class="memitem:a7702102073743108a5d5d3bb020398d4" id="r_a7702102073743108a5d5d3bb020398d4"><td class="memItemLeft"><a class="el" href="structValue.html">Value</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7702102073743108a5d5d3bb020398d4">admin_delete_user</a> (void)</td></tr>
+<tr class="memitem:ab4960e1ca7069c5a15f4e2ab87793480" id="r_ab4960e1ca7069c5a15f4e2ab87793480"><td class="memItemLeft"><a class="el" href="structValue.html">Value</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab4960e1ca7069c5a15f4e2ab87793480">edit_patient_desc</a> (void)</td></tr>
+<tr class="memitem:ae26d33ff1090fa65d9087af2cbd037e3" id="r_ae26d33ff1090fa65d9087af2cbd037e3"><td class="memItemLeft"><a class="el" href="structValue.html">Value</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae26d33ff1090fa65d9087af2cbd037e3">doctor_view_patients_profile</a> (void)</td></tr>
+<tr class="memitem:ae485c4e1343b16ff267883494feeda0b" id="r_ae485c4e1343b16ff267883494feeda0b"><td class="memItemLeft"><a class="el" href="structValue.html">Value</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae485c4e1343b16ff267883494feeda0b">director_view_cfg</a> (void)</td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>User commands related to users, profiles, and reports. </p>
+<p>When adding a command to the command array back in <a class="el" href="main_8c.html">main.c</a>, It needs to be either: A function that returns <a class="el" href="structValue.html" title="Something like a python variable.">Value</a> with no args A function that returns <a class="el" href="structValue.html" title="Something like a python variable.">Value</a> with a <a class="el" href="structValue.html" title="Something like a python variable.">Value</a> * arg (<a class="el" href="structValue.html" title="Something like a python variable.">Value</a> array)</p>
+<p>The length of the <a class="el" href="structValue.html" title="Something like a python variable.">Value</a> array, if used, should be tracked with the COMMAND macro back in the command array. Arguments will be automatically supplied by <a class="el" href="tui_8c.html#a18eb2555dda32a03520091ece15a8ae9" title="The command select menu that is shown after login.">command_select()</a> </p><dl class="section author"><dt>Author</dt><dd>Josiah Hoo </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="commands_8h_source.html">commands.h</a>.</p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a7702102073743108a5d5d3bb020398d4" name="a7702102073743108a5d5d3bb020398d4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7702102073743108a5d5d3bb020398d4">&#9670;&#160;</a></span>admin_delete_user()</h2>
 
@@ -160,7 +176,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00192">192</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00183">183</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
 
 </div>
 </div>
@@ -179,7 +195,26 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00071">71</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00068">68</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+
+</div>
+</div>
+<a id="ae485c4e1343b16ff267883494feeda0b" name="ae485c4e1343b16ff267883494feeda0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae485c4e1343b16ff267883494feeda0b">&#9670;&#160;</a></span>director_view_cfg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structValue.html">Value</a> director_view_cfg </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00088">88</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
 
 </div>
 </div>
@@ -198,7 +233,45 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00257">257</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00248">248</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+
+</div>
+</div>
+<a id="ae26d33ff1090fa65d9087af2cbd037e3" name="ae26d33ff1090fa65d9087af2cbd037e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae26d33ff1090fa65d9087af2cbd037e3">&#9670;&#160;</a></span>doctor_view_patients_profile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structValue.html">Value</a> doctor_view_patients_profile </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00358">358</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+
+</div>
+</div>
+<a id="ab4960e1ca7069c5a15f4e2ab87793480" name="ab4960e1ca7069c5a15f4e2ab87793480"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4960e1ca7069c5a15f4e2ab87793480">&#9670;&#160;</a></span>edit_patient_desc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structValue.html">Value</a> edit_patient_desc </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00385">385</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
 
 </div>
 </div>
@@ -217,7 +290,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00177">177</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00168">168</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
 
 </div>
 </div>
@@ -236,7 +309,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00162">162</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00153">153</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
 
 </div>
 </div>
@@ -255,7 +328,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00026">26</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00025">25</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
 
 </div>
 </div>
@@ -274,7 +347,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00238">238</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00229">229</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
 
 </div>
 </div>
@@ -293,7 +366,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00246">246</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00237">237</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
 
 </div>
 </div>
@@ -312,7 +385,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00021">21</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00020">20</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
 
 </div>
 </div>
@@ -350,7 +423,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00120">120</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00109">109</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
 
 </div>
 </div>
@@ -369,7 +442,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00315">315</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="commands_8c_source.html#l00302">302</a> of file <a class="el" href="commands_8c_source.html">commands.c</a>.</p>
 
 </div>
 </div>

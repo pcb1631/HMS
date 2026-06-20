@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['we_20tested_0',['Terminals we tested',['../term.html#terms',1,'']]],
-  ['windows_1',['Windows',['../index.html#autotoc_md1',1,'Windows'],['../term.html#windows',1,'Windows']]],
-  ['windows_20quirks_2',['Setting the terminal to raw mode, and Windows quirks',['../tui.html#windows_tui_design_caveats',1,'']]],
-  ['with_20hms_3',['Compatible terminals with HMS',['../term.html',1,'index']]]
+  ['use_20hms_0',['How to use HMS',['../usage.html',1,'index']]],
+  ['user_20database_1',['The user database',['../db.html',1,'design']]],
+  ['user_20interfaces_2',['Text User Interfaces',['../tui.html',1,'design']]],
+  ['uthash_20h_3',['uthash.h',['../deps.html#uthash_h',1,'']]]
 ];

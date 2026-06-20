@@ -30,7 +30,9 @@ var NAVTREE =
       [ "Linux/MacOS", "index.html#autotoc_md0", null ],
       [ "Windows", "index.html#autotoc_md1", null ]
     ] ],
-    [ "Assumptions", "index.html#assumptions", null ],
+    [ "Assumptions", "index.html#assumptions", [
+      [ "Caveats and warnings", "index.html#warning", null ]
+    ] ],
     [ "Dependencies, third-party libraries of HMS", "deps.html", [
       [ "uthash.h", "deps.html#uthash_h", null ],
       [ "crypt_blowfish", "deps.html#crypt_blowfish", null ],
@@ -41,8 +43,7 @@ var NAVTREE =
       [ "Simple menu", "usage.html#simple_tui", null ],
       [ "Command menu", "usage.html#command_tui", null ],
       [ "Booking menu", "usage.html#booking_tui", null ],
-      [ "Time selection", "usage.html#time_tui", null ],
-      [ "Login/Register", "usage.html#login", null ]
+      [ "Time selection", "usage.html#time_tui", null ]
     ] ],
     [ "Compatible terminals with HMS", "term.html", [
       [ "Terminals we tested", "term.html#terms", null ],
@@ -50,10 +51,12 @@ var NAVTREE =
       [ "macOS", "term.html#mac", null ]
     ] ],
     [ "Developing the codebase", "dev.html", [
-      [ "Adding commands to the program", "dev.html#add_commands", null ]
+      [ "Adding commands to the program", "dev.html#add_commands", null ],
+      [ "Modifying the database", "dev.html#db_dev", null ]
     ] ],
-    [ "Design of codebase", "design.html", "design" ],
+    [ "Design and explanation", "design.html", "design" ],
     [ "Project requirements", "requirements.html", null ],
+    [ "parsing", "File.html", null ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
       [ "Data Structure Index", "classes.html", null ],
@@ -79,8 +82,9 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"annotated.html",
-"structUT__hash__table.html#ab8166e712e5eff3106991bec13d9ab20"
+"File.html",
+"structPayment.html#a8c916e772de92782455c9352cf1fe180",
+"utils_8h.html#af03618cc5b936551089350a1b632c4c1"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';
