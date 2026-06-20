@@ -6,9 +6,9 @@
  * @brief Utility functions, value types, and command parsing.
  */
 #ifndef _WIN32
-    #include <ncurses.h>
+	#include <ncurses.h>
 #else
-    #include <ncursesw/ncurses.h>
+	#include <ncursesw/ncurses.h>
 #endif
 
 #define PW_FILE "./users/creds.txt"
@@ -20,11 +20,11 @@
 #include <signal.h>
 typedef enum
 {
-    TYPE_INT,
-    TYPE_FLOAT,
-    TYPE_STRING,
-    TYPE_BOOL,
-    TYPE_VOID
+	TYPE_INT,
+	TYPE_FLOAT,
+	TYPE_STRING,
+	TYPE_BOOL,
+	TYPE_VOID
 } ValueType;
 
 /**

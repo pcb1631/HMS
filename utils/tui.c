@@ -357,7 +357,7 @@ void command_select(command_node *head, char *utype, char *username)
 								/* god damn strings.. */
 								scanf("%s", args[i].data.as_string);
 								string_trim(args[i].data.as_string);
-							 	break;
+								break;
 
 							case TYPE_FLOAT:
 								printf("Enter a decimal\n");

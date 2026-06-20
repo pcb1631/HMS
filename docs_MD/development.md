@@ -38,7 +38,7 @@ The data structs used here are:
 - Value (contains a union for int, float, and strings, and a tag to use which field. Like a python variable that can store arbitrary datatypes)
 - \ref command (contains a type-erased function pointer, ValueType array (enum array) to tag the datatype of each param, and a string to describe who can use the command)
 
-\ref COMMAND and \ref COMMAND_NOARGS are macros that will simplify populating a command list.
+\ref COMMAND and \ref COMMAND_NOARGS are macros that will simplify populating the command array.
 
 The return type must be Value and the param must be a Value array or void. Or else you will get undefined behaviour. 
 
@@ -76,3 +76,15 @@ The first string is what is shown in the menu, the second is who is allowed to u
 The pattern of casting a function pointer to a type erased pointer, labeling it in a struct, and calling the function with the pointer later is called "manual vtable dispatch".
 
 Places where you'll see this are CPython, the Linux kernel, and the C stdlib (For example qsort, which takes `int (*compar)(const void *, const void *)` as a param).
+
+\section db_dev Modifying the database
+\ref db
+
+Currently, the paths for the database are hardcoded, so you may need to define headers for paths in \ref globals.h .
+
+If you want to make changes to the database structure, modify file_struct.yaml.txt and test with \ref regen_file_structure.c
+
+```bash 
+		gcc -o regen_file.out regen_file_structure.c utils/utils.c utils/string_utils.c -g -ansi
+		./regen_file.out
+```
