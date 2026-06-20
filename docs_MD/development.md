@@ -18,7 +18,6 @@ At the first half of main in main.c, you will see cmd_list, which is what the me
 ```C
 	static ValueType makeuser_args[] = {TYPE_STRING, TYPE_STRING};
 
-
 	/* COMMAND(function name, alias, permission, argument types) */
 	const command cmd_list[] = {
         COMMAND_NOARGS(doctor_booking_frontend, "Doctor Booking", "Doctor", "Booking options for doctors"),

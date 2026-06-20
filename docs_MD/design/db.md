@@ -175,3 +175,6 @@ digraph RegenFileStructure {
 
 One major structure we use is the `key=value`/`key: value` format, which we store in the **Config** data structure. \n (or user_login_t if you need hashtable. We use Config here because its gonna be o(n) anyway)
 
+//explain parsing config here
+
+\ref cfg_editor is used for editing profiles, and managing supplies for Nurses.

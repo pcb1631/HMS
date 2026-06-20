@@ -45,6 +45,7 @@ Also cmd and Powershell doesn't send `KEY_RESIZE` to the program, so we have to 
 \ref simple_select()
 This section will explain things that will be skimmed through / abstracted in later sections.
 
+https://en.wikipedia.org/wiki/Levenshtein_distance
 
 \section cfg_editor Config editor
 \ref config_editor is a function that provides a TUI for editing `key: value` or `key=value` files.
@@ -159,6 +160,12 @@ digraph ConfigEditor {
 TODO: explain insert mode during edit mode
 ```
 
+\section command_select_design Command selector
+
+
+
+
+
 \section text_edit_design Text editor
 We decided to write our own text editor to reduce the amount of dependencies HMS uses. 
 
@@ -170,9 +177,6 @@ Like nano, the functions loads the file by parsing each line as a node in a doub
 
 see:\n 
 - \ref file_to_LL_lines()
-- Further explanation of memory allocation in 
-<!--TODO: fileparsing.md -->
-
 - \ref text_editor()
 
 Features: 
