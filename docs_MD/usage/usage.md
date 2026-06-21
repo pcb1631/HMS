@@ -43,6 +43,28 @@ Partial matching won't always work, but it is guaranteed that it will find exact
 \image html simpleselect_query.png "Simple select's fuzzy search at work, moving selection to partial match"
 \image latex simpleselect_query.png "Simple select's fuzzy search at work, moving selection to partial match"
 
+\section config_edit_usage Config Editor
+Up and down arrow keys to select fields.
+
+\n When pressing enter, the user can switch between EDIT mode and SELECT mode.
+\n During EDIT mode, the user can use their keyboard to edit the value.
+
+
+\image html config_editor.png "SELECT mode"
+\image latex config_editor.png "SELECT mode"
+\n \n
+\image html config_editor_edit.png "EDIT mode, with blinking cursor"
+\image latex config_editor_edit.png "EDIT mode, with blinking cursor"
+
+
+You will not be able to edit some fields
+
+\image html config_editor_no.png ""
+\image latex config_editor_no.png ""
+
+
+
+
 
 \section command_tui  Command menu
 The left panel will show commands available to your user type, the right panel will show the command's arguments and description.

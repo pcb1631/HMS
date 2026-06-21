@@ -388,7 +388,7 @@ void command_select(command_node *head, char *utype, char *username)
 					clear();
 				}else
 				{
-					retval = call(cmd_list[selection], varray_username, 1, utype);
+					retval = call(cmd_list[selection], varray_username, 0, utype);
 					printf("Function returned: "); print_Value(retval); printf("\n");
 					/*
 					 * Sets terminal to raw mode to immediately consume character, (default is cooked mode aka dont stop until EOL)

@@ -43,12 +43,256 @@ Also cmd and Powershell doesn't send `KEY_RESIZE` to the program, so we have to 
 
 \section simple_tui_design Simple TUI
 \ref simple_select()
-This section will explain things that will be skimmed through / abstracted in later sections.
+
+```dot
+digraph simple_select {
+    graph [
+        rankdir=TB
+        splines=ortho
+        nodesep=0.5
+        ranksep=0.6
+        fontname="Helvetica"
+        bgcolor="white"
+    ]
+    node [
+        fontname="Helvetica"
+        fontsize=11
+        style=filled
+        fillcolor="#f0f4ff"
+        color="#3a5aad"
+        penwidth=1.5
+    ]
+    edge [
+        fontname="Helvetica"
+        fontsize=10
+        color="#444444"
+        penwidth=1.2
+    ]
+
+    /* Terminals */
+    node [shape=oval fillcolor="#1a2a5e" fontcolor=white color="#1a2a5e"]
+    START [label="START"]
+    END_OK [label="RETURN selection"]
+    END_ERR1 [label="RETURN -1\n(no options)"]
+    END_ERR2 [label="RETURN -1\n(ETX/EOT)"]
+
+    /* Process boxes */
+    node [shape=box fillcolor="#dce8ff" fontcolor=black color="#3a5aad"]
+    INIT [label="ncurses_init()\ncolor_pair(1), curs_set(1)\ny_max = getmaxy(stdscr)"]
+    LOOP_INIT [label="Reset leven_min = INT_MAX"]
+    DRAW_PRE [label="mvprintw: pretext at row 0"]
+    DRAW_OPTS [label="Draw visible options\ncentered on y_max/2\nHighlight current selection"]
+    DRAW_SRCH [label="mvprintw: search bar at bottom row"]
+    REFRESH [label="refresh()\nch = getch()"]
+    NAV_UP [label="selection = (selection - 1 + N) % N\nclear()"]
+    NAV_DOWN [label="selection = (selection + 1) % N\nclear()"]
+    RESIZE_WIN [label="y_max = getmaxy(stdscr)\nclear()"]
+    WIN_RESIZE [label="Update y_max\nresize_term()\nclear()"]
+    CONFIRM [label="endwin()"]
+    EOT_ACT [label="strcpy(selection_s, \"\")\nendwin()\nprintf(\"EOF/EOT\")"]
+    SEARCH_POP [label="string_pop(search_buf)\nRecalc selection\nvia Levenshtein\nclear()"]
+    SEARCH_APP [label="string_insert(search_buf, ch)\nRecalc selection\nvia Levenshtein\nclear()"]
+    COPY_OUT [label="strcpy(selection_s, options[selection])"]
+
+    /* Decision diamonds */
+    node [shape=diamond fillcolor="#fff7d6" fontcolor=black color="#b07800"]
+    CHK_N [label="n_of_options < 1?"]
+    CHK_LOOP [label="ch == '\\n'?"]
+    CHK_COVER [label="Would cover\npretext row?"]
+    CHK_SEL [label="i == selection?"]
+    CHK_KEY [label="Key pressed?"]
+    CHK_PRINT [label="Printable\nASCII?\n(32–126)"]
+    CHK_BUFLEN [label="strlen(search_buf) > 0?"]
+
+    /* --- Graph edges --- */
+
+    START -> INIT
+    INIT -> CHK_N
+
+    CHK_N -> END_ERR1 [label="yes"]
+    CHK_N -> LOOP_INIT [label="no"]
+
+    LOOP_INIT -> DRAW_PRE
+
+    DRAW_PRE -> CHK_COVER [label="for each option i"]
+    CHK_COVER -> DRAW_OPTS [label="no  "]
+    CHK_COVER -> DRAW_SRCH [label="yes (skip)", style=dashed]
+    DRAW_OPTS -> CHK_SEL
+    CHK_SEL -> DRAW_OPTS [label="i++ (next option)", style=dashed]
+    CHK_SEL -> DRAW_SRCH [label="all drawn"]
+
+    DRAW_SRCH -> REFRESH
+
+    REFRESH -> CHK_KEY
+
+    /* Windows-only resize path */
+    CHK_KEY -> WIN_RESIZE [label="#ifdef _WIN32\nresize event"]
+    WIN_RESIZE -> CHK_KEY
+
+    CHK_KEY -> CHK_LOOP [label="key read"]
+
+    CHK_LOOP -> COPY_OUT [label="yes (Enter)"]
+    CHK_LOOP -> CONFIRM [style=invis]
+    COPY_OUT -> CONFIRM
+    CONFIRM -> END_OK
+
+    CHK_LOOP -> CHK_KEY2 [label="no"]
+
+    node [shape=diamond fillcolor="#fff7d6" fontcolor=black color="#b07800"]
+    CHK_KEY2 [label="Which key?"]
+
+    CHK_KEY2 -> RESIZE_WIN [label="KEY_RESIZE"]
+    CHK_KEY2 -> EOT_ACT [label="ETX / EOT"]
+    CHK_KEY2 -> NAV_UP [label="UP / LEFT"]
+    CHK_KEY2 -> NAV_DOWN [label="DOWN / RIGHT"]
+    CHK_KEY2 -> CHK_BUFLEN [label="BACKSPACE"]
+    CHK_KEY2 -> CHK_PRINT [label="other"]
+
+    RESIZE_WIN -> LOOP_INIT
+    EOT_ACT -> END_ERR2
+    NAV_UP -> LOOP_INIT
+    NAV_DOWN -> LOOP_INIT
+
+    CHK_BUFLEN -> SEARCH_POP [label="yes"]
+    CHK_BUFLEN -> LOOP_INIT [label="no (ignore)"]
+    SEARCH_POP -> LOOP_INIT
+
+    CHK_PRINT -> SEARCH_APP [label="yes"]
+    CHK_PRINT -> LOOP_INIT [label="no (ignore)"]
+    SEARCH_APP -> LOOP_INIT
+}
+```
+Scrolling is done by simply centering the current selection, and printing the other options using the current selection's index as the offset.
+
+\ref user_select_menu() is a wrapper around simple_select(), it finds the users with the matching usertypes, passes it to simple_select, then returns the values from simple_select.
+
+The fuzzy search is based on the Levenshtein distance algorithm. we find the Levenshtein distance between the user's query and every option on each keypress, then set the selection to the option with the lowest distance.
 
 https://en.wikipedia.org/wiki/Levenshtein_distance
 
+\section command_select_design Command Select
+
+\ref command_select()
+
+```dot
+digraph command_select {
+    graph [
+        rankdir=TB
+        splines=polyline
+        nodesep=0.5
+        ranksep=0.55
+        fontname="Helvetica"
+        bgcolor="white"
+    ]
+    node [
+        fontname="Helvetica"
+        fontsize=11
+        style=filled
+        fillcolor="#f0f4ff"
+        color="#3a5aad"
+        penwidth=1.5
+    ]
+    edge [
+        fontname="Helvetica"
+        fontsize=10
+        color="#444444"
+        penwidth=1.2
+    ]
+
+    /* ── Terminals ── */
+    node [shape=oval fillcolor="#1a2a5e" fontcolor=white color="#1a2a5e"]
+    START       [label="START"]
+    END_ERR     [label="endwin()\nexit(1)\n(no commands)"]
+    END_ETX     [label="endwin()\nRETURN  (ETX/Ctrl-C)"]
+    END_EOT     [label="endwin()\nRETURN  (EOT/Ctrl-D)"]
+
+    /* ── Process boxes ── */
+    node [shape=box fillcolor="#dce8ff" fontcolor=black color="#3a5aad"]
+    COPY_LIST [label="Walk linked list → cmd_list[]\ncmd_list_n = count"]
+    INIT      [label="ncurses_init()\ninit_color(10, purple)\ninit_pair(2, WHITE, 10)\nclear() · getmaxyx(stdscr)"]
+    LOOP_TOP  [label="── loop top ──"]
+    W32_APPLY [label="y_max, x_max = winsize\nresize_term() · clear()"]
+    REFRESH   [label="refresh()  ← resumes ncurses after endwin()"]
+    MK_WINS   [label="left_win  = newwin(y_max, x_max/2, 0, 0)\nright_win = newwin(y_max, x_max/2, 0, x_max/2+1)\nbox(left_win) · keypad(left_win, TRUE)"]
+    DRAW_L    [label="Draw left_win:\n  header: username + utype\n  for each cmd: skip if covers header\n  highlight selection with A_REVERSE\n  wbkgd(COLOR_PAIR(2))"]
+    DRAW_R    [label="Draw right_win:\n  Permission label\n  Argument types (loop over n_of_args)\n  Description"]
+    WREFRESH  [label="wrefresh(left_win)\nwrefresh(right_win)"]
+    GETCH     [label="ch = getch()"]
+    NAV_UP    [label="selection = (selection - 1 + N) % N"]
+    NAV_DOWN  [label="selection = (selection + 1) % N"]
+    RESIZE_A  [label="getmaxyx(stdscr) · clear()"]
+    ENDWIN_E  [label="endwin()"]
+    PERM_DENY [label="printf: Permission denied\ngetchar()"]
+    ALLOC     [label="args = malloc(sizeof(Value) * n)"]
+    SCANF_L   [label="for each arg:\n  printf prompt\n  scanf per type\n  string_trim (strings only)\nwipe_stdin()"]
+    CALL_A    [label="retval = call(cmd, args, n, utype)\nprint_Value(retval)\nfree(args)"]
+    PAUSE_A   [label="raw() + getch()  [Linux]\nor getchar()  [Windows]\ngetmaxyx(stdscr) · clear()"]
+    CALL_0    [label="retval = call(cmd, varray_username, 0, utype)\nprint_Value(retval)"]
+    PAUSE_0   [label="raw() + getch()  [Linux]\nor getchar()  [Windows]\ngetmaxyx(stdscr)\n⚠ no clear() here"]
+    DELWINS   [label="delwin(right_win)\ndelwin(left_win)"]
+
+    /* ── Decisions ── */
+    node [shape=diamond fillcolor="#fff7d6" fontcolor=black color="#b07800"]
+    CHK_N    [label="cmd_list_n == 0?"]
+    CHK_W32  [label="#ifdef _WIN32\nresize event?"]
+    CHK_KEY  [label="Which key?"]
+    CHK_PERM [label="utype ==\ncmd.permission?"]
+    CHK_ARGS [label="n_of_args > 0?"]
+
+    /* ── Edges ── */
+    START     -> COPY_LIST
+    COPY_LIST -> CHK_N
+    CHK_N     -> END_ERR   [label="yes"]
+    CHK_N     -> INIT      [label="no"]
+    INIT      -> LOOP_TOP
+
+    LOOP_TOP  -> CHK_W32
+    CHK_W32   -> W32_APPLY [label="yes"]
+    W32_APPLY -> REFRESH
+    CHK_W32   -> REFRESH   [label="no / not Win32"]
+
+    REFRESH  -> MK_WINS
+    MK_WINS  -> DRAW_L
+    DRAW_L   -> DRAW_R
+    DRAW_R   -> WREFRESH
+    WREFRESH -> GETCH
+    GETCH    -> CHK_KEY
+
+    CHK_KEY -> END_ETX   [label="ETX"]
+    CHK_KEY -> END_EOT   [label="EOT"]
+    CHK_KEY -> NAV_UP    [label="UP / LEFT"]
+    CHK_KEY -> NAV_DOWN  [label="DOWN / RIGHT"]
+    CHK_KEY -> RESIZE_A  [label="KEY_RESIZE"]
+    CHK_KEY -> ENDWIN_E  [label="Enter (\\n)"]
+    CHK_KEY -> DELWINS   [label="other"]
+
+    NAV_UP   -> DELWINS
+    NAV_DOWN -> DELWINS
+    RESIZE_A -> DELWINS
+
+    ENDWIN_E -> CHK_PERM
+    CHK_PERM -> PERM_DENY [label="denied"]
+    PERM_DENY -> DELWINS
+
+    CHK_PERM -> CHK_ARGS [label="allowed"]
+
+    CHK_ARGS -> ALLOC    [label="yes (n > 0)"]
+    ALLOC    -> SCANF_L
+    SCANF_L  -> CALL_A
+    CALL_A   -> PAUSE_A
+    PAUSE_A  -> DELWINS
+
+    CHK_ARGS -> CALL_0   [label="no (n == 0)"]
+    CALL_0   -> PAUSE_0
+    PAUSE_0  -> DELWINS
+
+    DELWINS  -> LOOP_TOP [label="while(1)"]
+}
+```
+
+
 \section cfg_editor Config editor
-\ref config_editor is a function that provides a TUI for editing `key: value` or `key=value` files.
+\ref config_editor() is a function that provides a TUI for editing `key: value` or `key=value` files.
 \n It shows and scrolls the keys on the left side, while showing the value on the right side. 
 \n When pressing enter, the user can switch between EDIT mode and SELECT mode.
 \n During EDIT mode, the user can use their keyboard to edit the value.
@@ -160,11 +404,90 @@ digraph ConfigEditor {
 TODO: explain insert mode during edit mode
 ```
 
-\section command_select_design Command selector
+\section time_pick_design Time picker 
 
+```dot
+digraph time_picker {
+    graph [
+        rankdir=TB
+        splines=polyline
+        nodesep=0.5
+        ranksep=0.55
+        fontname="Helvetica"
+        bgcolor="white"
+    ]
+    node [
+        fontname="Helvetica"
+        fontsize=11
+        style=filled
+        fillcolor="#f0f4ff"
+        color="#3a5aad"
+        penwidth=1.5
+    ]
+    edge [
+        fontname="Helvetica"
+        fontsize=10
+        color="#444444"
+        penwidth=1.2
+    ]
 
+    /* ── Terminals ── */
+    node [shape=oval fillcolor="#1a2a5e" fontcolor=white color="#1a2a5e"]
+    START       [label="START"]
+    END_ERR     [label="endwin()\nRETURN (time_t)-1\n(ETX/EOT)"]
+    END_OK      [label="endwin()\nRETURN time\n(Enter)"]
 
+    /* ── Process boxes ── */
+    node [shape=box fillcolor="#dce8ff" fontcolor=black color="#3a5aad"]
+    INIT     [label="ts = localtime(&time)\n"]
+    NCURSES  [label="ncurses_init()\ninit_pair(2, fg, bg)"]
+    PRE_TEXT [label="mvprintw(0,0, pretext)\n"]
+    LOOP_TOP [label="── loop top ──"]
+    SET_RS1  [label="switch(select) → strcpy(range_s, ...)\n(Year / Month / Day / Hour / Minute / Second)"]
+    MKTIME   [label="time = mktime(ts)\n"]
+    DRAW     [label="mvprintw(1): readable_time\nmvprintw(2): range_s  [A_REVERSE]\nmvprintw(3): (unsigned long)time\n⚠ truncates on 64-bit"]
+    REFRESH  [label="refresh()"]
+    GETCH    [label="ch = getch()"]
+    MV_UP    [label="change = 1"]
+    MV_DN    [label="change = -1"]
+    SEL_L    [label="select = (select - 1 + 6) % 6\nchange = 0"]
+    SEL_R    [label="select = (select + 1) % 6\nchange = 0"]
+    CLR_CH   [label="change = 0"]
+    APPLY    [label="ts->tm_[field] += change\n"]
 
+    /* ── Decisions ── */
+    node [shape=diamond fillcolor="#fff7d6" fontcolor=black color="#b07800"]
+    CHK_KEY [label="Which key?"]
+
+    /* ── Edges ── */
+    START    -> INIT
+    INIT     -> NCURSES
+    NCURSES  -> PRE_TEXT
+    PRE_TEXT -> LOOP_TOP
+
+    LOOP_TOP -> SET_RS1
+    SET_RS1  -> MKTIME
+    MKTIME   -> DRAW
+    DRAW     -> REFRESH
+    REFRESH  -> GETCH
+    GETCH    -> CHK_KEY
+
+    CHK_KEY -> END_ERR [label="ETX / EOT"]
+    CHK_KEY -> MV_UP   [label="UP"]
+    CHK_KEY -> MV_DN   [label="DOWN"]
+    CHK_KEY -> SEL_L   [label="LEFT"]
+    CHK_KEY -> SEL_R   [label="RIGHT"]
+    CHK_KEY -> END_OK  [label="Enter (\\n)\n"]
+    CHK_KEY -> CLR_CH  [label="KEY_RESIZE\nor default"]
+
+    MV_UP -> APPLY
+    MV_DN -> APPLY
+    SEL_L -> APPLY
+    SEL_R -> APPLY
+    CLR_CH -> APPLY
+
+}
+```
 
 \section text_edit_design Text editor
 We decided to write our own text editor to reduce the amount of dependencies HMS uses. 
@@ -186,7 +509,20 @@ Features:
 - dynamic memory allocation
 - splitting newlines
 
-TODO: explanations of vertical and horizontal scrolling, and line number
+While typing, text_editor() will automatically allocate more memory the more you type.
+
+```C
+	if((ch >= 32 && ch <= 126) && !readonly) /* printable ASCII */
+	{
+		CurrentLine->str_n++;
+		if(CurrentLine->str_n % LINE_REALLOC_LIMIT == 0)
+			realloc_string(&CurrentLine->str, CurrentLine->str_n + LINE_REALLOC_LIMIT);
+		string_insert(CurrentLine->str, ch, true_x);
+...
+```
+
+When the user creates a newline and splits a line, or merges a line from backspace, text_editor must allocate the next multiple of 
+
 
 ```dot
 digraph TextEditor {
@@ -241,6 +577,22 @@ digraph TextEditor {
 When you press enter in a text editor, it creates a new line. Naively you'd just insert a `\n` in the string. 
 
 In our case, we need to do node insertion, and manually allocate memory when splitting a line. When a line is split between the cursor, the memory size of the previous line is the length the prefix, while the next line is the length of the suffix.
+
+Comment from calculating the size of the new line, that explains why we need to find the new memory size: 
+```C
+/* The next realloc wont happen until str_n is a multiple of LINE_REALLOC_LIMIT,
+ * So, naively allocating str_n - true_x will cause a buffer overflow.
+ * For example: (if the limit is 10)
+	* "Hello, world\0" 13 bytes
+	* 				^
+	* 
+	* User types extra three letters
+	* 
+	* "Helloooo, world\0" 16 bytes, but we did not trigger realloc
+	* 				^
+	*		Buffer overflow!!
+ */
+```
 
 ```dot
 digraph MemAllocInsertion {
@@ -430,5 +782,3 @@ digraph NodeDeletion {
     P1 -> P2 -> P3 -> P4 [style=invis, weight=100];
 }
 ```
-
-TODO: explain why the new size is the next multiple of threshold

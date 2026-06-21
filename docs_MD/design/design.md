@@ -7,3 +7,5 @@ The flowcharts we use will be highly abstracted and only describe the business l
 - \subpage db
 - \subpage tui
 - \subpage cmd_dispatch
+- \subpage fileparsing
+- \subpage usercommands
