@@ -475,6 +475,7 @@ time_t time_picker(char * pretext, int color_fg, int color_bg, time_t pre_time)
 			break;
 		}
 
+		ts->tm_isdst = -1;
 		time = mktime(ts);
 		strftime(readable_time, sizeof(readable_time),"%Y-%m-%d %H:%M:%S", ts);
 		mvprintw(1, 0, "%s", readable_time);

@@ -26,7 +26,7 @@ The binary only requires the DB folder and credentials file, and you can name th
 ./main.out login [username]
 ```
 
-\section simple_tui Simple menu
+\section simple_tui Simple Select
 Press arrow keys to change selection, and enter to confirm selection. CTRL+C to cancel
 
 Your selection will be centered and highlighted
@@ -87,8 +87,14 @@ The command menu doesn't clear the terminal every time, so you may see output fr
 
 
 \section booking_tui Booking menu
-This one is a little different for patient, doctor, and nurse.
+Up and down arrow keys to select slot 
 
+When pressing enter on a slot, you might be given options for what to do with the slots, with simple select
+
+As a patient, you will not be able to see the information of slot that other patient selected.
+
+\image html booking_view.png
+\image latex booking_view.png
 
 \section time_tui Time selection
 Left and right arrow keys to change the time quantity, then up and down arrow keys to modify the time with that quantity. Press enter to confirm.
