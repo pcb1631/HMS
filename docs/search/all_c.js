@@ -16,7 +16,7 @@ var searchData=
   ['max_5fpassword_5flen_13',['MAX_PASSWORD_LEN',['../logins_8h.html#ae9169c3fda2dfecbb7a13e394a69e5be',1,'logins.h']]],
   ['max_5fslots_14',['MAX_SLOTS',['../bookings_8c.html#a487ed1795a5ca9744954435f788569e2',1,'bookings.c']]],
   ['max_5fusername_5flen_15',['MAX_USERNAME_LEN',['../globals_8h.html#a6c4647395896246d6710ba980c31666c',1,'MAX_USERNAME_LEN:&#160;globals.h'],['../logins_8h.html#a6c4647395896246d6710ba980c31666c',1,'MAX_USERNAME_LEN:&#160;logins.h']]],
-  ['menu_16',['menu',['../usage.html#booking_tui',1,'Booking menu'],['../usage.html#command_tui',1,'Command menu'],['../usage.html#simple_tui',1,'Simple menu']]],
+  ['menu_16',['menu',['../usage.html#booking_tui',1,'Booking menu'],['../usage.html#command_tui',1,'Command menu']]],
   ['meow_17',['meow',['../utils_8h.html#a3172dac790d0d0cb4036a0c414814b15',1,'utils.h']]],
   ['min_18',['min',['../string__utils_8c.html#ac6afabdc09a49a433ee19d8a9486056d',1,'string_utils.c']]],
   ['mode_20and_20windows_20quirks_19',['Setting the terminal to raw mode, and Windows quirks',['../tui.html#windows_tui_design_caveats',1,'']]],

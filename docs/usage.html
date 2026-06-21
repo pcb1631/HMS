@@ -104,7 +104,7 @@ $(function(){initNavTree('usage.html','',''); });
 </div><!-- fragment --><p><br  />
  To login into an account </p><div class="fragment"><div class="line">./main.out login [username]</div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="simple_tui"></a>
-Simple menu</h1>
+Simple Select</h1>
 <p>Press arrow keys to change selection, and enter to confirm selection. CTRL+C to cancel</p>
 <p>Your selection will be centered and highlighted</p>
 <p>Type and backspace to search for options. It does fuzzy search on your query and every option, then finds the closest option for your query.</p>
@@ -118,6 +118,26 @@ Simple select being used for search and view in director's 'View payment history
 <img src="simpleselect_query.png" alt=""/>
 <div class="caption">
 Simple select's fuzzy search at work, moving selection to partial match</div></div>
+ <h1 class="doxsection"><a class="anchor" id="config_edit_usage"></a>
+Config Editor</h1>
+<p>Up and down arrow keys to select fields.</p>
+<p><br  />
+ When pressing enter, the user can switch between EDIT mode and SELECT mode. <br  />
+ During EDIT mode, the user can use their keyboard to edit the value.</p>
+<div class="image">
+<img src="config_editor.png" alt=""/>
+<div class="caption">
+SELECT mode</div></div>
+<p>  <br  />
+ <br  />
+</p><div class="image">
+<img src="config_editor_edit.png" alt=""/>
+<div class="caption">
+EDIT mode, with blinking cursor</div></div>
+ <p>You will not be able to edit some fields</p>
+<div class="image">
+<img src="config_editor_no.png" alt=""/>
+</div>
  <h1 class="doxsection"><a class="anchor" id="command_tui"></a>
 Command menu</h1>
 <p>The left panel will show commands available to your user type, the right panel will show the command's arguments and description.</p>
@@ -136,8 +156,13 @@ The execution of the 'create account' command</div></div>
 <p>The command menu doesn't clear the terminal every time, so you may see output from previous commands or other things, like "Password hash matched" when you log in</p>
 <h1 class="doxsection"><a class="anchor" id="booking_tui"></a>
 Booking menu</h1>
-<p>This one is a little different for patient, doctor, and nurse.</p>
-<h1 class="doxsection"><a class="anchor" id="time_tui"></a>
+<p>Up and down arrow keys to select slot</p>
+<p>When pressing enter on a slot, you might be given options for what to do with the slots, with simple select</p>
+<p>As a patient, you will not be able to see the information of slot that other patient selected.</p>
+<div class="image">
+<img src="booking_view.png" alt=""/>
+</div>
+ <h1 class="doxsection"><a class="anchor" id="time_tui"></a>
 Time selection</h1>
 <p>Left and right arrow keys to change the time quantity, then up and down arrow keys to modify the time with that quantity. Press enter to confirm.</p>
 <div class="image">

@@ -40,7 +40,8 @@ var NAVTREE =
       [ "ncurses", "deps.html#ncurses", null ]
     ] ],
     [ "How to use HMS", "usage.html", [
-      [ "Simple menu", "usage.html#simple_tui", null ],
+      [ "Simple Select", "usage.html#simple_tui", null ],
+      [ "Config Editor", "usage.html#config_edit_usage", null ],
       [ "Command menu", "usage.html#command_tui", null ],
       [ "Booking menu", "usage.html#booking_tui", null ],
       [ "Time selection", "usage.html#time_tui", null ]
@@ -56,7 +57,6 @@ var NAVTREE =
     ] ],
     [ "Design and explanation", "design.html", "design" ],
     [ "Project requirements", "requirements.html", null ],
-    [ "parsing", "File.html", null ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
       [ "Data Structure Index", "classes.html", null ],
@@ -82,9 +82,9 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"File.html",
-"structPayment.html#a8c916e772de92782455c9352cf1fe180",
-"utils_8h.html#af03618cc5b936551089350a1b632c4c1"
+"annotated.html",
+"structPayment.html#a8937702ad328ce8656cb75a43d42cc4a",
+"utils_8h.html#ad9971b6ef33e02ba2c75d19c1d2518a1addb4be6b1cc25112defabef75f73427a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

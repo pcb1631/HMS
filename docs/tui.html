@@ -124,11 +124,23 @@ Setting the terminal to raw mode, and Windows quirks</h1>
  check_console_window_resize_event()</p>
 <h1 class="doxsection"><a class="anchor" id="simple_tui_design"></a>
 Simple TUI</h1>
-<p><a class="el" href="tui_8c.html#ae7eae98c1d28139bd16ec2a71459b2f8" title="simple_select()">simple_select()</a> This section will explain things that will be skimmed through / abstracted in later sections.</p>
+<p><a class="el" href="tui_8c.html#ae7eae98c1d28139bd16ec2a71459b2f8" title="simple_select()">simple_select()</a></p>
+<div class="dotgraph">
+<img src="dot_inline_dotgraph_0a25741ac88e0bd44b1c1c7cb648b285.png" alt="dot_inline_dotgraph_0a25741ac88e0bd44b1c1c7cb648b285.png" border="0" usemap="#dot_inline_dotgraph_0a25741ac88e0bd44b1c1c7cb648b285.map"/>
+</div>
+<p> Scrolling is done by simply centering the current selection, and printing the other options using the current selection's index as the offset.</p>
+<p><a class="el" href="commands_8c.html#a02dcb9744ee34605c770e1c7444765fc" title="user_select_menu()">user_select_menu()</a> is a wrapper around <a class="el" href="tui_8c.html#ae7eae98c1d28139bd16ec2a71459b2f8" title="Simple select TUI made with ncurses.">simple_select()</a>, it finds the users with the matching usertypes, passes it to simple_select, then returns the values from simple_select.</p>
+<p>The fuzzy search is based on the Levenshtein distance algorithm. we find the Levenshtein distance between the user's query and every option on each keypress, then set the selection to the option with the lowest distance.</p>
 <p><a href="https://en.wikipedia.org/wiki/Levenshtein_distance">https://en.wikipedia.org/wiki/Levenshtein_distance</a></p>
+<h1 class="doxsection"><a class="anchor" id="command_select_design"></a>
+Command Select</h1>
+<p><a class="el" href="tui_8c.html#a18eb2555dda32a03520091ece15a8ae9" title="command_select()">command_select()</a></p>
+<div class="dotgraph">
+<img src="dot_inline_dotgraph_2dc2b73fdd38299d7af7e8298d15a375.png" alt="dot_inline_dotgraph_2dc2b73fdd38299d7af7e8298d15a375.png" border="0" usemap="#dot_inline_dotgraph_2dc2b73fdd38299d7af7e8298d15a375.map"/>
+</div>
 <h1 class="doxsection"><a class="anchor" id="cfg_editor"></a>
 Config editor</h1>
-<p><a class="el" href="tui_8c.html#af87cdb83bc1ad50c80a452b5e80c2550" title="config_editor">config_editor</a> is a function that provides a TUI for editing <span class="tt">key: value</span> or <span class="tt">key=value</span> files. <br  />
+<p><a class="el" href="tui_8c.html#af87cdb83bc1ad50c80a452b5e80c2550" title="config_editor()">config_editor()</a> is a function that provides a TUI for editing <span class="tt">key: value</span> or <span class="tt">key=value</span> files. <br  />
  It shows and scrolls the keys on the left side, while showing the value on the right side. <br  />
  When pressing enter, the user can switch between EDIT mode and SELECT mode. <br  />
  During EDIT mode, the user can use their keyboard to edit the value.</p>
@@ -149,8 +161,11 @@ EDIT mode, with blinking cursor</div></div>
  <p>KEY_RESIZE is not handled after the first switch case, so it effectively restarts the loop and refreshes the menu</p>
 <p>Flowchart for <a class="el" href="tui_8c.html#af87cdb83bc1ad50c80a452b5e80c2550" title="config_editor">config_editor</a> </p><div class="dotgraph">
 </div>
-<h1 class="doxsection"><a class="anchor" id="command_select_design"></a>
-Command selector</h1>
+<h1 class="doxsection"><a class="anchor" id="time_pick_design"></a>
+Time picker</h1>
+<div class="dotgraph">
+<img src="dot_inline_dotgraph_98e6cdaeb3637ac394dd0c1a2632bb6b.png" alt="dot_inline_dotgraph_98e6cdaeb3637ac394dd0c1a2632bb6b.png" border="0" usemap="#dot_inline_dotgraph_98e6cdaeb3637ac394dd0c1a2632bb6b.map"/>
+</div>
 <h1 class="doxsection"><a class="anchor" id="text_edit_design"></a>
 Text editor</h1>
 <p>We decided to write our own text editor to reduce the amount of dependencies HMS uses.</p>
@@ -169,13 +184,36 @@ Text editor</h1>
 <li>dynamic memory allocation</li>
 <li>splitting newlines</li>
 </ul>
-<p>TODO: explanations of vertical and horizontal scrolling, and line number</p>
+<p>While typing, <a class="el" href="tui_8c.html#adb0554598c7a497f8382352c6d6958a7">text_editor()</a> will automatically allocate more memory the more you type.</p>
+<div class="fragment"><div class="line">    <span class="keywordflow">if</span>((ch &gt;= 32 &amp;&amp; ch &lt;= 126) &amp;&amp; !readonly) <span class="comment">/* printable ASCII */</span></div>
+<div class="line">    {</div>
+<div class="line">        CurrentLine-&gt;str_n++;</div>
+<div class="line">        <span class="keywordflow">if</span>(CurrentLine-&gt;str_n % <a class="code hl_define" href="tui_8c.html#a02adadf507038f1ed42422c4d7d12dd4">LINE_REALLOC_LIMIT</a> == 0)</div>
+<div class="line">            <a class="code hl_function" href="string__utils_8c.html#ad70e9a68bf8d42ec6c43d70e79bc5b0e">realloc_string</a>(&amp;CurrentLine-&gt;str, CurrentLine-&gt;str_n + <a class="code hl_define" href="tui_8c.html#a02adadf507038f1ed42422c4d7d12dd4">LINE_REALLOC_LIMIT</a>);</div>
+<div class="line">        <a class="code hl_function" href="string__utils_8c.html#a99a197233f5e215e4f67fae5f56d724a">string_insert</a>(CurrentLine-&gt;str, ch, true_x);</div>
+<div class="line">...</div>
+<div class="ttc" id="astring__utils_8c_html_a99a197233f5e215e4f67fae5f56d724a"><div class="ttname"><a href="string__utils_8c.html#a99a197233f5e215e4f67fae5f56d724a">string_insert</a></div><div class="ttdeci">void string_insert(char *str, char ins, int pos)</div><div class="ttdoc">inserts a character in a string</div><div class="ttdef"><b>Definition</b> <a href="string__utils_8c_source.html#l00026">string_utils.c:26</a></div></div>
+<div class="ttc" id="astring__utils_8c_html_ad70e9a68bf8d42ec6c43d70e79bc5b0e"><div class="ttname"><a href="string__utils_8c.html#ad70e9a68bf8d42ec6c43d70e79bc5b0e">realloc_string</a></div><div class="ttdeci">void realloc_string(char **s, int n)</div><div class="ttdoc">Pass the pointer to the char pointer to realloc.</div><div class="ttdef"><b>Definition</b> <a href="string__utils_8c_source.html#l00237">string_utils.c:237</a></div></div>
+<div class="ttc" id="atui_8c_html_a02adadf507038f1ed42422c4d7d12dd4"><div class="ttname"><a href="tui_8c.html#a02adadf507038f1ed42422c4d7d12dd4">LINE_REALLOC_LIMIT</a></div><div class="ttdeci">#define LINE_REALLOC_LIMIT</div><div class="ttdef"><b>Definition</b> <a href="tui_8c_source.html#l00958">tui.c:958</a></div></div>
+</div><!-- fragment --><p>When the user creates a newline and splits a line, or merges a line from backspace, text_editor must allocate the next multiple of</p>
 <div class="dotgraph">
 <img src="dot_inline_dotgraph_ed167839c4615db81ea97422dc78db10.png" alt="dot_inline_dotgraph_ed167839c4615db81ea97422dc78db10.png" border="0" usemap="#dot_inline_dotgraph_ed167839c4615db81ea97422dc78db10.map"/>
 </div>
 <p>When you press enter in a text editor, it creates a new line. Naively you'd just insert a <span class="tt">\n</span> in the string.</p>
 <p>In our case, we need to do node insertion, and manually allocate memory when splitting a line. When a line is split between the cursor, the memory size of the previous line is the length the prefix, while the next line is the length of the suffix.</p>
-<div class="dotgraph">
+<p>Comment from calculating the size of the new line, that explains why we need to find the new memory size: </p><div class="fragment"><div class="line"><span class="comment">/* The next realloc wont happen until str_n is a multiple of LINE_REALLOC_LIMIT,</span></div>
+<div class="line"><span class="comment"> * So, naively allocating str_n - true_x will cause a buffer overflow.</span></div>
+<div class="line"><span class="comment"> * For example: (if the limit is 10)</span></div>
+<div class="line"><span class="comment">    * &quot;Hello, world\0&quot; 13 bytes</span></div>
+<div class="line"><span class="comment">    *               ^</span></div>
+<div class="line"><span class="comment">    * </span></div>
+<div class="line"><span class="comment">    * User types extra three letters</span></div>
+<div class="line"><span class="comment">    * </span></div>
+<div class="line"><span class="comment">    * &quot;Helloooo, world\0&quot; 16 bytes, but we did not trigger realloc</span></div>
+<div class="line"><span class="comment">    *               ^</span></div>
+<div class="line"><span class="comment">    *       Buffer overflow!!</span></div>
+<div class="line"><span class="comment"> */</span></div>
+</div><!-- fragment --><div class="dotgraph">
 <img src="dot_inline_dotgraph_885e01e3cea5145b33a95706a3a24775.png" alt="dot_inline_dotgraph_885e01e3cea5145b33a95706a3a24775.png" border="0" usemap="#dot_inline_dotgraph_885e01e3cea5145b33a95706a3a24775.map"/>
 </div>
 <div class="dotgraph">
@@ -190,8 +228,7 @@ Text editor</h1>
 <div class="dotgraph">
 <img src="dot_inline_dotgraph_e106e509af01f56b1ad0955bd60a53c7.png" alt="dot_inline_dotgraph_e106e509af01f56b1ad0955bd60a53c7.png" border="0" usemap="#dot_inline_dotgraph_e106e509af01f56b1ad0955bd60a53c7.map"/>
 </div>
-<p>TODO: explain why the new size is the next multiple of threshold </p>
-</div></div><!-- contents -->
+ </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

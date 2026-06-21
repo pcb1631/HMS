@@ -9,9 +9,10 @@ var searchData=
   ['linux_20macos_6',['Linux/MacOS',['../index.html#autotoc_md0',1,'']]],
   ['list_7',['The command list',['../cmd_dispatch.html#cmd_list',1,'']]],
   ['list_5ffiles_5findir_8',['list_files_indir',['../utils_8c.html#ab0a28dae58ee805f2f815796957a35a2',1,'list_files_indir(const char *dir, int *n):&#160;utils.c'],['../utils_8h.html#ab0a28dae58ee805f2f815796957a35a2',1,'list_files_indir(const char *dir, int *n):&#160;utils.c']]],
-  ['load_5fusers_5ffrom_5ffile_9',['load_users_from_file',['../logins_8c.html#a3da8e7414374ec378d5363775860cc05',1,'load_users_from_file(const char *filename, user_login_t **logins):&#160;logins.c'],['../logins_8h.html#a3da8e7414374ec378d5363775860cc05',1,'load_users_from_file(const char *filename, user_login_t **logins):&#160;logins.c']]],
-  ['log2_5fnum_5fbuckets_10',['log2_num_buckets',['../structUT__hash__table.html#a1e4983525460bc9180bbb5e7b404cdbb',1,'UT_hash_table']]],
-  ['logins_2ec_11',['logins.c',['../logins_8c.html',1,'']]],
-  ['logins_2eh_12',['logins.h',['../logins_8h.html',1,'']]],
-  ['lookup_5fuser_13',['lookup_user',['../logins_8c.html#afc3b11c72547af365dc8af84aa51d166',1,'lookup_user(const char *username, user_login_t **logins):&#160;logins.c'],['../logins_8h.html#afc3b11c72547af365dc8af84aa51d166',1,'lookup_user(const char *username, user_login_t **logins):&#160;logins.c']]]
+  ['ll_20for_20text_20editor_9',['LL for text editor',['../fileparsing.html#Doubly',1,'']]],
+  ['load_5fusers_5ffrom_5ffile_10',['load_users_from_file',['../logins_8c.html#a3da8e7414374ec378d5363775860cc05',1,'load_users_from_file(const char *filename, user_login_t **logins):&#160;logins.c'],['../logins_8h.html#a3da8e7414374ec378d5363775860cc05',1,'load_users_from_file(const char *filename, user_login_t **logins):&#160;logins.c']]],
+  ['log2_5fnum_5fbuckets_11',['log2_num_buckets',['../structUT__hash__table.html#a1e4983525460bc9180bbb5e7b404cdbb',1,'UT_hash_table']]],
+  ['logins_2ec_12',['logins.c',['../logins_8c.html',1,'']]],
+  ['logins_2eh_13',['logins.h',['../logins_8h.html',1,'']]],
+  ['lookup_5fuser_14',['lookup_user',['../logins_8c.html#afc3b11c72547af365dc8af84aa51d166',1,'lookup_user(const char *username, user_login_t **logins):&#160;logins.c'],['../logins_8h.html#afc3b11c72547af365dc8af84aa51d166',1,'lookup_user(const char *username, user_login_t **logins):&#160;logins.c']]]
 ];
